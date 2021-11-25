@@ -24,7 +24,7 @@ void menu(){
             case '2': workers(); break;
             case '3': clients(); break;
             case '0': exit(0);
-            default: std::cout << "Invalid Option";
+            default: std::cout << "Invalid Option\n";
                     system("pause");
         }
     }
@@ -47,7 +47,7 @@ void admin(){
         std::cin >> c;
         switch(c) {
             case '1':
-                access = login(c);
+                access = login('a');
                 break;
             case '0': return;
             default: std::cout << "Invalid Option";
@@ -62,14 +62,14 @@ void admin(){
         std::cout << "[ADMIN]\n"
                   << "\n    [1] Worker Management"
                   << "\n    [2] Plane Management\n"
-                  << "\n    [0] Back\n"
+                  << "\n    [0] Log Out\n"
                   << "\n>";
         std::cin >> c;
         switch(c){
             case '1': std::cout << "Implement Worker Management Menu\n"; break;
             case '2': std::cout << "Implement Plane Management Menu\n"; break;
             case '0': return;
-            default: std::cout << "Invalid Option";
+            default: std::cout << "Invalid Option\n";
                 system("pause");
         }
         system("pause");
@@ -111,7 +111,7 @@ int checkCredentials(char c){
         case 'a': fileName += "admin.txt"; break;
         case 'w': fileName += "worker.txt"; break;
         case 'c': fileName += "client.txt"; break;
-        default: std::cout << "Invalid Option";
+        default: std::cout << "Invalid Option\n";
             system("pause");
     }
     infile.open(fileName);
@@ -155,7 +155,7 @@ void workers(){
         switch(c){
             case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
-            default: std::cout << "Invalid Option";
+            default: std::cout << "Invalid Option\n";
                 system("pause");
         }
         system("pause");
@@ -176,7 +176,7 @@ void clients(){
         switch(c){
             case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
-            default: std::cout << "Invalid Option";
+            default: std::cout << "Invalid Option\n";
                 system("pause");
         }
         system("pause");
