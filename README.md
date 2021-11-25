@@ -12,10 +12,11 @@ us to work with differente ADT's - some of which we, being only second-year stud
 accustomed to just yet. 
 
 It was given us room to be creative and further develop the project with custom features,
-provided the guideline's objectives are met. We chose to use Git as a means to get a 
-feel of what it's like to use this VCS in a real, multi-membered project. This way we get
-to experience the many intricacies of the system first hand, while creating a chance to
-deal with common industry problems such as merge conflicts and push requests.
+provided the guideline's objectives are met. We chose Git as our Vcs as a means to get a 
+feel of what it's like to use this VCS in a real, multi-membered project. It has nothing
+to do witht he fact this is the only VCS we (hardly) know. This way we get to experience 
+the many intricacies of the system first hand, while creating a chance to deal with common 
+industry problems such as merge conflicts and pull requests.
 
 We hope the person reading this finds our project interesting, at the very least. While
 still quite inexperienced, we all find great joy in programming, hoping to one day hack
