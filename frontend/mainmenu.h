@@ -8,6 +8,7 @@
 #include <vector>
 #include <ctime>
 #include <fstream>
+#include <string>
 
 void now();
 void menu();
@@ -15,6 +16,6 @@ void admin();
 void workers();
 void clients();
 
-void login(char);
+int login(char);
 
 #endif //MIKEGAIRLINES_MAINMENU_H
