@@ -3,14 +3,17 @@
 #include "mainmenu.h"
 
 void menu(){
+    Time t;
     char c;
     while(true) {
+        t.today();
         system("CLS");
-        std::cout << "This is a test main menu\n"
-                  << "\n\t[1] Workers"
-                  << "\n\t[2] Clients\n"
-                  << "\n\t[0] Exit\n"
-                  << "\n$";
+        std::cout << "[MikeG Airlines]\t\t\t";
+        t.print(std::cout);
+        std::cout << "\n    [1] Workers"
+                  << "\n    [2] Clients\n"
+                  << "\n    [0] Exit\n"
+                  << "\n>";
         std::cin >> c;
 
         switch (c) {

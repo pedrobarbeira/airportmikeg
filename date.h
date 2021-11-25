@@ -62,8 +62,9 @@ public:
         hour = h;};
     void setMinute(uint16_t m){
         minute = m;};
-    void setSec(uint16_t s){
+    void setSecond(uint16_t s){
         second = s;};
+    void today();
 
 };
 

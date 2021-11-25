@@ -6,7 +6,9 @@
 #include <C:\Coding\Cpp\AEDA\mikegairlines\voyage\voyage.h>
 #include <C:\Coding\Cpp\AEDA\mikegairlines\passenger\passenger.h>
 #include <vector>
+#include <ctime>
 
+void today();
 void menu();
 void workers();
 void clients();
