@@ -3,4 +3,4 @@ project(aiportmikeg)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(aiportmikeg main.cpp)
+add_executable(aiportmikeg main.cpp date.h voyage/voyage.h voyage/plane.h)
