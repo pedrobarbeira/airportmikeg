@@ -2,16 +2,23 @@
 
 #include "mainmenu.h"
 
-char menu(){
+void menu(){
     char c;
-    system("CLS");
-    std::cout << "This is a test main menu\n"
-            << "\n\t[1] Workers"
-            << "\n\t[2] Clients\n"
-            << "\n\t[0] Exit\n"
-            <<"\n$";
-    std::cin >> c;
-    return c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is a test main menu\n"
+                  << "\n\t[1] Workers"
+                  << "\n\t[2] Clients\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n$";
+        std::cin >> c;
+
+        switch (c) {
+            case '1': workers(); break;
+            case '2': clients(); break;
+            case '0': exit(0);
+        }
+    }
 }
 
 void workers(){

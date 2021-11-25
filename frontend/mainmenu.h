@@ -7,7 +7,7 @@
 #include <C:\Coding\Cpp\AEDA\mikegairlines\passenger\passenger.h>
 #include <vector>
 
-char menu();
+void menu();
 void workers();
 void clients();
 
