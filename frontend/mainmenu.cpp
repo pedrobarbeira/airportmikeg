@@ -22,13 +22,31 @@ void menu(){
 }
 
 void workers(){
-    system("CLS");
-    std::cout << "This is the Worker menu\n";
-    system("pause");
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Worker menu\n"
+                << "\n\t[0] Back\n"
+                <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '0': return;
+        }
+        system("pause");
+    }
 }
 
 void clients(){
-    system("CLS");
-    std::cout << "This is the Client menu\n";
-    system("pause");
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Client menu\n"
+                  << "\n\t[0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '0': return;
+        }
+        system("pause");
+    }
 }
