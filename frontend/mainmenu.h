@@ -15,6 +15,6 @@ void admin();
 void workers();
 void clients();
 
-void login(bool);
+void login(char);
 
 #endif //MIKEGAIRLINES_MAINMENU_H

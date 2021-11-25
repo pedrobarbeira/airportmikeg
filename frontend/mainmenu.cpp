@@ -36,14 +36,14 @@ void admin(){
                   <<"\n$";
         std::cin >> c;
         switch(c){
-            case '1': login(true);
+            case '1': login('a');
             case '0': return;
         }
         system("pause");
     }
 }
 
-void login(bool admin){
+void login(char c){
 }
 
 void workers(){
