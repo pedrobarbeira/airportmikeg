@@ -3,25 +3,47 @@
 #include "mainmenu.h"
 
 void menu(){
-    Time t;
+    Time today;
     char c;
     while(true) {
-        t.today();
+        today.now();
         system("CLS");
         std::cout << "[MikeG Airlines]\t\t\t";
-        t.print(std::cout);
-        std::cout << "\n    [1] Workers"
+        today.print(std::cout);
+        std::cout << "\n    [1] Admin"
+                  << "\n    [2] Workers"
                   << "\n    [2] Clients\n"
                   << "\n    [0] Exit\n"
                   << "\n>";
         std::cin >> c;
 
         switch (c) {
-            case '1': workers(); break;
-            case '2': clients(); break;
+            case '1': admin(); break;
+            case '2': workers(); break;
+            case '3': clients(); break;
             case '0': exit(0);
         }
     }
+}
+
+void admin(){
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "[ADMIN]\n"
+                  << "\n    [1] Log In"
+                  << "\n    [0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '1': login(true);
+            case '0': return;
+        }
+        system("pause");
+    }
+}
+
+void login(bool admin){
 }
 
 void workers(){

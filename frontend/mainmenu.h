@@ -2,15 +2,19 @@
 #ifndef MIKEGAIRLINES_MAINMENU_H
 #define MIKEGAIRLINES_MAINMENU_H
 
-#include <C:\Coding\Cpp\AEDA\mikegairlines\airport\airport.h>
-#include <C:\Coding\Cpp\AEDA\mikegairlines\voyage\voyage.h>
-#include <C:\Coding\Cpp\AEDA\mikegairlines\passenger\passenger.h>
+#include "airport.h"
+#include "voyage.h"
+#include "passenger.h"
 #include <vector>
 #include <ctime>
+#include <fstream>
 
-void today();
+void now();
 void menu();
+void admin();
 void workers();
 void clients();
+
+void login(bool);
 
 #endif //MIKEGAIRLINES_MAINMENU_H
