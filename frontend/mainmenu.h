@@ -16,7 +16,9 @@ void menu();
 void admin();
 void workers();
 void clients();
+void dev();
 //BackEnd Workhorses
+bool checkDev();
 bool login(char);
 int checkCredentials(char);
 

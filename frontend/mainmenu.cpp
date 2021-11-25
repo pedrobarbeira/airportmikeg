@@ -1,6 +1,10 @@
 //Created by Pedro Barbeira (up201303693);
 
 #include "mainmenu.h"
+
+std::string DEV = "c3n4";   //Password for the hidden Developer Menu.
+int DEVSIZE = 9;           //Size of the --dev c3n4 line
+
 /**
  * Main Menu Interface
  */
@@ -24,9 +28,47 @@ void menu(){
             case '2': workers(); break;
             case '3': clients(); break;
             case '0': exit(0);
+            case '-':
+                if(checkDev()){dev(); break;}
+                else{};
             default: std::cout << "Invalid Option\n";
                     system("pause");
         }
+    }
+}
+
+/**
+ * Checks if user is a Dev upon --dev call
+ * @return true if yes, false otherwise
+ */
+bool checkDev() {
+    std::string in;
+    std::getline(std::cin, in);
+    if (in.size() == DEVSIZE)
+        if (in.substr(0, 4) == "-dev")
+            if (in.substr(5, 4) == DEV)
+                return true;
+    return false;
+}
+
+/**
+ * Interface for the hidden Developer Inferface
+ */
+void dev(){
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Dev menu\n"
+                  << "\n\t[0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+                system("pause");
+        }
+        system("pause");
     }
 }
 
