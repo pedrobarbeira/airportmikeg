@@ -10,12 +10,14 @@
 #include <fstream>
 #include <string>
 
-void now();
+//Main Menu Stub
 void menu();
+//People Menu Stubs
 void admin();
 void workers();
 void clients();
-
-int login(char);
+//BackEnd Workhorses
+bool login(char);
+int checkCredentials(char);
 
 #endif //MIKEGAIRLINES_MAINMENU_H

@@ -18,8 +18,10 @@ uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
  */
 bool isleap(uint32_t y){
     if(y % 400 == 0) return true;
-    else if (y % 4 == 0 && y % 100 != 0) return true;
-    else return false;
+    else {
+        if (y % 4 == 0 && y % 100 != 0) return true;
+        else return false;
+    }
 }
 
 /**
@@ -28,7 +30,7 @@ bool isleap(uint32_t y){
 void Time::now(){
     time_t now;
     time(&now);
-    int d = 1, m = 1, y = 1970, h, min, s;
+    uint32_t d = 1, m = 1, y = 1970, h, min, s;
     //Gets year counter to current year
     for (int i = 2; now > NORMAL; i++) {
         if ((i % 4) == 0) now -= LEAP;
@@ -37,7 +39,7 @@ void Time::now(){
     }
     //Gets month counter to current month
     bool leap = isleap(y);
-    for (int i = 1; now > LMONTH; i++) {
+    for (int i = 1; now > LMONTH && i < 13; i++) {
         switch (i) {
             case 1:case 3:case 5:case 7:case 8:case 10:
             case 12: now -= LMONTH; break;
@@ -47,6 +49,7 @@ void Time::now(){
                 if (leap) now -= LFEB;
                 else now -= FEB;
                 break;
+            default: continue;
         }
         m++;
     }

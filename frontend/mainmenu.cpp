@@ -1,7 +1,9 @@
 //Created by Pedro Barbeira (up201303693);
 
 #include "mainmenu.h"
-
+/**
+ * Main Menu Interface
+ */
 void menu(){
     Time today;
     char c;
@@ -22,39 +24,86 @@ void menu(){
             case '2': workers(); break;
             case '3': clients(); break;
             case '0': exit(0);
+            default: std::cout << "Invalid Option";
+                    system("pause");
         }
     }
 }
 
+/**
+ * Admin Menu Interface
+ */
 void admin(){
     char c;
-    int authorized;
+    bool access;
+    //Acts as a barrier to ensure only credited personnel can access admin
+    //management functions
     while(true) {
         system("CLS");
         std::cout << "[ADMIN]\n"
                   << "\n    [1] Log In"
                   << "\n    [0] Back\n"
-                  <<"\n$";
+                  <<"\n>";
         std::cin >> c;
         switch(c) {
             case '1':
-                authorized = login('a');
-                if(!authorized) std::cout << "Invalid Credentials\n";
-                else{
-                    switch(authorized){
-                        case 1: std::cout << "Login Accepted\n"; break;
-                        case 2: std::cout << "Error Opening Infile\n";
-                        default: std::cout << "Unknown Error\n";
-                    }
-                }
+                access = login(c);
                 break;
             case '0': return;
+            default: std::cout << "Invalid Option";
+                system("pause");
+        }
+        system("pause");
+        if(access) break;
+    }
+    //Shows real ADMIN menu after user has proven his identity
+    system("CLS");
+    while(true) {
+        std::cout << "[ADMIN]\n"
+                  << "\n    [1] Worker Management"
+                  << "\n    [2] Plane Management\n"
+                  << "\n    [0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': std::cout << "Implement Worker Management Menu\n"; break;
+            case '2': std::cout << "Implement Plane Management Menu\n"; break;
+            case '0': return;
+            default: std::cout << "Invalid Option";
+                system("pause");
         }
         system("pause");
     }
 }
 
-int login(char c){
+/**
+ * Interface function that validates login credentials
+ * @param c acts has a three-way flag: 'a' for admins, 'w' for workers and 'c' for clients
+ * @return true if login is valid, false otherwise
+ */
+bool login(char c){
+    int authorized;
+    authorized = checkCredentials(c);
+    if(!authorized) {
+        std::cout << "Invalid Credentials\n";
+        return false;
+    }
+    else{
+        switch(authorized){
+            case 1: std::cout << "Login Accepted\n"; return true;
+            case 2: std::cout << "Error Opening Infile\n"; return false;
+            default: std::cout << "Unknown Error\n"; return false;
+        }
+    }
+}
+
+/**
+ * Checks credentials in the respective credential folder, determined by the value of c.
+ * Validates them and returns an integer code.
+ * @param c 'a' for admins, 'w' for workers, 'c' for clients
+ * @return 0 upon failure, 1 upon success, 2 upon file error
+ */
+int checkCredentials(char c){
     system("CLS");
     std::ifstream infile;
     std::string fileName = "./credentials/";
@@ -62,6 +111,8 @@ int login(char c){
         case 'a': fileName += "admin.txt"; break;
         case 'w': fileName += "worker.txt"; break;
         case 'c': fileName += "client.txt"; break;
+        default: std::cout << "Invalid Option";
+            system("pause");
     }
     infile.open(fileName);
 
@@ -90,6 +141,9 @@ int login(char c){
     }
 }
 
+/**
+ * Worker Menu Interface
+ */
 void workers(){
     char c;
     while(true) {
@@ -99,12 +153,18 @@ void workers(){
                 <<"\n$";
         std::cin >> c;
         switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
+            default: std::cout << "Invalid Option";
+                system("pause");
         }
         system("pause");
     }
 }
 
+/**
+ * Client Menu Interface
+ */
 void clients(){
     char c;
     while(true) {
@@ -114,7 +174,10 @@ void clients(){
                   <<"\n$";
         std::cin >> c;
         switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
+            default: std::cout << "Invalid Option";
+                system("pause");
         }
         system("pause");
     }
