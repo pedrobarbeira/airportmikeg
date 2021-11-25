@@ -4,10 +4,10 @@
 uint32_t MINUTE = 60;                               //seconds in a minute
 uint32_t HOUR = 60 * MINUTE;                        //seconds in an hour
 uint32_t DAY = 24 * HOUR;                           //seconds in a day
-uint32_t LMONTH = 31 * DAY;                         //seconds in "large" month
-uint32_t SMONTH = 30 * DAY;                         //seconds in "short" month
 uint32_t FEB = 28 * DAY;                            //seconds in normal year february
 uint32_t LFEB = 29 * DAY;                           //seconds in leap year february
+uint32_t SMONTH = 30 * DAY;                         //seconds in "short" month
+uint32_t LMONTH = 31 * DAY;                         //seconds in "large" month
 uint32_t NORMAL = 7 * LMONTH + 4 * SMONTH + FEB;    //seconds in a normal year
 uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
 
@@ -28,15 +28,15 @@ bool isleap(uint32_t y){
 void Time::today(){
     time_t now;
     time(&now);
-    int d = 1, m = 1, y = 1970, h = 0, min = 0, s = 0;
-
+    int d = 1, m = 1, y = 1970, h, min, s;
+    //Gets year counter to current year
     for (int i = 2; now > NORMAL; i++) {
         if ((i % 4) == 0) now -= LEAP;
         else now -= NORMAL;
         y++;
     }
+    //Gets month counter to current month
     bool leap = isleap(y);
-
     for (int i = 1; now > LMONTH; i++) {
         switch (i) {
             case 1:case 3:case 5:case 7:case 8:case 10:
@@ -50,17 +50,17 @@ void Time::today(){
         }
         m++;
     }
-
-    for (int i = 0; now > DAY; i++){
-        now -= DAY;
-        d++;
-    }
-
+    //Calculates current day
+    d += now / DAY;
+    now -= ((d-1) * DAY);
+    //Calculates current hour
     h = now / HOUR;
     now -= (h * HOUR);
+    //Calculates current minute
     min = now / MINUTE;
+    //Calculates current second
     s = now - (min * MINUTE);
-
+    //Updates Time object accordingly
     this->setYear(y);
     this->setMonth(m);
     this->setDay(d);
