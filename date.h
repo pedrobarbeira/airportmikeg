@@ -9,7 +9,7 @@ class Date{
     uint16_t month;
     uint16_t year;
 public:
-    Date():day(NULL), month(NULL), year(NULL){};
+    Date():day(0), month(0), year(0){};
     Date(uint16_t d, uint16_t m, uint16_t y):
     day(d), month(m), year(y){};
 
@@ -26,7 +26,7 @@ class Time: public Date{
     uint16_t minute;
     uint16_t second;
 private:
-    Time(): Date(), hour(NULL), minute(NULL), second(NULL){};
+    Time(): Date(), hour(0), minute(0), second(0){};
     Time(uint16_t h, uint16_t m, uint16_t s):
     Date(), hour(h), minute(m), second(s){}
     Time(uint16_t d, uint16_t m, uint16_t y, uint16_t h, uint16_t min, uint16_t s):

@@ -2,8 +2,8 @@
 #ifndef AIPORTMIKEG_VOYAGE_H
 #define AIPORTMIKEG_VOYAGE_H
 
-#include <C:\Coding\Cpp\AEDA\aiportmikeg\date.h>
-#include <C:\Coding\Cpp\AEDA\aiportmikeg\voyage\plane.h>
+#include <C:\Coding\Cpp\AEDA\mikegairlines\date.h>
+#include <C:\Coding\Cpp\AEDA\mikegairlines\voyage\plane.h>
 #include <vector>
 #include <list>
 
