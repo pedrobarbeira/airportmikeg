@@ -1,8 +1,12 @@
 #include <iostream>
 #include "frontend/mainmenu.h"
 
-int main(){
+void testTube(){
     menu();
+}
+
+int main(){
+    testTube();
 
     return 0;
 }
