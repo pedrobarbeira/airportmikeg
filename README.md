@@ -25,7 +25,7 @@ Hopefully these lines will show to you the depths of our knowledge. If we can ac
 level of quality with the limited resources and experience we have, imagine what we'll do
 by the time we finish our Masters.
 
-Resistance is futile. Cheers!
+Embrace your Overlords. Resistance is futile. 
 
 
 Project Members:
