@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mikegairlines.dir/date.cpp.obj"
   "CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj"
-  "CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj"
+  "CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj"
   "CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj"
-  "CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj"
+  "CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj"
   "CMakeFiles/mikegairlines.dir/main.cpp.obj"
   "libmikegairlines.dll.a"
   "mikegairlines.exe"

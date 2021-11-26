@@ -10,6 +10,7 @@ class Classe;
 class Plane{
     std::string plate;
     uint16_t capacity;
+    std::vector<std::string> types;
     std::vector<Classe*> classes;
 };
 

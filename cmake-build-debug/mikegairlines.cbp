@@ -105,10 +105,10 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.cpp">
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h">
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp">
@@ -117,10 +117,10 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.cpp">
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h">
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/main.cpp">

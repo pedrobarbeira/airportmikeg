@@ -196,32 +196,32 @@ frontend/admin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/admin.cpp.s
 .PHONY : frontend/admin.cpp.s
 
-frontend/client.obj: frontend/client.cpp.obj
+frontend/clients.obj: frontend/clients.cpp.obj
 
-.PHONY : frontend/client.obj
+.PHONY : frontend/clients.obj
 
 # target to build an object file
-frontend/client.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj
-.PHONY : frontend/client.cpp.obj
+frontend/clients.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj
+.PHONY : frontend/clients.cpp.obj
 
-frontend/client.i: frontend/client.cpp.i
+frontend/clients.i: frontend/clients.cpp.i
 
-.PHONY : frontend/client.i
+.PHONY : frontend/clients.i
 
 # target to preprocess a source file
-frontend/client.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/client.cpp.i
-.PHONY : frontend/client.cpp.i
+frontend/clients.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/clients.cpp.i
+.PHONY : frontend/clients.cpp.i
 
-frontend/client.s: frontend/client.cpp.s
+frontend/clients.s: frontend/clients.cpp.s
 
-.PHONY : frontend/client.s
+.PHONY : frontend/clients.s
 
 # target to generate assembly for a file
-frontend/client.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/client.cpp.s
-.PHONY : frontend/client.cpp.s
+frontend/clients.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/clients.cpp.s
+.PHONY : frontend/clients.cpp.s
 
 frontend/mainmenu.obj: frontend/mainmenu.cpp.obj
 
@@ -250,32 +250,32 @@ frontend/mainmenu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.s
 .PHONY : frontend/mainmenu.cpp.s
 
-frontend/worker.obj: frontend/worker.cpp.obj
+frontend/workers.obj: frontend/workers.cpp.obj
 
-.PHONY : frontend/worker.obj
+.PHONY : frontend/workers.obj
 
 # target to build an object file
-frontend/worker.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj
-.PHONY : frontend/worker.cpp.obj
+frontend/workers.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj
+.PHONY : frontend/workers.cpp.obj
 
-frontend/worker.i: frontend/worker.cpp.i
+frontend/workers.i: frontend/workers.cpp.i
 
-.PHONY : frontend/worker.i
+.PHONY : frontend/workers.i
 
 # target to preprocess a source file
-frontend/worker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/worker.cpp.i
-.PHONY : frontend/worker.cpp.i
+frontend/workers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.i
+.PHONY : frontend/workers.cpp.i
 
-frontend/worker.s: frontend/worker.cpp.s
+frontend/workers.s: frontend/workers.cpp.s
 
-.PHONY : frontend/worker.s
+.PHONY : frontend/workers.s
 
 # target to generate assembly for a file
-frontend/worker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/worker.cpp.s
-.PHONY : frontend/worker.cpp.s
+frontend/workers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.s
+.PHONY : frontend/workers.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -319,15 +319,15 @@ help:
 	@echo ... frontend/admin.obj
 	@echo ... frontend/admin.i
 	@echo ... frontend/admin.s
-	@echo ... frontend/client.obj
-	@echo ... frontend/client.i
-	@echo ... frontend/client.s
+	@echo ... frontend/clients.obj
+	@echo ... frontend/clients.i
+	@echo ... frontend/clients.s
 	@echo ... frontend/mainmenu.obj
 	@echo ... frontend/mainmenu.i
 	@echo ... frontend/mainmenu.s
-	@echo ... frontend/worker.obj
-	@echo ... frontend/worker.i
-	@echo ... frontend/worker.s
+	@echo ... frontend/workers.obj
+	@echo ... frontend/workers.i
+	@echo ... frontend/workers.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

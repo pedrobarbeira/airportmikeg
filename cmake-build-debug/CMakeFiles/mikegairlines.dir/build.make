@@ -132,33 +132,33 @@ CMakeFiles/mikegairlines.dir/frontend/admin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mikegairlines.dir/frontend/admin.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Coding\Cpp\AEDA\mikegairlines\frontend\admin.cpp -o CMakeFiles\mikegairlines.dir\frontend\admin.cpp.s
 
-CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: CMakeFiles/mikegairlines.dir/flags.make
-CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: CMakeFiles/mikegairlines.dir/includes_CXX.rsp
-CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/worker.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Coding\Cpp\AEDA\mikegairlines\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mikegairlines.dir\frontend\worker.cpp.obj -c C:\Coding\Cpp\AEDA\mikegairlines\frontend\worker.cpp
+CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj: CMakeFiles/mikegairlines.dir/flags.make
+CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj: CMakeFiles/mikegairlines.dir/includes_CXX.rsp
+CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj: ../frontend/workers.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Coding\Cpp\AEDA\mikegairlines\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mikegairlines.dir\frontend\workers.cpp.obj -c C:\Coding\Cpp\AEDA\mikegairlines\frontend\workers.cpp
 
-CMakeFiles/mikegairlines.dir/frontend/worker.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mikegairlines.dir/frontend/worker.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Coding\Cpp\AEDA\mikegairlines\frontend\worker.cpp > CMakeFiles\mikegairlines.dir\frontend\worker.cpp.i
+CMakeFiles/mikegairlines.dir/frontend/workers.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mikegairlines.dir/frontend/workers.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Coding\Cpp\AEDA\mikegairlines\frontend\workers.cpp > CMakeFiles\mikegairlines.dir\frontend\workers.cpp.i
 
-CMakeFiles/mikegairlines.dir/frontend/worker.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mikegairlines.dir/frontend/worker.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Coding\Cpp\AEDA\mikegairlines\frontend\worker.cpp -o CMakeFiles\mikegairlines.dir\frontend\worker.cpp.s
+CMakeFiles/mikegairlines.dir/frontend/workers.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mikegairlines.dir/frontend/workers.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Coding\Cpp\AEDA\mikegairlines\frontend\workers.cpp -o CMakeFiles\mikegairlines.dir\frontend\workers.cpp.s
 
-CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: CMakeFiles/mikegairlines.dir/flags.make
-CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: CMakeFiles/mikegairlines.dir/includes_CXX.rsp
-CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/client.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Coding\Cpp\AEDA\mikegairlines\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mikegairlines.dir\frontend\client.cpp.obj -c C:\Coding\Cpp\AEDA\mikegairlines\frontend\client.cpp
+CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj: CMakeFiles/mikegairlines.dir/flags.make
+CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj: CMakeFiles/mikegairlines.dir/includes_CXX.rsp
+CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj: ../frontend/clients.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Coding\Cpp\AEDA\mikegairlines\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mikegairlines.dir\frontend\clients.cpp.obj -c C:\Coding\Cpp\AEDA\mikegairlines\frontend\clients.cpp
 
-CMakeFiles/mikegairlines.dir/frontend/client.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mikegairlines.dir/frontend/client.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Coding\Cpp\AEDA\mikegairlines\frontend\client.cpp > CMakeFiles\mikegairlines.dir\frontend\client.cpp.i
+CMakeFiles/mikegairlines.dir/frontend/clients.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mikegairlines.dir/frontend/clients.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Coding\Cpp\AEDA\mikegairlines\frontend\clients.cpp > CMakeFiles\mikegairlines.dir\frontend\clients.cpp.i
 
-CMakeFiles/mikegairlines.dir/frontend/client.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mikegairlines.dir/frontend/client.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Coding\Cpp\AEDA\mikegairlines\frontend\client.cpp -o CMakeFiles\mikegairlines.dir\frontend\client.cpp.s
+CMakeFiles/mikegairlines.dir/frontend/clients.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mikegairlines.dir/frontend/clients.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Coding\Cpp\AEDA\mikegairlines\frontend\clients.cpp -o CMakeFiles\mikegairlines.dir\frontend\clients.cpp.s
 
 # Object files for target mikegairlines
 mikegairlines_OBJECTS = \
@@ -166,8 +166,8 @@ mikegairlines_OBJECTS = \
 "CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj" \
 "CMakeFiles/mikegairlines.dir/date.cpp.obj" \
 "CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj" \
-"CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj" \
-"CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj"
+"CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj" \
+"CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj"
 
 # External object files for target mikegairlines
 mikegairlines_EXTERNAL_OBJECTS =
@@ -176,8 +176,8 @@ mikegairlines.exe: CMakeFiles/mikegairlines.dir/main.cpp.obj
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/date.cpp.obj
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj
-mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj
-mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj
+mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj
+mikegairlines.exe: CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/build.make
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/linklibs.rsp
 mikegairlines.exe: CMakeFiles/mikegairlines.dir/objects1.rsp
