@@ -28,47 +28,10 @@ void menu(){
             case '2': workers(); break;
             case '3': clients(); break;
             case '0': exit(0);
-            case '-':
-                if(checkDev()){dev(); break;}
-                else{};
+            case '-': if(checkDev()){dev(); break;}
             default: std::cout << "Invalid Option\n";
                     system("pause");
         }
-    }
-}
-
-/**
- * Checks if user is a Dev upon --dev call
- * @return true if yes, false otherwise
- */
-bool checkDev() {
-    std::string in;
-    std::getline(std::cin, in);
-    if (in.size() == DEVSIZE)
-        if (in.substr(0, 4) == "-dev")
-            if (in.substr(5, 4) == DEV)
-                return true;
-    return false;
-}
-
-/**
- * Interface for the hidden Developer Inferface
- */
-void dev(){
-    char c;
-    while(true) {
-        system("CLS");
-        std::cout << "This is the Dev menu\n"
-                  << "\n\t[0] Back\n"
-                  <<"\n$";
-        std::cin >> c;
-        switch(c){
-            case '1': std::cout << "Placeholder\n"; system("pause"); break;
-            case '0': return;
-            default: std::cout << "Invalid Option\n";
-                system("pause");
-        }
-        system("pause");
     }
 }
 
@@ -116,6 +79,83 @@ void admin(){
         }
         system("pause");
     }
+}
+
+/**
+ * Worker Menu Interface
+ */
+void workers(){
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Worker menu\n"
+                  << "\n\t[0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+                system("pause");
+        }
+        system("pause");
+    }
+}
+
+/**
+ * Client Menu Interface
+ */
+void clients(){
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Client menu\n"
+                  << "\n\t[0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+                system("pause");
+        }
+        system("pause");
+    }
+}
+
+/**
+ * Interface for the hidden Developer Inferface
+ */
+void dev(){
+    char c;
+    while(true) {
+        system("CLS");
+        std::cout << "This is the Dev menu\n"
+                  << "\n\t[0] Back\n"
+                  <<"\n$";
+        std::cin >> c;
+        switch(c){
+            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+                system("pause");
+        }
+        system("pause");
+    }
+}
+
+/**
+ * Checks if user is a Dev upon --dev call
+ * @return true if yes, false otherwise
+ */
+bool checkDev() {
+    std::string in;
+    std::getline(std::cin, in);
+    if (in.size() == DEVSIZE)
+        if (in.substr(0, 4) == "-dev")
+            if (in.substr(5, 4) == DEV)
+                return true;
+    return false;
 }
 
 /**
@@ -180,47 +220,5 @@ int checkCredentials(char c){
         infile >> check;
         if(pass == check) return 1;
         else return 0;
-    }
-}
-
-/**
- * Worker Menu Interface
- */
-void workers(){
-    char c;
-    while(true) {
-        system("CLS");
-        std::cout << "This is the Worker menu\n"
-                << "\n\t[0] Back\n"
-                <<"\n$";
-        std::cin >> c;
-        switch(c){
-            case '1': std::cout << "Placeholder\n"; system("pause"); break;
-            case '0': return;
-            default: std::cout << "Invalid Option\n";
-                system("pause");
-        }
-        system("pause");
-    }
-}
-
-/**
- * Client Menu Interface
- */
-void clients(){
-    char c;
-    while(true) {
-        system("CLS");
-        std::cout << "This is the Client menu\n"
-                  << "\n\t[0] Back\n"
-                  <<"\n$";
-        std::cin >> c;
-        switch(c){
-            case '1': std::cout << "Placeholder\n"; system("pause"); break;
-            case '0': return;
-            default: std::cout << "Invalid Option\n";
-                system("pause");
-        }
-        system("pause");
     }
 }
