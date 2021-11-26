@@ -2,6 +2,9 @@
 #ifndef MIKEGAIRLINES_MAINMENU_H
 #define MIKEGAIRLINES_MAINMENU_H
 
+#include "admin.h"
+#include "client.h"
+#include "worker.h"
 #include "airport.h"
 #include "voyage.h"
 #include "passenger.h"
@@ -12,10 +15,7 @@
 
 //Main Menu Stub
 void menu();
-//People Menu Stubs
-void admin();
-void workers();
-void clients();
+//Menu Stubs
 void dev();
 //BackEnd Workhorses
 bool checkDev();

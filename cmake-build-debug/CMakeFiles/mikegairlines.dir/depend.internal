@@ -4,19 +4,58 @@
 CMakeFiles/mikegairlines.dir/date.cpp.obj
  C:/Coding/Cpp/AEDA/mikegairlines/date.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/date.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj
+ ../airport/airport.h
+ ../passenger/passenger.h
+ ../voyage/voyage.h
+ C:/Coding/Cpp/AEDA/mikegairlines/date.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
+ C:/Coding/Cpp/AEDA/mikegairlines/voyage/plane.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj
+ ../airport/airport.h
+ ../passenger/passenger.h
+ ../voyage/voyage.h
+ C:/Coding/Cpp/AEDA/mikegairlines/date.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.cpp
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
+ C:/Coding/Cpp/AEDA/mikegairlines/voyage/plane.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj
  ../airport/airport.h
  ../passenger/passenger.h
  ../voyage/voyage.h
  C:/Coding/Cpp/AEDA/mikegairlines/date.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
+ C:/Coding/Cpp/AEDA/mikegairlines/voyage/plane.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj
+ ../airport/airport.h
+ ../passenger/passenger.h
+ ../voyage/voyage.h
+ C:/Coding/Cpp/AEDA/mikegairlines/date.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.cpp
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
  C:/Coding/Cpp/AEDA/mikegairlines/voyage/plane.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj
  ../airport/airport.h
  ../passenger/passenger.h
  ../voyage/voyage.h
  C:/Coding/Cpp/AEDA/mikegairlines/date.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
  C:/Coding/Cpp/AEDA/mikegairlines/main.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/voyage/plane.h

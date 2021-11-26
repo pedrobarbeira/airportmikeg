@@ -99,10 +99,28 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/date.h">
 			<Option target="mikegairlines"/>
 		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.cpp">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h">
+			<Option target="mikegairlines"/>
+		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.cpp">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/main.cpp">

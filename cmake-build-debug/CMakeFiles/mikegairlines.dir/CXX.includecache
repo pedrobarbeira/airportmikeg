@@ -28,11 +28,37 @@ iomanip
 fstream
 -
 
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp
+admin.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+iostream
+-
+mainmenu.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.cpp
+client.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+iostream
+-
+mainmenu.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp
 mainmenu.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+admin.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+client.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.h
+worker.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
 airport.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/airport.h
 voyage.h
@@ -47,6 +73,16 @@ fstream
 -
 string
 -
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.cpp
+worker.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.h
+iostream
+-
+mainmenu.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 
 C:/Coding/Cpp/AEDA/mikegairlines/main.cpp
 frontend/mainmenu.h

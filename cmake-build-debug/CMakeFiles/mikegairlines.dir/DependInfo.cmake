@@ -5,7 +5,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Coding/Cpp/AEDA/mikegairlines/date.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/date.cpp.obj"
+  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj"
+  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/client.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj"
   "C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj"
+  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/worker.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj"
   "C:/Coding/Cpp/AEDA/mikegairlines/main.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

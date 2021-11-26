@@ -4,19 +4,58 @@
 CMakeFiles/mikegairlines.dir/date.cpp.obj: ../date.cpp
 CMakeFiles/mikegairlines.dir/date.cpp.obj: ../date.h
 
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../airport/airport.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../passenger/passenger.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../voyage/voyage.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../frontend/admin.cpp
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../frontend/admin.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../frontend/client.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../frontend/mainmenu.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../frontend/worker.h
+CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj: ../voyage/plane.h
+
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../airport/airport.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../passenger/passenger.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../voyage/voyage.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/admin.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/client.cpp
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/client.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/mainmenu.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../frontend/worker.h
+CMakeFiles/mikegairlines.dir/frontend/client.cpp.obj: ../voyage/plane.h
+
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../airport/airport.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../passenger/passenger.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../voyage/voyage.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../frontend/admin.h
+CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../frontend/client.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../frontend/mainmenu.cpp
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../frontend/mainmenu.h
+CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../frontend/worker.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj: ../voyage/plane.h
+
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../airport/airport.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../passenger/passenger.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../voyage/voyage.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/admin.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/client.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/mainmenu.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/worker.cpp
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../frontend/worker.h
+CMakeFiles/mikegairlines.dir/frontend/worker.cpp.obj: ../voyage/plane.h
 
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../airport/airport.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../passenger/passenger.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../voyage/voyage.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/main.cpp.obj: ../frontend/admin.h
+CMakeFiles/mikegairlines.dir/main.cpp.obj: ../frontend/client.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../frontend/mainmenu.h
+CMakeFiles/mikegairlines.dir/main.cpp.obj: ../frontend/worker.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../voyage/plane.h
 
