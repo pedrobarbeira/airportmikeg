@@ -20,10 +20,10 @@ industry problems such as merge conflicts and pull requests.
 
 We hope the person reading this finds our project interesting, at the very least. While
 still quite inexperienced, we all find great joy in programming, hoping to one day hack
-the Internet away and, if all goes well, become the rulers of this planet we call Earth.
-Hopefully these lines will show to you the depths of our knowledge. If we can achieve this
-level of quality with the limited resources and experience we have, imagine what we'll do
-by the time we finish our Masters.
+the Internet away and, if all goes well, become the rulers of this planet. Hopefully these 
+lines will show to you the depths of our knowledge. If we can achieve this level of quality 
+with the limited resources and experience we have, imagine what we'll do by the time we finish 
+our Masters'.
 
 Resistance is futile. 
 
