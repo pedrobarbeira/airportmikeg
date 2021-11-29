@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj"
   "CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj"
   "CMakeFiles/mikegairlines.dir/main.cpp.obj"
+  "CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj"
   "libmikegairlines.dll.a"
   "mikegairlines.exe"
   "mikegairlines.exe.manifest"

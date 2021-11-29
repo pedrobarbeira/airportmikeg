@@ -19,9 +19,8 @@ class Classe{
     uint16_t price;
 public:
     /**Constructors*/
-    Classe():type('\0'), price(0){};
-    Classe(char t): type(t), price(0){};
-    Classe(char t, uint16_t p): type(t), price(p){};
+    Classe(char t = '\0', uint16_t p = 0):
+        type(t), price(p){};
     Classe(const Classe& c):
     type(c.type), price(c.price){};
     /**Getters*/

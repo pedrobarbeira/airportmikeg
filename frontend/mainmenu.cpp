@@ -27,7 +27,7 @@ void menu(){
             case '1': admin(); break;
             case '2': workers(); break;
             case '3': clients(); break;
-            case '0': exit(0);
+            case '0': return;
             case '-': if(checkDev()){dev(); break;}
             default: std::cout << "Invalid Option\n";
                     system("pause");

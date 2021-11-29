@@ -95,3 +95,12 @@ CMakeFiles/mikegairlines.dir/main.cpp.obj: ../voyage/plane.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../voyage/voyage.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj: ../main.cpp
 
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../airport/airport.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../airport/service.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../airport/staff.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../airport/transport.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../date.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../voyage/plane.h
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../voyage/voyage.cpp
+CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj: ../voyage/voyage.h
+

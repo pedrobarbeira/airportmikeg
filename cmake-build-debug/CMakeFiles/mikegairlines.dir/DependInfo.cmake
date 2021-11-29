@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj"
   "C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj"
   "C:/Coding/Cpp/AEDA/mikegairlines/main.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/main.cpp.obj"
+  "C:/Coding/Cpp/AEDA/mikegairlines/voyage/voyage.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -23,7 +24,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   ".././frontend"
   ".././passenger"
   ".././voyage"
-  "credentials"
+  ".././credentials"
   )
 
 # Targets to which this target links.

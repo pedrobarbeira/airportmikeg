@@ -412,6 +412,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+voyage/voyage.obj: voyage/voyage.cpp.obj
+
+.PHONY : voyage/voyage.obj
+
+# target to build an object file
+voyage/voyage.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj
+.PHONY : voyage/voyage.cpp.obj
+
+voyage/voyage.i: voyage/voyage.cpp.i
+
+.PHONY : voyage/voyage.i
+
+# target to preprocess a source file
+voyage/voyage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.i
+.PHONY : voyage/voyage.cpp.i
+
+voyage/voyage.s: voyage/voyage.cpp.s
+
+.PHONY : voyage/voyage.s
+
+# target to generate assembly for a file
+voyage/voyage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.s
+.PHONY : voyage/voyage.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -451,6 +478,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... voyage/voyage.obj
+	@echo ... voyage/voyage.i
+	@echo ... voyage/voyage.s
 .PHONY : help
 
 
