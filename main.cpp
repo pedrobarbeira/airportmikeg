@@ -37,7 +37,10 @@ void testMenu(){
     menu();
 }
 
-int main(){
+/**
+ * Interfacing for the test framework
+ */
+void testInterface(){
     while(true) {
         system("CLS");
         char c;
@@ -58,6 +61,10 @@ int main(){
             default: std::cout << "Invalid Option\n";
         }
     }
+}
+
+int main(){
+    testInterface();
 
     return 0;
 }
