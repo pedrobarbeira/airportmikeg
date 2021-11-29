@@ -28,7 +28,9 @@ void testVoyage(){
 /**
  * Passenger-related testing
  */
-void testPassenger(){}
+void testPassenger(){
+    //Add code here
+}
 
 /**
  * Menu-related testing

@@ -10,11 +10,6 @@
 
 class Flight;
 
-struct Connection{  //Lets say we have porto-barcelona and want to insert a lisbon connection
-    Flight* in;     //We add porto-lisbon here
-    Flight* out;    //We add lisbon-barcelona here
-};
-
 class Flight{
     std::string flightID;
     Date* departure;
@@ -56,6 +51,18 @@ public:
 
 };
 
+class Connection{  //Lets say we have porto-barcelona and want to insert a lisbon connection
+    Flight* in;     //We add porto-lisbon here
+    Flight* out;    //We add lisbon-barcelona here
+public:
+    Connection(Flight* i, Flight* o){
+        if(i->getDestination() == o->getOrigin()) {
+            in = i;
+            out = o;
+        }
+    }
+};
+
 class Voyage{
     //std::vector<Ticket*> tickets;
     std::list<Flight*> route;
@@ -83,7 +90,7 @@ public:
         route = r;};
     /**Adders*/
     //bool addTicket(Ticket* t);
-    bool addConnection(Connection c); //gotta finish this one
+    bool addConnection(Airport*,Airport*,Airport*); //gotta finish this one
 
 };
 
