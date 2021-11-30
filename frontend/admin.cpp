@@ -6,7 +6,7 @@
  */
 void admin(){
     char c;
-    bool access;
+    bool access = false;
     //Acts as a barrier to ensure only credited personnel can access admin
     //management functions
     while(true) {
@@ -21,30 +21,60 @@ void admin(){
                 access = login('a');
                 break;
             case '0': return;
-            default: std::cout << "Invalid Option";
-                system("pause");
+            default: std::cout << "Invalid Option\n";
         }
         system("pause");
         if(access) break;
     }
     //Shows real ADMIN menu after user has proven his identity
-    system("CLS");
     while(true) {
+        system("CLS");
         std::cout << "[ADMIN]\n"
-                  << "\n    [1] Worker Management"
-                  << "\n    [2] Plane Management\n"
+                  << "\n    [1] Airport Management"
+                  << "\n    [2] Worker Management"
+                  << "\n    [3] Voyage Management"
+                  << "\n    [4] Plane Management\n"
                   << "\n    [0] Log Out\n"
                   << "\n>";
         std::cin >> c;
         switch(c){
-            case '1': std::cout << "Implement Worker Management Menu\n"; break;
-            case '2': std::cout << "Implement Plane Management Menu\n"; break;
+            case '1': airport(); break;
+            case '2': worker(); break;
+            case '3': voyage(); break;
+            case '4': plane(); break;
             case '0': return;
             default: std::cout << "Invalid Option\n";
-                system("pause");
         }
         system("pause");
     }
+}
+
+/**
+ * Airport Management Menu
+ */
+void airport(){
+    std::cout << "Airport Management Menu\n";
+}
+
+/**
+ * Worker Management Menu
+ */
+void worker(){
+    std::cout << "Worker Management Menu\n";
+}
+
+/**
+ * Voyage Management Menu
+ */
+void voyage(){
+    std::cout << "Voyage Management Menu\n";
+}
+
+/**
+ * Plane Management Menu
+ */
+void plane(){
+    std::cout << "Plane Management Menu\n";
 }
 
 

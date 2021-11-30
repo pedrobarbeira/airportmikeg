@@ -6,6 +6,10 @@
 #include "mainmenu.h"
 
 void admin();
+void airport();
+void worker();
+void voyage();
+void plane();
 
 
 #endif //MIKEGAIRLINES_ADMIN_H

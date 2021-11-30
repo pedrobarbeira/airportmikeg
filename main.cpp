@@ -1,5 +1,10 @@
-
 #include "mainmenu.h"
+struct MikeG{
+    std::vector<Airport*> airports;
+    std::vector<Voyage*> voyages;
+    std::vector<Flight*> flight;
+};
+
 /**
  * Airport-related testing
  */
