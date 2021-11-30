@@ -27,7 +27,7 @@ class Flight{
     Time* arrival;
 public:
     /**Constructor*/
-    Flight(std::string id, Airport* o, Airport* d, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
+    Flight(std::string id = "", Airport* o = nullptr, Airport* d = nullptr, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
         flightID(std::move(id)), origin(o), destination(d), plane(p), departure(dep), arrival(arr){
     }
     /**Getters*/
@@ -65,7 +65,7 @@ class Connection{  //Lets say we have porto-barcelona and want to insert a lisbo
     Flight* in;     //We add porto-lisbon here
     Flight* out;    //We add lisbon-barcelona here
 public:
-    Connection(Flight* i, Flight* o = nullptr){
+    Connection(Flight* i = nullptr, Flight* o = nullptr){
         if(i->getDestination() == o->getOrigin()) {
             in = i;
             out = o;
@@ -83,7 +83,7 @@ class Voyage{
     std::list<Flight*> route;
 public:
     /**Constructor*/
-    Voyage(Airport* origin = NULL, Airport* destination = NULL){
+    Voyage(Airport* origin = nullptr, Airport* destination = nullptr){
         //tickets.clear();
         Flight* f = new Flight("TEST", origin, destination);
         route.push_back(f);
@@ -102,7 +102,7 @@ public:
     /*void setTrickets(std::list<Ticket*> t){
         tickets = t;};*/
     void setRoute(std::list<Flight*> r){
-        route = r;};
+        route = std::move(r);};
     /**Adders*/
     //bool addTicket(Ticket* t);
     bool addConnection(Connection& c); //gotta finish this one
