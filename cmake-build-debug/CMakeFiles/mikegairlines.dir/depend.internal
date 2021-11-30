@@ -25,20 +25,6 @@ CMakeFiles/mikegairlines.dir/airport/transport.cpp.obj
 CMakeFiles/mikegairlines.dir/date.cpp.obj
  C:/Coding/Cpp/AEDA/mikegairlines/date.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/date.h
-CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj
- ../airport/airport.h
- ../airport/service.h
- ../airport/staff.h
- ../airport/transport.h
- ../date.h
- ../passenger/passenger.h
- ../voyage/plane.h
- ../voyage/voyage.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
 CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj
  ../airport/airport.h
  ../airport/service.h
@@ -48,11 +34,23 @@ CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj
  ../passenger/passenger.h
  ../voyage/plane.h
  ../voyage/voyage.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
+CMakeFiles/mikegairlines.dir/frontend/company.cpp.obj
+ ../airport/airport.h
+ ../airport/service.h
+ ../airport/staff.h
+ ../airport/transport.h
+ ../date.h
+ ../passenger/passenger.h
+ ../voyage/plane.h
+ ../voyage/voyage.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.cpp
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj
  ../airport/airport.h
  ../airport/service.h
@@ -62,35 +60,19 @@ CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj
  ../passenger/passenger.h
  ../voyage/plane.h
  ../voyage/voyage.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
+ C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp
  C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
-CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj
- ../airport/airport.h
- ../airport/service.h
- ../airport/staff.h
- ../airport/transport.h
- ../date.h
- ../passenger/passenger.h
- ../voyage/plane.h
- ../voyage/voyage.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.cpp
- C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
 CMakeFiles/mikegairlines.dir/main.cpp.obj
  ../airport/airport.h
  ../airport/service.h
  ../airport/staff.h
  ../airport/transport.h
  ../date.h
- ../frontend/admin.h
  ../frontend/clients.h
+ ../frontend/company.h
  ../frontend/mainmenu.h
- ../frontend/workers.h
  ../passenger/passenger.h
  ../voyage/plane.h
  ../voyage/voyage.h

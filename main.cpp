@@ -1,9 +1,5 @@
 #include "mainmenu.h"
-struct MikeG{
-    std::vector<Airport*> airports;
-    std::vector<Voyage*> voyages;
-    std::vector<Flight*> flight;
-};
+
 
 /**
  * Airport-related testing
@@ -26,18 +22,20 @@ void testAirport(){
  * Voyage-related testing
  */
 void testVoyage() {
+
     Airport *porto;
     Airport *barcelona;
     Airport *lisboa;
     Airport *londres;
 
+    Flight *f1 = new Flight ("OPOLON", porto, londres);
     Flight *f2 = new Flight("OPOLIS", porto, lisboa);
     Flight *f3 = new Flight("LISLON", lisboa, londres);
     Flight *f4 = new Flight("LISBCN", lisboa, barcelona);
     Flight *f5 = new Flight("BCNLON", barcelona, londres);
     Flight *f6 = new Flight("LONOPO", londres, porto);
 
-    Voyage v1(porto, londres);
+    Voyage v1(f1);
 
     try {
         Connection c1(f2, f3);

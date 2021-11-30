@@ -66,29 +66,27 @@ vector
 list
 -
 
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp
-admin.h
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
-
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
-iostream
--
-mainmenu.h
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
-
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
 iostream
 -
 mainmenu.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.cpp
+company.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
+iostream
+-
+mainmenu.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
-admin.h
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+company.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
 clients.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
-workers.h
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
 airport.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/airport.h
 voyage.h
@@ -103,10 +101,4 @@ fstream
 -
 string
 -
-
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h
-iostream
--
-mainmenu.h
-C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 

@@ -28,7 +28,7 @@
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./frontend"/>
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./passenger"/>
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./voyage"/>
-					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./credentials"/>
+					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/data"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -54,7 +54,7 @@
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./frontend"/>
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./passenger"/>
 					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./voyage"/>
-					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/./credentials"/>
+					<Add directory="C:/Coding/Cpp/AEDA/mikegairlines/data"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -114,7 +114,7 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/airport/transport.h">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/credentials/admin.txt">
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/data/company.txt">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/date.cpp">
@@ -123,28 +123,22 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/date.h">
 			<Option target="mikegairlines"/>
 		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.cpp">
-			<Option target="mikegairlines"/>
-		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/admin.h">
-			<Option target="mikegairlines"/>
-		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h">
 			<Option target="mikegairlines"/>
 		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.cpp">
+			<Option target="mikegairlines"/>
+		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h">
+			<Option target="mikegairlines"/>
+		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h">
-			<Option target="mikegairlines"/>
-		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.cpp">
-			<Option target="mikegairlines"/>
-		</Unit>
-		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/workers.h">
 			<Option target="mikegairlines"/>
 		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/main.cpp">

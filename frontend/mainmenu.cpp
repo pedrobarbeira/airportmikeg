@@ -16,25 +16,62 @@ void menu(){
         system("CLS");
         std::cout << "[MikeG Airlines]\t\t\t";
         today.print(std::cout);
-        std::cout << "\n    [1] Admin"
-                  << "\n    [2] Workers"
-                  << "\n    [2] Clients\n"
+        std::cout << "\n    [1] Company"
+                  << "\n    [2] Customer\n"
                   << "\n    [0] Exit\n"
                   << "\n>";
         std::cin >> c;
-
-        switch (c) {
-            case '1': admin(); break;
-            case '2': workers(); break;
-            case '3': clients(); break;
-            case '0': return;
-            case '-': if(checkDev()){dev(); break;}
-            default: std::cout << "Invalid Option\n";
+        try {
+            switch (c) {
+                case '1': company();break;
+                case '2': clients; break;
+                case '0': return;
+                case '-': if (checkDev()) {dev();break;}
+                default: std::cout << "Invalid Option\n";
                     system("pause");
+            }
+        }
+        catch(DevLog e){
+            e.print();
         }
     }
 }
 
+void company(){
+    char c, type;
+    bool access = false;
+    while(true) {
+        system("CLS");
+        std::cout << "[COMPANY]\n"
+                  << "\n    [1] Log In"
+                  << "\n    [0] Back\n"
+                  <<"\n>";
+        std::cin >> c;
+        switch(c) {
+            case '1':
+                access = login('a', type);
+                break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+        }
+        system("pause");
+        if(access) break;
+    }try {
+        switch (type) {
+            case 'A':
+                admin();
+                break;
+                //Insert different cases for different types of workers
+            default:
+                throw DevLog("Invalid Account Type\n");
+        }
+    }
+    catch (LogOut lo){
+        lo.print();
+        system("pause");
+        return;
+    }
+}
 
 /**
  * Interface for the hidden Developer Inferface
@@ -72,46 +109,39 @@ bool checkDev() {
 }
 
 /**
- * Interface function that validates login credentials
+ * Interface function that validates login data
  * @param c acts has a three-way flag: 'a' for admins, 'w' for workers and 'c' for clients
  * @return true if login is valid, false otherwise
  */
-bool login(char c){
-    int authorized;
-    authorized = checkCredentials(c);
+bool login(char c, char& type){
+    bool authorized;
+    authorized = checkCredentials(c, type);
     if(!authorized) {
         std::cout << "Invalid Credentials\n";
-        return false;
+        return authorized;
     }
-    else{
-        switch(authorized){
-            case 1: std::cout << "Login Accepted\n"; return true;
-            case 2: std::cout << "Error Opening Infile\n"; return false;
-            default: std::cout << "Unknown Error\n"; return false;
-        }
-    }
+    else std::cout << "Login Accepted\n"; return authorized;
 }
 
 /**
- * Checks credentials in the respective credential folder, determined by the value of c.
+ * Checks data in the respective credential folder, determined by the value of c.
  * Validates them and returns an integer code.
  * @param c 'a' for admins, 'w' for workers, 'c' for clients
  * @return 0 upon failure, 1 upon success, 2 upon file error
  */
-int checkCredentials(char c){
+bool checkCredentials(char c, char& type){
     system("CLS");
     std::ifstream infile;
-    std::string fileName = "./credentials/";
+    std::string fileName = "./data/";
     switch(c){
-        case 'a': fileName += "admin.txt"; break;
-        case 'w': fileName += "worker.txt"; break;
-        case 'c': fileName += "client.txt"; break;
+        case 'a': fileName += "company.txt"; break;
+        case 'b': fileName += "client.txt"; break;
         default: std::cout << "Invalid Option\n";
             system("pause");
     }
     infile.open(fileName);
 
-    if(infile.fail()) return 2;
+    if(infile.fail()) throw DevLog("Error opening files in mainmenu.cpp/checkCredentials()");
 
     std::string user, pass, check;
     bool found = false;
@@ -123,7 +153,7 @@ int checkCredentials(char c){
             found = true;
             break;
         }
-        else infile >> check;
+        else std::getline(infile, check);
     }
 
     if(!found) return 0;
@@ -131,7 +161,19 @@ int checkCredentials(char c){
         std::cout << "Password:\n>";
         std::cin >> pass;
         infile >> check;
-        if(pass == check) return 1;
-        else return 0;
+        if(pass == check) {
+            infile >> type;
+            return true;
+        }
+        else return false;
     }
+}
+
+/**
+ * Stores special system error messages into the DevLogs file, so the company's
+ * IT guy can keep it tidy and safe
+ */
+void DevLog::print() const{
+    std::ofstream outfile("./data/devlogs.txt");
+    outfile << "*" << error << '\n';
 }

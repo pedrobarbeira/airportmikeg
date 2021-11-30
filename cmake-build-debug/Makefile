@@ -277,33 +277,6 @@ date.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/date.cpp.s
 .PHONY : date.cpp.s
 
-frontend/admin.obj: frontend/admin.cpp.obj
-
-.PHONY : frontend/admin.obj
-
-# target to build an object file
-frontend/admin.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/admin.cpp.obj
-.PHONY : frontend/admin.cpp.obj
-
-frontend/admin.i: frontend/admin.cpp.i
-
-.PHONY : frontend/admin.i
-
-# target to preprocess a source file
-frontend/admin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/admin.cpp.i
-.PHONY : frontend/admin.cpp.i
-
-frontend/admin.s: frontend/admin.cpp.s
-
-.PHONY : frontend/admin.s
-
-# target to generate assembly for a file
-frontend/admin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/admin.cpp.s
-.PHONY : frontend/admin.cpp.s
-
 frontend/clients.obj: frontend/clients.cpp.obj
 
 .PHONY : frontend/clients.obj
@@ -331,6 +304,33 @@ frontend/clients.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/clients.cpp.s
 .PHONY : frontend/clients.cpp.s
 
+frontend/company.obj: frontend/company.cpp.obj
+
+.PHONY : frontend/company.obj
+
+# target to build an object file
+frontend/company.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/company.cpp.obj
+.PHONY : frontend/company.cpp.obj
+
+frontend/company.i: frontend/company.cpp.i
+
+.PHONY : frontend/company.i
+
+# target to preprocess a source file
+frontend/company.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/company.cpp.i
+.PHONY : frontend/company.cpp.i
+
+frontend/company.s: frontend/company.cpp.s
+
+.PHONY : frontend/company.s
+
+# target to generate assembly for a file
+frontend/company.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/company.cpp.s
+.PHONY : frontend/company.cpp.s
+
 frontend/mainmenu.obj: frontend/mainmenu.cpp.obj
 
 .PHONY : frontend/mainmenu.obj
@@ -357,33 +357,6 @@ frontend/mainmenu.s: frontend/mainmenu.cpp.s
 frontend/mainmenu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.s
 .PHONY : frontend/mainmenu.cpp.s
-
-frontend/workers.obj: frontend/workers.cpp.obj
-
-.PHONY : frontend/workers.obj
-
-# target to build an object file
-frontend/workers.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.obj
-.PHONY : frontend/workers.cpp.obj
-
-frontend/workers.i: frontend/workers.cpp.i
-
-.PHONY : frontend/workers.i
-
-# target to preprocess a source file
-frontend/workers.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.i
-.PHONY : frontend/workers.cpp.i
-
-frontend/workers.s: frontend/workers.cpp.s
-
-.PHONY : frontend/workers.s
-
-# target to generate assembly for a file
-frontend/workers.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\mikegairlines.dir\build.make CMakeFiles/mikegairlines.dir/frontend/workers.cpp.s
-.PHONY : frontend/workers.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -463,18 +436,15 @@ help:
 	@echo ... date.obj
 	@echo ... date.i
 	@echo ... date.s
-	@echo ... frontend/admin.obj
-	@echo ... frontend/admin.i
-	@echo ... frontend/admin.s
 	@echo ... frontend/clients.obj
 	@echo ... frontend/clients.i
 	@echo ... frontend/clients.s
+	@echo ... frontend/company.obj
+	@echo ... frontend/company.i
+	@echo ... frontend/company.s
 	@echo ... frontend/mainmenu.obj
 	@echo ... frontend/mainmenu.i
 	@echo ... frontend/mainmenu.s
-	@echo ... frontend/workers.obj
-	@echo ... frontend/workers.i
-	@echo ... frontend/workers.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

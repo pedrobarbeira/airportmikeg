@@ -83,9 +83,8 @@ class Voyage{
     std::list<Flight*> route;
 public:
     /**Constructor*/
-    Voyage(Airport* origin = nullptr, Airport* destination = nullptr){
+    Voyage(Flight* f){
         //tickets.clear();
-        Flight* f = new Flight("TEST", origin, destination);
         route.push_back(f);
     }
     /**Getters*/
