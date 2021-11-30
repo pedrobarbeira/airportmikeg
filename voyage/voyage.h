@@ -10,24 +10,32 @@
 
 class Flight;
 
+class Error{
+    std::string error;
+public:
+    Error(std::string e):error(e){};
+    void print(std::ostream& out) const{
+        out << error << '\n';};
+};
+
 class Flight{
     std::string flightID;
-    Date* departure;
-    Date* arrival;
     Airport* origin;
     Airport* destination;
     Plane* plane;
+    Time* departure;
+    Time* arrival;
 public:
     /**Constructor*/
-    Flight(std::string id = "", Date* d = NULL, Date* a = NULL,
-           Airport* o = NULL, Airport* dest = NULL, Plane* p = NULL):
-           flightID(id), departure(d), arrival(a), origin(o), destination(dest), plane(p){};
+    Flight(std::string id, Airport* o, Airport* d, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
+        flightID(std::move(id)), origin(o), destination(d), plane(p), departure(dep), arrival(arr){
+    }
     /**Getters*/
     std::string getID() const{
         return flightID;};
-    Date* getDeparture() const{
+    Time* getDeparture() const{
         return departure;};
-    Date* getArrival() const{
+    Time* getArrival() const{
         return arrival;};
     Airport* getOrigin() const{
         return origin;};
@@ -38,9 +46,9 @@ public:
     /**Setters*/
     void setId(std::string id){
         flightID = id;};
-    void setDeparture(Date* d){
+    void setDeparture(Time* d){
         departure = d;};
-    void setArrival(Date* d){
+    void setArrival(Time* d){
         arrival = d;};
     void setOrigin(Airport* a){
         origin = a;};
@@ -48,6 +56,8 @@ public:
         destination = a;};
     void setPlane(Plane* p){
         plane = p;};
+    /**Print*/
+    void print(std::ostream& out) const;
 
 };
 
@@ -55,12 +65,17 @@ class Connection{  //Lets say we have porto-barcelona and want to insert a lisbo
     Flight* in;     //We add porto-lisbon here
     Flight* out;    //We add lisbon-barcelona here
 public:
-    Connection(Flight* i, Flight* o){
+    Connection(Flight* i, Flight* o = nullptr){
         if(i->getDestination() == o->getOrigin()) {
             in = i;
             out = o;
         }
+        else throw Error("Invalid Connection\n");
     }
+    Flight* getIn() const{
+        return in;};
+    Flight* getOut() const{
+        return out;};
 };
 
 class Voyage{
@@ -70,7 +85,7 @@ public:
     /**Constructor*/
     Voyage(Airport* origin = NULL, Airport* destination = NULL){
         //tickets.clear();
-        Flight* f = new Flight("", NULL, NULL, origin, destination);
+        Flight* f = new Flight("TEST", origin, destination);
         route.push_back(f);
     }
     /**Getters*/
@@ -79,10 +94,10 @@ public:
     */
     std::list<Flight*> getRoute(){
         return route;};
-    Flight* getOrigin() const{
-        return route.front();};
-    Flight* getDestination() const{
-        return route.back();};
+    Airport* getOrigin() const{
+        return route.front()->getOrigin();};
+    Airport* getDestination() const{
+        return route.back()->getDestination();};
     /**Setters*/
     /*void setTrickets(std::list<Ticket*> t){
         tickets = t;};*/
@@ -90,7 +105,8 @@ public:
         route = r;};
     /**Adders*/
     //bool addTicket(Ticket* t);
-    bool addConnection(Airport*,Airport*,Airport*); //gotta finish this one
+    bool addConnection(Connection& c); //gotta finish this one
+    void printRoute(std::ostream& out) const;
 
 };
 

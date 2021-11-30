@@ -12,6 +12,20 @@ uint32_t NORMAL = 7 * LMONTH + 4 * SMONTH + FEB;    //seconds in a normal year
 uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
 
 /**
+ * Prints date to desired output line
+ * @param out the output line
+ */
+void Time::print(std::ostream& out) const{        //Read up polymorphism and make this proper
+    out << std::setw(2) << std::setfill('0') <<this->getHour() << ":"
+        << std::setw(2) << std::setfill('0') << this->getMinute() << ":"
+        << std::setw(2) << std::setfill('0') << this->getSecond() <<" "
+        << std::setw(2) << std::setfill('0') << this->getDay() << "/"
+        << std::setw(2) << std::setfill('0') << this->getMonth() << "/"
+        << std::setw(4) << std::setfill('0')  << this->getYear()
+        << '\n';
+}
+
+/**
  * Determines if a year is a leap year
  * @param y the year to be processed
  * @return true if y is leap, false otherwise

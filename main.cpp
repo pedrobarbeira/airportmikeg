@@ -20,9 +20,45 @@ void testAirport(){
 /**
  * Voyage-related testing
  */
-void testVoyage(){
-    //Found some problems with how to implement the flight connections
-    //Will have to figure this out later
+void testVoyage() {
+    Airport *porto;
+    Airport *barcelona;
+    Airport *lisboa;
+    Airport *londres;
+
+    Flight *f2 = new Flight("OPOLIS", porto, lisboa);
+    Flight *f3 = new Flight("LISLON", lisboa, londres);
+    Flight *f4 = new Flight("LISBCN", lisboa, barcelona);
+    Flight *f5 = new Flight("BCNLON", barcelona, londres);
+    Flight *f6 = new Flight("LONOPO", londres, porto);
+
+    Voyage v1(porto, londres);
+
+    try {
+        Connection c1(f2, f3);
+        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
+    }
+    catch(Error e){
+        e.print(std::cout);
+    }
+    v1.printRoute(std::cout);
+    std::cout << '\n';
+    try {
+        Connection c1(f2, f5);
+        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
+    }
+    catch(Error e){
+        e.print(std::cout);
+    }
+    std::cout << '\n';
+    try {
+        Connection c1(f4, f5);
+        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
+    }
+    catch(Error e){
+        e.print(std::cout);
+    }
+    v1.printRoute(std::cout);
 }
 
 /**
@@ -62,6 +98,7 @@ void testInterface(){
             case '0': exit(0);
             default: std::cout << "Invalid Option\n";
         }
+        system("pause");
     }
 }
 

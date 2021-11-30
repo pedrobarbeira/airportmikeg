@@ -48,15 +48,7 @@ public:
         return minute;};
     uint16_t getSecond() const{
         return second;};
-    void print(std::ostream& out) const{        //Read up polymorphism and make this proper
-        out << std::setw(2) << std::setfill('0') <<this->getHour() << ":"
-            << std::setw(2) << std::setfill('0') << this->getMinute() << ":"
-            << std::setw(2) << std::setfill('0') << this->getSecond() <<" "
-            << std::setw(2) << std::setfill('0') << this->getDay() << "/"
-            << std::setw(2) << std::setfill('0') << this->getMonth() << "/"
-            << std::setw(4) << std::setfill('0')  << this->getYear()
-            << '\n';
-    }
+    void print(std::ostream& out) const;
     /**Setters*/
     void setHour(uint16_t h){
         hour = h;};
