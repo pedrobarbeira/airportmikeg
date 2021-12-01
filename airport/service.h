@@ -6,7 +6,9 @@
 #define MIKEGAIRLINES_SERVICE_H
 
 #include "mainmenu.h"
+
 #include "../date.h"
+
 
 using namespace std;
 
@@ -14,7 +16,9 @@ class Service{
     class Plane *plane;
     class Staff *responsible;
     class Date created;
-    Date completed;
+    class Date completed;
+
+
 public:
     Service(Plane &plane);
     Service(Plane &plane, Date &date);
