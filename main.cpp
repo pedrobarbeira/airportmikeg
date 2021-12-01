@@ -1,11 +1,15 @@
+
 #include "mainmenu.h"
+
 
 
 /**
  * Airport-related testing
  */
 void testAirport(){
-    Airport porto("Sá Carneiro", "Portugal", "Porto" );
+
+
+    Airport porto("OPO", "Sá Carneiro", "Portugal", "Porto" );
     Plane plane;
     Staff staff1("Manel");
     Date date1(30, 11, 21);
@@ -13,9 +17,11 @@ void testAirport(){
     Service cle1(plane, date1);
     cle1.setResponsible(staff1);
     porto.addService(cle1);
-    Service cle2(plane, date2, staff1);
+    Service cle2(plane);
+    Service cle3(plane, date2, staff1);
     porto.addService(cle2);
     porto.delService(date2);
+
 }
 
 /**

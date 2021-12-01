@@ -7,3 +7,7 @@
 Staff::Staff(string name) {
     this->name= name;
 }
+
+void Staff::addHistory(Service &service) {
+    this->history.push_back(&service);
+}

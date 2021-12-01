@@ -7,6 +7,9 @@
 #include "airport.h"
 #include "voyage.h"
 #include "passenger.h"
+#include "service.h"
+#include "staff.h"
+#include "transport.h"
 #include <vector>
 #include <ctime>
 #include <fstream>

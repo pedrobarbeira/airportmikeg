@@ -41,7 +41,7 @@ bool isleap(uint32_t y){
 /**
  * Calculates today's date and time, updating the Time object with those values
  */
-void Time::now(){
+Date * Time::now(){
     time_t now;
     time(&now);
     uint32_t d = 1, m = 1, y = 1970, h, min, s;

@@ -56,7 +56,7 @@ public:
         minute = m;};
     void setSecond(uint16_t s){
         second = s;};
-    void now();
+    Date * now();
 
 };
 
