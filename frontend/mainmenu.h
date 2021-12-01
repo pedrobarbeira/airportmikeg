@@ -7,6 +7,9 @@
 #include "airport.h"
 #include "voyage.h"
 #include "passenger.h"
+#include "service.h"
+#include "staff.h"
+#include "transport.h"
 #include <vector>
 #include <ctime>
 #include <fstream>
@@ -17,9 +20,9 @@
  */
 class MikeG{
 public:
-    std::vector<Airport*> airports;
-    std::vector<Voyage*> voyages;
-    std::vector<Flight*> flight;
+    std::vector<class Airport*> airports;
+    std::vector<class Voyage*> voyages;
+    std::vector<class Flight*> flight;
 };
 
 //Main Menu Stub

@@ -5,16 +5,22 @@
 #ifndef MIKEGAIRLINES_TRANSPORT_H
 #define MIKEGAIRLINES_TRANSPORT_H
 
-#include "../date.h"
-#include<list>
+#include "mainmenu.h"
 
 using namespace std;
 
 class Transport{
-    char type;
+    char type; // m --> metro; b --> bus; t --> train
     uint16_t distance;
-    list<Time*> timetable;
+    list<Time> timetable;
 public:
+    Transport(char c);
+    Transport(char c, uint16_t d);
+    string getTransport();
+    uint16_t const getDistance ();
+    char const getType();
+    void addTime(Time time);
+    list<Time> getTimetable ();
 
 };
 

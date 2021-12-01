@@ -20,7 +20,7 @@ public:
 
 class Flight{
     std::string flightID;
-    Airport* origin;
+    class Airport* origin;
     Airport* destination;
     Plane* plane;
     Time* departure;

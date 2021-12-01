@@ -1,19 +1,23 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Coding/Cpp/AEDA/mikegairlines/airport/airport.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/airport.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/airport/service.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/service.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/airport/staff.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/staff.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/airport/transport.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/transport.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/date.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/date.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/clients.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/company.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/main.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/main.cpp.obj"
-  "C:/Coding/Cpp/AEDA/mikegairlines/voyage/voyage.cpp" "C:/Coding/Cpp/AEDA/mikegairlines/cmake-build-debug/CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.obj"
+  "/home/othello/FEUP/AED/aero/airportmikeg/airport/airport.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/airport.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/airport/service.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/service.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/airport/staff.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/staff.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/airport/transport.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/airport/transport.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/date.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/date.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/frontend/clients.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/clients.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/frontend/company.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/company.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/frontend/mainmenu.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/frontend/mainmenu.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/main.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/main.cpp.o"
+  "/home/othello/FEUP/AED/aero/airportmikeg/voyage/voyage.cpp" "/home/othello/FEUP/AED/aero/airportmikeg/cmake-build-debug/CMakeFiles/mikegairlines.dir/voyage/voyage.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -24,6 +28,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   ".././passenger"
   ".././voyage"
   "../data"
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
   )
 
 # Targets to which this target links.
