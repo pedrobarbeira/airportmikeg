@@ -11,53 +11,58 @@ void Flight::print(ostream& out) const{
 }
 
 /**Voyage*/
-bool Voyage::addConnection(Connection& c){
-    //Add case where connection is direct to the first flight
-    //Take a look at control flow for cases where Connection just has 1 flight
-    //- these can only be appended to the end or inserted to the begin
-    //Fix case where connection is appended to the end
-    bool found = false;
-    std::list<Flight*>::const_iterator it = this->route.begin();
-    while(it != route.end()) {
-        if ((*it)->getOrigin() == c.getIn()->getOrigin()) {
-            found = true;
-            break;
-        }
-        it++;
+bool Voyage::addFlight(Flight* f){
+    std::list<Flight*>::iterator it = route.begin();
+    if(f->getDestination() == (*it)->getOrigin()) {
+        route.push_front(f);
+        return true;
     }
-    if(!found) return false;
-    else{
-        if (route.size() == 1) {
-            if ((*route.begin())->getDestination() == c.getOut()->getDestination()) {
-                this->route.insert(it, c.getIn());
-                this->route.insert(it, c.getOut());
-                this->route.erase(it);
-                return true;
+    else if(f->getOrigin() == (*it)->getDestination()){
+        route.push_back(f);
+        return true;
+    }
+    else return false;
+}
+bool Voyage::addConnection(Connection* c) {
+    bool added = false;
+    std::list<Flight *>::iterator it = route.begin();
+    if (route.size() == 1) {
+        if (c->getOut()->getDestination() == (*it)->getOrigin()) {
+            route.push_front(c->getOut());
+            route.push_front(c->getIn());
+            added = true;
+        } else if (c->getIn()->getOrigin() == (*it)->getDestination()) {
+            route.push_back(c->getIn());
+            route.push_back(c->getOut());
+            added = true;
+        } else if (c->getIn()->getOrigin() == (*it)->getOrigin() &&
+                   c->getOut()->getDestination() == (*it)->getDestination()) {
+            route.insert(it, c->getIn());
+            route.insert(it, c->getOut());
+            route.erase(it);
+            added = true;
+        } else added = false;
+    } else {
+        bool found = false;
+        while (it != route.end()) {
+            if ((*it)->getOrigin() == c->getIn()->getOrigin() &&
+                (*it)->getDestination() == c->getOut()->getDestination()) {
+                found = true;
+                break;
             }
-            else return false;
+            it++;
         }
-        else {/*
-            std::list<Flight*>::const_iterator last = this->route.end();
-            if(it == last){
-                it--;
-                if((*it)->getDestination() == c.getIn()->getOrigin()) {
-                    this->route.erase(it);
-                    this->route.push_back(c.getIn());
-                    this->route.push_back(c.getOut());
-                    return true;
-                }
-                else return false;
-            } else {*/
-                if ((*it)->getDestination() == c.getOut()->getDestination()) {
-                    this->route.insert(it, c.getIn());
-                    if(c.getOut() != nullptr) this->route.insert(it, c.getOut());
-                    this->route.erase(it);
-                    return true;
-                } else return false;
-            }
+        if (!found) return found;
+        else {
+            route.insert(it, c->getIn());
+            route.insert(it, c->getOut());
+            route.erase(it);
+            added = true;
         }
     }
-//}
+    delete c;
+    return added;
+}
 
 void Voyage::printRoute(std::ostream& out) const{
     auto it = route.begin();

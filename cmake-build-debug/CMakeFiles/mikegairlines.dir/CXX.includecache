@@ -46,6 +46,38 @@ iomanip
 fstream
 -
 
+../frontend/clients.h
+iostream
+-
+mainmenu.h
+../frontend/mainmenu.h
+
+../frontend/company.h
+iostream
+-
+mainmenu.h
+../frontend/mainmenu.h
+
+../frontend/mainmenu.h
+company.h
+../frontend/company.h
+clients.h
+../frontend/clients.h
+airport.h
+../frontend/airport.h
+voyage.h
+../frontend/voyage.h
+passenger.h
+../frontend/passenger.h
+vector
+-
+ctime
+-
+fstream
+-
+string
+-
+
 ../passenger/passenger.h
 
 ../voyage/plane.h
@@ -66,6 +98,10 @@ vector
 list
 -
 
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.cpp
+clients.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
+
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/clients.h
 iostream
 -
@@ -79,6 +115,10 @@ C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/company.h
 iostream
 -
+mainmenu.h
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
+
+C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.cpp
 mainmenu.h
 C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h
 
@@ -101,4 +141,8 @@ fstream
 -
 string
 -
+
+C:/Coding/Cpp/AEDA/mikegairlines/main.cpp
+mainmenu.h
+C:/Coding/Cpp/AEDA/mikegairlines/mainmenu.h
 

@@ -12,6 +12,7 @@ void airport();
 void worker();
 
 void travel();
+void flightList();
 void voyage();
 void createVoyage();
 void changeVoyage();

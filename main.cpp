@@ -1,4 +1,5 @@
 #include "mainmenu.h"
+#include <memory>
 
 
 /**
@@ -37,31 +38,20 @@ void testVoyage() {
 
     Voyage v1(f1);
 
-    try {
-        Connection c1(f2, f3);
-        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
-    }
-    catch(Error e){
-        e.print(std::cout);
-    }
-    v1.printRoute(std::cout);
-    std::cout << '\n';
-    try {
-        Connection c1(f2, f5);
-        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
-    }
-    catch(Error e){
-        e.print(std::cout);
-    }
-    std::cout << '\n';
-    try {
-        Connection c1(f4, f5);
-        if(!v1.addConnection(c1)) std::cout << "oh boy\n";
-    }
-    catch(Error e){
-        e.print(std::cout);
-    }
-    v1.printRoute(std::cout);
+    MikeG main;
+
+    main.addAirport(porto);
+    main.addAirport(barcelona);
+    main.addAirport(lisboa);
+    main.addAirport(londres);
+
+    std::cout << main.getAirport().size() << '\n';
+
+    main.deleteAirport(porto);
+
+    std::cout << main.getAirport().size() << '\n'
+              << lisboa << '\n';
+
 }
 
 /**

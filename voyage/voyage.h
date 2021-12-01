@@ -8,8 +8,6 @@
 #include <vector>
 #include <list>
 
-class Flight;
-
 class Error{
     std::string error;
 public:
@@ -104,7 +102,8 @@ public:
         route = std::move(r);};
     /**Adders*/
     //bool addTicket(Ticket* t);
-    bool addConnection(Connection& c); //gotta finish this one
+    bool addFlight(Flight* f);
+    bool addConnection(Connection* c); //gotta finish this one
     void printRoute(std::ostream& out) const;
 
 };
