@@ -4,25 +4,33 @@
 
 #include "airport.h"
 
-Airport::Airport(string name, string country, string city) {
+
+Airport::Airport(string idName, string name, string country, string city) {
+    this->idName = idName;
     this->name = name;
     this->country = country;
     this->city = city;
 }
 
-void Airport::setTransport(Transport &transport) {
-
+string Airport::getidCode(){
+    return idName;
 }
 
-void Airport::delTransport(Transport &transport) {
-
+void Airport::setTransport(class Transport &transport) {
+    Airport::transport.push_back(&transport);
 }
 
-void Airport::addService(Service &service) {
+void Airport::delTransport(class Transport &transport) {
+    this->transport.remove(&transport);
+}
+
+void Airport::addService(class Service &service) {
     services.push(&service);
 }
 
-void Airport::delService(Date &date) {
+void Airport::delService(class Date &date) {
+    services.front()->getResponsible().addHistory(*services.front());
     services.front()->setComplete(date);
     services.pop();
 }
+

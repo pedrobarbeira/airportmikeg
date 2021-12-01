@@ -5,25 +5,31 @@
 #ifndef MIKEGAIRLINES_SERVICE_H
 #define MIKEGAIRLINES_SERVICE_H
 
-#include "staff.h"
-#include "plane.h"
-#include"../date.h"
-#include<queue>
+#include "mainmenu.h"
+
+#include "../date.h"
+
 
 using namespace std;
 
 class Service{
-    Plane *plane;
-    Staff *responsible;
-    Date *created;
-    Date *completed;
+    class Plane *plane;
+    class Staff *responsible;
+    class Date created;
+    class Date completed;
+
+
 public:
-    Service();
+    Service(Plane &plane);
     Service(Plane &plane, Date &date);
+    Service(Plane &plane, Staff &staff);
     Service(Plane &plane, Date &date, Staff &staff);
     void setResponsible (Staff &staff);
     void setComplete (Date &date);
+    Staff& getResponsible();
 };
+
+
 
 
 

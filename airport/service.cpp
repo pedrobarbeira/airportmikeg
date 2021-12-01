@@ -4,27 +4,45 @@
 
 #include "service.h"
 
-Service::Service(){
+Service::Service(class Plane &plane){
+    Time time;
+    int d = time.now()->getDay();
+    size_t m = time.now()->getMonth();
+    size_t y = time.now()->getYear();
+    Date date (d, m, y);
+    created = date;
 }
 
-Service::Service(Plane &plane, Date &date){
+Service::Service(class Plane &plane, class Date &date){
     this->plane = &plane;
-    created = &date;
+    created = date;
 }
 
-Service::Service(Plane &plane, Date &date, Staff &staff){
+Service::Service(class Plane &plane, class Staff &staff) {
+    Time time;
+    created = *time.now();
+    responsible = &staff;
+}
+
+Service::Service(class Plane &plane, class Date &date, class Staff &staff){
     this->plane = &plane;
     responsible = &staff;
-    created = &date;
+    created = date;
 }
 
-void Service::setResponsible(Staff &staff) {
+void Service::setResponsible(class Staff &staff) {
     responsible = &staff;
 }
 
-void Service::setComplete(Date &date) {
-    completed = &date;
+void Service::setComplete(class Date &date) {
+    completed = date;
 }
+
+Staff& Service::getResponsible(){
+    return *responsible;
+}
+
+
 
 
 

@@ -7,6 +7,9 @@
 #include "airport.h"
 #include "voyage.h"
 #include "passenger.h"
+#include "service.h"
+#include "staff.h"
+#include "transport.h"
 #include <vector>
 #include <ctime>
 #include <fstream>
@@ -16,6 +19,7 @@
  * Class to load and pass the objects of the airline
  */
 class MikeG{
+<<<<<<< HEAD
     std::vector<Airport*> airports;
     std::vector<Voyage*> voyages;
     std::vector<Flight*> flights;
@@ -75,6 +79,12 @@ public:
         planes.push_back(p);
         return true;
     }
+=======
+public:
+    std::vector<class Airport*> airports;
+    std::vector<class Voyage*> voyages;
+    std::vector<class Flight*> flight;
+>>>>>>> 5bf53c4ceaba51575198a7b223b3a9175ab172e5
 };
 
 //Main Menu Stub
