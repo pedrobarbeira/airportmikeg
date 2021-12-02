@@ -5,7 +5,9 @@
 void Flight::print(ostream& out) const{
     out << flightID << " ";
     if(departure != nullptr) departure->print(out);
+    out << " " << origin->getidCode()  << " ";
     if(arrival != nullptr) arrival->print(out);
+    out << " " << destination->getidCode() << " ";
     //finish with airport and plane
     std::cout << '\n';
 }

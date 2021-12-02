@@ -16,13 +16,12 @@ uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
  * @param out the output line
  */
 void Time::print(std::ostream& out) const{        //Read up polymorphism and make this proper
-    out << std::setw(2) << std::setfill('0') <<this->getHour() << ":"
-        << std::setw(2) << std::setfill('0') << this->getMinute() << ":"
-        << std::setw(2) << std::setfill('0') << this->getSecond() <<" "
-        << std::setw(2) << std::setfill('0') << this->getDay() << "/"
-        << std::setw(2) << std::setfill('0') << this->getMonth() << "/"
-        << std::setw(4) << std::setfill('0')  << this->getYear()
-        << '\n';
+    out << std::setw(2) << std::setfill('0') << hour << ":"
+        << std::setw(2) << std::setfill('0') << minute << ":"
+        << std::setw(2) << std::setfill('0') << second << " "
+        << std::setw(2) << std::setfill('0') << day << "/"
+        << std::setw(2) << std::setfill('0') << month << "/"
+        << std::setw(4) << std::setfill('0')  << year << '\n';
 }
 
 /**
@@ -41,7 +40,7 @@ bool isleap(uint32_t y){
 /**
  * Calculates today's date and time, updating the Time object with those values
  */
-Date * Time::now(){
+void Time::now(){
     time_t now;
     time(&now);
     uint32_t d = 1, m = 1, y = 1970, h, min, s;

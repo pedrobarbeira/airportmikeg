@@ -5,8 +5,7 @@
 #ifndef MIKEGAIRLINES_SERVICE_H
 #define MIKEGAIRLINES_SERVICE_H
 
-#include "mainmenu.h"
-
+#include <iostream>
 #include "../date.h"
 
 
@@ -15,18 +14,18 @@ using namespace std;
 class Service{
     class Plane *plane;
     class Staff *responsible;
-    class Date created;
-    class Date completed;
+    class Date* created;
+    class Date* completed;
 
 
 public:
     Service(Plane &plane);
-    Service(Plane &plane, Date &date);
+    Service(Plane &plane, Date* date);
     Service(Plane &plane, Staff &staff);
-    Service(Plane &plane, Date &date, Staff &staff);
-    void setResponsible (Staff &staff);
-    void setComplete (Date &date);
-    Staff& getResponsible();
+    Service(Plane &plane, Date* date, Staff &staff);
+    void setResponsible (Staff* staff);
+    void setComplete (Date* date);
+    Staff* getResponsible();
 };
 
 

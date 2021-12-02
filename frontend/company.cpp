@@ -68,6 +68,9 @@ void travel(){
         system("pause");
     }
 }
+void flightList(){
+
+}
 void voyage(){
     char c;
     while(true) {

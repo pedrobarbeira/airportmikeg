@@ -1,11 +1,13 @@
 //Created by Pedro Barbeira (up2103603693)
 #ifndef AIPORTMIKEG_DATE_H
 #define AIPORTMIKEG_DATE_H
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 
 class Date{
+protected:
     uint16_t day;
     uint16_t month;
     uint16_t year;
@@ -48,6 +50,9 @@ public:
         return minute;};
     uint16_t getSecond() const{
         return second;};
+    Date getDate() const{
+        return Date(day,month, year);
+    }
     void print(std::ostream& out) const;
     /**Setters*/
     void setHour(uint16_t h){
@@ -56,7 +61,7 @@ public:
         minute = m;};
     void setSecond(uint16_t s){
         second = s;};
-    Date * now();
+    void now();
 
 };
 

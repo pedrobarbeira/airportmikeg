@@ -5,9 +5,10 @@
 #ifndef MIKEGAIRLINES_AIRPORT_H
 #define MIKEGAIRLINES_AIRPORT_H
 
-#include "mainmenu.h"
-//#include"transport.h"
-//#include"service.h"
+#include <iostream>
+//#include "mainmenu.h"
+#include"transport.h"
+#include"service.h"
 #include<list>
 #include<queue>
 
@@ -18,8 +19,8 @@ class Airport{
     string name;
     string country;
     string city;
-    list<class Transport*> transport;
-    queue<class Service*> services;
+    list<Transport*> transport;
+    queue<Service*> services;
 public:
     Airport(string idName, string name, string country, string city);
     string getidCode();
@@ -29,7 +30,7 @@ public:
     void setTransport (class Transport &transport);
     void delTransport (class Transport &transport);
     void addService (class Service &service);
-    void delService (class Date &date);
+    void delService (class Date* date);
 };
 
 #endif //MIKEGAIRLINES_AIRPORT_H

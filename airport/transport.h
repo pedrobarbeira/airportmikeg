@@ -5,7 +5,9 @@
 #ifndef MIKEGAIRLINES_TRANSPORT_H
 #define MIKEGAIRLINES_TRANSPORT_H
 
-#include "mainmenu.h"
+#include <iostream>
+#include "../date.h"
+#include <list>
 
 using namespace std;
 

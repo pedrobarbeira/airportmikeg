@@ -28,8 +28,8 @@ void Airport::addService(class Service &service) {
     services.push(&service);
 }
 
-void Airport::delService(class Date &date) {
-    services.front()->getResponsible().addHistory(*services.front());
+void Airport::delService(class Date* date) {
+    services.front()->getResponsible();
     services.front()->setComplete(date);
     services.pop();
 }

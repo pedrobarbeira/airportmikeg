@@ -6,7 +6,6 @@
 #include "mainmenu.h"
 
 void admin();
-void showFlights();
 void airport();
 
 void worker();

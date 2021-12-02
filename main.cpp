@@ -1,15 +1,11 @@
-
 #include "mainmenu.h"
-#include <memory>
-
-
 
 /**
  * Airport-related testing
  */
 void testAirport(){
 
-
+/*
     Airport porto("OPO", "Sá Carneiro", "Portugal", "Porto" );
     Plane plane;
     Staff staff1("Manel");
@@ -21,44 +17,14 @@ void testAirport(){
     Service cle2(plane);
     Service cle3(plane, date2, staff1);
     porto.addService(cle2);
-    porto.delService(date2);
+    porto.delService(date2);*/
 
 }
 
 /**
  * Voyage-related testing
  */
-void testVoyage() {
-
-    Airport *porto;
-    Airport *barcelona;
-    Airport *lisboa;
-    Airport *londres;
-
-    Flight *f1 = new Flight ("OPOLON", porto, londres);
-    Flight *f2 = new Flight("OPOLIS", porto, lisboa);
-    Flight *f3 = new Flight("LISLON", lisboa, londres);
-    Flight *f4 = new Flight("LISBCN", lisboa, barcelona);
-    Flight *f5 = new Flight("BCNLON", barcelona, londres);
-    Flight *f6 = new Flight("LONOPO", londres, porto);
-
-    Voyage v1(f1);
-
-    MikeG main;
-
-    main.addAirport(porto);
-    main.addAirport(barcelona);
-    main.addAirport(lisboa);
-    main.addAirport(londres);
-
-    std::cout << main.getAirport().size() << '\n';
-
-    main.deleteAirport(porto);
-
-    std::cout << main.getAirport().size() << '\n'
-              << lisboa << '\n';
-
-}
+void testVoyage() {}
 
 /**
  * Passenger-related testing
@@ -71,7 +37,8 @@ void testPassenger(){
  * Menu-related testing
  */
 void testMenu(){
-    menu();
+    MikeG main;
+    menu(main);
 }
 
 /**

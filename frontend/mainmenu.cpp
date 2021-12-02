@@ -8,7 +8,7 @@ int DEVSIZE = 9;           //Size of the --dev c3n4 line
 /**
  * Main Menu Interface
  */
-void menu(){
+void menu(MikeG mg){
     Time today;
     char c;
     while(true) {

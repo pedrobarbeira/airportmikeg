@@ -15,11 +15,11 @@
 #include <fstream>
 #include <string>
 
-/**
- * Class to load and pass the objects of the airline
- */
+
+ /**
+  * Class to load and pass the objects of the airline
+  */
 class MikeG{
-<<<<<<< HEAD
     std::vector<Airport*> airports;
     std::vector<Voyage*> voyages;
     std::vector<Flight*> flights;
@@ -42,7 +42,7 @@ public:
     std::vector<Plane*> getPlanes() const{
         return planes;};
     //need to add remaining classes
-    /**Modifiers*/;
+    /**Modifiers*/
     bool addAirport(Airport* a){
         if(!airports.empty()) {
             for (auto it : airports) {
@@ -79,16 +79,10 @@ public:
         planes.push_back(p);
         return true;
     }
-=======
-public:
-    std::vector<class Airport*> airports;
-    std::vector<class Voyage*> voyages;
-    std::vector<class Flight*> flight;
->>>>>>> 5bf53c4ceaba51575198a7b223b3a9175ab172e5
 };
 
 //Main Menu Stub
-void menu();
+void menu(MikeG mg);
 //Menu Stubs
 void company();
 void dev();

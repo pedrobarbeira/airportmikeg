@@ -5,19 +5,16 @@
 #ifndef MIKEGAIRLINES_STAFF_H
 #define MIKEGAIRLINES_STAFF_H
 
-
-#include"mainmenu.h"
-
+#include <iostream>
+#include "service.h"
 #include <list>
 
 
 using namespace std;
 
-
-
 class Staff{
     string name;
-    list<class Service*> history;
+    list<Service*> history;
 public:
     Staff(string name);
     void addHistory (Service &service);
