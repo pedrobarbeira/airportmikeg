@@ -1,19 +1,19 @@
 #include "luggage.h"
 
-luggage::luggage(unsigned int weightlugg, bool checkinlugg){
+Luggage::Luggage(unsigned int weightlugg, bool checkinlugg){
     this->weight=weightlugg;
     this->checkinlugg=checkinlugg;
 
 }
 
-int luggage::getWeight(){
+int Luggage::getWeight(){
     return weight;
 }
 
-bool luggage::getCheckinlugg(){
+bool Luggage::getCheckinlugg(){
     return checkinlugg;
 }
 
-void luggage::setWeight(unsigned int weightlugg){
+void Luggage::setWeight(unsigned int weightlugg){
     weight=weightlugg;
 }

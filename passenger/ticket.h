@@ -3,15 +3,15 @@
 #define MIKEGAIRLINES_TICKET_H
 
 
-class ticket {
+class Ticket {
     int number;
-    class voyage* origin;
-    class voyage* destination;
-    class passenger* owner;
+    class Voyage* origin;
+    class Voyage* destination;
+    class Passenger* owner;
 
 };
 public:
-    ticket(int number)
+    Ticket(int number)
 
 #endif //MIKEGAIRLINES_TICKET_H
 

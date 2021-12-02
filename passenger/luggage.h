@@ -2,12 +2,12 @@
 #define MIKEGAIRLINES_LUGGAGE_H
 
 
-class luggage {
+class Luggage {
     unsigned int weight;
     bool checkinlugg;
 };
 public:
-    luggage(unsigned int weightlugg, bool checkinlugg)
+    Luggage(unsigned int weightlugg, bool checkinlugg)
     int getWeight();
     bool getCheckinlugg();
     void setWeight(unsigned int weightlugg);
@@ -15,4 +15,3 @@ public:
 
 
 #endif //MIKEGAIRLINES_LUGGAGE_H
-c

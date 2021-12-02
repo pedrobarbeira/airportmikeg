@@ -1,7 +1,7 @@
 #include "ticket.h"
 
-ticket:ticket(int number){
+Ticket:Ticket(int number){
     this->number=number;
 
-};
+}
 

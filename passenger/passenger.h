@@ -1,7 +1,7 @@
 #ifndef MIKEGAIRLINES_PASSENGER_H
 #define MIKEGAIRLINES_PASSENGER_H
 
-class passenger{
+class Passenger{
     string nome;
     bool checkinpass;
 };
