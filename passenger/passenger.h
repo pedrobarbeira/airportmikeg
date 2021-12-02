@@ -1,9 +1,14 @@
 #ifndef MIKEGAIRLINES_PASSENGER_H
 #define MIKEGAIRLINES_PASSENGER_H
+#include <iostream>
+
 
 class Passenger{
-    string nome;
+    std::string nome;
     bool checkinpass;
+
+public:
+
 };
 
 #endif //MIKEGAIRLINES_PASSENGER_H
