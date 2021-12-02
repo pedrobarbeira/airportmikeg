@@ -37,8 +37,19 @@ void testPassenger(){
  * Menu-related testing
  */
 void testMenu(){
-    MikeG main;
-    menu(main);
+    MikeG* main = new MikeG;
+
+    Airport* porto = new Airport("OPO", "Sa Carneiro", "Portugal", "Porto");
+    Airport* gatwick = new Airport("LGW", "Gatwick", "England", "London");
+
+    main->addAirport(porto);
+    main->addAirport(gatwick);
+
+    Flight* f1 = new Flight(porto, gatwick);
+
+    main->addFlight(f1);
+
+    travel(main);
 }
 
 /**

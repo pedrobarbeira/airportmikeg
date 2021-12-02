@@ -4,7 +4,7 @@
 /**
  * Admin Menu Interface
  */
-void admin(){
+void admin(MikeG* mg){
     char c;
     //Shows real ADMIN menu after user has proven his identity
     while(true) {
@@ -19,12 +19,12 @@ void admin(){
         switch(c){
             case '1': airport(); break;
             case '2': worker(); break;
-            case '3': travel(); break;
+            case '3': travel(mg); break;
             case '4': plane(); break;
+            case 'q':
             case '0': throw LogOut();
-            default: std::cout << "Invalid Option\n";
+            default: std::cout << "Invalid Option\n"; system("pause");
         }
-        system("pause");
     }
 }
 
@@ -45,12 +45,12 @@ void worker(){
 /**
  * Travel Management Menu
  */
-void travel(){
+void travel(MikeG* mg){
     char c;
     while(true) {
         system("CLS");
-        std::cout << "[TRAVEL]\n"
-                  << "\n    [1] Voyage"
+        std::cout << "[TRAVEL]\n";
+        std::cout << "\n    [1] Voyage"
                   << "\n    [2] Flight"
                   << "\n    [3] Plane"
                   << "\n    [0] Back\n"
@@ -63,13 +63,22 @@ void travel(){
             case '0': return;
             case 'Q':
             case 'q': throw LogOut(); break;
-            default: std::cout << "Invalid Option\n";
+            default: std::cout << "Invalid Option\n"; system("pause");
         }
-        system("pause");
     }
 }
-void flightList(){
-
+void flightList(MikeG* mg){
+    int i = 1;
+    std::cout << setw(4) << setfill(' ') << " " << setw(5) << left  << " " << setw(11) << left << "FlightID"
+              << setw(9) << left << "From" << setw(10) << left << "To" << "\n" << setw(4) << " "
+              << setw(4) << left << setfill('-') << "-" << setw(9)
+              << setw(9) << " " << setw(9)  << " " << setw(9)  << " ";
+    for(auto it: mg->getFlights()) {
+        std::string index = "[" + to_string(i) + "]";
+        std::cout << "\n" << setw(4) << setfill(' ') << " " << setw(6) << left  << index;
+        it->print(std::cout);
+        i++;
+    }
 }
 void voyage(){
     char c;
@@ -156,10 +165,8 @@ void workers(){
         switch(c){
             case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
-            default: std::cout << "Invalid Option\n";
-                system("pause");
+            default: std::cout << "Invalid Option\n"; system("pause");
         }
-        system("pause");
     }
 }
 

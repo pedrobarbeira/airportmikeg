@@ -8,10 +8,10 @@
 #include <vector>
 #include <list>
 
-class Error{
+class InvalidConnection{
     std::string error;
 public:
-    Error(std::string e):error(e){};
+    InvalidConnection():error("Invalid Connection"){};
     void print(std::ostream& out) const{
         out << error << '\n';};
 };
@@ -25,8 +25,9 @@ class Flight{
     Time* arrival;
 public:
     /**Constructor*/
-    Flight(std::string id = "", Airport* o = nullptr, Airport* d = nullptr, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
-        flightID(std::move(id)), origin(o), destination(d), plane(p), departure(dep), arrival(arr){
+    Flight(Airport* o = nullptr, Airport* d = nullptr, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
+            origin(o), destination(d), plane(p), departure(dep), arrival(arr){
+        flightID = origin->getidCode() + destination->getidCode();
     }
     /**Getters*/
     std::string getID() const{
@@ -68,7 +69,7 @@ public:
             in = i;
             out = o;
         }
-        else throw Error("Invalid Connection\n");
+        else throw InvalidConnection();
     }
     Flight* getIn() const{
         return in;};

@@ -141,6 +141,9 @@
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mainmenu.h">
 			<Option target="mikegairlines"/>
 		</Unit>
+		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/frontend/mikeg.h">
+			<Option target="mikegairlines"/>
+		</Unit>
 		<Unit filename="C:/Coding/Cpp/AEDA/mikegairlines/main.cpp">
 			<Option target="mikegairlines"/>
 		</Unit>

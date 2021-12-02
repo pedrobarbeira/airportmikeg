@@ -3,15 +3,15 @@
 #define MIKEGAIRLINES_ADMIN_H
 
 #include <iostream>
-#include "mainmenu.h"
+#include "mikeg.h"
 
-void admin();
+void admin(MikeG* mg);
 void airport();
 
 void worker();
 
-void travel();
-void flightList();
+void travel(MikeG* mg);
+void flightList(MikeG* mg);
 void voyage();
 void createVoyage();
 void changeVoyage();

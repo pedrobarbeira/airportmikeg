@@ -8,4 +8,5 @@ include_directories( ./airport ./frontend ./passenger ./voyage data)
 add_executable(mikegairlines main.cpp date.h voyage/voyage.h voyage/plane.h frontend/mainmenu.h  airport/airport.h
         passenger/passenger.h frontend/mainmenu.cpp date.cpp frontend/company.cpp frontend/company.h
         frontend/clients.cpp frontend/clients.h airport/staff.h airport/service.h airport/transport.h
-        airport/service.cpp airport/airport.cpp airport/transport.cpp airport/staff.cpp data/company.txt voyage/voyage.cpp)
+        airport/service.cpp airport/airport.cpp airport/transport.cpp airport/staff.cpp data/company.txt voyage/voyage.cpp
+        frontend/mikeg.h)

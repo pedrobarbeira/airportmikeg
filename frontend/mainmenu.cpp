@@ -8,7 +8,7 @@ int DEVSIZE = 9;           //Size of the --dev c3n4 line
 /**
  * Main Menu Interface
  */
-void menu(MikeG mg){
+void menu(MikeG* mg){
     Time today;
     char c;
     while(true) {
@@ -23,7 +23,7 @@ void menu(MikeG mg){
         std::cin >> c;
         try {
             switch (c) {
-                case '1': company();break;
+                case '1': company(mg);break;
                 case '2': clients; break;
                 case '0': return;
                 case '-': if (checkDev()) {dev();break;}
@@ -37,7 +37,7 @@ void menu(MikeG mg){
     }
 }
 
-void company(){
+void company(MikeG* mg){
     char c, type;
     bool access = false;
     while(true) {
@@ -59,7 +59,7 @@ void company(){
     }try {
         switch (type) {
             case 'A':
-                admin();
+                admin(mg);
                 break;
                 //Insert different cases for different types of workers
             default:
