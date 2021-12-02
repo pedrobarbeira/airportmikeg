@@ -9,4 +9,5 @@ add_executable(mikegairlines main.cpp date.h voyage/voyage.h voyage/plane.h fron
         passenger/passenger.h frontend/mainmenu.cpp date.cpp frontend/company.cpp frontend/company.h
         frontend/clients.cpp frontend/clients.h airport/staff.h airport/service.h airport/transport.h
         airport/service.cpp airport/airport.cpp airport/transport.cpp airport/staff.cpp data/company.txt voyage/voyage.cpp
-        frontend/mikeg.h)
+        frontend/mikeg.h passenger/luggage.h passenger/luggage.cpp passenger/passenger.h passenger/passenger.cpp
+        passenger/ticket.h passenger/ticket.cpp)
