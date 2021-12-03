@@ -2,24 +2,22 @@
 #ifndef MIKEGAIRLINES_TICKET_H
 #define MIKEGAIRLINES_TICKET_H
 #include <iostream>
-#include "voyage.h"
+#include "flight.h"
 #include "passenger.h"
+using namespace std;
 
 class Ticket {
     int number;
-    Voyage* origin;
-    Voyage* destination;
+    string ticketID;
     Passenger* owner;
 
 
 public:
-    Ticket(int number);
+    Ticket(int number, string ticketID);
     int getNumber();
-    Voyage* getOrigin() const;
-    Voyage* getDestination() const;
+    string getID();
     Passenger* getOwner() const;
-    void setOrigin(Voyage* voyage);
-    void setDestination(Voyage* voyage2);
+
     void setOwner(Passenger* voyage3);
 
 };
