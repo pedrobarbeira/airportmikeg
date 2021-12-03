@@ -4,6 +4,7 @@
 
 #include "plane.h"
 #include "airport.h"
+#include "ticket.h"
 #include "../date.h"
 #include <vector>
 #include <list>
@@ -78,7 +79,7 @@ public:
 };
 
 class Voyage{
-    //std::vector<Ticket*> tickets;
+    std::vector<Ticket*> tickets;
     std::list<Flight*> route;
 public:
     /**Constructor*/
@@ -87,9 +88,8 @@ public:
         route.push_back(f);
     }
     /**Getters*/
-    /*std::vector<Ticket*> getTickets() const{
+    std::vector<Ticket*> getTickets() const{
         return tickets;};
-    */
     std::list<Flight*> getRoute(){
         return route;};
     Airport* getOrigin() const{
@@ -97,12 +97,12 @@ public:
     Airport* getDestination() const{
         return route.back()->getDestination();};
     /**Setters*/
-    /*void setTrickets(std::list<Ticket*> t){
-        tickets = t;};*/
+    void setTrickets(std::vector<Ticket*> t){
+        tickets = t;};
     void setRoute(std::list<Flight*> r){
         route = std::move(r);};
     /**Adders*/
-    //bool addTicket(Ticket* t);
+    bool addTicket(Ticket* t);
     bool addFlight(Flight* f);
     bool addConnection(Connection* c); //gotta finish this one
     void printRoute(std::ostream& out) const;

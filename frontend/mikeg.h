@@ -3,8 +3,77 @@
 #define MAIN_CPP_MIKEG_H
 
 #include <iostream>
+#include <fstream>
 #include "airport.h"
 #include "voyage.h"
+
+/**Exceptino classes*/
+class DevLog {
+    std::string error;
+public:
+    DevLog(std::string e) : error(e) {};
+    void print() const;
+};
+
+class LoadAirportFail{
+    std::string error;
+public:
+    LoadAirportFail():
+            error("Failed to load airports"){};
+    void print(ostream& out){
+        out << error << '\n';
+    }
+};
+
+class LoadVoyageFail{
+    std::string error;
+public:
+    LoadVoyageFail():
+            error("Failed to load voyages"){};
+    void print(ostream& out){
+        out << error << '\n';
+    }
+};
+
+class LoadFlightFail{
+    std::string error;
+public:
+    LoadFlightFail():
+            error("Failed to load flights"){};
+    void print(ostream& out){
+        out << error << '\n';
+    }
+};
+
+class LoadPlaneFail{
+    std::string error;
+public:
+    LoadPlaneFail():
+            error("Failed to load planes"){};
+    void print(ostream& out){
+        out << error << '\n';
+    }
+};
+
+class LoadTicketFail{
+    std::string error;
+public:
+    LoadTicketFail():
+            error("Failed to load tickets"){};
+    void print(ostream& out){
+        out << error << '\n';
+    }
+};
+
+class LogOut{
+    std::string message;
+public:
+    LogOut(): message("Logging Out"){};
+    void print() const{
+        std::cout << message << '\n';
+    }
+};
+
 
 /**
  * Class to load and pass the objects of the airline
@@ -14,6 +83,7 @@ class MikeG{
     std::vector<Voyage*> voyages;
     std::vector<Flight*> flights;
     std::vector<Plane*> planes;
+    std::vector<Ticket*> tickets;
 public:
     /**Constructor*/
     MikeG(){
@@ -21,6 +91,7 @@ public:
         voyages.clear();
         flights.clear();
         planes.clear();
+        tickets.clear();
     }
     /**Getters*/
     std::vector<Airport*> getAirport() const{
@@ -31,6 +102,9 @@ public:
         return flights;};
     std::vector<Plane*> getPlanes() const{
         return planes;};
+    std::vector<Ticket*> getTickets() const{
+        return tickets;
+    }
     //need to add remaining classes
     /**Modifiers*/
     bool addAirport(Airport* a){
@@ -69,23 +143,25 @@ public:
         planes.push_back(p);
         return true;
     }
-};
-
-/**Exceptino classes*/
-class DevLog {
-    std::string error;
-public:
-    DevLog(std::string e) : error(e) {};
-    void print() const;
-};
-
-class LogOut{
-    std::string message;
-public:
-    LogOut(): message("Logging Out"){};
-    void print() const{
-        std::cout << message << '\n';
+    bool addTicket(Ticket* t) {
+        if (!flights.empty()) {
+            for (auto it : tickets) {
+                if (it == t) return false;
+            }
+        }
+        tickets.push_back(t);
+        return true;
     }
+    /**Load/Save*/
+    bool save() const;
+    bool loadAirport();
+    bool loadVoyage();
+    bool loadFlight();
+    bool loadPlane();
+    bool loadTicket();
+    bool load();
 };
+
+
 
 #endif //MAIN_CPP_MIKEG_H
