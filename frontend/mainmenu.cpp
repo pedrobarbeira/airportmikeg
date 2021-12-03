@@ -5,9 +5,7 @@
 std::string DEV = "c3n4";   //Password for the hidden Developer Menu.
 int DEVSIZE = 9;           //Size of the --dev c3n4 line
 
-/**
- * Main Menu Interface
- */
+
 void menu(MikeG* mg){
     Time today;
     char c;
@@ -24,7 +22,7 @@ void menu(MikeG* mg){
         try {
             switch (c) {
                 case '1': company(mg);break;
-                case '2': clients; break;
+                case '2': clients(mg); break;
                 case '0': return;
                 case '-': if (checkDev()) {dev();break;}
                 default: std::cout << "Invalid Option\n";
@@ -36,6 +34,7 @@ void menu(MikeG* mg){
         }
     }
 }
+
 
 void company(MikeG* mg){
     char c, type;
@@ -73,19 +72,44 @@ void company(MikeG* mg){
     }
 }
 
-/**
- * Interface for the hidden Developer Inferface
- */
+void clients(MikeG* mg){
+    std::cout << "Clients Menu\n";
+    system("pause");
+}
+
 void dev(){
     char c;
+    bool ohBoy;
     while(true) {
         system("CLS");
-        std::cout << "This is the Dev menu\n"
-                  << "\n\t[0] Back\n"
-                  <<"\n$";
+        ohBoy = newErrors();
+        std::cout << "[DEV]\n";
+        if(ohBoy) {
+            std::cout << "\nWarning: Some stuff went south\n"
+                      << "\n    [1] New Error List"
+                      << "\n    [2] Full Error List";
+        }
+        else {
+            std::cout << "\nThere aren't any new errors\n"
+                      << "\n    [1] Error List";
+        }
+         std::cout << "\n    [0] Back\n"
+                   << "\n>";
         std::cin >> c;
         switch(c){
-            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '1':
+                if(ohBoy) {
+                    std::cout << "Placeholder\n";
+                    system("pause");
+                }else {
+                    std::cout << "Do something\n";
+                } break;
+            case '2':
+                if(!ohBoy) continue;
+                else {
+                    std::cout << "Do Something\n"; break;
+                }
+            case 'q':
             case '0': return;
             default: std::cout << "Invalid Option\n";
                 system("pause");
@@ -94,10 +118,23 @@ void dev(){
     }
 }
 
-/**
- * Checks if user is a Dev upon --dev call
- * @return true if yes, false otherwise
- */
+bool newErrors(){
+    std::ifstream infile("./data/devlogs.txt");
+    if(!infile.is_open()) {
+        std::cout << "Something went VERY wrong - there is no devlogs.txt"
+                  << "\nLight the beacons! Call for aid!\n";
+        return false;
+    }
+    else{
+        std::string line;
+        while(getline(infile, line)) {
+            if (line[0] == '*') return true;
+        }
+        return false;
+    }
+}
+
+
 bool checkDev() {
     std::string in;
     std::getline(std::cin, in);
@@ -108,11 +145,7 @@ bool checkDev() {
     return false;
 }
 
-/**
- * Interface function that validates login data
- * @param c acts has a three-way flag: 'a' for admins, 'w' for workers and 'c' for clients
- * @return true if login is valid, false otherwise
- */
+
 bool login(char c, char& type){
     bool authorized;
     authorized = checkCredentials(c, type);
@@ -120,15 +153,10 @@ bool login(char c, char& type){
         std::cout << "Invalid Credentials\n";
         return authorized;
     }
-    else std::cout << "Login Accepted\n"; return authorized;
+    else std::cout << "\nLogin Accepted\n\n"; return authorized;
 }
 
-/**
- * Checks data in the respective credential folder, determined by the value of c.
- * Validates them and returns an integer code.
- * @param c 'a' for admins, 'w' for workers, 'c' for clients
- * @return 0 upon failure, 1 upon success, 2 upon file error
- */
+
 bool checkCredentials(char c, char& type){
     system("CLS");
     std::ifstream infile;
@@ -156,7 +184,7 @@ bool checkCredentials(char c, char& type){
         else std::getline(infile, check);
     }
 
-    if(!found) return 0;
+    if(!found) return false;
     else {
         std::cout << "Password:\n>";
         std::cin >> pass;
@@ -169,11 +197,3 @@ bool checkCredentials(char c, char& type){
     }
 }
 
-/**
- * Stores special system error messages into the DevLogs file, so the company's
- * IT guy can keep it tidy and safe
- */
-void DevLog::print() const{
-    std::ofstream outfile("./data/devlogs.txt");
-    outfile << "*" << error << '\n';
-}

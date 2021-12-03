@@ -26,7 +26,7 @@ public:
     string getidCode();
     string getName ();
     string getCountry();
-    string getCity;
+    string getCity();
     void setTransport (class Transport &transport);
     void delTransport (class Transport &transport);
     void addService (class Service &service);

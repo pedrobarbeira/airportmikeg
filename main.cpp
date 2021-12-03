@@ -49,7 +49,8 @@ void testMenu(){
 
     main->addFlight(f1);
 
-    travel(main);
+    menu(main);
+
 }
 
 /**
@@ -80,6 +81,7 @@ void testInterface(){
 }
 
 int main(){
+
     testInterface();
 
     return 0;

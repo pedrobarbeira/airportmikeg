@@ -11,6 +11,13 @@ void Flight::print(ostream& out) const{
 }
 
 /**Voyage*/
+bool Voyage::addTicket(Ticket* t){
+    for(auto it : tickets){
+        if (it == t) return false;
+    }
+    tickets.push_back(t);
+    return true;
+}
 bool Voyage::addFlight(Flight* f){
     std::list<Flight*>::iterator it = route.begin();
     if(f->getDestination() == (*it)->getOrigin()) {

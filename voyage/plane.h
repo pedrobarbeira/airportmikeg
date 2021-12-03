@@ -5,47 +5,86 @@
 #include <iostream>
 #include <vector>
 
-class Classe;
-
-class Plane{
-    std::string plate;
-    uint16_t capacity;
-    std::vector<std::string> types;
-    std::vector<Classe*> classes;
-};
-
-class Classe{
-    char type;
+class Class{
+protected:
     uint16_t price;
+    char type;
 public:
     /**Constructors*/
-    Classe(char t = '\0', uint16_t p = 0):
-        type(t), price(p){};
-    Classe(const Classe& c):
-    type(c.type), price(c.price){};
+    explicit Class(uint16_t p = 0): price(p){};
+    explicit Class(const Class& c): price(c.price){};
     /**Getters*/
-    std::string getType() const{
-        std::string ret = "";
-        switch(type) {
-            case 'F': ret = "First"; break;
-            case 'B': ret = "Business"; break;
-            case 'E': ret = "Economy"; break;
-            default: ret = "Invalid"; break;
-        }
-        return ret + " Class";
-    };
     uint16_t getPrice() const{
         return price;};
+    char getType() const{
+        return type;};
     /**Setters*/
-    void setType(char t){
-        type = t;};
     void setPrice(uint16_t p){
         price = p;};
 };
 
-class PaperPlane: public Plane{
-    bool seats[1][1];
+class FirstClass : public Class{
+public:
+    /**Constructor*/
+    explicit FirstClass(uint16_t p = 0){
+        type = 'F';
+        price = p;
+    }
 };
+
+class BusinessClass : public Class{
+public:
+    /**Constructor*/
+    explicit BusinessClass(uint16_t p = 0){
+        type = 'B';
+        price = p;
+    };
+};
+
+class EconomyClass : public Class{
+public:
+    /**Constructor*/
+    explicit EconomyClass(uint16_t p = 0){
+        type = 'E';
+        price = p;
+    };
+};
+
+class Plane{
+    std::string plate;
+    uint16_t capacity;
+    std::vector<Class*> classes;
+    bool grounded;
+public:
+    /**Constructors*/
+    Plane(): plate(""), capacity(0), grounded(true){
+        classes.clear();
+    };
+    Plane(std::string p, uint16_t c):
+        plate(std::move(p)), capacity(c), grounded(true){
+        classes.clear();
+    };
+    Plane(std::string p, uint16_t c, std::vector<Class*> v):
+        plate(p), capacity(c), grounded(true), classes(v){};
+    /**Getters*/
+    std::string getPlate() const{
+        return plate;};
+    uint16_t getCapacity() const{
+        return capacity;};
+    std::vector<Class*> getClasses() const{
+        return classes;};
+    bool isGrounded() const{
+        return grounded;};
+    /**Setters*/
+    void setPlate(std::string p){
+        plate = std::move(p);};
+    void setCapacity(uint16_t c){
+        capacity = c;};
+    void setClasses(std::vector<Class*> c){
+        std::swap(classes, c);};
+};
+
+
 
 
 #endif //AIPORTMIKEG_PLANE_H
