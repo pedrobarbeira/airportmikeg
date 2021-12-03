@@ -1,6 +1,15 @@
 #include "passenger.h"
+using namespace std;
 
-//-  nome: string
-//+ bilhete: voo(class)
-//+ bagagem vector<bagagem>
-//+ check in : bool
+Passenger::Passenger(string nome, bool checkinpass) {
+    this->name=name;
+    this->checkinpass= false;
+}
+
+string Passenger::getName() const{
+    return name;
+}
+
+bool Passenger::getCheckinpass() const {
+    return checkinpass;
+}

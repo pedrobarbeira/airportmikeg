@@ -9,13 +9,14 @@ class Luggage {
 public:
     Luggage(unsigned int weightlugg, bool checkinlugg);
 
-    int getWeight();
+    int getWeight() const;
 
-    bool getCheckinlugg();
+    bool getCheckinlugg() const;
 
     void setWeight(unsigned int weightlugg);
 
-    void setCheckinlugg();
+    void setCheckinlugg(bool ch){
+        checkinlugg=ch;};
 
 };
 

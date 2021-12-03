@@ -1,16 +1,16 @@
 #include "luggage.h"
 
-Luggage::Luggage(unsigned int weightlugg, bool checkinlugg){
-    this->weight=weightlugg;
+Luggage::Luggage(unsigned int weight, bool checkinlugg){
+    this->weight=weight;
     this->checkinlugg=checkinlugg;
 
 }
 
-int Luggage::getWeight(){
+int Luggage::getWeight() const{
     return weight;
 }
 
-bool Luggage::getCheckinlugg(){
+bool Luggage::getCheckinlugg() const{
     return checkinlugg;
 }
 

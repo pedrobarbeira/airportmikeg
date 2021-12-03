@@ -4,18 +4,21 @@
 #include <vector>
 #include "luggage.h"
 
-class Passenger{
-    std::string nome;
-    bool checkinpass;
-    std::vector<Luggage*> luggage;
-public:
+using namespace std;
 
+
+class Passenger{
+    string name;
+    bool checkinpass;
+    vector<Luggage*> luggage;
+public:
+    Passenger(string name, bool checkinpass);
+    string getName() const;
+    bool getCheckinpass() const;
+    void setName(string name2){name=name2;}
+    void setCheckinpass(bool cp){
+        checkinpass=cp;};
 };
 
+
 #endif //MIKEGAIRLINES_PASSENGER_H
-
-
-//-  nome: string
-//+ bilhete: voo(class)
-//+ bagagem vector<bagagem>
-//+ check in : bool
