@@ -11,8 +11,12 @@ protected:
     char type;
 public:
     /**Constructors*/
-    explicit Class(uint16_t p = 0): price(p){};
-    explicit Class(const Class& c): price(c.price){};
+    explicit Class(uint16_t p = 0): price(p){
+        type = '\0';
+    };
+    explicit Class(const Class& c): price(c.price){
+        type = '\0';
+    };
     /**Getters*/
     uint16_t getPrice() const{
         return price;};
