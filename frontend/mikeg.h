@@ -11,7 +11,11 @@
 class DevLog {
     std::string error;
 public:
-    DevLog(std::string e) : error(e) {};
+    DevLog(std::string e) : error(std::move(e)) {};
+    /**
+     * Stores special system error messages into the DevLogs file, so the company's
+     * amazing and much valued "IT guy" can keep everything running smoothly
+     */
     void print() const;
 };
 
@@ -69,6 +73,7 @@ class LogOut{
     std::string message;
 public:
     LogOut(): message("Logging Out"){};
+
     void print() const{
         std::cout << message << '\n';
     }

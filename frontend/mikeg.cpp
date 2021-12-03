@@ -32,3 +32,9 @@ bool MikeG::load(){
     if(!loadTicket()) throw LoadTicketFail();
     return true;
 }
+
+void DevLog::print() const{
+    std::ofstream outfile("./data/devlogs.txt");
+    outfile << "*" << error << '\n';
+    outfile.close();
+}
