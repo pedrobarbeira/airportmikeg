@@ -10,7 +10,7 @@ void menu(MikeG* mg){
     char c;
     while(true) {
         mg->setSysTime();
-        system("CLS");
+        system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
         mg->getTime()->print(std::cout);
         std::cout << "\n    [1] Company"
@@ -25,7 +25,7 @@ void menu(MikeG* mg){
                 case '0': return;
                 case '-': if (checkDev()) {dev();break;}
                 default: std::cout << "Invalid Option\n";
-                    system("pause");
+                    int c = getchar();
             }
         }
         catch(DevLog e){
@@ -38,7 +38,7 @@ void company(MikeG* mg){
     char c, type;
     bool access = false;
     while(true) {
-        system("CLS");
+        system(CLEAR);
         std::cout << "[COMPANY]\n"
                   << "\n    [1] Log In"
                   << "\n    [0] Back\n"
@@ -65,21 +65,21 @@ void company(MikeG* mg){
     }
     catch (LogOut lo){
         lo.print();
-        system("pause");
+        int c = getchar();
         return;
     }
 }
 
 void clients(MikeG* mg){
     std::cout << "Clients Menu\n";
-    system("pause");
+    int c = getchar();
 }
 
 void dev(){
     char c;
     bool ohBoy;
     while(true) {
-        system("CLS");
+        system(CLEAR);
         ohBoy = newErrors();
         std::cout << "[DEV]\n";
         if(ohBoy) {
@@ -98,7 +98,7 @@ void dev(){
             case '1':
                 if(ohBoy) {
                     std::cout << "Placeholder\n";
-                    system("pause");
+                    int c = getchar();
                 }else {
                     std::cout << "Do something\n";
                 } break;
@@ -110,9 +110,9 @@ void dev(){
             case 'q':
             case '0': return;
             default: std::cout << "Invalid Option\n";
-                system("pause");
+                int c = getchar();
         }
-        system("pause");
+        int c = getchar();
     }
 }
 
@@ -153,7 +153,7 @@ bool login(char c, char& type){
 }
 
 bool checkCredentials(char c, char& type){
-    system("CLS");
+    system(CLEAR);
     std::ifstream infile;
     std::string fileName = "./data/";
     switch(c){

@@ -1,6 +1,6 @@
 //Created by Pedro Barbeira (up201303693)
 #include "company.h"
-
+#include "mainmenu.h"
 /**
  * Admin Menu Interface
  */
@@ -8,7 +8,7 @@ void admin(MikeG* mg){
     char c;
     //Shows real ADMIN menu after user has proven his identity
     while(true) {
-        system("CLS");
+        system(CLEAR);
         std::cout << "[ADMIN]\n"
                   << "\n    [1] Airport Management"
                   << "\n    [2] Worker Management"
@@ -48,7 +48,7 @@ void worker(){
 void travel(MikeG* mg){
     char c;
     while(true) {
-        system("CLS");
+        system(CLEAR);
         std::cout << "[TRAVEL]\n";
         std::cout << "\n    [1] Voyage"
                   << "\n    [2] Flight"
@@ -63,7 +63,7 @@ void travel(MikeG* mg){
             case '0': return;
             case 'Q':
             case 'q': throw LogOut(); break;
-            default: std::cout << "Invalid Option\n"; system("pause");
+            default: std::cout << "Invalid Option\n"; int c = getchar();
         }
     }
 }
@@ -84,7 +84,7 @@ void voyage(){
     char c;
     while(true) {
         //Insert display of all voyages
-        system("CLS");
+        system(CLEAR);
         std::cout << "[ADMIN]\n"
                   << "\n    [1] Create"
                   << "\n    [2] Change"
@@ -101,7 +101,7 @@ void voyage(){
             case 'q': throw LogOut(); break;
             default: std::cout << "Invalid Option\n";
         }
-        system("pause");
+        int c = getchar();
     }
 }
 
@@ -119,7 +119,7 @@ void flight(){
     char c;
     while(true) {
         //Insert display of all flights
-        system("CLS");
+        system(CLEAR);
         std::cout << "[ADMIN]\n"
                   << "\n    [1] Create"
                   << "\n    [2] Change"
@@ -136,7 +136,7 @@ void flight(){
             case 'q': throw LogOut(); break;
             default: std::cout << "Invalid Option\n";
         }
-        system("pause");
+        int c = getchar();
     }
 }
 
@@ -157,15 +157,15 @@ void plane(){
 void workers(){
     char c;
     while(true) {
-        system("CLS");
+        system(CLEAR);
         std::cout << "This is the Worker menu\n"
                   << "\n\t[0] Back\n"
                   <<"\n$";
         std::cin >> c;
         switch(c){
-            case '1': std::cout << "Placeholder\n"; system("pause"); break;
+            case '1': std::cout << "Placeholder\n"; c = getchar();; break;
             case '0': return;
-            default: std::cout << "Invalid Option\n"; system("pause");
+            default: std::cout << "Invalid Option\n"; c = getchar();;
         }
     }
 }

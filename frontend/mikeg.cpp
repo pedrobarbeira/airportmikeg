@@ -3,6 +3,7 @@
 #include "mikeg.h"
 
 bool MikeG::save() const {
+    return true;
 }
 
 bool MikeG::loadAirport(){return true;}

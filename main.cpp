@@ -71,7 +71,7 @@ void testMenu(){
  */
 void testInterface(){
     while(true) {
-        system("CLS");
+        system(CLEAR);
         char c;
         std::cout << "[RunTests]\n"
                   << "\n\t[1] Airport"

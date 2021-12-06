@@ -7,7 +7,7 @@
 void clients(){
     char c;
     while(true) {
-        system("CLS");
+        system(CLEAR);
         std::cout << "This is the Client menu\n"
                   << "\n\t[0] Back\n"
                   <<"\n$";
@@ -16,8 +16,8 @@ void clients(){
             case '1': std::cout << "Placeholder\n"; system("pause"); break;
             case '0': return;
             default: std::cout << "Invalid Option\n";
-                system("pause");
+                int c = getchar();
         }
-        system("pause");
+        int c = getchar();
     }
 }
