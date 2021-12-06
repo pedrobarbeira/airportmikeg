@@ -1,6 +1,7 @@
 //Created by Pedro Barbeira
 #include "flight.h"
 
+/**Flight*/
 Flight::~Flight(){
     delete origin;
     delete destination;
@@ -8,7 +9,6 @@ Flight::~Flight(){
     delete arrival;
 }
 
-/**Flight*/
 void Flight::print(ostream& out) const{
     out << setw(10) << left << setfill(' ') << flightID
         << setw(9) << left << origin->getidCode()

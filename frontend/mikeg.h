@@ -84,6 +84,7 @@ public:
  * Class to load and pass the objects of the airline
  */
 class MikeG{
+    Time* sysTime;
     std::vector<Airport*> airports;
     std::vector<Voyage*> voyages;
     std::vector<Flight*> flights;
@@ -92,6 +93,7 @@ class MikeG{
 public:
     /**Constructor*/
     MikeG(){
+        sysTime = new Time;
         airports.clear();
         voyages.clear();
         flights.clear();
@@ -99,6 +101,8 @@ public:
         tickets.clear();
     }
     /**Getters*/
+    Time* getTime() const{
+        return sysTime;};
     std::vector<Airport*> getAirport() const{
         return airports;};
     std::vector<Voyage*> getVoyages() const{
@@ -112,6 +116,8 @@ public:
     }
     //need to add remaining classes
     /**Modifiers*/
+    void setSysTime(){
+        sysTime->now();};
     bool addAirport(Airport* a){
         if(!airports.empty()) {
             for (auto it : airports) {

@@ -2,6 +2,7 @@
 
 #include "plane.h"
 
+/**Seat*/
 Seat::Seat(std::string row, int column, Class* c){
     id = "    ";
     if(row.length() == 1){
@@ -17,10 +18,12 @@ Seat::Seat(std::string row, int column, Class* c){
     free = true;
     classe = c;
 }
+
 Seat::~Seat(){
     delete classe;
 }
 
+/**Plane*/
 Plane::~Plane(){
     for(auto it : classes)
         delete it;
@@ -28,6 +31,7 @@ Plane::~Plane(){
         for(auto seat: it)
             delete seat;
 }
+
 int Plane::freeSeatNum() const{
     int count = 0;
     for(int i = 0; i < seatRows; i++){
@@ -76,18 +80,7 @@ bool Plane::bookSeat(std::string code){
     else return false;
 }
 
-std::string getRowLetter(int i){
-    std::string ret;
-    if (i <= 26) ret = char(i + 'A');
-    else ret = char((i / 26) + 'A') + char((i%26) + 'A');
-    return ret;
-}
-
-int getLetterRow(std::string l){
-    if(l.length() == 1) return l[0] - 'A';
-    else return (l[0] - 'A') * LETTER_MAX + (l[1] - 'A');
-}
-
+/**Airbus*/
 Airbus::Airbus(std::string p, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first) {
     plate = std::move(p);
     seatRows = 26;
@@ -114,4 +107,17 @@ Airbus::Airbus(std::string p, uint16_t fClassPrice, uint16_t eClassPrice, std::q
         load.clear();
     }
 
+}
+
+/**Helpers*/
+std::string getRowLetter(int i){
+    std::string ret;
+    if (i <= 26) ret = char(i + 'A');
+    else ret = char((i / 26) + 'A') + char((i%26) + 'A');
+    return ret;
+}
+
+int getLetterRow(std::string l){
+    if(l.length() == 1) return l[0] - 'A';
+    else return (l[0] - 'A') * LETTER_MAX + (l[1] - 'A');
 }

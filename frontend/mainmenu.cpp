@@ -3,17 +3,16 @@
 #include "mainmenu.h"
 
 std::string DEV = "c3n4";   //Password for the hidden Developer Menu.
-int DEVSIZE = 9;           //Size of the --dev c3n4 line
+int DEVSIZE = 9;            //Size of the --dev c3n4 line
 
 
 void menu(MikeG* mg){
-    Time today;
     char c;
     while(true) {
-        today.now();
+        mg->setSysTime();
         system("CLS");
         std::cout << "[MikeG Airlines]\t\t\t";
-        today.print(std::cout);
+        mg->getTime()->print(std::cout);
         std::cout << "\n    [1] Company"
                   << "\n    [2] Customer\n"
                   << "\n    [0] Exit\n"
@@ -34,7 +33,6 @@ void menu(MikeG* mg){
         }
     }
 }
-
 
 void company(MikeG* mg){
     char c, type;
@@ -134,7 +132,6 @@ bool newErrors(){
     }
 }
 
-
 bool checkDev() {
     std::string in;
     std::getline(std::cin, in);
@@ -145,7 +142,6 @@ bool checkDev() {
     return false;
 }
 
-
 bool login(char c, char& type){
     bool authorized;
     authorized = checkCredentials(c, type);
@@ -155,7 +151,6 @@ bool login(char c, char& type){
     }
     else std::cout << "\nLogin Accepted\n\n"; return authorized;
 }
-
 
 bool checkCredentials(char c, char& type){
     system("CLS");

@@ -116,7 +116,6 @@ public:
     std::vector<std::vector<Seat*>> getSeats() const{
         return seats;};
     int freeSeatNum() const;
-    void showSeats() const;
     /**Setters*/
     void setPlate(std::string p){
         plate = std::move(p);};
@@ -125,6 +124,12 @@ public:
     void setClasses(std::vector<Class*> c){
         std::swap(classes, c);};
     bool bookSeat(std::string code);
+
+    void takeOff(){
+        grounded = false;};
+    void land(){
+        grounded = true;};
+    void showSeats() const;
 };
 
 class Airbus : public Plane {

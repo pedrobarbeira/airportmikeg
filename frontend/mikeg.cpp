@@ -3,15 +3,6 @@
 #include "mikeg.h"
 
 bool MikeG::save() const {
-    std::ofstream outfile;
-    //save airports
-    outfile.open("./data/airports.txt");
-    if(!outfile.is_open()) throw DevLog("[mikeg.cpp/save] Error opening ./data/airports.txt");
-    for(auto it: airports)
-        //outfile << it->getidCode() << ',' << it->getName() << ',' << it->getCountry() << ',' << it->getCity();
-    outfile.close();
-    //save planes
-    return true;
 }
 
 bool MikeG::loadAirport(){return true;}

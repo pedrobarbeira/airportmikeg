@@ -18,11 +18,9 @@ public:
         out << error << '\n';};
 };
 
-
-
-class Connection{  //Lets say we have porto-barcelona and want to insert a lisbon connection
-    Flight* in;     //We add porto-lisbon here
-    Flight* out;    //We add lisbon-barcelona here
+class Connection{
+    Flight* in;
+    Flight* out;
 public:
     Connection(Flight* i = nullptr, Flight* o = nullptr){
         if(i->getDestination() == o->getOrigin()) {
