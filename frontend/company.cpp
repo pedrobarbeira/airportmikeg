@@ -1,6 +1,6 @@
 //Created by Pedro Barbeira (up201303693)
 #include "company.h"
-#include "mainmenu.h"
+
 /**
  * Admin Menu Interface
  */

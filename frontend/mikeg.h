@@ -7,6 +7,12 @@
 #include "airport.h"
 #include "voyage.h"
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 /**Exceptino classes*/
 class DevLog {
     std::string error;
