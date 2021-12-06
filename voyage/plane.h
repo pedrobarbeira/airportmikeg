@@ -3,7 +3,11 @@
 #define AIPORTMIKEG_PLANE_H
 
 #include <iostream>
+#include <queue>
+#include <iomanip>
 #include <vector>
+
+static int LETTER_MAX = 26;
 
 class Class{
 protected:
@@ -54,11 +58,36 @@ public:
     };
 };
 
+class Seat {
+    std::string id;
+    bool free;
+    Class* classe;
+    friend class Plane;
+public:
+    /**Constructor*/
+    Seat(std::string row, int column, Class* classe);
+    ~Seat();
+    /*Getters*/
+    std::string getId() const{
+        return id;
+    }
+    bool isFree() const{
+        return free;
+    }
+    Class* getClass() const{
+        return classe;
+    }
+};
+
 class Plane{
+protected:
     std::string plate;
     uint16_t capacity;
     std::vector<Class*> classes;
     bool grounded;
+    int seatRows;
+    int seatsPerRow;
+    std::vector<std::vector<Seat*>> seats;
 public:
     /**Constructors*/
     Plane(): plate(""), capacity(0), grounded(true){
@@ -70,6 +99,7 @@ public:
     };
     Plane(std::string p, uint16_t c, std::vector<Class*> v):
         plate(p), capacity(c), grounded(true), classes(v){};
+    ~Plane();
     /**Getters*/
     std::string getPlate() const{
         return plate;};
@@ -79,6 +109,14 @@ public:
         return classes;};
     bool isGrounded() const{
         return grounded;};
+    int getRows() const{
+        return seatRows;};
+    int getColumns() const{
+        return seatsPerRow;};
+    std::vector<std::vector<Seat*>> getSeats() const{
+        return seats;};
+    int freeSeatNum() const;
+    void showSeats() const;
     /**Setters*/
     void setPlate(std::string p){
         plate = std::move(p);};
@@ -86,9 +124,16 @@ public:
         capacity = c;};
     void setClasses(std::vector<Class*> c){
         std::swap(classes, c);};
+    bool bookSeat(std::string code);
 };
 
+class Airbus : public Plane {
+public:
+    /**Constructor*/
+    Airbus(std::string p, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first);
+};
 
-
+std::string getRowLetter(int i);
+int getLetterRow(std::string l);
 
 #endif //AIPORTMIKEG_PLANE_H

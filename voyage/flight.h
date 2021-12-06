@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "airport.h"
-#include "../date.h"
+#include "../src/date.h"
 #include "plane.h"
 
 class Flight{
@@ -20,6 +20,7 @@ public:
             origin(o), destination(d), plane(p), departure(dep), arrival(arr){
         flightID = origin->getidCode() + destination->getidCode();
     }
+    ~Flight();
     /**Getters*/
     std::string getID() const{
         return flightID;};

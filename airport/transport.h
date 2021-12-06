@@ -6,7 +6,7 @@
 #define MIKEGAIRLINES_TRANSPORT_H
 
 #include <iostream>
-#include "../date.h"
+#include "../src/date.h"
 #include <list>
 
 using namespace std;

@@ -1,16 +1,18 @@
 //Created by Pedro Barbeira (up201303693;
 #include "voyage.h"
 
-/**Flight*/
-void Flight::print(ostream& out) const{
-    out << setw(10) << left << setfill(' ') << flightID
-        << setw(9) << left << origin->getidCode()
-        << setw(10) << left << destination->getidCode();
-    //finish with airport and plane
-    std::cout << '\n';
+Connection::~Connection(){
+    delete in;
+    delete out;
 }
 
 /**Voyage*/
+Voyage::~Voyage(){
+    for (auto ticket: tickets)
+        delete ticket;
+    for (auto flight : route)
+        delete flight;
+}
 bool Voyage::addTicket(Ticket* t){
     for(auto it : tickets){
         if (it == t) return false;

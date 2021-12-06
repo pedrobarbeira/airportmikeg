@@ -6,7 +6,7 @@
 #include "flight.h"
 #include "airport.h"
 #include "ticket.h"
-#include "../date.h"
+#include "../src/date.h"
 #include <vector>
 #include <list>
 
@@ -31,6 +31,7 @@ public:
         }
         else throw InvalidConnection();
     }
+    ~Connection();
     Flight* getIn() const{
         return in;};
     Flight* getOut() const{
@@ -46,6 +47,7 @@ public:
         //tickets.clear();
         route.push_back(f);
     }
+    ~Voyage();
     /**Getters*/
     std::vector<Ticket*> getTickets() const{
         return tickets;};
