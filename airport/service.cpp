@@ -6,7 +6,7 @@
 
 Service::Service(Plane *plane){
     responsible = nullptr;
-    Time* time;
+    Time* time = new Time;
     time->now();
     created = *time;
 }
@@ -18,7 +18,7 @@ Service::Service(Plane *plane, Date date){
 }
 
 Service::Service(Plane *plane, Staff *staff) {
-    Time* time;
+    Time* time = new Time;
     time->now();
     created = *time;
     responsible = staff;

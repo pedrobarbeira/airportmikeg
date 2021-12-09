@@ -4,23 +4,23 @@
  * Airport-related testing
  */
 
-void testAirport(){/*
+void testAirport(){
 
 
     Airport porto("OPO", "Sá Carneiro", "Portugal", "Porto" );
-    Plane plane;
-    Staff staff1("Manel");
+    Plane *plane = new Plane;
+    Staff *staff1 = new Staff("Manel");
+    Cleaning *cle1 = new Cleaning(plane);
+    Cleaning *cle2 = new Cleaning(plane);
     Date date1(30, 11, 21);
     Date date2(1, 12, 21);
-    Cleaning cle1(plane);
-    cle1.setResponsible(staff1);
+    (*cle1).setResponsible(staff1);
     porto.addService(cle1);
-    Service cle2(plane);
     Service cle3(plane, date2, staff1);
     porto.addService(cle2);
     porto.delService(date2);
 
-*/}
+}
 
 /**
  * Voyage-related testing
@@ -95,6 +95,7 @@ void testInterface(){
 }
 
 int main(){
+    testAirport();
 
     testInterface();
 

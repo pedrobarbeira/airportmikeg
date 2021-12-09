@@ -33,7 +33,7 @@ public:
 
 
 
-class Cleaning : Service{
+class Cleaning : public Service{
     bool wc = false;
     bool seats = false;
     bool floor = false;
@@ -49,7 +49,7 @@ public:
 
 };
 
-class Maintenance : Service{
+class Maintenance : public Service{
     bool engine = false;
     bool landTrain = false;
     bool controls = false;
