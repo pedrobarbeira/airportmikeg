@@ -6,57 +6,61 @@
 #define MIKEGAIRLINES_SERVICE_H
 
 #include <iostream>
+#include "plane.h"
+#include "staff.h"
 #include "../src/date.h"
 
 
 using namespace std;
 
 class Service{
-    class Plane *plane;
-    class Staff *responsible;
-    class Date* created;
-    class Date* completed;
+    Plane *plane;
+    Staff *responsible;
+    Date created;
+    Date completed;
 
 
 public:
-    Service(Plane &plane);
-    Service(Plane &plane, Date* date);
-    Service(Plane &plane, Staff &staff);
-    Service(Plane &plane, Date* date, Staff &staff);
-    void setResponsible (Staff* staff);
-    void setComplete (Date* date);
-    Staff* getResponsible();
+    Service(Plane *plane);
+    Service(Plane *plane, Date date);
+    Service(Plane *plane, Staff *staff);
+    Service(Plane *plane, Date date, Staff *staff);
+    virtual void setResponsible (Staff *staff);
+    virtual void setSchedule (Date date);
+    virtual void setComplete (Date date);
+    virtual Staff *getResponsible();
 };
 
 
 
-
-
-/*
 class Cleaning : Service{
-    queue<Date> scheduled;
-    queue<Date> completed;
-    Staff *responsible;
+    bool wc = false;
+    bool seats = false;
+    bool floor = false;
+    bool flightDeck = false;
 public:
-    Cleaning(Plane &plane);
-    Cleaning(Plane &plane, Date &date) ;
-    Cleaning(Plane &plane, Date &date, Staff &staff) ;
-    void setResponsible (Staff &staff);
-    void setScheduled (Date &date);
-    void setCompleted (Date &date);
+    Cleaning(Plane *plane);
+    Cleaning(Plane *plane, Date date) ;
+    Cleaning(Plane *plane, Date date, Staff *staff) ;
+    void setResponsible (Staff *staff) override;
+    void setSchedule (Date date) override;
+    void setComplete (Date date) override;
+    Staff* getResponsible() override;
 
 };
 
 class Maintenance : Service{
-    queue<Date*> scheduled;
-    queue<Date*> completed;
+    bool engine = false;
+    bool landTrain = false;
+    bool controls = false;
+    bool emergency = false;
 public:
-    Service(Plane plane);
-    Service(Plane plane, Date date);
-    Service (Plane plane, Date date, Staff staff);
-    void setResponsible (Staff staff);
-    void setScheduled (Date &date) override;
-    void setCompleted (Date &date) override;
+    Maintenance(Plane *plane);
+    Maintenance(Plane *plane, Date date);
+    Maintenance (Plane *plane, Date date, Staff *staff);
+    void setResponsible (Staff *staff) override;
+    void setSchedule (Date date) override;
+    void setComplete (Date date) override;
 };
-*/
+
 #endif //MIKEGAIRLINES_SERVICE_H

@@ -3,23 +3,24 @@
 /**
  * Airport-related testing
  */
-void testAirport(){
 
-/*
+void testAirport(){/*
+
+
     Airport porto("OPO", "Sá Carneiro", "Portugal", "Porto" );
     Plane plane;
     Staff staff1("Manel");
     Date date1(30, 11, 21);
     Date date2(1, 12, 21);
-    Service cle1(plane, date1);
+    Cleaning cle1(plane);
     cle1.setResponsible(staff1);
     porto.addService(cle1);
     Service cle2(plane);
     Service cle3(plane, date2, staff1);
     porto.addService(cle2);
-    porto.delService(date2);*/
+    porto.delService(date2);
 
-}
+*/}
 
 /**
  * Voyage-related testing
