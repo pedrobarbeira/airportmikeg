@@ -16,19 +16,19 @@ string Airport::getidCode(){
     return idName;
 }
 
-void Airport::setTransport(class Transport &transport) {
-    Airport::transport.push_back(&transport);
+void Airport::setTransport(Transport *transport) {
+    Airport::transport.push_back(transport);
 }
 
-void Airport::delTransport(class Transport &transport) {
-    this->transport.remove(&transport);
+void Airport::delTransport(Transport *transport) {
+    this->transport.remove(transport);
 }
 
-void Airport::addService(class Service &service) {
-    services.push(&service);
+void Airport::addService(Service *service) {
+    services.push(service);
 }
 
-void Airport::delService(class Date* date) {
+void Airport::delService(Date date) {
     services.front()->getResponsible();
     services.front()->setComplete(date);
     services.pop();

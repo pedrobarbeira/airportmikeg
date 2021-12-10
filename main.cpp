@@ -3,21 +3,22 @@
 /**
  * Airport-related testing
  */
+
 void testAirport(){
 
-/*
+
     Airport porto("OPO", "Sá Carneiro", "Portugal", "Porto" );
-    Plane plane;
-    Staff staff1("Manel");
+    Plane *plane = new Plane;
+    Staff *staff1 = new Staff("Manel");
+    Cleaning *cle1 = new Cleaning(plane);
+    Cleaning *cle2 = new Cleaning(plane);
     Date date1(30, 11, 21);
     Date date2(1, 12, 21);
-    Service cle1(plane, date1);
-    cle1.setResponsible(staff1);
+    (*cle1).setResponsible(staff1);
     porto.addService(cle1);
-    Service cle2(plane);
     Service cle3(plane, date2, staff1);
     porto.addService(cle2);
-    porto.delService(date2);*/
+    porto.delService(date2);
 
 }
 
@@ -25,7 +26,19 @@ void testAirport(){
  * Voyage-related testing
  */
 void testVoyage() {
+<<<<<<< HEAD
     
+=======
+    std::queue<std::string> first;
+    first.push("A");
+    first.push("J");
+    Airbus *a = new Airbus("A523", 100, 150, first);
+
+    std::cout << a->freeSeatNum() << '\n';
+    if(a->bookSeat("A03")) std::cout << a->freeSeatNum() << '\n';
+
+    a->showSeats();
+>>>>>>> 05f12de725c9009818d6ca9b272049c7ed8f7c53
 }
 
 /**
@@ -83,7 +96,10 @@ void testInterface(){
 }
 
 int main(){
-
+    testAirport();
+    //testVoyage();
+    //testPassenger();
+    //testMenu();
     testInterface();
 
     return 0;

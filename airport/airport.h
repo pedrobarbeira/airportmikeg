@@ -6,11 +6,11 @@
 #define MIKEGAIRLINES_AIRPORT_H
 
 #include <iostream>
-//#include "mainmenu.h"
 #include"transport.h"
 #include"service.h"
 #include<list>
 #include<queue>
+#include"../src/date.h"
 
 using namespace std;
 
@@ -27,10 +27,10 @@ public:
     string getName ();
     string getCountry();
     string getCity();
-    void setTransport (class Transport &transport);
-    void delTransport (class Transport &transport);
-    void addService (class Service &service);
-    void delService (class Date* date);
+    void setTransport (Transport *transport);
+    void delTransport (Transport *transport);
+    void addService (Service *service);
+    void delService (Date date);
 };
 
 #endif //MIKEGAIRLINES_AIRPORT_H

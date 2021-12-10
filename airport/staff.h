@@ -6,21 +6,37 @@
 #define MIKEGAIRLINES_STAFF_H
 
 #include <iostream>
-#include "service.h"
 #include <list>
 
 
 using namespace std;
 
 class Staff{
+    unsigned id;
     string name;
-    list<Service*> history;
+    unsigned phone;
 public:
     Staff(string name);
-    void addHistory (Service &service);
-    void getName();
-    list<class Service*> getHistory ();
+    void setId(size_t id);
+    void setPhone (unsigned n);
+    string getName() const;
+    unsigned getPhone() const;
+    unsigned getId() const;
 };
+
+class InvalidNumber{
+private:
+    string e;
+public:
+    InvalidNumber(){
+        e = "Invalid number";
+    };
+    string getError() const{
+        return e;
+    }
+};
+
+
 
 #endif //MIKEGAIRLINES_STAFF_H
 
