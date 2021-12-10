@@ -35,9 +35,6 @@ void testVoyage() {
     if(a->bookSeat("A03")) std::cout << a->freeSeatNum() << '\n';
 
     a->showSeats();
-
-
-
 }
 
 /**
@@ -96,7 +93,9 @@ void testInterface(){
 
 int main(){
     testAirport();
-
+    //testVoyage();
+    //testPassenger();
+    //testMenu();
     testInterface();
 
     return 0;

@@ -46,12 +46,16 @@ public:
     void setSchedule (Date date) override;
     void setComplete (Date date) override;
     Staff* getResponsible() override;
-
+    void checkWc();
+    void checkSeats();
+    void checkFloor();
+    void checkFlightDeck();
+    bool verification() const;
 };
 
 class Maintenance : public Service{
     bool engine = false;
-    bool landTrain = false;
+    bool landGear = false;
     bool controls = false;
     bool emergency = false;
 public:
@@ -61,6 +65,23 @@ public:
     void setResponsible (Staff *staff) override;
     void setSchedule (Date date) override;
     void setComplete (Date date) override;
+    void checkEngine();
+    void checkLandGear();
+    void checkControls();
+    void checkEmergency();
+    bool verification() const;
 };
+
+class NoResponsible{
+    string e;
+public:
+    NoResponsible(){
+        e = "Must set Staff responsible first";
+    }
+    string getError() const{
+        return e;
+    }
+};
+
 
 #endif //MIKEGAIRLINES_SERVICE_H
