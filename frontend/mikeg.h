@@ -13,6 +13,12 @@
 #define CLEAR "clear"
 #endif
 
+class AirportFlightList{
+    Airport* aiport;
+    
+};
+
+
 /**Exceptino classes*/
 class DevLog {
     std::string error;

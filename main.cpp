@@ -25,18 +25,7 @@ void testAirport(){
  * Voyage-related testing
  */
 void testVoyage() {
-    std::queue<std::string> first;
-    first.push("A");
-    first.push("J");
-    Airbus *a = new Airbus("A523", 100, 150, first);
-
-    std::cout << a->freeSeatNum() << '\n';
-    if(a->bookSeat("A03")) std::cout << a->freeSeatNum() << '\n';
-
-    a->showSeats();
-
-
-
+    
 }
 
 /**

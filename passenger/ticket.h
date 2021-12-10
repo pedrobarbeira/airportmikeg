@@ -10,8 +10,6 @@ class Ticket {
     int number;
     string ticketID;
     Passenger* owner;
-
-
 public:
     Ticket(int number, string ticketID);
     int getNumber() const;
