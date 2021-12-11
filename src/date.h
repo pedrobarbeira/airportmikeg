@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <fstream>
 
+class Time;
+
 class Date{
 protected:
     uint16_t day;
@@ -30,6 +32,27 @@ public:
         month = m;};
     void setYear(uint16_t y){
         year = y;};
+    virtual bool operator==(const Date& rhs) const;
+    virtual bool operator==(const Time& rhs) const;
+    //bool operator<(const Date& rhs) const;
+    //bool operator<(const Time& rhs) const;
+    virtual bool operator!=(const Date& rhs) const{
+        if((*this) == rhs) return false;
+        else return true;
+    }
+    virtual bool operator!=(const Time& rhs) const{
+        if((*this) == rhs) return false;
+        else return true;
+    }
+    /*bool operator>(const Date& rhs) const {
+        if ((*this) < rhs) return false;
+        else return true;
+    }
+    bool operator>(const Time& rhs) const{
+        if((*this) < rhs) return false;
+        else return true;
+    }*/
+
 };
 
 class Time: public Date{
@@ -62,6 +85,17 @@ public:
     void setSecond(uint16_t s){
         second = s;};
     void now();
+    bool operator==(const Time& rhs) const override;
+    bool operator==(const Date& rhs) const override;
+    //bool operator<(const Time& rhs) const;
+    //bool operator<(const Date& rhs) const;
+    bool operator!=(const Time& rhs) const override{
+        if((*this) == rhs) return false;
+        else return true;
+    }
+    bool operator !=(const Date& rhs) const override{
+        return this->getDate() != rhs;
+    }
 
 };
 

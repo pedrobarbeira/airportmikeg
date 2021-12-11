@@ -84,3 +84,22 @@ void Time::now(){
     this->setMinute(min);
     this->setSecond(s);
 }
+
+bool Date::operator==(const Date& rhs) const{
+    return year == rhs.year && month == rhs.month && day == rhs.day;
+}
+
+bool Date::operator==(const Time& rhs) const{
+    return (*this) == rhs.getDate();
+}
+
+bool Time::operator==(const Time& rhs) const{
+    return this->getDate() == rhs.getDate() && hour == rhs.hour
+            && minute == rhs.minute && second == rhs.second;
+}
+
+bool Time::operator==(const Date& rhs) const{
+    return this->getDate() == rhs;
+}
+
+//put all operator definitions here

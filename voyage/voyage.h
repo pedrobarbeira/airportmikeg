@@ -10,25 +10,11 @@
 #include <vector>
 #include <list>
 
-class InvalidConnection{
-    std::string error;
-public:
-    InvalidConnection():error("Invalid Connection"){};
-    void print(std::ostream& out) const{
-        out << error << '\n';};
-};
-
 class Connection{
     Flight* in;
     Flight* out;
 public:
-    Connection(Flight* i = nullptr, Flight* o = nullptr){
-        if(i->getDestination() == o->getOrigin()) {
-            in = i;
-            out = o;
-        }
-        else throw InvalidConnection();
-    }
+    Connection(Flight* i = nullptr, Flight* o = nullptr);
     ~Connection();
     Flight* getIn() const{
         return in;};
@@ -67,5 +53,15 @@ public:
     void printRoute(std::ostream& out) const;
 
 };
+
+
+class InvalidConnection{
+    std::string error;
+public:
+    InvalidConnection():error("Invalid Connection"){};
+    void print(std::ostream& out) const{
+        out << error << '\n';};
+};
+
 
 #endif //AIPORTMIKEG_VOYAGE_H

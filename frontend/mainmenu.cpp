@@ -157,8 +157,8 @@ bool checkCredentials(char c, char& type){
     std::ifstream infile;
     std::string fileName = "./data/";
     switch(c){
-        case 'a': fileName += "company.txt"; break;
-        case 'b': fileName += "client.txt"; break;
+        case 'a': fileName += "users.txt"; break;
+        case 'b':
         default: std::cout << "Invalid Option\n";
             system("pause");
     }

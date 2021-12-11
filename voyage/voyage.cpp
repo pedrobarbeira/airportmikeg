@@ -1,6 +1,14 @@
 //Created by Pedro Barbeira (up201303693;
 #include "voyage.h"
 
+Connection::Connection(Flight *i, Flight *o) {
+        if(i->getDestination() == o->getOrigin()) {
+            in = i;
+            out = o;
+        }
+        else throw InvalidConnection();
+}
+
 Connection::~Connection(){
     delete in;
     delete out;

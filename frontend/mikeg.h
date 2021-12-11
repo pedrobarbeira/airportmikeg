@@ -6,91 +6,13 @@
 #include <fstream>
 #include "airport.h"
 #include "voyage.h"
-
-#ifdef _WIN32
-#define CLEAR "cls"
-#else
-#define CLEAR "clear"
-#endif
+#include "menu.h"
+#include "crossplatform.h"
 
 class AirportFlightList{
     Airport* aiport;
     
 };
-
-
-/**Exceptino classes*/
-class DevLog {
-    std::string error;
-public:
-    DevLog(std::string e) : error(std::move(e)) {};
-    /**
-     * Stores special system error messages into the DevLogs file, so the company's
-     * amazing and much valued "IT guy" can keep everything running smoothly
-     */
-    void print() const;
-};
-
-class LoadAirportFail{
-    std::string error;
-public:
-    LoadAirportFail():
-            error("Failed to load airports"){};
-    void print(ostream& out){
-        out << error << '\n';
-    }
-};
-
-class LoadVoyageFail{
-    std::string error;
-public:
-    LoadVoyageFail():
-            error("Failed to load voyages"){};
-    void print(ostream& out){
-        out << error << '\n';
-    }
-};
-
-class LoadFlightFail{
-    std::string error;
-public:
-    LoadFlightFail():
-            error("Failed to load flights"){};
-    void print(ostream& out){
-        out << error << '\n';
-    }
-};
-
-class LoadPlaneFail{
-    std::string error;
-public:
-    LoadPlaneFail():
-            error("Failed to load planes"){};
-    void print(ostream& out){
-        out << error << '\n';
-    }
-};
-
-class LoadTicketFail{
-    std::string error;
-public:
-    LoadTicketFail():
-            error("Failed to load tickets"){};
-    void print(ostream& out){
-        out << error << '\n';
-    }
-};
-
-class LogOut{
-    std::string message;
-public:
-    LogOut(): message("Logging Out"){};
-
-    void print() const{
-        std::cout << message << '\n';
-    }
-};
-
 
 /**
  * Class to load and pass the objects of the airline
@@ -102,6 +24,8 @@ class MikeG{
     std::vector<Flight*> flights;
     std::vector<Plane*> planes;
     std::vector<Ticket*> tickets;
+    std::vector<User*> users;
+    Menu* menu;
 public:
     /**Constructor*/
     MikeG(){
@@ -111,6 +35,8 @@ public:
         flights.clear();
         planes.clear();
         tickets.clear();
+        users.clear();
+        menu = nullptr;
     }
     /**Getters*/
     Time* getTime() const{
@@ -125,6 +51,9 @@ public:
         return planes;};
     std::vector<Ticket*> getTickets() const{
         return tickets;
+    }
+    std::vector<User*> getUsers() const{
+        return users;
     }
     //need to add remaining classes
     /**Modifiers*/
@@ -175,6 +104,15 @@ public:
         tickets.push_back(t);
         return true;
     }
+    bool addUser(User * u){
+        if(!users.empty()) {
+            for (auto user: users) {
+                if (user == u) return false;
+            }
+        }
+        users.push_back(u);
+        return true;
+    }
     /**Load/Save*/
     bool save() const;
     bool loadAirport();
@@ -182,7 +120,89 @@ public:
     bool loadFlight();
     bool loadPlane();
     bool loadTicket();
+    void loadUsers();
     bool load();
+
+    void open();
+};
+
+
+/**Exceptino classes*/
+class DevLog {
+    std::string error;
+public:
+    DevLog(std::string e) : error(std::move(e)) {};
+    /**
+     * Stores special system error messages into the DevLogs file, so the company's
+     * amazing and much valued "IT guy" can keep everything running smoothly
+     */
+    void print() const;
+};
+
+class LoadFail{
+protected:
+    std::string error;
+public:
+    LoadFail(){
+        error.clear();
+    }
+    std::string getError() const{
+        return error;
+    }
+};
+
+ostream& operator<<(ostream& out, LoadFail lf);
+
+class LoadAirportFail : public LoadFail{
+public:
+    LoadAirportFail(){
+        error = "Failed to load airports";
+    }
+};
+
+class LoadVoyageFail : public LoadFail{
+public:
+    LoadVoyageFail(){
+        error = "Failed to load Voyages";
+    }
+};
+
+class LoadFlightFail : public LoadFail{
+public:
+    LoadFlightFail() {
+        error = "Failed to load flights";
+    };
+};
+
+class LoadPlaneFail : public LoadFail{
+public:
+    LoadPlaneFail() {
+        error = "Failed to load planes";
+    };
+};
+
+class LoadTicketFail : public LoadFail{
+public:
+    LoadTicketFail() {
+        error = "Failed to load tickets";
+    };
+};
+
+class LoadUserFail : public LoadFail{
+public:
+    LoadUserFail(){
+        error = "Failed to load users";
+    };
+};
+
+class LogOut{
+    std::string message;
+public:
+    LogOut(): message("Logging Out"){};
+
+    void print() const{
+        std::cout << message << '\n';
+    }
 };
 
 
