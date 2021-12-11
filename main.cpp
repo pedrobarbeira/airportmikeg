@@ -26,9 +26,7 @@ void testAirport(){
  * Voyage-related testing
  */
 void testVoyage() {
-<<<<<<< HEAD
-    
-=======
+
     std::queue<std::string> first;
     first.push("A");
     first.push("J");
@@ -38,7 +36,7 @@ void testVoyage() {
     if(a->bookSeat("A03")) std::cout << a->freeSeatNum() << '\n';
 
     a->showSeats();
->>>>>>> 05f12de725c9009818d6ca9b272049c7ed8f7c53
+
 }
 
 /**
