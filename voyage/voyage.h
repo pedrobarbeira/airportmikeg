@@ -10,7 +10,17 @@
 #include <vector>
 #include <list>
 
+/**
+ * Encapsulatin class for Flights and Tickets
+ * Stores the Flight and the tickets associated with it
+ */
+class FlightTicket{
+    Flight* flight;
+    //add ticket BST
+};
+
 class Connection{
+    //Change this for FlightTicket class
     Flight* in;
     Flight* out;
 public:
@@ -23,6 +33,8 @@ public:
 };
 
 class Voyage{
+    //change route for FlightTicket list
+    //update member functions as required
     std::vector<Ticket*> tickets;
     std::list<Flight*> route;
 public:
