@@ -26,6 +26,9 @@ public:
     T* get() const{
         return pointer;
     }
+    bool operator<(const BSTPointer& rhs) const{
+        return (*pointer) < (*rhs.pointer);
+    }
 };
 
 template <class Comparable>
