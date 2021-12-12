@@ -85,6 +85,7 @@ protected:
     uint16_t capacity;
     std::vector<Class*> classes;
     bool grounded;
+    //Eventually fit this into a cabin
     int seatRows;
     int seatsPerRow;
     std::vector<std::vector<Seat*>> seats;
@@ -124,7 +125,6 @@ public:
     void setClasses(std::vector<Class*> c){
         std::swap(classes, c);};
     bool bookSeat(std::string code);
-
     void takeOff(){
         grounded = false;};
     void land(){

@@ -7,7 +7,17 @@
 #include "../src/date.h"
 #include "plane.h"
 
+/**
+ * Encapsulation struct for Airport and Time
+ * Stores which airport the plane leaves/lands on and the respective date&time
+ */
+struct TimePlace{
+    Airport* airport;
+    Time* time;
+};
+
 class Flight{
+    //Switch Aiport and Time for encapsulation class
     std::string flightID;
     Airport* origin;
     Airport* destination;

@@ -52,7 +52,7 @@ void testPassenger(){
 void testMenu(){
     MikeG main;
     main.loadUsers();
-    main.open();
+    main.start();
 }
 
 /**

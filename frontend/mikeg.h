@@ -3,28 +3,58 @@
 #define MAIN_CPP_MIKEG_H
 
 #include <iostream>
+#include "bst.h"
 #include <fstream>
 #include "airport.h"
 #include "voyage.h"
 #include "menu.h"
 #include "crossplatform.h"
 
-class AirportFlightList{
-    Airport* aiport;
-    
+/**
+ * Encapsulation class for Flight pointers
+ */
+class PointerFlight : public BSTPointer<Flight>{
+public:
+    PointerFlight(Flight* f = nullptr){
+        pointer = f;
+    }
 };
 
+//Do the same for remainng classes
+
 /**
- * Class to load and pass the objects of the airline
+ * Stores the created Airports and which flights are related to them
+ */
+class AirportFlightList{
+    Airport* airport;
+    BST<PointerFlight> inFlights;
+    BST<PointerFlight> outFlights;
+public:
+    //Constructor
+    //Get that returns a vector (for easy acess through menu) for in and out
+    // - overloaded with a find
+    //Find function for in and out
+    //Add for in and out
+    //Remove for in and out
+};
+
+//Do the same for remaing classes
+
+
+/**
+ * System Interface
  */
 class MikeG{
     Time* sysTime;
+    //Exchange these vectors for appropriate BST's
+    //Encapsulate vectors in AirlineData class
     std::vector<Airport*> airports;
     std::vector<Voyage*> voyages;
     std::vector<Flight*> flights;
     std::vector<Plane*> planes;
     std::vector<Ticket*> tickets;
     std::vector<User*> users;
+    //till here
     Menu* menu;
 public:
     /**Constructor*/
@@ -123,22 +153,25 @@ public:
     void loadUsers();
     bool load();
 
-    void open();
+    void start();
 };
 
 
 /**Exceptino classes*/
+/**
+     * Stores special system error messages into the DevLogs file, so the company's
+     * amazing and much valued "IT guy" can keep everything running smoothly
+     */
 class DevLog {
     std::string error;
 public:
     DevLog(std::string e) : error(std::move(e)) {};
-    /**
-     * Stores special system error messages into the DevLogs file, so the company's
-     * amazing and much valued "IT guy" can keep everything running smoothly
-     */
     void print() const;
 };
 
+/**
+ * Communicate to DevLogs if any problem happens while loading Airline data
+ */
 class LoadFail{
 protected:
     std::string error;
@@ -150,51 +183,47 @@ public:
         return error;
     }
 };
-
-ostream& operator<<(ostream& out, LoadFail lf);
-
 class LoadAirportFail : public LoadFail{
 public:
     LoadAirportFail(){
         error = "Failed to load airports";
     }
 };
-
 class LoadVoyageFail : public LoadFail{
 public:
     LoadVoyageFail(){
         error = "Failed to load Voyages";
     }
 };
-
 class LoadFlightFail : public LoadFail{
 public:
     LoadFlightFail() {
         error = "Failed to load flights";
     };
 };
-
 class LoadPlaneFail : public LoadFail{
 public:
     LoadPlaneFail() {
         error = "Failed to load planes";
     };
 };
-
 class LoadTicketFail : public LoadFail{
 public:
     LoadTicketFail() {
         error = "Failed to load tickets";
     };
 };
-
 class LoadUserFail : public LoadFail{
 public:
     LoadUserFail(){
         error = "Failed to load users";
     };
 };
+ostream& operator<<(ostream& out, LoadFail lf);
 
+/**
+ * Acts as a goto to quickly logout in any layer of the system
+ */
 class LogOut{
     std::string message;
 public:

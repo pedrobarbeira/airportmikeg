@@ -7,6 +7,7 @@ void Menu::mainScreen() const{
 }
 
 void JustBuy::mainScreen() const {
+    //Add error check
     system(CLEAR);
     std::cout << "[Buy Ticket]\t\t\t";
     std::string origin, destination, oDate, dDate;

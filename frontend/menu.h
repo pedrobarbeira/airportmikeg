@@ -4,6 +4,9 @@
 
 #include <iostream>
 
+/**
+ * User parent class. Acts as an Interface for it's subclasses.
+ */
 class User{
     std::string username;
     std::string password;
@@ -18,6 +21,9 @@ public:
             username(std::move(u)), password(std::move(p)), type(t){};
 };
 
+/**
+ * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
+ */
 class Menu{
 protected:
     User* user;
@@ -34,6 +40,9 @@ public:
     virtual void mainScreen() const;
 };
 
+/**
+ * Frontend class that handles Unregistered Client menus
+ */
 class JustBuy : public Menu{
 public:
     JustBuy(){
@@ -42,6 +51,46 @@ public:
     void mainScreen() const;
 };
 
+/**
+ * Frontend class that handles Registered Client menus
+ */
+class Client : public Menu{
+};
+
+/**
+ * Frontend class that handles Company menus
+ */
+class Company : public Menu{
+
+};
+
+/**
+ * Frontend class that handles Admin menus
+ */
+class Admin : public Company{
+
+};
+
+/**
+ * Frontend class that handles Manager menus
+ */
+class Manager : public Company{
+
+};
+
+/**
+ * Frontend class that handles Boarding Crew menus
+ */
+class Boarding : public Company{
+
+};
+
+/**
+ * Frontend class that handles Service Worker menus
+ */
+class Service : public Company{
+
+};
 
 
 #endif //MAIN_CPP_MENU_H

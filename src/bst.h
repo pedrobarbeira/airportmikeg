@@ -13,6 +13,21 @@ template <class Comparable> class BSTItrLevel;
 template <class Comparable> class iteratorBST;
 template <class Comparable> class BST;
 
+/**
+ * Encapsulation class for pointers
+ * @tparam T type of object the pointer points to
+ */
+template<typename T>
+class BSTPointer{
+protected:
+    T* pointer;
+public:
+    explicit BSTPointer(T* p = nullptr) : pointer(p){};
+    T* get() const{
+        return pointer;
+    }
+};
+
 template <class Comparable>
 class BinaryNode {
     Comparable element;

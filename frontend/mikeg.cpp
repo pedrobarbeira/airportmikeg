@@ -3,7 +3,7 @@
 #include "mikeg.h"
 #include "mainmenu.h"
 
-void MikeG::open(){
+void MikeG::start(){
     char c;
     while(true) {
         this->setSysTime();
@@ -117,7 +117,7 @@ void DevLog::print() const{
     outfile.close();
 }
 
-ostream& operator<<(ostream& out, LoadFail lf){
+ostream& operator<<(ostream& out, const LoadFail& lf){
     out << lf.getError();
     return out;
 }
