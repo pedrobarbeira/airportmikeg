@@ -3,22 +3,13 @@
 #define MAIN_CPP_MIKEG_H
 
 #include <iostream>
-#include "bst.h"
 #include <fstream>
 #include "airport.h"
 #include "voyage.h"
 #include "menu.h"
 #include "crossplatform.h"
 
-/**
- * Encapsulation class for Flight pointers
- */
-class PointerFlight : public BSTPointer<Flight>{
-public:
-    PointerFlight(Flight* f = nullptr){
-        pointer = f;
-    }
-};
+
 
 //Do the same for remainng classes
 

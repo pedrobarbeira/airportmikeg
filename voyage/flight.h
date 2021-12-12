@@ -6,6 +6,7 @@
 #include "airport.h"
 #include "../src/date.h"
 #include "plane.h"
+#include "bst.h"
 
 /**
  * Encapsulation struct for Airport and Time
@@ -62,5 +63,14 @@ public:
 
 };
 
+/**
+ * Encapsulation class for Flight pointers
+ */
+class PointerFlight : public BSTPointer<Flight>{
+public:
+    PointerFlight(Flight* f = nullptr){
+        pointer = f;
+    }
+};
 
 #endif //MAIN_CPP_FLIGHT_H

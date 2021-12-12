@@ -1,3 +1,5 @@
+/**Will be deleted soon*/
+
 //Created by Pedro Barbeira (up201303693)
 #include "company.h"
 
