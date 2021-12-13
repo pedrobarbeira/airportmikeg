@@ -30,6 +30,7 @@ bool Voyage::addTicket(Ticket* t){
 }
 
 bool Voyage::addFlight(Flight* f){
+    //add Date check
     std::list<FlightTicket*>::iterator it = route.begin();
     if(f->getDestination() == (*it)->getFlight()->getOrigin()) {
         route.push_front(new FlightTicket(f));
@@ -43,6 +44,7 @@ bool Voyage::addFlight(Flight* f){
 }
 
 bool Voyage::addConnection(Connection* c) {
+    //Add Date check
     bool added = false;
     std::list<FlightTicket*>::iterator it = route.begin();
     if (route.size() == 1) {

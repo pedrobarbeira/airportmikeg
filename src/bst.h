@@ -15,6 +15,10 @@ template <class Comparable> class BST;
 
 /**
  * Encapsulation class for pointers
+ * Acts as an interface for specific object pointers. Implements base
+ * constructor with generalized parameter, destructor, a function that
+ * returns the pointer object stored, and generalizations for operators
+ * * and <.
  * @tparam T type of object the pointer points to
  */
 template<typename T>
@@ -23,6 +27,9 @@ protected:
     T* pointer;
 public:
     explicit BSTPointer(T* p = nullptr) : pointer(p){};
+    ~BSTPointer(){
+        delete pointer;
+    }
     T* getPointer() const{
         return pointer;
     }
