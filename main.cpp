@@ -70,6 +70,7 @@ void testMenu(){
     if(main.addAirport(a2)) std::cout << "all good too \n";
     if(main.addFlight(f1)) std::cout << "still all good\n";
     if(main.addFlight(f2)) std::cout << "thank god it worked\n";
+    if(main.addPlane(airb1)) std::cout << "holy jesus praised by thy name\n";
 }
 
 /**

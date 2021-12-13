@@ -17,14 +17,14 @@ class Data{
     BST<AirportFlightList> airports;
     std::vector<Voyage*> voyages;
     BST<FlightPointer> flights;
-    std::vector<Plane*> planes;
+    BST<PlanePointer> planes;
     std::vector<Ticket*> tickets;
     BST<UserPointer> users;
     friend class MikeG;
 public:
-    Data() : airports(AirportFlightList()), flights(FlightPointer()), users(UserPointer()){
+    Data() : airports(AirportFlightList()), flights(FlightPointer()),
+             planes(PlanePointer()), users(UserPointer()){
         voyages.clear();
-        planes.clear();
         tickets.clear();
     }
     //Add get methods
@@ -34,7 +34,7 @@ public:
         return voyages;};
     BST<FlightPointer> getFlights() const{
         return flights;};
-    std::vector<Plane*> getPlanes() const{
+    BST<PlanePointer> getPlanes() const{
         return planes;};
     std::vector<Ticket*> getTickets() const{
         return tickets;
@@ -88,13 +88,7 @@ public:
     }
     bool addFlight(Flight* f);
     bool addPlane(Plane* p){
-        if(!data->planes.empty()) {
-            for (auto it : data->planes) {
-                if (it == p) return false;
-            }
-        }
-        data->planes.push_back(p);
-        return true;
+        return data->planes.insert(PlanePointer(p));
     }
     /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {

@@ -6,7 +6,6 @@
 #include "airport.h"
 #include "../src/date.h"
 #include "plane.h"
-#include "bst.h"
 
 static int count = 0;
 
@@ -58,7 +57,7 @@ public:
 
 /**
  * Encapsulation class for pointers to FLight objects.
- * Used to store Flight pointers in the Data BST
+ * Used to store Flight pointers in the Data BSTs
  */
 class FlightPointer : public BSTPointer<Flight>{
 public:
