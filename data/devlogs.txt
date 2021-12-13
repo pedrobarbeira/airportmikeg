@@ -1,1 +1,5 @@
-*test
+*Error during initial data file load. Check data files for corruption
+*Error during initial data file load. Check data files for corruption
+*[01:05:08 13/12/2021
+] Error during initial data file load. Check data files for corruption
+*[01:06:48 13/12/2021] Error during initial data file load. Check data files for corruption

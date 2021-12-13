@@ -11,26 +11,16 @@
 
 
 
-//Do the same for remainng classes
-
-/**
- * Stores the created Airports and which flights are related to them
- */
-class AirportFlightList{
-    Airport* airport;
-    BST<PointerFlight> inFlights;
-    BST<PointerFlight> outFlights;
-public:
-    //Constructor
-    //Get that returns a vector (for easy acess through menu) for in and out
-    // - overloaded with a find
-    //Find function for in and out
-    //Add for in and out
-    //Remove for in and out
-};
-
 //Do the same for remaing classes
 
+struct Data{
+    std::vector<Airport*> airports;
+    std::vector<Voyage*> voyages;
+    std::vector<Flight*> flights;
+    std::vector<Plane*> planes;
+    std::vector<Ticket*> tickets;
+    std::vector<User*> users;
+};
 
 /**
  * System Interface
@@ -39,99 +29,89 @@ class MikeG{
     Time* sysTime;
     //Exchange these vectors for appropriate BST's
     //Encapsulate vectors in AirlineData class
-    std::vector<Airport*> airports;
-    std::vector<Voyage*> voyages;
-    std::vector<Flight*> flights;
-    std::vector<Plane*> planes;
-    std::vector<Ticket*> tickets;
-    std::vector<User*> users;
+    Data* data;
     //till here
     Menu* menu;
 public:
     /**Constructor*/
     MikeG(){
         sysTime = new Time;
-        airports.clear();
-        voyages.clear();
-        flights.clear();
-        planes.clear();
-        tickets.clear();
-        users.clear();
+        data = nullptr;
         menu = nullptr;
     }
     /**Getters*/
     Time* getTime() const{
         return sysTime;};
     std::vector<Airport*> getAirport() const{
-        return airports;};
+        return data->airports;};
     std::vector<Voyage*> getVoyages() const{
-        return voyages;};
+        return data->voyages;};
     std::vector<Flight*> getFlights() const{
-        return flights;};
+        return data->flights;};
     std::vector<Plane*> getPlanes() const{
-        return planes;};
+        return data->planes;};
     std::vector<Ticket*> getTickets() const{
-        return tickets;
+        return data->tickets;
     }
     std::vector<User*> getUsers() const{
-        return users;
+        return data->users;
     }
     //need to add remaining classes
     /**Modifiers*/
     void setSysTime(){
         sysTime->now();};
     bool addAirport(Airport* a){
-        if(!airports.empty()) {
-            for (auto it : airports) {
+        if(!data->airports.empty()) {
+            for (auto it : data->airports) {
                 if (it == a) return false;
             }
         }
-        airports.push_back(a);
+        data->airports.push_back(a);
         return true;
     }
     bool addVoyage(Voyage* v){
-        if(!voyages.empty()) {
-            for (auto it : voyages) {
+        if(!data->voyages.empty()) {
+            for (auto it : data->voyages) {
                 if (it == v) return false;
             }
         }
-        voyages.push_back(v);
+        data->voyages.push_back(v);
         return true;
     }
     bool addFlight(Flight* f){
-        if(!flights.empty()) {
-            for (auto it : flights) {
+        if(!data->flights.empty()) {
+            for (auto it : data->flights) {
                 if (it == f) return false;
             }
         }
-        flights.push_back(f);
+        data->flights.push_back(f);
         return true;
     }
     bool addPlane(Plane* p){
-        if(!planes.empty()) {
-            for (auto it : planes) {
+        if(!data->planes.empty()) {
+            for (auto it : data->planes) {
                 if (it == p) return false;
             }
         }
-        planes.push_back(p);
+        data->planes.push_back(p);
         return true;
     }
     bool addTicket(Ticket* t) {
-        if (!flights.empty()) {
-            for (auto it : tickets) {
+        if (!data->flights.empty()) {
+            for (auto it : data->tickets) {
                 if (it == t) return false;
             }
         }
-        tickets.push_back(t);
+        data->tickets.push_back(t);
         return true;
     }
     bool addUser(User * u){
-        if(!users.empty()) {
-            for (auto user: users) {
+        if(!data->users.empty()) {
+            for (auto user: data->users) {
                 if (user == u) return false;
             }
         }
-        users.push_back(u);
+        data->users.push_back(u);
         return true;
     }
     /**Load/Save*/
@@ -144,26 +124,27 @@ public:
     void loadUsers();
     bool load();
 
-    void start();
+    void start(bool& flag);
 };
 
 
-/**Exceptino classes*/
+/**Exception classes*/
 /**
      * Stores special system error messages into the DevLogs file, so the company's
      * amazing and much valued "IT guy" can keep everything running smoothly
      */
-class DevLog {
+class DevLog : public exception {
     std::string error;
+    Date* date;
 public:
-    DevLog(std::string e) : error(std::move(e)) {};
+    DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
     void print() const;
 };
 
 /**
  * Communicate to DevLogs if any problem happens while loading Airline data
  */
-class LoadFail{
+class LoadFail : public exception{
 protected:
     std::string error;
 public:
@@ -210,12 +191,11 @@ public:
         error = "Failed to load users";
     };
 };
-ostream& operator<<(ostream& out, LoadFail lf);
 
 /**
  * Acts as a goto to quickly logout in any layer of the system
  */
-class LogOut{
+class LogOut : public exception{
     std::string message;
 public:
     LogOut(): message("Logging Out"){};

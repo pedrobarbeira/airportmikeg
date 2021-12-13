@@ -17,18 +17,22 @@
 class FlightTicket{
     Flight* flight;
     //add ticket BST
+public:
+    explicit FlightTicket(Flight* f = nullptr) : flight(f){}; //addticket
+    Flight* getFlight() const{
+        return flight;
+    }
 };
 
 class Connection{
-    //Change this for FlightTicket class
-    Flight* in;
-    Flight* out;
+    FlightTicket* in;
+    FlightTicket* out;
 public:
-    Connection(Flight* i = nullptr, Flight* o = nullptr);
+    explicit Connection(Flight* i = nullptr, Flight* o = nullptr);
     ~Connection();
-    Flight* getIn() const{
+    FlightTicket* getIn() const{
         return in;};
-    Flight* getOut() const{
+    FlightTicket* getOut() const{
         return out;};
 };
 
@@ -36,27 +40,27 @@ class Voyage{
     //change route for FlightTicket list
     //update member functions as required
     std::vector<Ticket*> tickets;
-    std::list<Flight*> route;
+    std::list<FlightTicket*> route;
 public:
     /**Constructor*/
     Voyage(Flight* f){
         //tickets.clear();
-        route.push_back(f);
+        route.push_back(new FlightTicket(f));
     }
     ~Voyage();
     /**Getters*/
     std::vector<Ticket*> getTickets() const{
         return tickets;};
-    std::list<Flight*> getRoute(){
+    std::list<FlightTicket*> getRoute(){
         return route;};
-    Airport* getOrigin() const{
-        return route.front()->getOrigin();};
-    Airport* getDestination() const{
-        return route.back()->getDestination();};
+    TimePlace* getOrigin() const{
+        return route.front()->getFlight()->getOrigin();};
+    TimePlace* getDestination() const{
+        return route.back()->getFlight()->getDestination();};
     /**Setters*/
-    void setTrickets(std::vector<Ticket*> t){
+    void setTickets(std::vector<Ticket*> t){
         tickets = t;};
-    void setRoute(std::list<Flight*> r){
+    void setRoute(std::list<FlightTicket*> r){
         route = std::move(r);};
     /**Adders*/
     bool addTicket(Ticket* t);

@@ -11,6 +11,12 @@ uint32_t LMONTH = 31 * DAY;                         //seconds in "large" month
 uint32_t NORMAL = 7 * LMONTH + 4 * SMONTH + FEB;    //seconds in a normal year
 uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
 
+void Date::print(std::ostream& out) const {
+    out << std::setw(2) << std::setfill('0') << day << "/"
+        << std::setw(2) << std::setfill('0') << month << "/"
+        << std::setw(4) << std::setfill('0') << year;
+}
+
 /**
  * Prints date to desired output line
  * @param out the output line
@@ -21,7 +27,7 @@ void Time::print(std::ostream& out) const{        //Read up polymorphism and mak
         << std::setw(2) << std::setfill('0') << second << " "
         << std::setw(2) << std::setfill('0') << day << "/"
         << std::setw(2) << std::setfill('0') << month << "/"
-        << std::setw(4) << std::setfill('0')  << year << '\n';
+        << std::setw(4) << std::setfill('0')  << year;
 }
 
 /**
@@ -93,6 +99,18 @@ bool Date::operator==(const Time& rhs) const{
     return (*this) == rhs.getDate();
 }
 
+bool Date::operator<(const Date& rhs) const {
+    if (year == rhs.year) {
+        if (month == rhs.month) {
+            return day < rhs.day;
+        } else return month < rhs.month;
+    } else return year < rhs.year;
+}
+
+bool Date::operator<(const Time& rhs) const{
+    return (*this) < rhs.getDate();
+}
+
 bool Time::operator==(const Time& rhs) const{
     return this->getDate() == rhs.getDate() && hour == rhs.hour
             && minute == rhs.minute && second == rhs.second;
@@ -100,6 +118,20 @@ bool Time::operator==(const Time& rhs) const{
 
 bool Time::operator==(const Date& rhs) const{
     return this->getDate() == rhs;
+}
+
+bool Time::operator<(const Time& rhs) const{
+    if(this->getDate() == rhs.getDate()){
+        if(hour == rhs.hour) {
+            if (minute == rhs.minute) {
+                return second < rhs.second;
+            } else return minute < rhs.minute;
+        } else return hour < rhs.hour;
+    } else return this->getDate() < rhs.getDate();
+}
+
+bool Time::operator<(const Date& rhs) const{
+    return this->getDate() < rhs;
 }
 
 //put all operator definitions here

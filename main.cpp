@@ -51,8 +51,15 @@ void testPassenger(){
  */
 void testMenu(){
     MikeG main;
-    main.loadUsers();
-    main.start();
+    bool flag = false;
+    try {
+        main.start(flag);
+    }
+    catch(DevLog e){
+        e.print();
+        if(flag) main.start(flag);
+        else return;
+    }
 }
 
 /**
@@ -78,12 +85,13 @@ void testInterface(){
             case '0': exit(0);
             default: std::cout << "Invalid Option\n";
         }
-        system("pause");
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        c = getchar();
     }
 }
 
 int main(){
-    testAirport();
     //testVoyage();
     //testPassenger();
     //testMenu();

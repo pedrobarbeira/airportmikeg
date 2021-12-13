@@ -28,10 +28,7 @@ class Menu{
 protected:
     User* user;
 public:
-    Menu(){
-        user = nullptr;
-    }
-    explicit Menu(User* u): user(u){};
+    explicit Menu(User* u = nullptr): user(u){};
     bool setUser(User* u){
         if(user != nullptr) return false;
         user = u;
@@ -54,41 +51,41 @@ public:
 /**
  * Frontend class that handles Registered Client menus
  */
-class Client : public Menu{
+class ClientMenu : public Menu{
 };
 
 /**
  * Frontend class that handles Company menus
  */
-class Company : public Menu{
+class CompanyMenu : public Menu{
 
 };
 
 /**
  * Frontend class that handles Admin menus
  */
-class Admin : public Company{
+class AdminMenu : public CompanyMenu{
 
 };
 
 /**
  * Frontend class that handles Manager menus
  */
-class Manager : public Company{
+class ManagerMenu : public CompanyMenu{
 
 };
 
 /**
  * Frontend class that handles Boarding Crew menus
  */
-class Boarding : public Company{
+class BoardingMenu : public CompanyMenu{
 
 };
 
 /**
  * Frontend class that handles Service Worker menus
  */
-class Service : public Company{
+class ServiceMenu : public CompanyMenu{
 
 };
 

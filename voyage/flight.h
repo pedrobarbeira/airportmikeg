@@ -20,56 +20,65 @@ struct TimePlace{
 class Flight{
     //Switch Aiport and Time for encapsulation class
     std::string flightID;
-    Airport* origin;
-    Airport* destination;
+    TimePlace* origin;
+    TimePlace* destination;
     Plane* plane;
-    Time* departure;
-    Time* arrival;
 public:
     /**Constructor*/
-    Flight(Airport* o = nullptr, Airport* d = nullptr, Plane* p = nullptr, Time* dep = nullptr, Time* arr = nullptr):
-            origin(o), destination(d), plane(p), departure(dep), arrival(arr){
-        flightID = origin->getidCode() + destination->getidCode();
+    Flight(TimePlace* o = nullptr, TimePlace* d = nullptr, Plane* p = nullptr):
+            origin(o), destination(d), plane(p){
+        flightID = origin->airport->getidCode() + destination->airport->getidCode();
     }
     ~Flight();
     /**Getters*/
     std::string getID() const{
         return flightID;};
-    Time* getDeparture() const{
-        return departure;};
-    Time* getArrival() const{
-        return arrival;};
-    Airport* getOrigin() const{
+    TimePlace* getOrigin() const{
         return origin;};
-    Airport* getDestination() const{
+    TimePlace* getDestination() const{
         return destination;};
     Plane* getPlane() const{
         return plane;};
     /**Setters*/
     void setId(std::string id){
         flightID = id;};
-    void setDeparture(Time* d){
-        departure = d;};
-    void setArrival(Time* d){
-        arrival = d;};
-    void setOrigin(Airport* a){
+    void setOrigin(TimePlace* a){
         origin = a;};
-    void setDestination(Airport* a){
+    void setDestination(TimePlace* a){
         destination = a;};
     void setPlane(Plane* p){
         plane = p;};
     /**Print*/
     void print(std::ostream& out) const;
+    bool operator<(const Flight& rhs) const;
 
 };
 
 /**
- * Encapsulation class for Flight pointers
+ * Stores the created Airports and which flights are related to them
  */
-class PointerFlight : public BSTPointer<Flight>{
+class AirportFlightList{
+    Airport* airport;
+    BST<Flight*> inFlights;
+    BST<Flight*> outFlights;
 public:
-    PointerFlight(Flight* f = nullptr){
-        pointer = f;
+    explicit AirportFlightList(Airport* a = nullptr) :
+            airport(a), inFlights(new Flight), outFlights(new Flight){};
+    Airport* getAirport() const{
+        return airport;
+    }
+    std::vector<Flight*> getFlightsTo(Airport* a) const;
+    std::vector<Flight*> getFlightsTo(Airport* a, Date* min) const;
+    std::vector<Flight*> getFlightsTo(Airport* a, Date* min, Date* max) const;
+    std::vector<Flight*> getFlightsFrom(Airport* a) const;
+    std::vector<Flight*> getFlightsFrom(Airport* a, Date* min) const;
+    std::vector<Flight*> getFlightsFrom(Airport* a, Date* min, Date* max) const;
+    Flight* find(std::string id) const;
+    bool addIn(Flight* f){
+        return inFlights.insert(f);
+    }
+    bool addOut(Flight* f){
+        return outFlights.insert(f);
     }
 };
 
