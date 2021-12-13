@@ -54,16 +54,23 @@ public:
 
 };
 
+class FlightPointer : public BSTPointer<Flight>{
+public:
+    explicit FlightPointer(Flight* f = nullptr){
+        pointer = f;
+    }
+};
+
 /**
  * Stores the created Airports and which flights are related to them
  */
 class AirportFlightList{
     Airport* airport;
-    BST<Flight*> inFlights;
-    BST<Flight*> outFlights;
+    BST<FlightPointer> inFlights;
+    BST<FlightPointer> outFlights;
 public:
     explicit AirportFlightList(Airport* a = nullptr) :
-            airport(a), inFlights(new Flight), outFlights(new Flight){};
+            airport(a), inFlights(FlightPointer()), outFlights(FlightPointer()){};
     Airport* getAirport() const{
         return airport;
     }
@@ -75,11 +82,12 @@ public:
     std::vector<Flight*> getFlightsFrom(Airport* a, Date* min, Date* max) const;
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
-        return inFlights.insert(f);
+        return inFlights.insert(FlightPointer(f));
     }
     bool addOut(Flight* f){
-        return outFlights.insert(f);
+        return outFlights.insert(FlightPointer(f));
     }
+    //Add operator overloading to allow diffrent types of searches
 };
 
 #endif //MAIN_CPP_FLIGHT_H

@@ -23,8 +23,11 @@ protected:
     T* pointer;
 public:
     explicit BSTPointer(T* p = nullptr) : pointer(p){};
-    T* get() const{
+    T* getPointer() const{
         return pointer;
+    }
+    T& operator*() const{
+        return (*pointer);
     }
     bool operator<(const BSTPointer& rhs) const{
         return (*pointer) < (*rhs.pointer);
