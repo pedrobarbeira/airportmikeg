@@ -1,4 +1,4 @@
-//Created by Pedro Barbeira (up201303693;
+//Created by Pedro Barbeira (up201303693)
 #include "voyage.h"
 
 Connection::Connection(Flight *i, Flight *o) {
