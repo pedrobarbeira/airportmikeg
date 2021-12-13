@@ -8,6 +8,8 @@
 #include "plane.h"
 #include "bst.h"
 
+static int count = 0;
+
 /**
  * Encapsulation struct for Airport and Time
  * Stores which airport the plane leaves/lands on and the respective date&time
@@ -25,10 +27,10 @@ class Flight{
     Plane* plane;
 public:
     /**Constructor*/
-    Flight(TimePlace* o = nullptr, TimePlace* d = nullptr, Plane* p = nullptr):
-            origin(o), destination(d), plane(p){
-        flightID = origin->airport->getidCode() + destination->airport->getidCode();
+    explicit Flight(std::string id = ""){
+        flightID = id;
     }
+    explicit Flight(TimePlace* o = nullptr, TimePlace* d = nullptr, Plane* p = nullptr);
     ~Flight();
     /**Getters*/
     std::string getID() const{
@@ -59,6 +61,15 @@ public:
     explicit FlightPointer(Flight* f = nullptr){
         pointer = f;
     }
+    bool operator==(const Flight* f){
+        return f->getID() == pointer->getID();
+    }
+    bool operator==(const std::string& id){
+        return pointer->getID() == id;
+    }
+    bool operator<(const FlightPointer& rhs) const{
+        return (*this).pointer->getID() < (*rhs).getID();
+    }
 };
 
 /**
@@ -74,12 +85,13 @@ public:
     Airport* getAirport() const{
         return airport;
     }
+    bool addFlight(Flight* f);
     std::vector<Flight*> getFlightsTo(Airport* a) const;
     std::vector<Flight*> getFlightsTo(Airport* a, Date* min) const;
     std::vector<Flight*> getFlightsTo(Airport* a, Date* min, Date* max) const;
-    std::vector<Flight*> getFlightsFrom(Airport* a) const;
-    std::vector<Flight*> getFlightsFrom(Airport* a, Date* min) const;
-    std::vector<Flight*> getFlightsFrom(Airport* a, Date* min, Date* max) const;
+    std::vector<Flight*> getFlightsFrom() const;
+    std::vector<Flight*> getFlightsFrom(Date* min) const;
+    std::vector<Flight*> getFlightsFrom(Date* min, Date* max) const;
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
         return inFlights.insert(FlightPointer(f));
@@ -88,6 +100,9 @@ public:
         return outFlights.insert(FlightPointer(f));
     }
     //Add operator overloading to allow diffrent types of searches
+    bool operator<(const AirportFlightList& apf) const{
+        return airport->getidCode() < apf.airport->getidCode();
+    }
 };
 
 #endif //MAIN_CPP_FLIGHT_H

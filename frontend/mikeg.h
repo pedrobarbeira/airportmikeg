@@ -13,13 +13,21 @@
 
 //Do the same for remaing classes
 
-struct Data{
-    std::vector<Airport*> airports;
+class Data{
+    BST<AirportFlightList> airports;
     std::vector<Voyage*> voyages;
-    std::vector<Flight*> flights;
+    BST<FlightPointer> flights;
     std::vector<Plane*> planes;
     std::vector<Ticket*> tickets;
     std::vector<User*> users;
+    friend class MikeG;
+public:
+    Data() : airports(AirportFlightList()), flights(FlightPointer()){
+        voyages.clear();
+        planes.clear();
+        tickets.clear();
+        users.clear();
+    }
 };
 
 /**
@@ -27,10 +35,7 @@ struct Data{
  */
 class MikeG{
     Time* sysTime;
-    //Exchange these vectors for appropriate BST's
-    //Encapsulate vectors in AirlineData class
     Data* data;
-    //till here
     Menu* menu;
 public:
     /**Constructor*/
@@ -42,11 +47,11 @@ public:
     /**Getters*/
     Time* getTime() const{
         return sysTime;};
-    std::vector<Airport*> getAirport() const{
+    BST<AirportFlightList> getAirport() const{
         return data->airports;};
     std::vector<Voyage*> getVoyages() const{
         return data->voyages;};
-    std::vector<Flight*> getFlights() const{
+    BST<FlightPointer> getFlights() const{
         return data->flights;};
     std::vector<Plane*> getPlanes() const{
         return data->planes;};
@@ -61,13 +66,7 @@ public:
     void setSysTime(){
         sysTime->now();};
     bool addAirport(Airport* a){
-        if(!data->airports.empty()) {
-            for (auto it : data->airports) {
-                if (it == a) return false;
-            }
-        }
-        data->airports.push_back(a);
-        return true;
+        return data->airports.insert(AirportFlightList(a));
     }
     bool addVoyage(Voyage* v){
         if(!data->voyages.empty()) {
@@ -78,15 +77,7 @@ public:
         data->voyages.push_back(v);
         return true;
     }
-    bool addFlight(Flight* f){
-        if(!data->flights.empty()) {
-            for (auto it : data->flights) {
-                if (it == f) return false;
-            }
-        }
-        data->flights.push_back(f);
-        return true;
-    }
+    bool addFlight(Flight* f);
     bool addPlane(Plane* p){
         if(!data->planes.empty()) {
             for (auto it : data->planes) {
@@ -96,7 +87,7 @@ public:
         data->planes.push_back(p);
         return true;
     }
-    bool addTicket(Ticket* t) {
+    /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {
             for (auto it : data->tickets) {
                 if (it == t) return false;
@@ -104,7 +95,7 @@ public:
         }
         data->tickets.push_back(t);
         return true;
-    }
+    }*/
     bool addUser(User * u){
         if(!data->users.empty()) {
             for (auto user: data->users) {

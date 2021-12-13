@@ -66,6 +66,21 @@ void MikeG::start(bool& flag) {
     }
 }
 
+bool MikeG::addFlight(Flight* f){
+    bool flag;
+    AirportFlightList addIn = data->airports.find(AirportFlightList(f->getOrigin()->airport));
+    data->airports.remove(addIn);
+    AirportFlightList addOut = data->airports.find(AirportFlightList(f->getDestination()->airport));
+    data->airports.remove(addOut);
+    flag = addIn.addFlight(f) && addOut.addOut(f);
+    if(flag){
+        data->airports.insert(addIn);
+        data->airports.insert(addOut);
+        flag &= data->flights.insert(FlightPointer(f));
+    }
+    return flag;
+}
+
 bool MikeG::save() const {
     return true;
 }

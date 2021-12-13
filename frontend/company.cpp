@@ -69,19 +69,7 @@ void travel(MikeG* mg){
         }
     }
 }
-void flightList(MikeG* mg){
-    int i = 1;
-    std::cout << setw(4) << setfill(' ') << " " << setw(5) << left  << " " << setw(11) << left << "FlightID"
-              << setw(9) << left << "From" << setw(10) << left << "To" << "\n" << setw(4) << " "
-              << setw(4) << left << setfill('-') << "-" << setw(9)
-              << setw(9) << " " << setw(9)  << " " << setw(9)  << " ";
-    for(auto it: mg->getFlights()) {
-        std::string index = "[" + to_string(i) + "]";
-        std::cout << "\n" << setw(4) << setfill(' ') << " " << setw(6) << left  << index;
-        it->print(std::cout);
-        i++;
-    }
-}
+
 void voyage(){
     char c;
     while(true) {

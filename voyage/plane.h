@@ -3,11 +3,13 @@
 #define AIPORTMIKEG_PLANE_H
 
 #include <iostream>
+#include <sstream>
 #include <queue>
 #include <iomanip>
 #include <vector>
 
-static int LETTER_MAX = 26;
+#define LETTER_MAX  26;
+static int airbusCount = 0;
 
 /**
  * Interface class for plane seat Classes
@@ -157,7 +159,7 @@ public:
 class Airbus : public Plane {
 public:
     /**Constructor*/
-    Airbus(std::string p, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first);
+    Airbus(uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> firstClassSeats);
 };
 
 /**
