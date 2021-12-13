@@ -7,9 +7,12 @@
 #include <queue>
 #include <iomanip>
 #include <vector>
+#include "bst.h"
+#include "luggage.h"
 
 #define LETTER_MAX  26;
 static int airbusCount = 0;
+static int otherCount = 0;
 
 /**
  * Interface class for plane seat Classes
@@ -80,7 +83,8 @@ class Seat {
     std::string id;
     bool free;
     Class* classe;
-    friend class Plane;
+    Luggage* handBag;
+    friend class Cabin;
 public:
     /**Constructor*/
     Seat(std::string row, int column, Class* classe);
@@ -95,6 +99,24 @@ public:
     Class* getClass() const{
         return classe;
     }
+    Luggage* getBag() const{
+        return handBag;
+    }
+    void takeSeat(){
+        free = false;
+    }
+};
+
+class Cabin{
+    uint16_t seatRows;
+    uint16_t seatsPerRow;
+    uint16_t capacity;
+    std::vector<std::vector<Seat*>> seats;
+    friend class Plane;
+    friend class Airbus;
+    friend class Other;
+public:
+    Cabin(){};
 };
 
 /**
@@ -103,46 +125,47 @@ public:
 class Plane{
 protected:
     std::string plate;
-    uint16_t capacity;
     std::vector<Class*> classes;
+    Cabin* cabin;
     bool grounded;
-    //Eventually fit this into a cabin
-    int seatRows;
-    int seatsPerRow;
-    std::vector<std::vector<Seat*>> seats;
+    friend class PlanePointer;
 public:
     /**Constructors*/
-    Plane(): plate(""), capacity(0), grounded(true){
+    Plane(): plate(""), grounded(true){
+        cabin = new Cabin;
         classes.clear();
     };
     Plane(std::string p, uint16_t c):
-        plate(std::move(p)), capacity(c), grounded(true){
+        plate(std::move(p)), grounded(true){
+        cabin->capacity = c;
         classes.clear();
     };
     Plane(std::string p, uint16_t c, std::vector<Class*> v):
-        plate(p), capacity(c), grounded(true), classes(v){};
+        plate(p), grounded(true), classes(v){
+        cabin->capacity = c;
+    };
     ~Plane();
     /**Getters*/
     std::string getPlate() const{
         return plate;};
     uint16_t getCapacity() const{
-        return capacity;};
+        return cabin->capacity;};
     std::vector<Class*> getClasses() const{
         return classes;};
     bool isGrounded() const{
         return grounded;};
     int getRows() const{
-        return seatRows;};
+        return cabin->seatRows;};
     int getColumns() const{
-        return seatsPerRow;};
+        return cabin->seatsPerRow;};
     std::vector<std::vector<Seat*>> getSeats() const{
-        return seats;};
+        return cabin->seats;};
     int freeSeatNum() const;
     /**Setters*/
     void setPlate(std::string p){
         plate = std::move(p);};
     void setCapacity(uint16_t c){
-        capacity = c;};
+        cabin->capacity = c;};
     void setClasses(std::vector<Class*> c){
         std::swap(classes, c);};
     bool bookSeat(std::string code);
@@ -159,7 +182,7 @@ public:
 class Airbus : public Plane {
 public:
     /**Constructor*/
-    Airbus(uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> firstClassSeats);
+    Airbus(uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> firstClassRows);
 };
 
 /**
@@ -168,7 +191,31 @@ public:
  * amazing IT guy, so he can add the class to the system later on
  */
 class Other : public Plane{
+    Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice,
+          std::queue<std::string> firstClassRows);
+    Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t bClassPrice, uint16_t eClassPrice,
+          std::queue<std::string> firstClassRows, std::queue<std::string> bizClassRows);
 
+};
+
+/**
+ * Encapsulation class for pointers to Plane objects.
+ * Used to store Plane pointers in the Data BSTs
+ */
+class PlanePointer : public BSTPointer<Plane>{
+public:
+    explicit PlanePointer(Plane* p = nullptr){
+        pointer = p;
+    }
+    bool operator==(Plane* p) const{
+        return pointer->plate == p->plate;
+    }
+    bool operator==(std::string p) const{
+        return pointer->plate == p;
+    }
+    bool operator<(const PlanePointer& rhs) const {
+        return pointer->plate < rhs.pointer->plate;
+    }
 };
 
 std::string getRowLetter(int i);
