@@ -34,6 +34,7 @@ class Airport{
     vector<Terminal*> terminals;
     list<Transport*> transport;
     queue<Service*> services;
+    list<Service*> complete;
 public:
     Airport(string idName, string name, string country, string city);
     string getidCode() const;

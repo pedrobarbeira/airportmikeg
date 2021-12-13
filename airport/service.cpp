@@ -47,6 +47,18 @@ Staff* Service::getResponsible(){
     return responsible;
 }
 
+bool Service::operator<(Service &s) {
+    if (completed.getYear()<s.completed.getYear()) return true;
+    else if (completed.getYear()==s.completed.getYear() &&
+            completed.getMonth() < s.completed.getMonth()) return true;
+    else if (completed.getYear()==s.completed.getYear() &&
+            completed.getMonth() == s.completed.getMonth() &&
+            completed.getDay()<s.completed.getDay()) return true;
+    return false;
+}
+
+
+
 ///////////////////////////////////////////////
 
 Cleaning::Cleaning(Plane *plane) : Service(plane) {}
