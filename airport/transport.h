@@ -16,12 +16,14 @@ class Transport{
     uint16_t distance;
     list<Time> timetable;
 public:
+    Transport();
     Transport(char c);
     Transport(char c, uint16_t d);
     string getTransport();
     uint16_t const getDistance ();
     char const getType();
     void addTime(Time time);
+    void delTime(Time time);
     list<Time> getTimetable ();
 
 };

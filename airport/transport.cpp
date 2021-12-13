@@ -4,6 +4,8 @@
 
 #include "transport.h"
 
+Transport::Transport() {}
+
 Transport::Transport(char c) {
     type=c;
 }
@@ -42,8 +44,17 @@ void Transport::addTime(Time time){
     timetable.push_back(time);
 }
 
+void Transport::delTime(Time time) {
+    list<Time>::iterator it = timetable.begin();
+    for (it; it != timetable.end(); it++){
+        if (*it == time) {
+            timetable.erase(it);
+            break;
+        }
+    }
+}
+
 list<Time> Transport::getTimetable () {
-    list<Time>::iterator it;
     return timetable;
 }
 
