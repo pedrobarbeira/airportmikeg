@@ -111,8 +111,13 @@ public:
     bool loadTicket();
     void loadUsers();
     bool load();
+    void loadScreen(bool& flag);
 
-    void start(bool& flag);
+    Menu* logIn();
+    bool newAccount();
+    void start();
+    template<typename T>
+    static void readInput(T& in);
 };
 
 
@@ -125,7 +130,7 @@ class DevLog : public exception {
     std::string error;
     Date* date;
 public:
-    DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
+    explicit DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
     void print() const;
 };
 
@@ -146,7 +151,7 @@ public:
 class LoadAirportFail : public LoadFail{
 public:
     LoadAirportFail(){
-        error = "Failed to load airports";
+        error = "Failed to load Airports";
     }
 };
 class LoadVoyageFail : public LoadFail{
@@ -164,19 +169,19 @@ public:
 class LoadPlaneFail : public LoadFail{
 public:
     LoadPlaneFail() {
-        error = "Failed to load planes";
+        error = "Failed to load Planes";
     };
 };
 class LoadTicketFail : public LoadFail{
 public:
     LoadTicketFail() {
-        error = "Failed to load tickets";
+        error = "Failed to load Tickets";
     };
 };
 class LoadUserFail : public LoadFail{
 public:
     LoadUserFail(){
-        error = "Failed to load users";
+        error = "Failed to load Users";
     };
 };
 

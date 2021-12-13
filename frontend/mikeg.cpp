@@ -8,45 +8,78 @@ ostream& operator<<(ostream& out, LoadFail lf){
     return out;
 }
 
-void MikeG::start(bool& flag) {
-    this->setSysTime();
-    system(CLEAR);
+template<>
+void MikeG::readInput<char>(char& in){
+    std::cin >> in;
+}
+
+template<>
+void MikeG::readInput<std::string>(std::string& in){
+    std::string line;
+    std::getline(std::cin, line);
+    if(line[0] == '-') std::cout << "Process syscalls\n";
+    else in = line;
+}
+
+void MikeG::loadScreen(bool&flag){
     char c;
     if(!flag) {
         std::cout << "Loading data\n";
-        if (this->load()) {
-            std::cout << "Load successful\n";
-            std::cout << "Press enter to continue . . .";
-            std::cin.ignore();
-            c = getchar();
-        } else {
-            std::cout << "Load not successful\n";
+        try {
+            load();
+        }
+        catch (DevLog e) {
             do {
                 std::cout << "Continue[y/n]?";
-                std::cin >> c;
+                readInput(c);
                 if (c == 'N' || c == 'n') flag = false;
                 else if (c == 'Y' || c == 'y') flag = true;
             } while (c != 'y' && c != 'Y' && c != 'n' && c != 'N');
-            throw DevLog("Error during initial data file load. Check data files for corruption\n", sysTime);
+            throw e;
         }
+        std::cout << "Load successful\n";
+        std::cout << "Press enter to continue . . .";
+        std::cin.ignore();
+        c = getchar();
     }
+}
+
+void MikeG::start() {
+    this->setSysTime();
+    system(CLEAR);
+    char c;
+    bool flag = false;
     while (true) {
+        try{
+            loadScreen(flag);
+        }
+        catch(DevLog e){
+            e.print();
+            if(!flag) return;
+        }
+        loadScreen(flag);
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
         sysTime->print(std::cout);
         std::cout << "\n\n    [1] Buy Ticket"
                   << "\n    [2] Log In\n"
+                  << "\n    [3] Register\n"
                   << "\n    [0] Exit\n"
                   << "\n>";
-        std::cin >> c;
+        readInput(c);
         try {
             switch (c) {
                 case '1':
                     menu = new JustBuy();
-                    menu->mainScreen();;
                     break;
                 case '2':
-                    clients();
+                    menu = logIn();
+                    break;
+                case '3':
+                    if(!newAccount()) {
+                        std::cout << "Could not register account";
+                        throw DevLog("Error adding new account to system database\n", sysTime);
+                    }
                     break;
                 case '0':
                     return;
@@ -59,11 +92,22 @@ void MikeG::start(bool& flag) {
                     std::cout << "Invalid Option\n";
                     int c = getchar();
             }
+            if(menu != nullptr) menu->mainScreen();
         }
         catch (DevLog e) {
             e.print();
         }
     }
+}
+
+
+
+Menu* MikeG::logIn(){
+    return nullptr;
+}
+
+bool MikeG::newAccount(){
+    return true;
 }
 
 bool MikeG::addFlight(Flight* f){
@@ -120,12 +164,14 @@ void MikeG::loadUsers(){
 }
 
 bool MikeG::load(){
+    stringstream error;
     bool successful = true;
     try {
         loadAirport();
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e << ", ";
         successful = false;
     }
     try {
@@ -133,6 +179,7 @@ bool MikeG::load(){
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e << ", ";
         successful = false;
     }
     try {
@@ -140,6 +187,7 @@ bool MikeG::load(){
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e << ", ";
         successful = false;
     }
     try {
@@ -147,6 +195,7 @@ bool MikeG::load(){
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e << ", ";
         successful = false;
     }
     try{
@@ -155,6 +204,7 @@ bool MikeG::load(){
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e << ", ";
         successful = false;
     }
     try{
@@ -162,16 +212,20 @@ bool MikeG::load(){
     }
     catch (LoadFail e){
         std::cout << e << '\n';
+        error << e;
         successful = false;
     }
-    return successful;
+    if(!successful) throw DevLog(error.str(), sysTime);
 }
 
 void DevLog::print() const{
     std::ofstream outfile("./data/devlogs.txt", ios::app);
-    outfile << "*[";
-    (*date).print(outfile);
-    outfile << "] " << error;
+    if(date != nullptr) {
+        outfile << "*[";
+        (*date).print(outfile);
+        outfile << "] ";
+    }
+    outfile << error << '\n';
     outfile.close();
 }
 

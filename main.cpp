@@ -74,6 +74,7 @@ void testPassenger(){
     //Add code here
 }
 
+
 /**
  * Menu-related testing
  */
@@ -92,13 +93,7 @@ void testMenu(){
 
     BST<AirportFlightList> b1(AirportFlightList(nullptr));
 
-    if(b1.insert(AirportFlightList(a1))) std::cout << "yo";
-
-    if(main.addAirport(a1)) std::cout << "all good\n";
-    if(main.addAirport(a2)) std::cout << "all good too \n";
-    if(main.addFlight(f1)) std::cout << "still all good\n";
-    if(main.addFlight(f2)) std::cout << "thank god it worked\n";
-    if(main.addPlane(airb1)) std::cout << "holy jesus praised by thy name\n";
+    main.start();
 }
 
 /**
@@ -131,10 +126,6 @@ void testInterface(){
 }
 
 int main(){
-    //testAirport();
-    //testVoyage();
-    //testPassenger();
-    //testMenu();
     testInterface();
 
     return 0;

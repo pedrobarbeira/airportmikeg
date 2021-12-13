@@ -105,5 +105,8 @@ class ServiceMenu : public CompanyMenu{
 
 };
 
+template<typename T>
+T readInput();
+
 
 #endif //MAIN_CPP_MENU_H
