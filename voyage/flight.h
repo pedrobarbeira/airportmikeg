@@ -56,9 +56,13 @@ public:
 
 };
 
+/**
+ * Encapsulation class for pointers to FLight objects.
+ * Used to store Flight pointers in the Data BST
+ */
 class FlightPointer : public BSTPointer<Flight>{
 public:
-    explicit FlightPointer(Flight* f = nullptr){
+    explicit FlightPointer(Flight* f = nullptr) {
         pointer = f;
     }
     bool operator==(const Flight* f) const{
@@ -73,7 +77,9 @@ public:
 };
 
 /**
- * Stores the created Airports and which flights are related to them
+ * Encapsulation class for the Airport class
+ * Stores the created Airports and which flights are related to them in
+ * order to avoid unnecessary searches.
  */
 class AirportFlightList{
     Airport* airport;

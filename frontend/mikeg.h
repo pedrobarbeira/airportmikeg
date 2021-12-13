@@ -9,10 +9,10 @@
 #include "menu.h"
 #include "crossplatform.h"
 
-
-
-//Do the same for remaing classes
-
+/**
+ * Encapsulation class.
+ * Initializes and stores all the system's BST's
+ */
 class Data{
     BST<AirportFlightList> airports;
     std::vector<Voyage*> voyages;
@@ -27,6 +27,23 @@ public:
         planes.clear();
         tickets.clear();
     }
+    //Add get methods
+    BST<AirportFlightList> getAirport() const{
+        return airports;};
+    std::vector<Voyage*> getVoyages() const{
+        return voyages;};
+    BST<FlightPointer> getFlights() const{
+        return flights;};
+    std::vector<Plane*> getPlanes() const{
+        return planes;};
+    std::vector<Ticket*> getTickets() const{
+        return tickets;
+    }
+    BST<UserPointer> getUsers() const{
+        return users;
+    }
+    //Add find methos
+    //Add add methods
 };
 
 /**
@@ -37,28 +54,21 @@ class MikeG{
     Data* data;
     Menu* menu;
 public:
-    /**Constructor*/
+    /**-----Constructor-----*/
     MikeG(){
         sysTime = new Time;
         data = new Data;
         menu = nullptr;
     }
-    /**Getters*/
+    /**-----Getters-----*/
+    /** Actualizes current system time and returns it
+     * @return Time pointer with current system time
+     */
     Time* getTime() const{
+        sysTime->now();
         return sysTime;};
-    BST<AirportFlightList> getAirport() const{
-        return data->airports;};
-    std::vector<Voyage*> getVoyages() const{
-        return data->voyages;};
-    BST<FlightPointer> getFlights() const{
-        return data->flights;};
-    std::vector<Plane*> getPlanes() const{
-        return data->planes;};
-    std::vector<Ticket*> getTickets() const{
-        return data->tickets;
-    }
-    BST<UserPointer> getUsers() const{
-        return data->users;
+    Data* getData() const{
+        return data;
     }
     //need to add remaining classes
     /**Modifiers*/
