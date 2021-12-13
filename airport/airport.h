@@ -13,7 +13,12 @@
 #include"../src/date.h"
 
 using namespace std;
-
+/**
+ * Class Airport
+ *
+ * The attributes defined in this class are the Airport's name, (and respective 3 letter id), country, city
+ * a list of public transports nearby and a queue of services currently under way in the facility
+ */
 class Airport{
     string idName;
     string name;
