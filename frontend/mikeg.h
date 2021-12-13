@@ -19,14 +19,13 @@ class Data{
     BST<FlightPointer> flights;
     std::vector<Plane*> planes;
     std::vector<Ticket*> tickets;
-    std::vector<User*> users;
+    BST<UserPointer> users;
     friend class MikeG;
 public:
-    Data() : airports(AirportFlightList()), flights(FlightPointer()){
+    Data() : airports(AirportFlightList()), flights(FlightPointer()), users(UserPointer()){
         voyages.clear();
         planes.clear();
         tickets.clear();
-        users.clear();
     }
 };
 
@@ -41,7 +40,7 @@ public:
     /**Constructor*/
     MikeG(){
         sysTime = new Time;
-        data = nullptr;
+        data = new Data;
         menu = nullptr;
     }
     /**Getters*/
@@ -58,7 +57,7 @@ public:
     std::vector<Ticket*> getTickets() const{
         return data->tickets;
     }
-    std::vector<User*> getUsers() const{
+    BST<UserPointer> getUsers() const{
         return data->users;
     }
     //need to add remaining classes
@@ -97,13 +96,7 @@ public:
         return true;
     }*/
     bool addUser(User * u){
-        if(!data->users.empty()) {
-            for (auto user: data->users) {
-                if (user == u) return false;
-            }
-        }
-        data->users.push_back(u);
-        return true;
+        return data->users.insert(UserPointer(u));
     }
     /**Load/Save*/
     bool save() const;

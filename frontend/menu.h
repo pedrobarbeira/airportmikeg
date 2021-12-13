@@ -3,6 +3,7 @@
 #define MAIN_CPP_MENU_H
 
 #include <iostream>
+#include "bst.h"
 
 /**
  * User parent class. Acts as an Interface for it's subclasses.
@@ -11,6 +12,7 @@ class User{
     std::string username;
     std::string password;
     char type;
+    friend class UserPointer;
 public:
     User(){
         username.clear();
@@ -19,6 +21,20 @@ public:
     };
     User(std::string u, std::string p, char t):
             username(std::move(u)), password(std::move(p)), type(t){};
+};
+
+class UserPointer : public BSTPointer<User>{
+public:
+    explicit UserPointer(User* u = nullptr){
+        pointer = u;
+    }
+    bool operator==(const UserPointer& rhs) const{
+        return pointer->username == rhs.pointer->username;
+    }
+    bool operator<(const UserPointer& rhs) const{
+        return pointer->username < rhs.pointer->username;
+    }
+
 };
 
 /**

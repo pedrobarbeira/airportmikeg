@@ -20,11 +20,11 @@ struct TimePlace{
 };
 
 class Flight{
-    //Switch Aiport and Time for encapsulation class
     std::string flightID;
     TimePlace* origin;
     TimePlace* destination;
     Plane* plane;
+    friend class FlightPointer;
 public:
     /**Constructor*/
     explicit Flight(std::string id = ""){
@@ -61,14 +61,14 @@ public:
     explicit FlightPointer(Flight* f = nullptr){
         pointer = f;
     }
-    bool operator==(const Flight* f){
-        return f->getID() == pointer->getID();
+    bool operator==(const Flight* f) const{
+        return f->flightID == pointer->flightID;
     }
-    bool operator==(const std::string& id){
-        return pointer->getID() == id;
+    bool operator==(const std::string& id) const{
+        return pointer->flightID == id;
     }
     bool operator<(const FlightPointer& rhs) const{
-        return (*this).pointer->getID() < (*rhs).getID();
+        return this->pointer->flightID < (*rhs).flightID;
     }
 };
 

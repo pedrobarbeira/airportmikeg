@@ -61,11 +61,10 @@ void testMenu(){
     Flight* f1 = new Flight(t1, t2, airb1);
     Flight* f2 = new Flight(t2, t1, airb1);
 
-    AirportFlightList list(a1);
 
     BST<AirportFlightList> b1(AirportFlightList(nullptr));
 
-    if(b1.insert(list)) std::cout << "yo";
+    if(b1.insert(AirportFlightList(a1))) std::cout << "yo";
 
     if(main.addAirport(a1)) std::cout << "all good\n";
     if(main.addAirport(a2)) std::cout << "all good too \n";
