@@ -72,13 +72,11 @@ public:
     bool loadTicket();
     void loadUsers();
     bool load();
-    void loadScreen(bool& flag);
+    bool loadScreen(bool& flag);
 
     Menu* logIn();
     bool newAccount();
-    void start();
-    template<typename T>
-    static void readInput(T& in);
+    void start(bool& flag);
 };
 
 
@@ -93,6 +91,12 @@ class DevLog : public exception {
 public:
     explicit DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
     void print() const;
+    std::string getError() const{
+        return error;
+    }
+    Date* getDate() const{
+        return date;
+    }
 };
 
 /**

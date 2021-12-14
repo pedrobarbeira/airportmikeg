@@ -81,36 +81,8 @@ void testPassenger(){
  */
 void testMenu(){
     MikeG main;
-    Airport* a1 = new Airport("OPO", "Sa Carneiro", "Portugal", "Porto");
-    Airport* a2 = new Airport("BCN", "Barça", "Espanha", "Barcelona");
-    TimePlace* t1 = new TimePlace;
-    t1->airport = a1;
-    TimePlace* t2 = new TimePlace;
-    t2->airport = a2;
-    Airbus* airb1 = new Airbus(100, 50, std::queue<std::string>({"A", "B"}));
-    Flight* f1 = new Flight(t1, t2, airb1);
-    Flight* f2 = new Flight(t2, t1, airb1);
-
-
-    BST<AirportFlightList> b1(AirportFlightList(nullptr));
-
-    BST<FlightPointer> ftree1(FlightPointer(nullptr));
-
-    FlightPointer fptr1(f1);
-    FlightPointer fptr2(f2);
-
-    ftree1.insert(fptr1);
-    ftree1.insert(fptr2);
-
-    BST<UserPointer> tup1(UserPointer(nullptr));
-
-    User* up1 = new User("John", "Cena", 'B');
-
-    UserPointer uptr1(up1);
-
-    tup1.insert(uptr1);
-
-    main.start();
+    bool flag = false;
+    main.start(flag);
 
 }
 

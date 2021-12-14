@@ -3,51 +3,11 @@
 #define MAIN_CPP_MENU_H
 
 #include <iostream>
-#include "bst.h"
+#include "user.h"
 #include "voyage.h"
 #include "airport.h"
 
 //Eventually add Client subclass to user and create a user.h
-
-/**
- * User parent class. Acts as an Interface for it's subclasses.
- */
-class User{
-    std::string username;
-    std::string password;
-    char type; //Create
-    friend class UserPointer;
-public:
-    User(){
-        username.clear();
-        password.clear();
-        type = '\0';
-    };
-    User(std::string u = "", std::string p = "", char t = '\0'):
-            username(std::move(u)), password(std::move(p)), type(t){};
-    std::string getUser() const{
-        return username;
-    }
-    std::string getPassword() const{
-        return password;
-    }
-    char getType() const{
-        return type;
-    }
-};
-
-class UserPointer : public BSTPointer<User>{
-public:
-    explicit UserPointer(User* u = nullptr){
-        pointer = u;
-    }
-    bool operator==(const UserPointer& rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const UserPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
-    }
-};
 
 
 /**
@@ -61,6 +21,8 @@ class Data{
     BST<PlanePointer> planes;
     std::vector<Ticket*> tickets;
     BST<UserPointer> users;
+    //BST<ClientPointer> clients;
+    //BST<CompanyPointer> company;
     friend class MikeG;
 public:
     Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
@@ -82,11 +44,7 @@ public:
     std::vector<Ticket*> getTickets() const{
         return tickets;
     }
-    BST<UserPointer> getUsers() const{
-        return users;
-    }
-    //Add find methos
-    //Add add methods
+    //Add find methods
 };
 
 /**
@@ -96,39 +54,52 @@ class Menu{
 protected:
     User* user;
     Data* data;
+    Time* sysTime;
 public:
-    explicit Menu(User* u = nullptr, Data* d = nullptr): user(u), data(d){};
-    bool setUser(User* u){
-        if(user != nullptr) return false;
-        user = u;
-        return true;
-    }
+    explicit Menu(Data* d = nullptr) : data(d){
+        sysTime = new Time;
+        sysTime->now();
+    };
     virtual void mainScreen() const;
+};
+
+//Clear definitons from all the mainScreens() and write them in menu.cpp
+//The definitoins below were just to test the control flow and the logIn() function
+/**
+ * Frontend class that handles Registered Client menus
+ */
+class ClientMenu : public Menu{
+    //This would have a Client* user
+public:
+    explicit ClientMenu(User* u = nullptr, Data* d = nullptr){
+        user = u;
+        data = d;
+        sysTime = new Time;
+        sysTime->now();
+    }
+    void mainScreen() const;
 };
 
 /**
  * Frontend class that handles Unregistered Client menus
  */
-class JustBuy : public Menu{
+class JustBuy : public ClientMenu{
 public:
-    JustBuy(Data* d = nullptr){
+    explicit JustBuy(Data* d = nullptr){
         user = nullptr;
         data = d;
+        sysTime = new Time;
+        sysTime->now();
     }
     void mainScreen() const override;
-};
-
-/**
- * Frontend class that handles Registered Client menus
- */
-class ClientMenu : public Menu{
 };
 
 /**
  * Frontend class that handles Company menus
  */
 class CompanyMenu : public Menu{
-
+    //This would have a Company* user, to make sure only company memebers
+    //cout access this menu
 };
 
 /**
@@ -139,10 +110,13 @@ public:
     explicit AdminMenu(User* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
+        sysTime = new Time;
+        sysTime->now();
     }
     void mainScreen() const override{
-        std::cout << "here we are\n";
-        system("pause");
+        std::cout << "we are @ Admin\n"
+                  << "Press enter to continue . . .";
+        char c = getchar();
     }
 };
 
@@ -150,27 +124,60 @@ public:
  * Frontend class that handles Manager menus
  */
 class ManagerMenu : public CompanyMenu{
-
+public:
+    explicit ManagerMenu(User* u = nullptr, Data* d = nullptr){
+        user = u;
+        data = d;
+        sysTime = new Time;
+        sysTime->now();
+    }
+    void mainScreen() const override{
+        std::cout << "we are @ Manager\n"
+                  << "Press enter to continue . . .";
+        char c = getchar();
+    }
 };
 
 /**
  * Frontend class that handles Boarding Crew menus
  */
 class BoardingMenu : public CompanyMenu{
-
+public:
+    explicit BoardingMenu(User* u = nullptr, Data* d = nullptr){
+        user = u;
+        data = d;
+        sysTime = new Time;
+        sysTime->now();
+    }
+    void mainScreen() const override{
+        std::cout << "we are @ Boarding\n"
+                  << "Press enter to continue . . .";
+        char c = getchar();
+    }
 };
+
+//Eventually split this into BoardingPassenger and CheckinPassenger
 
 /**
  * Frontend class that handles Service Worker menus
  */
 class ServiceMenu : public CompanyMenu{
-
+public:
+    explicit ServiceMenu(User* u = nullptr, Data*d = nullptr){
+        user = u;
+        data = d;
+        sysTime = new Time;
+        sysTime->now();
+    }
+    void mainScreen() const override{
+        std::cout << "we are @ Service\n"
+                  << "Press enter to continue . . .";
+        char c = getchar();
+    }
 };
 
-template<typename T>
-T readInput();
-
 std::ostream& operator<<(ostream& out, const UserPointer& user);
-
+void readInput(char& in);
+void readInput(std::string& in);
 
 #endif //MAIN_CPP_MENU_H

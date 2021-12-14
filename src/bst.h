@@ -29,9 +29,6 @@ public:
     explicit BSTPointer(T* p = nullptr){
         pointer = p;
     }
-    ~BSTPointer(){
-        delete pointer;
-    }
     T* getPointer() const{
         return pointer;
     }

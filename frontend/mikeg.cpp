@@ -8,55 +8,40 @@ ostream& operator<<(ostream& out, LoadFail lf){
     return out;
 }
 
-template<>
-void MikeG::readInput<char>(char& in){
-    std::cin >> in;
-}
-
-template<>
-void MikeG::readInput<std::string>(std::string& in){
-    cin.ignore();
-    std::string line;
-    std::getline(std::cin, line);
-    if(line[0] == '-') std::cout << "Process syscalls\n";
-    else in = line;
-}
-
-void MikeG::loadScreen(bool&flag){
+bool MikeG::loadScreen(bool&flag){
     char c;
     if(!flag) {
         std::cout << "Loading data\n";
         try {
             load();
+            std::cout << "Load successful\n";
+            std::cout << "Press enter to continue . . .";
+            std::cin.ignore();
+            c = getchar();
+            return true;
         }
-        catch (DevLog e) {
+        catch (DevLog& e) {
             do {
                 std::cout << "Continue[y/n]?";
                 readInput(c);
                 if (c == 'N' || c == 'n') flag = false;
                 else if (c == 'Y' || c == 'y') flag = true;
             } while (c != 'y' && c != 'Y' && c != 'n' && c != 'N');
-            throw e;
+            e.print();
+            return false;
         }
-        std::cout << "Load successful\n";
-        std::cout << "Press enter to continue . . .";
-        std::cin.ignore();
-        c = getchar();
     }
 }
 
-void MikeG::start() {
+void MikeG::start(bool& flag) {
     this->setSysTime();
     system(CLEAR);
     char c;
-    bool flag = false;
+    bool keep = false;
     while (true) {
-        try{
-            //loadScreen(flag);
-        }
-        catch(DevLog e){
-            e.print();
-            if(!flag) return;
+        if(!flag) {
+            flag = loadScreen(keep);
+            if(!keep) return;
         }
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
@@ -106,20 +91,8 @@ void MikeG::start() {
 }
 
 Menu* MikeG::logIn() {
-    std::string line;
-    std::cout << "> ";
-    readInput(line);
-    if (line == "client")
-        return new ClientMenu();
-    if (line == "admin")
-        return new AdminMenu();
-    if (line == "manager")
-        return new ManagerMenu();
-    if (line == "boarding")
-        return new BoardingMenu();
-    if (line == "servce")
-        return new ServiceMenu();
-    /*std::string user, pass;
+    std::string user, pass;
+    std::cin.ignore();
     std::cout << "\n\n\n\n\n";
     std::cout << "Username\n>";
     readInput(user);
@@ -131,9 +104,11 @@ Menu* MikeG::logIn() {
     if((*find).getPassword() == pass){
         c = (*find).getType();
         switch(c){
-            case 'A' :
-                Menu* ret = new AdminMenu(find.getPointer());
-                return ret;
+            case 'A' : return new AdminMenu(find.getPointer(), data);
+            case 'C' : return new ClientMenu(find.getPointer(), data);
+            case 'M' : return new ManagerMenu(find.getPointer(), data);
+            case 'B' : return new BoardingMenu(find.getPointer(), data);
+            case 'S' : return new ServiceMenu(find.getPointer(), data);
         }
     }
     else {
@@ -141,7 +116,7 @@ Menu* MikeG::logIn() {
                   << "Press enter to continue . . .";
         c = getchar();
         return nullptr;
-    }*/
+    }
 }
 
 bool MikeG::newAccount(){
@@ -194,14 +169,14 @@ void MikeG::loadUsers(){
     }
     std::string uName, uPass;
     char uType;
-    //Fix this so UserPointers store the desired values
     while(infile >> uName){
         infile >> uPass >> uType;
         User* u = new User(uName, uPass, uType);
         UserPointer uptr(u);
-        addUser(uptr);
+        data->users.insert(uptr);
     }
     infile.close();
+
 }
 
 bool MikeG::load(){
@@ -216,7 +191,7 @@ bool MikeG::load(){
         successful = false;
     }
     try {
-        loadVoyage();
+        //loadVoyage();
     }
     catch (LoadFail e){
         std::cout << e << '\n';
@@ -224,7 +199,7 @@ bool MikeG::load(){
         successful = false;
     }
     try {
-        loadFlight();
+        //loadFlight();
     }
     catch (LoadFail e){
         std::cout << e << '\n';
@@ -232,7 +207,7 @@ bool MikeG::load(){
         successful = false;
     }
     try {
-        loadPlane();
+        //loadPlane();
     }
     catch (LoadFail e){
         std::cout << e << '\n';
@@ -240,8 +215,7 @@ bool MikeG::load(){
         successful = false;
     }
     try{
-        loadTicket();
-        successful = false;
+        //loadTicket();
     }
     catch (LoadFail e){
         std::cout << e << '\n';
