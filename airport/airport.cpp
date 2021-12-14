@@ -5,6 +5,9 @@
 #include <algorithm>
 #include "airport.h"
 
+Airport::Airport() {
+
+}
 /**
  * main constructor for Airport objects.
  * @param idName forces the id to be a 3 letter word, all caps;

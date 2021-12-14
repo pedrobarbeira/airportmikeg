@@ -6,8 +6,8 @@
  */
 
 void testAirport(){
-
-
+    airport();
+    /*
     Airport porto("oPo", "Sá Carneiro", "Portugal", "Porto" );
     Date date(10,12,2021);
     Plane *plane = new Plane;
@@ -48,6 +48,7 @@ void testAirport(){
     porto.nextTransportTrain(time3);
     Time time6(23, 59, 59);
     porto.nextTransportTrain(time6);
+     */
 }
 
 /**
