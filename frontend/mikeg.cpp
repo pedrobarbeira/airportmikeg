@@ -10,11 +10,13 @@ ostream& operator<<(ostream& out, LoadFail lf){
 
 template<>
 void MikeG::readInput<char>(char& in){
+    cin.ignore();
     std::cin >> in;
 }
 
 template<>
 void MikeG::readInput<std::string>(std::string& in){
+    cin.ignore();
     std::string line;
     std::getline(std::cin, line);
     if(line[0] == '-') std::cout << "Process syscalls\n";
@@ -103,24 +105,46 @@ void MikeG::start() {
 
 
 Menu* MikeG::logIn(){
-    return nullptr;
+    std::string user, pass;
+    std::cout << "\n\n\n\n\n";
+    std::cout << "Username\n>";
+    readInput(user);
+    std::cout << "Password\n>";
+    readInput(pass);
+    UserPointer find(new User(user));
+    find = data->users.find(find);
+    char c;
+    if((*find).getPassword() == pass){
+        c = (*find).getType();
+        switch(c){
+            case 'A' :
+                Menu* ret = new AdminMenu(find.getPointer());
+                return ret;
+        }
+    }
+    else {
+        std::cout << "Invalid credentials\n"
+                  << "Press enter to continue . . .";
+        c = getchar();
+        return nullptr;
+    }
 }
 
 bool MikeG::newAccount(){
     return true;
 }
 
-bool MikeG::addFlight(Flight* f){
+bool MikeG::addFlight(const FlightPointer& f){
     bool flag;
-    AirportFlightList addIn = data->airports.find(AirportFlightList(f->getOrigin()->airport));
+    AirportFlightList addIn = data->airports.find(AirportFlightList((*f).getOrigin()->airport));
     data->airports.remove(addIn);
-    AirportFlightList addOut = data->airports.find(AirportFlightList(f->getDestination()->airport));
+    AirportFlightList addOut = data->airports.find(AirportFlightList((*f).getDestination()->airport));
     data->airports.remove(addOut);
-    flag = addIn.addFlight(f) && addOut.addOut(f);
+    flag = addIn.addFlight(f.getPointer()) && addOut.addOut(f.getPointer());
     if(flag){
         data->airports.insert(addIn);
         data->airports.insert(addOut);
-        flag &= data->flights.insert(FlightPointer(f));
+        flag &= data->flights.insert(f);
     }
     return flag;
 }
@@ -156,9 +180,12 @@ void MikeG::loadUsers(){
     }
     std::string uName, uPass;
     char uType;
+    //Fix this so UserPointers store the desired values
     while(infile >> uName){
         infile >> uPass >> uType;
-        addUser(new User(uName, uPass, uType));
+        User* u = new User(uName, uPass, uType);
+        UserPointer uptr(u);
+        addUser(uptr);
     }
     infile.close();
 }

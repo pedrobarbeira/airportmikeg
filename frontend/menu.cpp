@@ -2,6 +2,11 @@
 #include "menu.h"
 #include "crossplatform.h"
 
+std::ostream& operator<<(ostream& out, const UserPointer& user){
+    out << (*user).getUser() << ' ' << (*user).getPassword() << ' ' << (*user).getType() << '\n';
+    return out;
+}
+
 void Menu::mainScreen() const{
     std::cout << "blabla\n";
 }

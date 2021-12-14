@@ -19,8 +19,17 @@ public:
         password.clear();
         type = '\0';
     };
-    User(std::string u, std::string p, char t):
+    User(std::string u = "", std::string p = "", char t = '\0'):
             username(std::move(u)), password(std::move(p)), type(t){};
+    std::string getUser() const{
+        return username;
+    }
+    std::string getPassword() const{
+        return password;
+    }
+    char getType() const{
+        return type;
+    }
 };
 
 class UserPointer : public BSTPointer<User>{
@@ -34,7 +43,6 @@ public:
     bool operator<(const UserPointer& rhs) const{
         return pointer->username < rhs.pointer->username;
     }
-
 };
 
 /**
@@ -61,7 +69,7 @@ public:
     JustBuy(){
         user = nullptr;
     }
-    void mainScreen() const;
+    void mainScreen() const override;
 };
 
 /**
@@ -81,7 +89,14 @@ class CompanyMenu : public Menu{
  * Frontend class that handles Admin menus
  */
 class AdminMenu : public CompanyMenu{
-
+public:
+    explicit AdminMenu(User* u = nullptr){
+        user = u;
+    }
+    void mainScreen() const override{
+        std::cout << "here we are\n";
+        system("pause");
+    }
 };
 
 /**
@@ -107,6 +122,8 @@ class ServiceMenu : public CompanyMenu{
 
 template<typename T>
 T readInput();
+
+std::ostream& operator<<(ostream& out, const UserPointer& user);
 
 
 #endif //MAIN_CPP_MENU_H

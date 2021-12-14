@@ -26,7 +26,9 @@ class BSTPointer{
 protected:
     T* pointer;
 public:
-    explicit BSTPointer(T* p = nullptr) : pointer(p){};
+    explicit BSTPointer(T* p = nullptr){
+        pointer = p;
+    }
     ~BSTPointer(){
         delete pointer;
     }

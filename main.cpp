@@ -1,5 +1,6 @@
 #include "mainmenu.h"
 #include "mikeg.h"
+#include "menu.h"
 
 /**
  * Airport-related testing
@@ -93,7 +94,24 @@ void testMenu(){
 
     BST<AirportFlightList> b1(AirportFlightList(nullptr));
 
+    BST<FlightPointer> ftree1(FlightPointer(nullptr));
+
+    FlightPointer fptr1(f1);
+    FlightPointer fptr2(f2);
+
+    ftree1.insert(fptr1);
+    ftree1.insert(fptr2);
+
+    BST<UserPointer> tup1(UserPointer(nullptr));
+
+    User* up1 = new User("John", "Cena", 'B');
+
+    UserPointer uptr1(up1);
+
+    tup1.insert(uptr1);
+
     main.start();
+
 }
 
 /**

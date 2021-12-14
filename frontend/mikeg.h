@@ -22,8 +22,10 @@ class Data{
     BST<UserPointer> users;
     friend class MikeG;
 public:
-    Data() : airports(AirportFlightList()), flights(FlightPointer()),
-             planes(PlanePointer()), users(UserPointer()){
+    Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
+             planes(PlanePointer(nullptr)), users(UserPointer(nullptr)){
+        BST<UserPointer> u(UserPointer(nullptr));
+        users = u;
         voyages.clear();
         tickets.clear();
     }
@@ -74,8 +76,8 @@ public:
     /**Modifiers*/
     void setSysTime(){
         sysTime->now();};
-    bool addAirport(Airport* a){
-        return data->airports.insert(AirportFlightList(a));
+    bool addAirport(const AirportFlightList& a){
+        return data->airports.insert(a);
     }
     bool addVoyage(Voyage* v){
         if(!data->voyages.empty()) {
@@ -86,9 +88,9 @@ public:
         data->voyages.push_back(v);
         return true;
     }
-    bool addFlight(Flight* f);
-    bool addPlane(Plane* p){
-        return data->planes.insert(PlanePointer(p));
+    bool addFlight(const FlightPointer& f);
+    bool addPlane(const PlanePointer& p){
+        return data->planes.insert(p);
     }
     /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {
@@ -99,8 +101,8 @@ public:
         data->tickets.push_back(t);
         return true;
     }*/
-    bool addUser(User * u){
-        return data->users.insert(UserPointer(u));
+    void addUser(const UserPointer& u){
+        data->users.insert(u);
     }
     /**Load/Save*/
     bool save() const;
