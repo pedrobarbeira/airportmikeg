@@ -2,6 +2,7 @@
 #define MIKEGAIRLINES_LUGGAGE_H
 #include <iostream>
 
+
 class Luggage {
     unsigned int weight;
     bool checkinlugg;

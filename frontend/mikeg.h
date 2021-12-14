@@ -4,49 +4,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "airport.h"
-#include "voyage.h"
 #include "menu.h"
 #include "crossplatform.h"
-
-/**
- * Encapsulation class.
- * Initializes and stores all the system's BST's
- */
-class Data{
-    BST<AirportFlightList> airports;
-    std::vector<Voyage*> voyages;
-    BST<FlightPointer> flights;
-    BST<PlanePointer> planes;
-    std::vector<Ticket*> tickets;
-    BST<UserPointer> users;
-    friend class MikeG;
-public:
-    Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
-             planes(PlanePointer(nullptr)), users(UserPointer(nullptr)){
-        BST<UserPointer> u(UserPointer(nullptr));
-        users = u;
-        voyages.clear();
-        tickets.clear();
-    }
-    //Add get methods
-    BST<AirportFlightList> getAirport() const{
-        return airports;};
-    std::vector<Voyage*> getVoyages() const{
-        return voyages;};
-    BST<FlightPointer> getFlights() const{
-        return flights;};
-    BST<PlanePointer> getPlanes() const{
-        return planes;};
-    std::vector<Ticket*> getTickets() const{
-        return tickets;
-    }
-    BST<UserPointer> getUsers() const{
-        return users;
-    }
-    //Add find methos
-    //Add add methods
-};
 
 /**
  * System Interface

@@ -6,9 +6,9 @@
 
 using namespace std;
 
-
 class Passenger{
     string name;
+    //Change this to ticket
     bool checkinpass;
     vector<Luggage*> luggage;
 public:

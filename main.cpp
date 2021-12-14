@@ -2,10 +2,11 @@
 #include "mikeg.h"
 #include "menu.h"
 
+//Use vectors and comparator functions to allow for different searches
+
 /**
  * Airport-related testing
  */
-
 void testAirport(){
 
 
@@ -74,7 +75,6 @@ void testVoyage() {
 void testPassenger(){
     //Add code here
 }
-
 
 /**
  * Menu-related testing

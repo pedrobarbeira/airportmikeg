@@ -52,7 +52,6 @@ public:
     /**Print*/
     void print(std::ostream& out) const;
     bool operator<(const Flight& rhs) const;
-
 };
 
 /**
@@ -86,7 +85,7 @@ class AirportFlightList{
     BST<FlightPointer> outFlights;
 public:
     explicit AirportFlightList(Airport* a = nullptr) :
-            airport(a), inFlights(FlightPointer()), outFlights(FlightPointer()){};
+            airport(a), inFlights(FlightPointer(nullptr)), outFlights(FlightPointer(nullptr)){};
     Airport* getAirport() const{
         return airport;
     }

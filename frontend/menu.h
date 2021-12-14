@@ -4,6 +4,10 @@
 
 #include <iostream>
 #include "bst.h"
+#include "voyage.h"
+#include "airport.h"
+
+//Eventually add Client subclass to user and create a user.h
 
 /**
  * User parent class. Acts as an Interface for it's subclasses.
@@ -11,7 +15,7 @@
 class User{
     std::string username;
     std::string password;
-    char type;
+    char type; //Create
     friend class UserPointer;
 public:
     User(){
@@ -45,14 +49,55 @@ public:
     }
 };
 
+
+/**
+ * Encapsulation class.
+ * Initializes and stores all the system's BST's
+ */
+class Data{
+    BST<AirportFlightList> airports;
+    std::vector<Voyage*> voyages;
+    BST<FlightPointer> flights;
+    BST<PlanePointer> planes;
+    std::vector<Ticket*> tickets;
+    BST<UserPointer> users;
+    friend class MikeG;
+public:
+    Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
+             planes(PlanePointer(nullptr)), users(UserPointer(nullptr)){
+        BST<UserPointer> u(UserPointer(nullptr));
+        users = u;
+        voyages.clear();
+        tickets.clear();
+    }
+    //Add get methods
+    BST<AirportFlightList> getAirport() const{
+        return airports;};
+    std::vector<Voyage*> getVoyages() const{
+        return voyages;};
+    BST<FlightPointer> getFlights() const{
+        return flights;};
+    BST<PlanePointer> getPlanes() const{
+        return planes;};
+    std::vector<Ticket*> getTickets() const{
+        return tickets;
+    }
+    BST<UserPointer> getUsers() const{
+        return users;
+    }
+    //Add find methos
+    //Add add methods
+};
+
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
  */
 class Menu{
 protected:
     User* user;
+    Data* data;
 public:
-    explicit Menu(User* u = nullptr): user(u){};
+    explicit Menu(User* u = nullptr, Data* d = nullptr): user(u), data(d){};
     bool setUser(User* u){
         if(user != nullptr) return false;
         user = u;
@@ -66,8 +111,9 @@ public:
  */
 class JustBuy : public Menu{
 public:
-    JustBuy(){
+    JustBuy(Data* d = nullptr){
         user = nullptr;
+        data = d;
     }
     void mainScreen() const override;
 };
@@ -90,8 +136,9 @@ class CompanyMenu : public Menu{
  */
 class AdminMenu : public CompanyMenu{
 public:
-    explicit AdminMenu(User* u = nullptr){
+    explicit AdminMenu(User* u = nullptr, Data* d = nullptr){
         user = u;
+        data = d;
     }
     void mainScreen() const override{
         std::cout << "here we are\n";

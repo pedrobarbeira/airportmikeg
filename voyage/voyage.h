@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 
+//Shift this and add Flight* flight ticket
 /**
  * Encapsulatin class for Flights and Tickets
  * Stores the Flight and the tickets associated with it

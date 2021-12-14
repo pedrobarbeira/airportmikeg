@@ -25,7 +25,6 @@ public:
     void addTime(Time time);
     void delTime(Time time);
     list<Time> getTimetable ();
-
 };
 
 #endif //MIKEGAIRLINES_TRANSPORT_H

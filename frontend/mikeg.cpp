@@ -64,15 +64,16 @@ void MikeG::start() {
         std::cout << "[MikeG Airlines]\t\t\t";
         sysTime->print(std::cout);
         std::cout << "\n\n    [1] Buy Ticket"
-                  << "\n    [2] Log In\n"
-                  << "\n    [3] Register\n"
+                  << "\n    [2] Check In"
+                  << "\n    [3] Register"
+                  << "\n    [4] Log In\n"
                   << "\n    [0] Exit\n"
                   << "\n>";
         readInput(c);
         try {
             switch (c) {
                 case '1':
-                    menu = new JustBuy();
+                    menu = new JustBuy(data);
                     break;
                 case '2':
                     menu = logIn();
@@ -102,10 +103,21 @@ void MikeG::start() {
     }
 }
 
-
-
-Menu* MikeG::logIn(){
-    std::string user, pass;
+Menu* MikeG::logIn() {
+    std::string line;
+    std::cout << "> ";
+    readInput(line);
+    if (line == "client")
+        return new ClientMenu();
+    if (line == "admin")
+        return new AdminMenu();
+    if (line == "manager")
+        return new ManagerMenu();
+    if (line == "boarding")
+        return new BoardingMenu();
+    if (line == "servce")
+        return new ServiceMenu();
+    /*std::string user, pass;
     std::cout << "\n\n\n\n\n";
     std::cout << "Username\n>";
     readInput(user);
@@ -127,7 +139,7 @@ Menu* MikeG::logIn(){
                   << "Press enter to continue . . .";
         c = getchar();
         return nullptr;
-    }
+    }*/
 }
 
 bool MikeG::newAccount(){
@@ -255,4 +267,3 @@ void DevLog::print() const{
     outfile << error << '\n';
     outfile.close();
 }
-
