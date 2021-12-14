@@ -16,7 +16,7 @@ class Staff{
     string name;
     unsigned phone;
 public:
-    Staff(string name);
+    explicit Staff(string name = "");
     void setId(size_t id);
     void setPhone (unsigned n);
     string getName() const;
@@ -24,7 +24,7 @@ public:
     unsigned getId() const;
 };
 
-class InvalidNumber{
+class InvalidNumber : public exception{
 private:
     string e;
 public:

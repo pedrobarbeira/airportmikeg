@@ -26,9 +26,8 @@ class BSTPointer{
 protected:
     T* pointer;
 public:
-    explicit BSTPointer(T* p = nullptr) : pointer(p){};
-    ~BSTPointer(){
-        delete pointer;
+    explicit BSTPointer(T* p = nullptr){
+        pointer = p;
     }
     T* getPointer() const{
         return pointer;

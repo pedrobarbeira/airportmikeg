@@ -1,5 +1,4 @@
-*Error during initial data file load. Check data files for corruption
-*Error during initial data file load. Check data files for corruption
-*[01:05:08 13/12/2021
-] Error during initial data file load. Check data files for corruption
-*[01:06:48 13/12/2021] Error during initial data file load. Check data files for corruption
+*[04:43:53 14/12/2021] Failed to load Airports, 
+*[04:44:10 14/12/2021] Failed to load Airports, 
+*[04:46:35 14/12/2021] Failed to load Airports, 
+*[04:46:54 14/12/2021] Failed to load Airports, 

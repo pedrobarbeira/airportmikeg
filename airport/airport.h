@@ -49,7 +49,6 @@ public:
     list<Time>nextTransportMetro (Time time);
     list<Time>nextTransportBus (Time time);
     list<Time>nextTransportTrain (Time time);
-
 };
 
 

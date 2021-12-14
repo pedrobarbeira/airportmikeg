@@ -1,10 +1,12 @@
 #include "mainmenu.h"
 #include "mikeg.h"
+#include "menu.h"
+
+//Use vectors and comparator functions to allow for different searches
 
 /**
  * Airport-related testing
  */
-
 void testAirport(){
     airport();
     /*
@@ -80,26 +82,9 @@ void testPassenger(){
  */
 void testMenu(){
     MikeG main;
-    Airport* a1 = new Airport("OPO", "Sa Carneiro", "Portugal", "Porto");
-    Airport* a2 = new Airport("BCN", "Barça", "Espanha", "Barcelona");
-    TimePlace* t1 = new TimePlace;
-    t1->airport = a1;
-    TimePlace* t2 = new TimePlace;
-    t2->airport = a2;
-    Airbus* airb1 = new Airbus(100, 50, std::queue<std::string>({"A", "B"}));
-    Flight* f1 = new Flight(t1, t2, airb1);
-    Flight* f2 = new Flight(t2, t1, airb1);
+    bool flag = false;
+    main.start(flag);
 
-
-    BST<AirportFlightList> b1(AirportFlightList(nullptr));
-
-    if(b1.insert(AirportFlightList(a1))) std::cout << "yo";
-
-    if(main.addAirport(a1)) std::cout << "all good\n";
-    if(main.addAirport(a2)) std::cout << "all good too \n";
-    if(main.addFlight(f1)) std::cout << "still all good\n";
-    if(main.addFlight(f2)) std::cout << "thank god it worked\n";
-    if(main.addPlane(airb1)) std::cout << "holy jesus praised by thy name\n";
 }
 
 /**
@@ -132,10 +117,6 @@ void testInterface(){
 }
 
 int main(){
-    //testAirport();
-    //testVoyage();
-    //testPassenger();
-    //testMenu();
     testInterface();
 
     return 0;

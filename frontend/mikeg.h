@@ -4,47 +4,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "airport.h"
-#include "voyage.h"
 #include "menu.h"
 #include "crossplatform.h"
-
-/**
- * Encapsulation class.
- * Initializes and stores all the system's BST's
- */
-class Data{
-    BST<AirportFlightList> airports;
-    std::vector<Voyage*> voyages;
-    BST<FlightPointer> flights;
-    BST<PlanePointer> planes;
-    std::vector<Ticket*> tickets;
-    BST<UserPointer> users;
-    friend class MikeG;
-public:
-    Data() : airports(AirportFlightList()), flights(FlightPointer()),
-             planes(PlanePointer()), users(UserPointer()){
-        voyages.clear();
-        tickets.clear();
-    }
-    //Add get methods
-    BST<AirportFlightList> getAirport() const{
-        return airports;};
-    std::vector<Voyage*> getVoyages() const{
-        return voyages;};
-    BST<FlightPointer> getFlights() const{
-        return flights;};
-    BST<PlanePointer> getPlanes() const{
-        return planes;};
-    std::vector<Ticket*> getTickets() const{
-        return tickets;
-    }
-    BST<UserPointer> getUsers() const{
-        return users;
-    }
-    //Add find methos
-    //Add add methods
-};
 
 /**
  * System Interface
@@ -74,8 +35,8 @@ public:
     /**Modifiers*/
     void setSysTime(){
         sysTime->now();};
-    bool addAirport(Airport* a){
-        return data->airports.insert(AirportFlightList(a));
+    bool addAirport(const AirportFlightList& a){
+        return data->airports.insert(a);
     }
     bool addVoyage(Voyage* v){
         if(!data->voyages.empty()) {
@@ -86,9 +47,9 @@ public:
         data->voyages.push_back(v);
         return true;
     }
-    bool addFlight(Flight* f);
-    bool addPlane(Plane* p){
-        return data->planes.insert(PlanePointer(p));
+    bool addFlight(const FlightPointer& f);
+    bool addPlane(const PlanePointer& p){
+        return data->planes.insert(p);
     }
     /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {
@@ -99,8 +60,8 @@ public:
         data->tickets.push_back(t);
         return true;
     }*/
-    bool addUser(User * u){
-        return data->users.insert(UserPointer(u));
+    void addUser(const UserPointer& u){
+        data->users.insert(u);
     }
     /**Load/Save*/
     bool save() const;
@@ -111,7 +72,10 @@ public:
     bool loadTicket();
     void loadUsers();
     bool load();
+    bool loadScreen(bool& flag);
 
+    Menu* logIn();
+    bool newAccount();
     void start(bool& flag);
 };
 
@@ -125,8 +89,14 @@ class DevLog : public exception {
     std::string error;
     Date* date;
 public:
-    DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
+    explicit DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
     void print() const;
+    std::string getError() const{
+        return error;
+    }
+    Date* getDate() const{
+        return date;
+    }
 };
 
 /**
@@ -146,7 +116,7 @@ public:
 class LoadAirportFail : public LoadFail{
 public:
     LoadAirportFail(){
-        error = "Failed to load airports";
+        error = "Failed to load Airports";
     }
 };
 class LoadVoyageFail : public LoadFail{
@@ -164,19 +134,19 @@ public:
 class LoadPlaneFail : public LoadFail{
 public:
     LoadPlaneFail() {
-        error = "Failed to load planes";
+        error = "Failed to load Planes";
     };
 };
 class LoadTicketFail : public LoadFail{
 public:
     LoadTicketFail() {
-        error = "Failed to load tickets";
+        error = "Failed to load Tickets";
     };
 };
 class LoadUserFail : public LoadFail{
 public:
     LoadUserFail(){
-        error = "Failed to load users";
+        error = "Failed to load Users";
     };
 };
 
