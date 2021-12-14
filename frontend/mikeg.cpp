@@ -10,7 +10,6 @@ ostream& operator<<(ostream& out, LoadFail lf){
 
 template<>
 void MikeG::readInput<char>(char& in){
-    cin.ignore();
     std::cin >> in;
 }
 
@@ -53,13 +52,12 @@ void MikeG::start() {
     bool flag = false;
     while (true) {
         try{
-            loadScreen(flag);
+            //loadScreen(flag);
         }
         catch(DevLog e){
             e.print();
             if(!flag) return;
         }
-        loadScreen(flag);
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
         sysTime->print(std::cout);
@@ -76,13 +74,16 @@ void MikeG::start() {
                     menu = new JustBuy(data);
                     break;
                 case '2':
-                    menu = logIn();
+                    std::cout << "Register\n";
                     break;
                 case '3':
                     if(!newAccount()) {
                         std::cout << "Could not register account";
                         throw DevLog("Error adding new account to system database\n", sysTime);
                     }
+                case '4':
+                    menu = logIn();
+                    break;
                     break;
                 case '0':
                     return;
@@ -92,8 +93,9 @@ void MikeG::start() {
                         break;
                     }
                 default:
-                    std::cout << "Invalid Option\n";
-                    int c = getchar();
+                    std::cout << "Inval1d Option\n"
+                              << "Press enter to continue . . .";
+                    readInput(c);
             }
             if(menu != nullptr) menu->mainScreen();
         }
