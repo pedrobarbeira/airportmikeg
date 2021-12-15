@@ -7,17 +7,21 @@
 using namespace std;
 
 class Ticket {
-    string ticketID;
+    int ticketID;
     Seat* seat;
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
-    Ticket(int number, string ticketID);
-    int getNumber() const;
-    string getID() const;
+    Ticket(int ticketID);
+    int getID() const;
     Passenger* getOwner() const;
+    Seat* getSeat() const;
+
     void setOwner(Passenger* voyage3){owner=voyage3;}
-    void setTID(string ti){ticketID=ti;}
+    void setTID(int ti){ticketID=ti;}
+
+    void addluggage(Luggage *l);
+
 };
 
 

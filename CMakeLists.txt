@@ -12,7 +12,7 @@ add_executable(mikegairlines main.cpp src/date.h voyage/voyage.h voyage/plane.h 
         frontend/mikeg.h passenger/luggage.h passenger/luggage.cpp passenger/passenger.h passenger/passenger.cpp
         passenger/ticket.h passenger/ticket.cpp frontend/mikeg.cpp
         voyage/flight.cpp voyage/flight.h voyage/plane.cpp src/bst.h frontend/menu.cpp frontend/menu.h
-        src/user.h src/data.cpp src/data.h src/pointer.h src/pointer.cpp src/sorter.h src/exception.h)
+        src/user.h src/data.cpp src/data.h src/pointer.h src/pointer.cpp src/sorter.h src/exception.h passenger/funcoes.cpp passenger/funcoes.h)
 
 
 # Doxygen Build

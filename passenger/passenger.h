@@ -13,6 +13,7 @@ public:
     string getName() const;
     bool getCheckinpass() const;
     void setName(string name2){name=name2;}
+
 };
 
 

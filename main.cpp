@@ -1,8 +1,12 @@
 #include "mainmenu.h"
 #include "mikeg.h"
 #include "menu.h"
-
+#include "funcoes.h"
+#include "vector"
+#include "iostream"
 //Use vectors and comparator functions to allow for different searches
+vector<Ticket*> tickets;
+
 
 /**
  * Airport-related testing
@@ -74,8 +78,21 @@ void testVoyage() {
  * Passenger-related testing
  */
 void testPassenger(){
-    //Add code here
-}
+   // while() {
+        cout << "[1] comprar bilhetes" << endl;
+        cout << "[2] lista bilhetes" << endl;
+        int escolha;
+        cin >> escolha;
+        switch (escolha) {
+            case 1:
+                comprarBilhete(tickets);
+                break;
+            case 2:
+                listBilhetes(tickets);
+                break;
+        }
+    }
+//}
 
 /**
  * Menu-related testing
