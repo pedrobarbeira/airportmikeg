@@ -3,7 +3,7 @@
 #define MAIN_CPP_DATA_H
 
 #include <iostream>
-#include "pointer.h"
+#include "voyage.h"
 #include "exception.h"
 
 /**

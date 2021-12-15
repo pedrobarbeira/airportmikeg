@@ -2,68 +2,51 @@
 #ifndef AIPORTMIKEG_VOYAGE_H
 #define AIPORTMIKEG_VOYAGE_H
 
-#include "plane.h"
-#include "flight.h"
-#include "airport.h"
-#include "ticket.h"
+#include "pointer.h"
 #include "../src/date.h"
 #include <vector>
 #include <list>
 
-//Shift this and add Flight* flight ticket
-/**
- * Encapsulatin class for Flights and Tickets
- * Stores the Flight and the tickets associated with it
- */
-class FlightTicket{
-    Flight* flight;
-    //add ticket BST
-public:
-    explicit FlightTicket(Flight* f = nullptr) : flight(f){}; //addticket
-    Flight* getFlight() const{
-        return flight;
-    }
-};
 
 class Connection{
-    FlightTicket* in;
-    FlightTicket* out;
+    Flight* in;
+    Flight* out;
 public:
     explicit Connection(Flight* i = nullptr, Flight* o = nullptr);
     ~Connection();
-    FlightTicket* getIn() const{
+    Flight* getIn() const{
         return in;};
-    FlightTicket* getOut() const{
+    Flight* getOut() const{
         return out;};
 };
 
 class Voyage{
     std::string voyageId;
     std::vector<Ticket*> tickets;
-    std::list<FlightTicket*> route;
+    std::list<Flight*> route;
 public:
     /**Constructor*/
     Voyage(Flight* f){
         //tickets.clear();
-        route.push_back(new FlightTicket(f));
+        route.push_back(f);
     }
     ~Voyage();
     /**Getters*/
     std::vector<Ticket*> getTickets() const{
         return tickets;};
-    std::list<FlightTicket*> getRoute(){
+    std::list<Flight*> getRoute(){
         return route;};
     TimePlace* getOrigin() const{
-        return route.front()->getFlight()->getOrigin();};
+        return route.front()->getOrigin();};
     TimePlace* getDestination() const{
-        return route.back()->getFlight()->getDestination();};
+        return route.back()->getDestination();};
     std::string getId() const{
         return voyageId;
     }
     /**Setters*/
     void setTickets(std::vector<Ticket*> t){
         tickets = t;};
-    void setRoute(std::list<FlightTicket*> r){
+    void setRoute(std::list<Flight*> r){
         route = std::move(r);};
     /**Adders*/
     bool addTicket(Ticket* t);
@@ -71,6 +54,19 @@ public:
     bool addConnection(Connection* c); //gotta finish this one
     void printRoute(std::ostream& out) const;
 
+};
+
+class VoyagePointer : public BSTPointer<Voyage>{
+public:
+    explicit VoyagePointer(Voyage* v = nullptr){
+        pointer = v;
+    }
+    bool operator==(const VoyagePointer& rhs) const{
+        return (*pointer).getId() == (*rhs.pointer).getId();
+    }
+    bool operator<(const VoyagePointer& rhs) const{
+        return (*pointer).getId() < (*rhs.pointer).getId();
+    }
 };
 
 class InvalidConnection{

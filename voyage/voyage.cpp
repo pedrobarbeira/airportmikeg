@@ -3,8 +3,8 @@
 
 Connection::Connection(Flight *i, Flight *o) {
         if(i->getDestination() == o->getOrigin()) {
-            in = new FlightTicket(i);
-            out = new FlightTicket(o);
+            in = i;
+            out = o;
         }
         else throw InvalidConnection();
 }
@@ -31,13 +31,13 @@ bool Voyage::addTicket(Ticket* t){
 
 bool Voyage::addFlight(Flight* f){
     //add Date check
-    std::list<FlightTicket*>::iterator it = route.begin();
-    if(f->getDestination() == (*it)->getFlight()->getOrigin()) {
-        route.push_front(new FlightTicket(f));
+    std::list<Flight*>::iterator it = route.begin();
+    if(f->getDestination() == (*it)->getOrigin()) {
+        route.push_front(f);
         return true;
     }
-    else if(f->getOrigin() == (*it)->getFlight()->getDestination()){
-        route.push_back(new FlightTicket(f));
+    else if(f->getOrigin() == (*it)->getDestination()){
+        route.push_back(f);
         return true;
     }
     else return false;
@@ -46,18 +46,18 @@ bool Voyage::addFlight(Flight* f){
 bool Voyage::addConnection(Connection* c) {
     //Add Date check
     bool added = false;
-    std::list<FlightTicket*>::iterator it = route.begin();
+    std::list<Flight*>::iterator it = route.begin();
     if (route.size() == 1) {
-        if (c->getOut()->getFlight()->getDestination() == (*it)->getFlight()->getOrigin()) {
+        if (c->getOut()->getDestination() == (*it)->getOrigin()) {
             route.push_front(c->getOut());
             route.push_front(c->getIn());
             added = true;
-        } else if (c->getIn()->getFlight()->getOrigin() == (*it)->getFlight()->getDestination()) {
+        } else if (c->getIn()->getOrigin() == (*it)->getDestination()) {
             route.push_back(c->getIn());
             route.push_back(c->getOut());
             added = true;
-        } else if (c->getIn()->getFlight()->getOrigin() == (*it)->getFlight()->getOrigin() &&
-                   c->getOut()->getFlight()->getDestination() == (*it)->getFlight()->getDestination()) {
+        } else if (c->getIn()->getOrigin() == (*it)->getOrigin() &&
+                   c->getOut()->getDestination() == (*it)->getDestination()) {
             route.insert(it, c->getIn());
             route.insert(it, c->getOut());
             route.erase(it);
@@ -66,8 +66,8 @@ bool Voyage::addConnection(Connection* c) {
     } else {
         bool found = false;
         while (it != route.end()) {
-            if ((*it)->getFlight()->getOrigin() == c->getIn()->getFlight()->getOrigin() &&
-                (*it)->getFlight()->getDestination() == c->getOut()->getFlight()->getDestination()) {
+            if ((*it)->getOrigin() == c->getIn()->getOrigin() &&
+                (*it)->getDestination() == c->getOut()->getDestination()) {
                 found = true;
                 break;
             }
@@ -83,12 +83,4 @@ bool Voyage::addConnection(Connection* c) {
     }
     delete c;
     return added;
-}
-
-void Voyage::printRoute(std::ostream& out) const{
-    auto it = route.begin();
-    while(it != route.end()){
-        (*it)->getFlight()->print(out);
-        it++;
-    }
 }

@@ -3,7 +3,8 @@
 #define MAIN_CPP_POINTER_H
 
 #include "bst.h"
-#include "voyage.h"
+#include "flight.h"
+#include "ticket.h"
 #include "user.h"
 
 class TicketPointer : public BSTPointer<Ticket>{
@@ -47,8 +48,9 @@ public:
  * Used to store Flight pointers in the Data BSTs
  */
 class FlightPointer : public BSTPointer<Flight>{
+    BST<TicketPointer> tickets;
 public:
-    explicit FlightPointer(Flight* f = nullptr) {
+    explicit FlightPointer(Flight* f = nullptr) : tickets(TicketPointer(nullptr)) {
         pointer = f;
     }
     bool operator==(const Flight* f) const{
@@ -100,19 +102,6 @@ public:
     }
     bool operator<(const AirportPointer& apf) const{
         return pointer->getidCode() < apf.pointer->getidCode();
-    }
-};
-
-class VoyagePointer : public BSTPointer<Voyage>{
-public:
-    explicit VoyagePointer(Voyage* v = nullptr){
-        pointer = v;
-    }
-    bool operator==(const VoyagePointer& rhs) const{
-        return (*pointer).getId() == (*rhs.pointer).getId();
-    }
-    bool operator<(const VoyagePointer& rhs) const{
-        return (*pointer).getId() < (*rhs.pointer).getId();
     }
 };
 
