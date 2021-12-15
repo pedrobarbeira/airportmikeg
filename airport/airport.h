@@ -39,8 +39,8 @@ class Airport{
     string city;
     vector<Terminal*> terminals;
     list<Transport*> transport;
-    queue<Service*> services;
-    list<Service*> complete;
+    queue<ServiceTicket*> services;
+    list<ServiceTicket*> complete;
 public:
     Airport();
     Airport(string idName, string name, string country, string city);
@@ -49,11 +49,11 @@ public:
     string getCountry() const;
     string getCity() const;
     vector<int> getTerminals() const;
-    vector<Service*> getServices();
-    Service* nextService();
+    vector<ServiceTicket*> getServices();
+    ServiceTicket* nextService();
     void setTransport (Transport *transport);
     void delTransport (Transport *transport);
-    void addService (Service *service);
+    void addService (ServiceTicket *service);
     void delService (Date date);
     list<Time>nextTransportMetro (Time time);
     list<Time>nextTransportBus (Time time);

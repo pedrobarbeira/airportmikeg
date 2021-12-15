@@ -46,4 +46,6 @@ void historyService();
 //This function is because in menu navigation it is often required to choose the terms of search of an airport
 Airport* selectAirport();
 
+//TODO
+//print functions by class
 #endif //MIKEGAIRLINES_ADMIN_H

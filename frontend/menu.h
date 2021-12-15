@@ -160,7 +160,7 @@ public:
 //Eventually split this into BoardingPassenger and CheckinPassenger
 
 /**
- * Frontend class that handles Service Worker menus
+ * Frontend class that handles ServiceTicket Worker menus
  */
 class ServiceMenu : public CompanyMenu{
 public:
@@ -171,7 +171,7 @@ public:
         sysTime->now();
     }
     void mainScreen() const override{
-        std::cout << "we are @ Service\n"
+        std::cout << "we are @ ServiceTicket\n"
                   << "Press enter to continue . . .";
         char c = getchar();
     }

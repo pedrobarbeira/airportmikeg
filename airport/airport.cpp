@@ -60,9 +60,9 @@ vector<int> Airport::getTerminals() const {
     return term;
 }
 
-vector<Service*> Airport::getServices()  {
-    vector<Service*> temp;
-    queue<Service*> q;
+vector<ServiceTicket*> Airport::getServices()  {
+    vector<ServiceTicket*> temp;
+    queue<ServiceTicket*> q;
     while (!services.empty()){
         temp.push_back(services.front());
         q.push(services.front());
@@ -72,7 +72,7 @@ vector<Service*> Airport::getServices()  {
     return temp;
 }
 
-Service* Airport::nextService() {
+ServiceTicket* Airport::nextService() {
     return services.front();
 }
 
@@ -84,7 +84,7 @@ void Airport::delTransport(Transport *transport) {
     this->transport.remove(transport);
 }
 
-void Airport::addService(Service *service) {
+void Airport::addService(ServiceTicket *service) {
     services.push(service);
 }
 /**

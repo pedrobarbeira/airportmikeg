@@ -144,7 +144,7 @@ void worker(){
         std::cout << "[WORKER]\n"
                   << "\n    [1] Add Worker"
                   << "\n    [2] Delete Worker"
-                  << "\n    [3] Check Service"
+                  << "\n    [3] Check ServiceTicket"
                   << "\n    [0] Back\n"
                   << "\n>";
         std::cin >> c;
@@ -303,8 +303,8 @@ void workers(){
         std::cout << "[WORKERS MENU]\n"
                   << "\nWelcome guest\n" // depending on time we can personalize welcome message
                   << "\n    [1] Retrieve Pending Services"
-                  << "\n    [2] Create Service Ticket"
-                  << "\n    [3] Resolve Service Ticket"
+                  << "\n    [2] Create ServiceTicket Ticket"
+                  << "\n    [3] Resolve ServiceTicket Ticket"
                   << "\n    [4] Retrieve Completed Services (registered users only)"
                   << "\n    [0] Back\n"
                   <<"\n$";
@@ -411,9 +411,9 @@ Airport* selectAirport(){
         case '3': cout << "\n\n     Introduce country: "; std::cin >> country;
             //iterate over airport BST and find all airports in country and select which to delete
             break;
-        case '0': return nullptr;/*return to previous menu*/;
+        case '0': return nullptr;/*return to previous menu*/
             // In this portion of the menu i have to find the possibilities of deletion and remove it from the BST
-            return airport;
+            }
+        return airport;
     }
 
-}

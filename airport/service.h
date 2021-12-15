@@ -38,17 +38,17 @@ public:
 };
 
 
-class Service{
+class ServiceTicket{
     Plane *plane;
     Staff *responsible;
     Date created;
     Date completed;
     char id;
 public:
-    Service(Plane *plane, char id);
-    Service(Plane *plane, Date date, char id);
-    Service(Plane *plane, Staff *staff, char id);
-    Service(Plane *plane, Date date, Staff *staff, char id);
+    ServiceTicket(Plane *plane, char id);
+    ServiceTicket(Plane *plane, Date date, char id);
+    ServiceTicket(Plane *plane, Staff *staff, char id);
+    ServiceTicket(Plane *plane, Date date, Staff *staff, char id);
     virtual char getType() const{return id;};
     virtual void setResponsible (Staff *staff);
     virtual void setSchedule (Date date);
@@ -57,12 +57,12 @@ public:
     virtual vector<string> getTasksCompleted() const;
     virtual Staff *getResponsible();
     virtual Date getSchedule();
-    bool operator < (Service &s);
+    bool operator < (ServiceTicket &s);
 };
 
 
 
-class Cleaning : virtual Service{
+class Cleaning : virtual ServiceTicket{
     bool wc = false;
     bool seats = false;
     bool floor = false;
@@ -71,7 +71,7 @@ public:
     Cleaning(Plane *plane);
     Cleaning(Plane *plane, Date date);
     Cleaning(Plane *plane, Date date, Staff *staff);
-    char getType() const override{return Service::getType();};
+    char getType() const override{return ServiceTicket::getType();};
     void setResponsible (Staff *staff) override;
     void setSchedule (Date date) override;
     void setComplete (Date date) override;
@@ -86,7 +86,7 @@ public:
     bool verification() const;
 };
 
-class Maintenance : virtual Service{
+class Maintenance : virtual ServiceTicket{
     bool engine = false;
     bool landGear = false;
     bool controls = false;
@@ -95,7 +95,7 @@ public:
     Maintenance(Plane *plane);
     Maintenance(Plane *plane, Date date);
     Maintenance (Plane *plane, Date date, Staff *staff);
-    virtual char getType() const override{return Service::getType();};
+    virtual char getType() const override{return ServiceTicket::getType();};
     void setResponsible (Staff *staff) override;
     void setSchedule (Date date) override;
     void setComplete (Date date) override;
