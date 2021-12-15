@@ -58,6 +58,12 @@ void Transport::delTime(Time time) {
 list<Time> Transport::getTimetable () {
     return timetable;
 }
+
+bool Transport::operator<(Transport *t) {
+    return type < t->type;
+}
+
+
 Terminal::Terminal(int i) {
     idNumber = i;
     plane = nullptr;
@@ -142,6 +148,10 @@ void Airport::delService(Date date) {
     services.front()->setComplete(date);
     complete.push_back(services.front());
     services.pop();
+}
+
+list<Transport*> Airport::getTransport() const {
+    return transport;
 }
 
 list<Time> Airport::nextTransportBus(Time time) {

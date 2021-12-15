@@ -27,6 +27,7 @@ public:
     void addTime(Time time);
     void delTime(Time time);
     list<Time> getTimetable ();
+    bool operator <(Transport* t);
 };
 
 class Terminal{
@@ -72,6 +73,7 @@ public:
     void delTransport (Transport *transport);
     void addService (ServiceTicket *service);
     void delService (Date date);
+    list<Transport*> getTransport() const;
     list<Time>nextTransportMetro (Time time);
     list<Time>nextTransportBus (Time time);
     list<Time>nextTransportTrain (Time time);

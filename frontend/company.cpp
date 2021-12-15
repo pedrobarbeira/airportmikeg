@@ -447,7 +447,17 @@ void printStaff(Staff *staff){
 }
 
 void printTransport(Airport *airport){
-
-
-
+    list<Transport*> temp = airport->getTransport();
+    temp.sort();
+    char i = 'i';
+    for (auto it: temp){
+        if (it->getType() != i){
+            i = it->getType();
+            std::cout << "\n    " << it->getTransport();
+        }
+        std::cout << "\n        ";
+        for (auto tim : it->getTimetable()){
+            std::cout << "<" << tim.getHour() << ":" << tim.getMinute() << ">";
+        }
+    }
 }
