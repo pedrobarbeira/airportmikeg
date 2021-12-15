@@ -12,11 +12,6 @@ void readInput(std::string& in){
     else in = line;
 }
 
-std::ostream& operator<<(ostream& out, const UserPointer& user){
-    out << (*user).getUser() << ' ' << (*user).getPassword() << ' ' << (*user).getType() << '\n';
-    return out;
-}
-
 void Menu::mainScreen() {
     std::cout << "blabla\n";
 }

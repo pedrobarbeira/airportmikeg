@@ -37,9 +37,9 @@ bool MikeG::loadScreen(bool&flag){
 void MikeG::start(bool& flag) {
     this->setSysTime();
     system(CLEAR);
-    char c;
     bool keep = false;
     while (true) {
+        char c;
         if(!flag) {
             flag = loadScreen(keep);
             if(!keep) return;
@@ -75,6 +75,11 @@ void MikeG::start(bool& flag) {
                     readInput(c);
             }
             if(menu != nullptr) menu->mainScreen();
+            else{
+                std::cout << "Invalid credentials\n\n"
+                          << "Press enter to continue . . .";
+                readInput(c);
+            }
         }
         catch (DevLog e) {
             e.print();
@@ -99,32 +104,29 @@ Menu* MikeG::logIn() {
     readInput(user);
     std::cout << "Password\n>";
     readInput(pass);
-
-    UserPointer find; //take this out and make two types of processing
+    bool flag = true;
     CompanyPointer searchCompany(new Company(user));
     searchCompany = data->company.find(searchCompany);
-    find = searchCompany;
     char c;
-    if (find.getPointer() == nullptr) {
+    if (searchCompany.getPointer() == nullptr) {
         ClientPointer searchClient(new Client(user));
         searchClient = data->clients.find(searchClient);
-        find = searchClient;
-    }
-    if ((*find).getPassword() == pass) {
-        c = (*find).getType();
-        switch (c) {
-            case 'C' : return new ClientMenu(find.getPointer(), data);
-            case 'A' : return new AdminMenu(find.getPointer(), data);
-            case 'M' : return new ManagerMenu(find.getPointer(), data);
-            case 'B' : return new BoardingMenu(find.getPointer(), data);
-            case 'S' : return new ServiceMenu(find.getPointer(), data);
+        if (searchClient.getPointer() != nullptr) {
+            if ((*searchClient).getPassword() == pass)
+                return new ClientMenu(searchClient.getPointer(), data);
         }
     } else {
-        std::cout << "Invalid credentials\n"
-                  << "Press enter to continue . . .";
-        c = getchar();
-        return nullptr;
+        if ((*searchCompany).getPassword() == pass) {
+            c = (*searchCompany).getType();
+            switch (c) {
+                case 'A' : return new AdminMenu(searchCompany.getPointer(), data);
+                case 'M' : return new ManagerMenu(searchCompany.getPointer(), data);
+                case 'B' : return new BoardingMenu(searchCompany.getPointer(), data);
+                case 'S' : return new ServiceMenu(searchCompany.getPointer(), data);
+            }
+        }
     }
+    return nullptr;
 }
 
 bool MikeG::newAccount(){
