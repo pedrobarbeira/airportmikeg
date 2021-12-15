@@ -4,10 +4,6 @@
 
 #include "mainmenu.h"
 
-std::string DEV = "c3n4";   //Password for the hidden Developer Menu.
-int DEVSIZE = 9;            //Size of the --dev c3n4 line
-
-
 void menu(MikeG* mg){
     char c;
     while(true) {
@@ -25,7 +21,6 @@ void menu(MikeG* mg){
                 case '1': company(mg);break;
                 case '2': clients(mg); break;
                 case '0': return;
-                case '-': if (checkDev()) {dev();break;}
                 default: std::cout << "Invalid Option\n";
                     int c = getchar();
             }
@@ -132,16 +127,6 @@ bool newErrors(){
         }
         return false;
     }
-}
-
-bool checkDev() {
-    std::string in;
-    std::getline(std::cin, in);
-    if (in.size() == DEVSIZE)
-        if (in.substr(0, 4) == "-dev")
-            if (in.substr(5, 4) == DEV)
-                return true;
-    return false;
 }
 
 bool login(char c, char& type){

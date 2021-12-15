@@ -197,26 +197,6 @@ class Other : public Plane{
           std::queue<std::string> firstClassRows, std::queue<std::string> bizClassRows);
 };
 
-/**
- * Encapsulation class for pointers to Plane objects.
- * Used to store Plane pointers in the Data BSTs
- */
-class PlanePointer : public BSTPointer<Plane>{
-public:
-    explicit PlanePointer(Plane* p = nullptr){
-        pointer = p;
-    }
-    bool operator==(Plane* p) const{
-        return pointer->plate == p->plate;
-    }
-    bool operator==(std::string p) const{
-        return pointer->plate == p;
-    }
-    bool operator<(const PlanePointer& rhs) const {
-        return pointer->plate < rhs.pointer->plate;
-    }
-};
-
 std::string getRowLetter(int i);
 int getLetterRow(std::string l);
 

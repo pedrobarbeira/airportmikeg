@@ -2,10 +2,16 @@
 #ifndef MAIN_CPP_MENU_H
 #define MAIN_CPP_MENU_H
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 #include "data.h"
+#include "sorter.h"
 
 //Think about making the sorter into a class
-
 
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
@@ -21,6 +27,14 @@ public:
         sysTime->now();
     };
     virtual void mainScreen() const;
+};
+
+class Dev : public Menu{
+    std::vector<std::string> logs;
+    std::vector<std::string> newLogs;
+public:
+    Dev();
+    void mainScree() const;
 };
 
 //Clear definitons from all the mainScreens() and write them in menu.cpp

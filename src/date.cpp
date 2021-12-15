@@ -1,16 +1,6 @@
 //Created by Pedro Barbeira
 #include "date.h"
 
-uint32_t MINUTE = 60;                               //seconds in a minute
-uint32_t HOUR = 60 * MINUTE;                        //seconds in an hour
-uint32_t DAY = 24 * HOUR;                           //seconds in a day
-uint32_t FEB = 28 * DAY;                            //seconds in normal year february
-uint32_t LFEB = 29 * DAY;                           //seconds in leap year february
-uint32_t SMONTH = 30 * DAY;                         //seconds in "short" month
-uint32_t LMONTH = 31 * DAY;                         //seconds in "large" month
-uint32_t NORMAL = 7 * LMONTH + 4 * SMONTH + FEB;    //seconds in a normal year
-uint32_t LEAP = 7 * LMONTH + 4 * SMONTH + LFEB;     //seconds in a leap year
-
 void Date::print(std::ostream& out) const {
     out << std::setw(2) << std::setfill('0') << day << "/"
         << std::setw(2) << std::setfill('0') << month << "/"

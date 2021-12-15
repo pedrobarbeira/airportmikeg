@@ -86,52 +86,6 @@ public:
     }
 };
 
-class UserPointer : public BSTPointer<User>{
-public:
-    explicit UserPointer(User* u = nullptr){
-        pointer = u;
-    }
-    bool operator==(const UserPointer& rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator==(UserPointer& rhs) {
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const UserPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
-    }
-};
 
-class ClientPointer : public UserPointer{
-public:
-    explicit ClientPointer(Client* u = nullptr){
-        pointer = u;
-    }
-    bool operator==(const ClientPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator==(ClientPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const ClientPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
-    }
-};
-
-class CompanyPointer : public UserPointer{
-public:
-    explicit CompanyPointer(Company* u = nullptr){
-        pointer = u;
-    }
-    bool operator==(const CompanyPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator==(CompanyPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const CompanyPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
-    }
-};
 
 #endif //MAIN_CPP_USER_H

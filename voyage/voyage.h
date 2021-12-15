@@ -73,20 +73,6 @@ public:
 
 };
 
-class VoyagePointer : public BSTPointer<Voyage>{
-public:
-    explicit VoyagePointer(Voyage* v = nullptr){
-        pointer = v;
-    }
-    bool operator==(const VoyagePointer& rhs) const{
-        return (*pointer).getId() == (*rhs.pointer).getId();
-    }
-    bool operator<(const VoyagePointer& rhs) const{
-        return (*pointer).getId() < (*rhs.pointer).getId();
-    }
-};
-
-
 class InvalidConnection{
     std::string error;
 public:

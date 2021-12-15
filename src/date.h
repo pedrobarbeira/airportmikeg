@@ -6,6 +6,16 @@
 #include <iomanip>
 #include <fstream>
 
+#define MINUTE       60                                  //seconds in a minute
+#define HOUR         60 * MINUTE                         //seconds in an hour
+#define DAY          24 * HOUR                           //seconds in a day
+#define FEB          28 * DAY                            //seconds in normal year february
+#define LFEB         29 * DAY                            //seconds in leap year february
+#define SMONTH       30 * DAY                            //seconds in "short" month
+#define LMONTH       31 * DAY                            //seconds in "large" month
+#define NORMAL       7 * LMONTH + 4 * SMONTH + FEB       //seconds in a normal year
+#define LEAP         7 * LMONTH + 4 * SMONTH + LFEB      //seconds in a leap year
+
 class Time;
 
 class Date{

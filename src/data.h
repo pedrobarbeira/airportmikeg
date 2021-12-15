@@ -3,9 +3,8 @@
 #define MAIN_CPP_DATA_H
 
 #include <iostream>
-#include "user.h"
-#include "voyage.h"
-#include "airport.h"
+#include "pointer.h"
+#include "exception.h"
 
 /**
  * Encapsulation class.

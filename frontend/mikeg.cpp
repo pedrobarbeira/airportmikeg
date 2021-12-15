@@ -1,7 +1,7 @@
 //Created by Pedro Barbeira (up201303693)
 
+#include "iostream"
 #include "mikeg.h"
-#include "mainmenu.h"
 
 ostream& operator<<(ostream& out, LoadFail lf){
     out << lf.getError();
@@ -75,7 +75,7 @@ void MikeG::start(bool& flag) {
                     return;
                 case '-':
                     if (checkDev()) {
-                        dev();
+                        menu = new Dev;
                         break;
                     }
                 default:
@@ -245,6 +245,17 @@ bool MikeG::load(){
         successful = false;
     }
     if(!successful) throw DevLog(error.str(), sysTime);
+}
+
+bool MikeG::checkDev() {
+    int DEVSIZE = 9;
+    std::string in;
+    std::getline(std::cin, in);
+    if (in.size() == DEVSIZE)
+        if (in.substr(0, 4) == "-dev")
+            if (in.substr(5, 4) == DEV)
+                return true;
+    return false;
 }
 
 void DevLog::print() const{

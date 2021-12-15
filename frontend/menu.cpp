@@ -1,6 +1,5 @@
 //Created by Pedro Barbeira (up201303693)
 #include "menu.h"
-#include "crossplatform.h"
 
 void readInput(char& in){
     std::cin >> in;
@@ -20,6 +19,20 @@ std::ostream& operator<<(ostream& out, const UserPointer& user){
 
 void Menu::mainScreen() const{
     std::cout << "blabla\n";
+}
+
+Dev::Dev(){
+    ifstream infile("./data/devlogs.txt");
+    if(!infile.is_open()){
+        std::cout << "Developer Logs are corrupted\n"
+                  << "Press enter to continue . . . ";
+        int c = getchar();
+    }
+    std::string line;
+    while(std::getline(infile, line)){
+        if(line[0] == '*') newLogs.push_back(line);
+        else logs.push_back(line);
+    }
 }
 
 void ClientMenu::mainScreen() const{
