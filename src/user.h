@@ -32,58 +32,75 @@ public:
 //Lets keep this on the "maybe pile" for now
 class Client : public User{
     uint16_t miles;
+    Passenger* passenger;
+    vector<Ticket*> tickets;
     friend class ClientPointer;
 public:
-    explicit Client(std::string u = "", std::string p = "", char t = '\0', uint16_t m = 0) : miles(m){
-        username = u;
-        password = p;
+    explicit Client(std::string u = "", std::string p = "", char t = '\0', uint16_t m = 0, Passenger* psgr = nullptr) : miles(m){
+        username = std::move(u);
+        password = std::move(p);
+        tickets.clear();
+        passenger = psgr;
         type = t;
     }
 };
 
 class Company : public User{
+protected:
     Airport* airport;
 public:
     explicit Company(std::string u = "", std::string p = "", char t = '\0'){
         username = std::move(u);
         password = std::move(p);
+        airport = nullptr;
         type = t;
     }
 };
 
 class Admin : public Company{
 public:
-    explicit Admin(std::string u = "", std::string p = "", char t = '\0'){
-        username = u;
-        password = p;
+    explicit Admin(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
+        username = std::move(u);
+        password = std::move(p);
+        airport = a;
         type = t;
     }
 };
 
 class Manager : public Company{
 public:
-    explicit Manager(std::string u = "", std::string p = "", char t = '\0'){
-        username = u;
-        password = p;
+    explicit Manager(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
+        username = std::move(u);
+        password = std::move(p);
+        airport = a;
         type = t;
     }
 };
 
 class Boarding : public Company{
+    Plane* plane;
 public:
-    explicit Boarding(std::string u = "", std::string p = "", char t = '\0'){
-        username = u;
-        password = p;
+    explicit Boarding(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr){
+        username = std::move(u);
+        password = std::move(p);
+        airport = a;
+        plane = pln;
         type = t;
     }
 };
 
-class ServiceW : public Company{
+class Service : public Company{
+    Staff* staff;
+    std::queue<ServiceTicket*> serviceList;
+    std::list<ServiceTicket*> completedServices;
 public:
-    explicit ServiceW(std::string u = "", std::string p = "", char t = '\0'){
-        username = u;
-        password = p;
+    explicit Service(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
+        staff = nullptr;
+        username = std::move(u);
+        password = std::move(p);
+        airport = a;
         type = t;
+        completedServices.clear();
     }
 };
 

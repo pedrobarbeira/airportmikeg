@@ -41,18 +41,19 @@ public:
     void save(bool flag);
 };
 
-//Clear definitons from all the mainScreens() and write them in menu.cpp
-//The definitoins below were just to test the control flow and the logIn() function
+
 /**
  * Frontend class that handles Registered Client menus
  */
 class ClientMenu : public Menu{
 protected:
     Client* user;
+    Flight* flight;
 public:
     explicit ClientMenu(Client* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
+        flight = nullptr;
         sysTime = new Time;
         sysTime->now();
     }
@@ -83,6 +84,7 @@ class Register : public ClientMenu{};
 class CompanyMenu : public Menu{
 protected:
     Company* user;
+    Airport* airport;
     //Add an airport
     //Add service ticket queue
     //add complete service queue
@@ -96,6 +98,7 @@ public:
     explicit AdminMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
+        airport = nullptr;
         sysTime = new Time;
         sysTime->now();
     }
@@ -110,6 +113,7 @@ public:
     explicit ManagerMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
+        airport = nullptr;
         sysTime = new Time;
         sysTime->now();
     }
@@ -124,6 +128,7 @@ public:
     explicit BoardingMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
+        airport = nullptr;
         sysTime = new Time;
         sysTime->now();
     }
@@ -140,12 +145,11 @@ public:
     explicit ServiceMenu(Company* u = nullptr, Data*d = nullptr){
         user = u;
         data = d;
+        airport = nullptr;
         sysTime = new Time;
         sysTime->now();
     }
-
     void mainScreen() override;
-
 };
 
 void readInput(char& in);
