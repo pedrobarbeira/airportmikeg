@@ -48,4 +48,9 @@ Airport* selectAirport();
 
 //TODO
 //print functions by class
+void printAirport(Airport *airport);
+void printService(Airport *airport);
+void printStaff(Staff *staff);
+void printTransport(Airport *airport);
+
 #endif //MIKEGAIRLINES_ADMIN_H

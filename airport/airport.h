@@ -6,7 +6,6 @@
 #define MIKEGAIRLINES_AIRPORT_H
 
 #include <iostream>
-#include"transport.h"
 #include"service.h"
 #include<list>
 #include<queue>
@@ -14,21 +13,39 @@
 
 using namespace std;
 
+class Transport{
+    char type; // m --> metro; b --> bus; t --> train
+    uint16_t distance;
+    list<Time> timetable;
+public:
+    Transport();
+    Transport(char c);
+    Transport(char c, uint16_t d);
+    string getTransport();
+    uint16_t const getDistance ();
+    char const getType();
+    void addTime(Time time);
+    void delTime(Time time);
+    list<Time> getTimetable ();
+};
+
 class Terminal{
     Plane* plane;
     int idNumber;
-    bool occupied;
 public:
     friend class Airport;
     Terminal(int i);
-    void setOccupied(){
-        if (occupied == false) occupied = true;
+    void setPlane(Plane *plane){
+        this-> plane = plane;
     }
     bool getOccupied() const{
-        return occupied;
+        return plane!= nullptr;
     }
     int getTerminalNumber() const{
         return idNumber;
+    }
+    Plane* getPlane() const{
+        return plane;
     }
 };
 
@@ -48,7 +65,7 @@ public:
     string getName () const;
     string getCountry() const;
     string getCity() const;
-    vector<int> getTerminals() const;
+    vector<Terminal*> getTerminals() const;
     vector<ServiceTicket*> getServices();
     ServiceTicket* nextService();
     void setTransport (Transport *transport);

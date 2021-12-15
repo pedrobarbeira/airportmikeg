@@ -5,9 +5,61 @@
 #include <algorithm>
 #include "airport.h"
 
+Transport::Transport() {}
+
+Transport::Transport(char c) {
+    type=c;
+}
+
+Transport::Transport(char c, uint16_t d) {
+    type=c;
+    distance=d;
+}
+
+string Transport::getTransport() {
+    string t;
+    switch (type) {
+        case 'm':
+            t = "Metro";
+            break;
+        case 'b':
+            t = "Bus";
+            break;
+        case 't':
+            t = "Train";
+            break;
+    }
+    if (t.empty()) return "invalid transport";
+    return t;
+}
+
+uint16_t const Transport::getDistance (){
+    return distance;
+}
+
+char const Transport::getType(){
+    return type;
+}
+
+void Transport::addTime(Time time){
+    timetable.push_back(time);
+}
+
+void Transport::delTime(Time time) {
+    list<Time>::iterator it = timetable.begin();
+    for (it; it != timetable.end(); it++){
+        if (*it == time) {
+            timetable.erase(it);
+            break;
+        }
+    }
+}
+
+list<Time> Transport::getTimetable () {
+    return timetable;
+}
 Terminal::Terminal(int i) {
     idNumber = i;
-    occupied = false;
     plane = nullptr;
 }
 
@@ -50,17 +102,11 @@ string Airport::getCity() const {
     return city;
 }
 
-vector<int> Airport::getTerminals() const {
-    vector<int> term;
-    for (unsigned i{0}; i < terminals.size(); i++){
-        if (terminals[i]->getOccupied() == true) {
-            term.push_back(i);
-        }
-    }
-    return term;
+vector<Terminal*> Airport::getTerminals() const {
+    return terminals;
 }
 
-vector<ServiceTicket*> Airport::getServices()  {
+vector<ServiceTicket*> Airport::getServices() {
     vector<ServiceTicket*> temp;
     queue<ServiceTicket*> q;
     while (!services.empty()){
@@ -151,10 +197,7 @@ void Airport::activateTerminal(int i) {
 void Airport::setTerminal(Plane *plane) {
     for (unsigned i{0}; i < terminals.size(); i++){
         if (terminals[i]->getOccupied() == false) {
-            terminals[i]->setOccupied();
-            terminals[i]->plane = plane;
-
-
+            terminals[i]->setPlane(plane);
         }
     }
 }

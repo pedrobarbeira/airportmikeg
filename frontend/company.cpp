@@ -62,7 +62,29 @@ void airport(){
 ////////// Airport menu functions
 
 void createAirport() {
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    system(CLEAR);
     string id, name, city, country;
+    char a;
+    std::cout << "\n    Airport creation menu"
+              << "\n\n      Introduce Airport Location:"
+              << "\n        Country > "; std::getline(std::cin, country);
+    std::cout << "\n        City > "; std::getline(std::cin, city);
+    std::cout << "\n        Name > "; std::getline(std::cin, name);
+    std::cout << "\n        Identification code (3 letter word) > "; std::cin >> id;
+    std::cout << "\n\n      Airport (" << id << ") " << name
+              << "\n        at " << city << ", " << country
+              << "\n    Is this information correct(y/n)?\n\n >"; std::cin >> a;
+    if (tolower(a) == 'y') Airport *airport = new Airport(id, name, country, city);
+    else {
+        std::cout << "\n\nOperation cancelled, returning to Airport management menu";
+        system("pause");
+    }
+    return;
+}
+
+void deleteAirport(){
+    string id, city, country;
     char a;
     Airport *airport = selectAirport();
     if (airport == nullptr){
@@ -75,32 +97,6 @@ void createAirport() {
     return;
 }
 
-void deleteAirport(){
-    string id, city, country;
-    char a;
-    system(CLEAR);
-    std::cout << "Which method do you prefer to find airport?"
-              << "\n    [1] 3 letter code"
-              << "\n    [2] City"
-              << "\n    [3] Country"
-              << "\n    [0] Back"; std::cin >> a;
-    switch(a){
-        case '1': cout << "\n\n    Introduce 3 letter code: "; std::cin >> id;
-            //iterate over airport BST to find and erase idName
-            break;
-        case '2': cout << "\n\n    Introduce city: "; std::cin >> city;
-            //iterate over airport BST to find and erase airport.getName() == city; ambiguous
-            // more then one airport per city
-            break;
-        case '3': cout << "\n\n     Introduce country: "; std::cin >> country;
-            //iterate over airport BST and find all airports in country and select which to delete
-            break;
-        case '0': return;/*return to previous menu*/;
-            // In this portion of the menu i have to find the possibilities of deletion and remove it from the BST
-            return;
-    }
-
-}
 
 void checkAirport(){
     string id;
@@ -345,37 +341,11 @@ void pendingServices(){
                       << "\n    Returning to Workers Menu.";
             system("pause");
             return;
-        }else {
-            char s; string name;
-            system(CLEAR);
-            std::cout << "\n    At " << airport->getName()
-                      << "\n    located at (" << airport->getidCode() << ") " << airport->getCity() << ", " << airport->getCountry();
-            if (airport->getServices().empty()) {
-                std::cout << "\n    there are no pending services.";
-                system("pause");
-                return;
-            }
-            else{
-                std::cout << "\n    Next service is a ";
-                if (airport->nextService()->getType() == 'c') std::cout << "Cleaning service.\n";
-                else if (airport->nextService()->getType() == 'c') std::cout << "Maintenance service.\n";
-                if (airport->nextService()->getResponsible() == nullptr) {
-                    std::cout << "\n   No responsible designated. Do you want to attribute one? (y/n)";
-                    std::cin >> s;
-                    switch (s){
-                        //TODO
-                        case 'y': std::cout << "\n   New responsible: "; std::cin >> name;
-                        case 'n': break;
-                    }
-                    std::cout << "\n    The services yet to be completed are:\n"
-                              << "\n    / ";
-                    for (auto it : airport->nextService()->getTasksLeft()) std::cout << it << " / ";
-                    system ("pause");
-                    return;
-                }
-            }
         }
+        printService(airport);
     }
+    system("pause");
+    return;
 }
 
 
@@ -416,7 +386,68 @@ Airport* selectAirport(){
             break;
         case '0': return nullptr;/*return to previous menu*/
             // In this portion of the menu i have to find the possibilities of deletion and remove it from the BST
+        default: std::cout << "Invalid Option\n";
             }
         return airport;
     }
 
+//////////////Print functions
+
+void printAirport(Airport *airport){
+    std::cout << "\n\nInformation for (" << airport->getidCode() << ") " << airport->getName() << ":"
+              << "\n    Located at " << airport->getCity() << ", " << airport->getCountry();
+    if (airport->getTerminals().empty()) std::cout << "\n   Has no terminals attributted to MikeGAirlines";
+    else if (!airport->getTerminals().empty()){
+        bool o = false;
+        for (auto i: airport->getTerminals()){
+            if (i->getOccupied()==true){
+                std::cout << "\n    with terminal " << i->getTerminalNumber() << "with plane " << i->getPlane();
+                o = true;
+            }
+        }
+        if (o == false) std::cout << "\n    with " << airport->getTerminals().size() << " unoccupied";
+    }
+}
+
+void printService(Airport *airport){
+    char s; string name;
+    system(CLEAR);
+    std::cout << "\n    At " << airport->getName()
+              << "\n    located at (" << airport->getidCode() << ") " << airport->getCity() << ", " << airport->getCountry();
+    if (airport->getServices().empty()) {
+        std::cout << "\n    there are no pending services.";
+        system("pause");
+        return;
+    }
+    else{
+        std::cout << "\n    Next service is a ";
+        if (airport->nextService()->getType() == 'c') std::cout << "Cleaning service.\n";
+        else if (airport->nextService()->getType() == 'm') std::cout << "Maintenance service.\n";
+        if (airport->nextService()->getResponsible() == nullptr) {
+            std::cout << "\n   No responsible designated. Do you want to attribute one? (y/n)";
+            std::cin >> s;
+            switch (s){
+                //TODO
+                case 'y': std::cout << "\n   not implemented yet: "; std::cin >> name;
+                case 'n': break;
+                default: std::cout << "Invalid Option\n";
+            }
+        }
+    }
+    std::cout << "\n    The services yet to be completed are:\n"
+              << "\n    / ";
+    for (auto it : airport->nextService()->getTasksLeft()) std::cout << it << " / ";
+    system ("pause");
+    return;
+
+}
+
+void printStaff(Staff *staff){
+
+}
+
+void printTransport(Airport *airport){
+
+
+
+}
