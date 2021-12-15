@@ -2,13 +2,9 @@
 using namespace std;
 
 Ticket::Ticket(int number, string ticketID){
-    this->number=number;
     this->ticketID=ticketID;
 }
 
-int Ticket::getNumber() const{
-    return number;
-}
 string Ticket::getID() const{
     return ticketID;
 };

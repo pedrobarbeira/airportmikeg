@@ -48,8 +48,24 @@ class Load{
     Data* data;
 };
 
+class LoadAirport : public Load{};
+
+class LoadVoyage : public Load{};
+
+class LoadPlane : public Load{};
+
+class LoadUser : public Load{};
+
 class Save{
     Data* data;
 };
+
+class SaveAirport : public Save{};
+
+class SaveVoyage : public Save{};
+
+class SavePlane : public Save{};
+
+class SaveUser : public Save{};
 
 #endif //MAIN_CPP_DATA_H
