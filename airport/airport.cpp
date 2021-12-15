@@ -72,6 +72,10 @@ vector<Service*> Airport::getServices()  {
     return temp;
 }
 
+Service* Airport::nextService() {
+    return services.front();
+}
+
 void Airport::setTransport(Transport *transport) {
     Airport::transport.push_back(transport);
 }

@@ -49,7 +49,8 @@ public:
     string getCountry() const;
     string getCity() const;
     vector<int> getTerminals() const;
-    vector<Service*> getServices() ;
+    vector<Service*> getServices();
+    Service* nextService();
     void setTransport (Transport *transport);
     void delTransport (Transport *transport);
     void addService (Service *service);

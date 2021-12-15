@@ -8,6 +8,7 @@
 #include "mikeg.h"
 
 void admin(MikeG* mg);
+
 void airport();
 
 void worker();
@@ -24,17 +25,25 @@ void changeFlight();
 void deleteFlight();
 void plane();
 
-//Airport menu functions
+//Airport management menu functions
 void createAirport();
 void deleteAirport();
 void checkAirport();
 void listAirport();
 
-//Worrs menu functions
+//Workers management menu functions
 void workers();
 void addWorker();
 void delWorker();
 void checkService();
 
+//Workers menu functions
+void pendingServices();
+void createService();
+void resolveService();
+void historyService();
+
+//This function is because in menu navigation it is often required to choose the terms of search of an airport
+Airport* selectAirport();
 
 #endif //MIKEGAIRLINES_ADMIN_H
