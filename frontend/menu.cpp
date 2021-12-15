@@ -17,7 +17,7 @@ std::ostream& operator<<(ostream& out, const UserPointer& user){
     return out;
 }
 
-void Menu::mainScreen() const{
+void Menu::mainScreen() {
     std::cout << "blabla\n";
 }
 
@@ -33,13 +33,89 @@ Dev::Dev(){
         if(line[0] == '*') newLogs.push_back(line);
         else logs.push_back(line);
     }
+    LogSorter sort;
+    logs = sort(logs);
+    newLogs = sort(newLogs);
 }
 
-void ClientMenu::mainScreen() const{
+void Dev::mainScreen() {
+    char c;
+    bool flag = !newLogs.empty();
+    while (true) {
+        system(CLEAR);
+        std::cout << "[Dev]\t\t\t";
+        sysTime->print();
+        std::cout << "\n    [1] See Logs";
+        if(!flag) std::cout << "\n    [2]New Errors";
+        std::cout << "\n\n    [0] Exit\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1' : showLogs(flag); break;
+            case '0' : save(flag); return;
+            case '2' :
+                if(flag) {
+                    showNewLogs(); break;
+                }
+            default:{
+                std::cout << "Invalid option\n\n"
+                          << "Press enter to continue . . .";
+                c = getchar();
+            }
+        }
+    }
+}
+
+void Dev::showLogs(bool flag) const{
+    system(CLEAR);
+    for(auto log : logs)
+        std::cout << log << '\n';
+    if(flag){
+        for(auto log : newLogs)
+            std::cout << log << '\n';
+    }
+
+    std::cout << "\nPress enter to continue . . .\n";
+    cin.ignore();
+    int c = getchar();
+}
+
+void Dev::showNewLogs(){
+    system(CLEAR);
+    std::string line;
+    for(auto log: newLogs){
+        line = log.substr(1);
+        std::cout << line << '\n';
+        logs.push_back(line);
+    }
+    newLogs.clear();
+    std::cout << "\nPress enter to continue . . .\n";
+    cin.ignore();
+    int c = getchar();
+}
+
+void Dev::save(bool flag){
+    std::ofstream outfile("./data/devlogs");
+    if(!outfile.is_open()){
+        std::cout << "Error saving system logs\n\n"
+                  << "Press enter to continue . . .";
+        int c = getchar();
+        return;
+    }
+    for(auto log : logs)
+        outfile << log << '\n';
+    if(flag){
+        for(auto log : newLogs)
+            outfile << log << '\n';
+    }
+    outfile.close();
+}
+
+void ClientMenu::mainScreen() {
     std:cout << "Here we are\n";
 }
 
-void JustBuy::mainScreen() const {
+void JustBuy::mainScreen() {
     //Add error check
     system(CLEAR);
     std::cout << "[Buy Ticket]\t\t\t";
@@ -63,25 +139,25 @@ void JustBuy::mainScreen() const {
     system("pause");
 }
 
-void AdminMenu::mainScreen() const{
+void AdminMenu::mainScreen() {
     std::cout << "we are @ Admin\n"
               << "Press enter to continue . . .";
     char c = getchar();
 }
 
-void ManagerMenu::mainScreen() const{
+void ManagerMenu::mainScreen() {
     std::cout << "we are @ Manager\n"
               << "Press enter to continue . . .";
     char c = getchar();
 }
 
-void BoardingMenu::mainScreen() const{
+void BoardingMenu::mainScreen(){
     std::cout << "we are @ Boarding\n"
               << "Press enter to continue . . .";
     char c = getchar();
 }
 
-void ServiceMenu::mainScreen() const{
+void ServiceMenu::mainScreen() {
     std::cout << "we are @ Service\n"
               << "Press enter to continue . . .";
     char c = getchar();

@@ -46,7 +46,7 @@ void MikeG::start(bool& flag) {
         }
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
-        sysTime->print(std::cout);
+        sysTime->print();
         std::cout << "\n\n    [1] Buy Ticket"
                   << "\n    [2] Check In"
                   << "\n    [3] Register"
@@ -56,30 +56,21 @@ void MikeG::start(bool& flag) {
         readInput(c);
         try {
             switch (c) {
-                case '1':
-                    menu = new JustBuy(data);
-                    break;
-                case '2':
-                    std::cout << "Register\n";
-                    break;
+                case '1' : menu = new JustBuy(data); break;
+                case '2' : std::cout << "Register\n"; break;
                 case '3':
                     if(!newAccount()) {
                         std::cout << "Could not register account";
                         throw DevLog("Error adding new account to system database\n", sysTime);
                     }
-                case '4':
-                    menu = logIn();
-                    break;
-                    break;
-                case '0':
-                    return;
+                case '4': menu = logIn(); break;
+                case '0': return;
                 case '-':
                     if (checkDev()) {
-                        menu = new Dev;
-                        break;
+                        menu = new Dev; break;
                     }
                 default:
-                    std::cout << "Inval1d Option\n"
+                    std::cout << "Inval1d Option\n\n"
                               << "Press enter to continue . . .";
                     readInput(c);
             }
@@ -249,6 +240,7 @@ bool MikeG::load(){
 
 bool MikeG::checkDev() {
     int DEVSIZE = 9;
+    std::string DEV = "c3n4";
     std::string in;
     std::getline(std::cin, in);
     if (in.size() == DEVSIZE)

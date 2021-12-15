@@ -6,8 +6,6 @@
 #include <fstream>
 #include "menu.h"
 
-#define DEV "c3n4"              //Hidden Dev menu password
-
 /**
  * System Interface
  */

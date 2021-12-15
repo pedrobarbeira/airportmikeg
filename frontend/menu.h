@@ -8,6 +8,7 @@
 #define CLEAR "clear"
 #endif
 
+#include <iostream>
 #include "data.h"
 #include "sorter.h"
 
@@ -27,7 +28,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     };
-    virtual void mainScreen() const;
+    virtual void mainScreen();
 };
 
 class Dev : public Menu{
@@ -35,7 +36,10 @@ class Dev : public Menu{
     std::vector<std::string> newLogs;
 public:
     Dev();
-    void mainScree() const;
+    void mainScreen();
+    void showLogs(bool flag) const;
+    void showNewLogs();
+    void save(bool flag);
 };
 
 //Clear definitons from all the mainScreens() and write them in menu.cpp
@@ -52,7 +56,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override;
+    void mainScreen() override;
 };
 
 /**
@@ -66,7 +70,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override;
+    void mainScreen() override;
 };
 
 class CheckIn : public ClientMenu{};
@@ -93,7 +97,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override;
+    void mainScreen() override;
 };
 
 /**
@@ -107,7 +111,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override;
+    void mainScreen() override;
 };
 
 /**
@@ -121,7 +125,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override;
+    void mainScreen() override;
 };
 
 //Eventually split this into BoardingPassenger and CheckinPassenger
@@ -138,7 +142,7 @@ public:
         sysTime->now();
     }
 
-    void mainScreen() const override;
+    void mainScreen() override;
 
 };
 

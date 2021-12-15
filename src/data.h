@@ -16,11 +16,12 @@ class Data{
     BST<PlanePointer> planes;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
+    BST<TicketPointer> tickets;
     friend class MikeG;
 public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)){}
+             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)){}
     //Turn these to return vectors with information
     BST<AirportPointer> getAirport() const{
         return airports;};
@@ -40,6 +41,10 @@ public:
     bool addPlane(Plane* p){
         PlanePointer pptr(p);
         return planes.insert(pptr);
+    }
+    bool addTicket(Ticket* t){
+        TicketPointer tptr(t);
+        return tickets.insert(tptr);
     }
 };
 

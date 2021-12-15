@@ -6,15 +6,15 @@
 #include <iomanip>
 #include <fstream>
 
-#define MINUTE       60                                  //seconds in a minute
-#define HOUR         60 * MINUTE                         //seconds in an hour
-#define DAY          24 * HOUR                           //seconds in a day
-#define FEB          28 * DAY                            //seconds in normal year february
-#define LFEB         29 * DAY                            //seconds in leap year february
-#define SMONTH       30 * DAY                            //seconds in "short" month
-#define LMONTH       31 * DAY                            //seconds in "large" month
-#define NORMAL       7 * LMONTH + 4 * SMONTH + FEB       //seconds in a normal year
-#define LEAP         7 * LMONTH + 4 * SMONTH + LFEB      //seconds in a leap year
+static int MINUTE   =    60;                                  //seconds in a minute
+static int  HOUR    =     60 * MINUTE;                         //seconds in an hour
+static int DAY      =    24 * HOUR;                           //seconds in a day
+static int FEB      =    28 * DAY;                            //seconds in normal year february
+static int LFEB     =    29 * DAY;                            //seconds in leap year february
+static int SMONTH   =    30 * DAY;                            //seconds in "short" month
+static int LMONTH   =    31 * DAY;                            //seconds in "large" month
+static int NORMAL   =    7 * LMONTH + 4 * SMONTH + FEB;       //seconds in a normal year
+static int LEAP     =    7 * LMONTH + 4 * SMONTH + LFEB;      //seconds in a leap year
 
 class Time;
 
@@ -42,7 +42,7 @@ public:
         month = m;};
     void setYear(uint16_t y){
         year = y;};
-    virtual void print(std::ostream& out) const;
+    virtual void print(std::ostream& out = std::cout) const;
     virtual bool operator==(const Date& rhs) const;
     virtual bool operator==(const Time& rhs) const;
     virtual bool operator<(const Date& rhs) const;
@@ -84,7 +84,7 @@ public:
     Date getDate() const{
         return Date(day,month, year);
     }
-    void print(std::ostream& out) const;
+    void print(std::ostream& out = std::cout) const;
     /**Setters*/
     void setHour(uint16_t h){
         hour = h;};
