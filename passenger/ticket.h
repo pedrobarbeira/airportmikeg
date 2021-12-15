@@ -12,12 +12,16 @@ class Ticket {
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
-    Ticket(int number, string ticketID);
-    int getNumber() const;
+    explicit Ticket(string ticketID="");
     string getID() const;
     Passenger* getOwner() const;
+    Seat* getSeat() const;
+
     void setOwner(Passenger* voyage3){owner=voyage3;}
-    void setTID(string ti){ticketID=ti;}
+    void setTID(int ti){ticketID=ti;}
+
+    void addluggage(Luggage *l);
+
 };
 
 

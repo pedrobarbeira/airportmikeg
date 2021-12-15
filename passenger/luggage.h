@@ -7,10 +7,12 @@
 
 class Luggage {
     unsigned int weight;
+    bool checkinlugg;
 public:
-    Luggage(unsigned int weightlugg, bool checkinlugg);
+    Luggage(unsigned int weight, bool checkinlugg);
     int getWeight() const;
-    void setWeight(unsigned int weightlugg);
+    void setWeight(unsigned int weight);
+
 };
 
 class HandBag : public Luggage{};
