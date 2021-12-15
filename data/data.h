@@ -44,8 +44,12 @@ public:
     }
 };
 
-class Load{};
+class Load{
+    Data* data;
+};
 
-class Save{};
+class Save{
+    Data* data;
+};
 
 #endif //MAIN_CPP_DATA_H
