@@ -15,14 +15,20 @@
 using namespace std;
 
 class Terminal{
+    Plane* plane;
     int idNumber;
     bool occupied;
 public:
+    friend class Airport;
+    Terminal(int i);
     void setOccupied(){
         if (occupied == false) occupied = true;
     }
-    bool getOccupaied(int n){
+    bool getOccupied() const{
         return occupied;
+    }
+    int getTerminalNumber() const{
+        return idNumber;
     }
 };
 
@@ -42,6 +48,8 @@ public:
     string getName () const;
     string getCountry() const;
     string getCity() const;
+    vector<int> getTerminals() const;
+    vector<Service*> getServices() ;
     void setTransport (Transport *transport);
     void delTransport (Transport *transport);
     void addService (Service *service);
@@ -49,6 +57,14 @@ public:
     list<Time>nextTransportMetro (Time time);
     list<Time>nextTransportBus (Time time);
     list<Time>nextTransportTrain (Time time);
+    void activateTerminal (int i);
+    void setTerminal(Plane *plane);
+    /**
+     * Operator to define by which order the airport objects should be added to the BST
+     * @param s
+     * @return ordering by country > city > idName
+     */
+    bool operator < (Airport &s);
 };
 
 

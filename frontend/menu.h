@@ -50,6 +50,7 @@ public:
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
  */
+
 class Menu{
 protected:
     User* user;

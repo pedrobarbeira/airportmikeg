@@ -5,6 +5,13 @@
 #include <algorithm>
 #include "airport.h"
 
+Terminal::Terminal(int i) {
+    idNumber = i;
+    occupied = false;
+    plane = nullptr;
+}
+
+
 Airport::Airport() {
 
 }
@@ -41,6 +48,28 @@ string Airport::getCountry() const {
 
 string Airport::getCity() const {
     return city;
+}
+
+vector<int> Airport::getTerminals() const {
+    vector<int> term;
+    for (unsigned i{0}; i < terminals.size(); i++){
+        if (terminals[i]->getOccupied() == true) {
+            term.push_back(i);
+        }
+    }
+    return term;
+}
+
+vector<Service*> Airport::getServices()  {
+    vector<Service*> temp;
+    queue<Service*> q;
+    while (!services.empty()){
+        temp.push_back(services.front());
+        q.push(services.front());
+        services.pop();
+    }
+    services = q;
+    return temp;
 }
 
 void Airport::setTransport(Transport *transport) {
@@ -110,3 +139,27 @@ list<Time> Airport::nextTransportTrain(Time time) {
     return next;
 }
 
+void Airport::activateTerminal(int i) {
+    Terminal *t = new Terminal(i);
+    terminals.push_back(t);
+}
+
+void Airport::setTerminal(Plane *plane) {
+    for (unsigned i{0}; i < terminals.size(); i++){
+        if (terminals[i]->getOccupied() == false) {
+            terminals[i]->setOccupied();
+            terminals[i]->plane = plane;
+
+
+        }
+    }
+}
+
+bool Airport::operator < (Airport &a){
+
+    if (country == a.country) {
+        if (city == a.city) return idName < a.idName;
+        return city < a.city;
+    }
+    return country < a.country;
+}

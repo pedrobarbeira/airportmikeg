@@ -24,14 +24,17 @@ void changeFlight();
 void deleteFlight();
 void plane();
 
-//Airport menu methods
+//Airport menu functions
 void createAirport();
 void deleteAirport();
 void checkAirport();
 void listAirport();
 
-
+//Worrs menu functions
 void workers();
+void addWorker();
+void delWorker();
+void checkService();
 
 
 #endif //MIKEGAIRLINES_ADMIN_H
