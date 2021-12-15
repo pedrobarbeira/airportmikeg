@@ -14,6 +14,8 @@ protected:
     std::string password;
     char type; //Create
     friend class UserPointer;
+    friend class CompanyPointer;
+    friend class ClientPointer;
 public:
     explicit User(std::string u = "", std::string p = "", char t = '\0'):
             username(std::move(u)), password(std::move(p)), type(t){};
@@ -41,10 +43,10 @@ public:
 
 class Company : public User{
 public:
-    Company(){
-        username = "";
-        password = "";
-        type = '\0';
+    explicit Company(std::string u = "", std::string p = "", char t = '\0'){
+        username = std::move(u);
+        password = std::move(p);
+        type = t;
     }
 };
 
@@ -96,7 +98,7 @@ public:
         return pointer->username < rhs.pointer->username;
     }
 };
-/*
+
 class ClientPointer : public UserPointer{
 public:
     explicit ClientPointer(Client* u = nullptr){
@@ -115,6 +117,6 @@ public:
     explicit CompanyPointer(Company* u = nullptr){
         pointer = u;
     }
-};*/
+};
 
 #endif //MAIN_CPP_USER_H

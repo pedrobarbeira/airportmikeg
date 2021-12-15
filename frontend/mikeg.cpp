@@ -14,6 +14,7 @@ bool MikeG::loadScreen(bool&flag){
         std::cout << "Loading data\n";
         try {
             load();
+            flag = true;
             std::cout << "Load successful\n";
             std::cout << "Press enter to continue . . .";
             std::cin.ignore();
@@ -90,28 +91,44 @@ void MikeG::start(bool& flag) {
     }
 }
 
+/**
+ * LogIn function. Reads credentials from input and searches for a corresponding
+ * account in the data.clients and data.company bst's. Once it finds a match,
+ * compares input password with the password saved in the system data. If the
+ * data checks out, returns corresponding Menu. If not, outputs "Invalid credentials"
+ * and returns nullptr.
+ * @return the proper menu if the account data is in the system, nullptr otherwise.
+ */
 Menu* MikeG::logIn() {
     std::string user, pass;
     std::cin.ignore();
-    std::cout << "\n\n\n\n\n";
-    std::cout << "Username\n>";
+
+    std::cout << "\n\n\n\n\n"
+              << "Username\n>";
     readInput(user);
     std::cout << "Password\n>";
     readInput(pass);
-    UserPointer find(new User(user));
-    find = data->users.find(find);
+
+    UserPointer find;
+    CompanyPointer searchCompany(new Company(user));
+    searchCompany = data->company.find(searchCompany);
+    find = searchCompany;
     char c;
-    if((*find).getPassword() == pass){
+    if (find.getPointer() == nullptr) {
+        ClientPointer searchClient(new Client(user));
+        searchClient = data->clients.find(searchClient);
+        find = searchClient;
+    }
+    if ((*find).getPassword() == pass) {
         c = (*find).getType();
-        switch(c){
-            case 'A' : return new AdminMenu(find.getPointer(), data);
+        switch (c) {
             case 'C' : return new ClientMenu(find.getPointer(), data);
+            case 'A' : return new AdminMenu(find.getPointer(), data);
             case 'M' : return new ManagerMenu(find.getPointer(), data);
             case 'B' : return new BoardingMenu(find.getPointer(), data);
             case 'S' : return new ServiceMenu(find.getPointer(), data);
         }
-    }
-    else {
+    } else {
         std::cout << "Invalid credentials\n"
                   << "Press enter to continue . . .";
         c = getchar();
@@ -163,7 +180,7 @@ bool MikeG::loadTicket(){
 }
 
 void MikeG::loadUsers(){
-    ifstream infile("./data/users.txt");
+    ifstream infile("./data/company.txt");
     if(!infile.is_open()){
         throw LoadUserFail();
     }
@@ -171,9 +188,21 @@ void MikeG::loadUsers(){
     char uType;
     while(infile >> uName){
         infile >> uPass >> uType;
-        User* u = new User(uName, uPass, uType);
-        UserPointer uptr(u);
-        data->users.insert(uptr);
+        Company* c = new Company(uName, uPass, uType);
+        CompanyPointer cptr(c);
+        data->company.insert(cptr);
+    }
+    infile.close();
+
+    infile.open("./data/client.txt");
+    if(!infile.is_open()){
+        throw LoadUserFail();
+    }
+    while(infile >> uName){
+        infile >> uPass >> uType;
+        Client* c = new Client(uName, uPass, uType);
+        ClientPointer cptr(c);
+        data->clients.insert(cptr);
     }
     infile.close();
 
@@ -183,7 +212,7 @@ bool MikeG::load(){
     stringstream error;
     bool successful = true;
     try {
-        loadAirport();
+        //loadAirport();
     }
     catch (LoadFail e){
         std::cout << e << '\n';

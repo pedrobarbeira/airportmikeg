@@ -20,15 +20,12 @@ class Data{
     BST<FlightPointer> flights;
     BST<PlanePointer> planes;
     std::vector<Ticket*> tickets;
-    BST<UserPointer> users;
-    //BST<ClientPointer> clients;
-    //BST<CompanyPointer> company;
+    BST<ClientPointer> clients;
+    BST<CompanyPointer> company;
     friend class MikeG;
 public:
     Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
-             planes(PlanePointer(nullptr)), users(UserPointer(nullptr)){
-        BST<UserPointer> u(UserPointer(nullptr));
-        users = u;
+             planes(PlanePointer(nullptr)), clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)){
         voyages.clear();
         tickets.clear();
     }
@@ -77,7 +74,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const;
+    void mainScreen() const override;
 };
 
 /**
@@ -98,8 +95,7 @@ public:
  * Frontend class that handles Company menus
  */
 class CompanyMenu : public Menu{
-    //This would have a Company* user, to make sure only company memebers
-    //cout access this menu
+
 };
 
 /**

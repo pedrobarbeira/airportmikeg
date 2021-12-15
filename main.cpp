@@ -83,7 +83,6 @@ void testMenu(){
     MikeG main;
     bool flag = false;
     main.start(flag);
-
 }
 
 /**

@@ -60,9 +60,6 @@ public:
         data->tickets.push_back(t);
         return true;
     }*/
-    void addUser(const UserPointer& u){
-        data->users.insert(u);
-    }
     /**Load/Save*/
     bool save() const;
     bool loadAirport();

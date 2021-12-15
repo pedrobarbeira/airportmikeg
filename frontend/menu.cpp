@@ -22,6 +22,10 @@ void Menu::mainScreen() const{
     std::cout << "blabla\n";
 }
 
+void ClientMenu::mainScreen() const{
+    std:cout << "Here we are\n";
+}
+
 void JustBuy::mainScreen() const {
     //Add error check
     system(CLEAR);
