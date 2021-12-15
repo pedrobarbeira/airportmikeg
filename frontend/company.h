@@ -24,6 +24,11 @@ void changeFlight();
 void deleteFlight();
 void plane();
 
+//Airport menu methods
+void createAirport();
+void deleteAirport();
+void checkAirport();
+void listAirport();
 
 
 void workers();

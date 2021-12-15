@@ -33,8 +33,34 @@ void admin(MikeG* mg){
 /**
  * Airport Management Menu
  */
+
 void airport(){
+    char c;
     std::cout << "Airport Management Menu\n";
+    //Shows real ADMIN menu after user has proven his identity
+    while(true) {
+        system(CLEAR);
+        std::cout << "[ADMIN]\n"
+                  << "\n    [1] Add Airport"
+                  << "\n    [2] Delete Airport"
+                  << "\n    [3] Check Airport"
+                  << "\n    [4] List of active Airport"
+                  << "\n    [9] Return"
+                  << "\n    [0] Log Out\n"
+                  << "\n>";
+        std::cin >> c;
+
+        switch(c){
+            case '1': createAirport(); break;
+            case '2': deleteAirport(); break;
+            case '3': checkAirport(); break;
+            case '4': listAirport(); break;
+            case '9': //return to previous menu, credentials needed; break;
+            case 'q':
+            case '0': throw LogOut();
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
 
 /**
@@ -161,3 +187,35 @@ void workers(){
 }
 
 
+////////// Airport menu methods
+
+void createAirport() {
+    string id, name, city, country;
+    system(CLEAR);
+    std::cout << "Please introduce new Airport location:"
+              << "\n    Country - ";
+    std::cin >> country;
+    std::cout << "\n    City - ";
+    std::cin >> city;
+    std::cout << "\nDefine 3 letter word for airport id: ";
+    std::cin >> id;
+    std::cout << "\nIntroduce airport name:"
+              << "\n    Name - ";
+    std::cin >> name;
+    Airport airport(id, name, country, city);
+    std::cout << "You want to create and add to active airports "
+    // ainda não percebi como chamar e adicionar a BST de airport para initroduzir novo;
+
+}
+
+void deleteAirport(){
+
+}
+
+void checkAirport(){
+
+}
+
+void listAirport(){
+
+}

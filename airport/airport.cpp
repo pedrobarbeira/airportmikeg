@@ -5,7 +5,16 @@
 #include <algorithm>
 #include "airport.h"
 
+Airport::Airport() {
 
+}
+/**
+ * main constructor for Airport objects.
+ * @param idName forces the id to be a 3 letter word, all caps;
+ * @param name
+ * @param country
+ * @param city
+ */
 Airport::Airport(string idName, string name, string country, string city) {
     if (idName.length() != 3) throw IncorrectLength();
     else {
@@ -45,10 +54,14 @@ void Airport::delTransport(Transport *transport) {
 void Airport::addService(Service *service) {
     services.push(service);
 }
-
+/**
+ * Method to set a service as complete and remove it from the front of the queue of services.
+ * @param date
+ */
 void Airport::delService(Date date) {
     services.front()->getResponsible();
     services.front()->setComplete(date);
+    complete.push_back(services.front());
     services.pop();
 }
 

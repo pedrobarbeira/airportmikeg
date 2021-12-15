@@ -29,6 +29,7 @@ public:
     virtual void setSchedule (Date date);
     virtual void setComplete (Date date);
     virtual Staff *getResponsible();
+    bool operator < (Service &s);
 };
 
 
