@@ -1,12 +1,12 @@
 #include "ticket.h"
 using namespace std;
 
-Ticket::Ticket(int ticketID){
+Ticket::Ticket(string ticketID){
     this->ticketID=ticketID;
 }
 
 
-int Ticket::getID() const{
+string Ticket::getID() const{
     return ticketID;
 }
 

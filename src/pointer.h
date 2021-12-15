@@ -6,6 +6,22 @@
 #include "voyage.h"
 #include "user.h"
 
+class TicketPointer : public BSTPointer<Ticket>{
+public:
+    explicit TicketPointer(Ticket* t){
+        pointer = t;
+    }
+    bool operator==(const TicketPointer& rhs) const{
+        return pointer->getID() == rhs.pointer->getID();
+    }
+    bool operator==(const std::string& id) const{
+        return pointer->getID() == id;
+    }
+    bool operator<(const TicketPointer& rhs) const{
+        return pointer->getID() < rhs.pointer->getID();
+    }
+};
+
 /**
  * Encapsulation class for pointers to Plane objects.
  * Used to store Plane pointers in the Data BSTs
@@ -79,6 +95,9 @@ public:
     bool operator==(const AirportPointer& rhs) const{
         return (*pointer).getidCode() == (*pointer).getidCode();
     }
+    bool operator==(const std::string& id) const{
+        return (*pointer).getidCode() == id;
+    }
     bool operator<(const AirportPointer& apf) const{
         return pointer->getidCode() < apf.pointer->getidCode();
     }
@@ -105,9 +124,6 @@ public:
     bool operator==(const UserPointer& rhs) const{
         return pointer->username == rhs.pointer->username;
     }
-    bool operator==(UserPointer& rhs) {
-        return pointer->username == rhs.pointer->username;
-    }
     bool operator<(const UserPointer& rhs) const{
         return pointer->username < rhs.pointer->username;
     }
@@ -121,9 +137,6 @@ public:
     bool operator==(const ClientPointer & rhs) const{
         return pointer->username == rhs.pointer->username;
     }
-    bool operator==(ClientPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
     bool operator<(const ClientPointer& rhs) const{
         return pointer->username < rhs.pointer->username;
     }
@@ -135,9 +148,6 @@ public:
         pointer = u;
     }
     bool operator==(const CompanyPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator==(CompanyPointer & rhs) const{
         return pointer->username == rhs.pointer->username;
     }
     bool operator<(const CompanyPointer& rhs) const{

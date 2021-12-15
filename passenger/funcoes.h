@@ -7,7 +7,7 @@
 #include "ticket.h"
 
 
-void comprarBilhete(vector<Ticket*> tickets);
+void buyTicket(vector<Ticket*> &tickets);
 void listBilhetes(vector<Ticket*> tickets);
 
 #endif //MIKEGAIRLINES_FUNCOES_H

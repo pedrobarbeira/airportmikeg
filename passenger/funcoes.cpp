@@ -5,15 +5,23 @@
 
 using namespace std;
 
-void comprarBilhete(vector<Ticket*> tickets){
+void buyTicket(vector<Ticket*> tickets){
     int numtickets;
-    cout<<"quantos bilhetes quer comprar"<<endl;
+    int numbags;
+    cout<<"How many tickets do you want to buy?"<<endl;
     cin >> numtickets;
     //if bilhetesdisponiveis>numtickets{
     for (int i = 0; i < numtickets; ++i) {
-        Ticket *ticket1=new Ticket(i);
-        cout<<"criando bilhete"<< endl;
+        Ticket *ticket1=new Ticket();
+       // cout<<"criando bilhete"<< endl;
         tickets.push_back(ticket1);
+    /*    cout<<"How many bags do you have?"<<endl;
+        cin >> numbags;
+        for (int j = 0; j < numbags; ++j) {
+            Luggage *luggage2=new Luggage(j);
+            luggage.push_back(luggage2);
+        }
+        */
     }
 
 }

@@ -5,7 +5,7 @@
 #include "vector"
 #include "iostream"
 //Use vectors and comparator functions to allow for different searches
-vector<Ticket*> tickets;
+
 
 
 /**
@@ -78,14 +78,15 @@ void testVoyage() {
  * Passenger-related testing
  */
 void testPassenger(){
+    vector<Ticket*> tickets;
    // while() {
         cout << "[1] comprar bilhetes" << endl;
         cout << "[2] lista bilhetes" << endl;
         int escolha;
         cin >> escolha;
         switch (escolha) {
-            case 1:
-                comprarBilhete(tickets);
+ //           case 1:
+//                buyTicket(tickets);
                 break;
             case 2:
                 listBilhetes(tickets);

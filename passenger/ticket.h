@@ -7,13 +7,13 @@
 using namespace std;
 
 class Ticket {
-    int ticketID;
+    string ticketID;
     Seat* seat;
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
-    Ticket(int ticketID);
-    int getID() const;
+    explicit Ticket(string ticketID="");
+    string getID() const;
     Passenger* getOwner() const;
     Seat* getSeat() const;
 
