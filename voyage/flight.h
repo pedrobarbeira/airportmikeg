@@ -96,12 +96,17 @@ public:
     std::vector<Flight*> getFlightsFrom(Date* min, Date* max) const;
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
-        return inFlights.insert(FlightPointer(f));
+        FlightPointer fptr(f);
+        return inFlights.insert(fptr);
     }
     bool addOut(Flight* f){
-        return outFlights.insert(FlightPointer(f));
+        FlightPointer fptr;
+        return outFlights.insert(fptr);
     }
     //Add operator overloading to allow diffrent types of searches
+    bool operator==(const AirportPointer& rhs) const{
+        return (*pointer).getidCode() == (*pointer).getidCode();
+    }
     bool operator<(const AirportPointer& apf) const{
         return pointer->getidCode() < apf.pointer->getidCode();
     }

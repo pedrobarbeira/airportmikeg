@@ -7,8 +7,7 @@
 #include "voyage.h"
 #include "airport.h"
 
-//Eventually add Client subclass to user and create a user.h
-
+//Think about making the sorter into a class
 
 /**
  * Encapsulation class.
@@ -16,46 +15,34 @@
  */
 class Data{
     BST<AirportPointer> airports;
-    std::vector<Voyage*> voyages;
-    BST<FlightPointer> flights;
+    BST<VoyagePointer> voyages;
     BST<PlanePointer> planes;
-    std::vector<Ticket*> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
     friend class MikeG;
 public:
-    Data() : airports(AirportPointer(nullptr)), flights(FlightPointer(nullptr)),
-             planes(PlanePointer(nullptr)), clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)){
-        voyages.clear();
-        tickets.clear();
-    }
-    //Add get methods
+    Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
+             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
+             voyages(VoyagePointer(nullptr)){}
+    //Turn these to return vectors with information
     BST<AirportPointer> getAirport() const{
         return airports;};
-    std::vector<Voyage*> getVoyages() const{
+    BST<VoyagePointer> getVoyages() const{
         return voyages;};
-    BST<FlightPointer> getFlights() const{
-        return flights;};
     BST<PlanePointer> getPlanes() const{
         return planes;};
-    std::vector<Ticket*> getTickets() const{
-        return tickets;
-    }
-    bool addAirport(const AirportPointer& a){
-        return airports.insert(a);
+    bool addAirport(Airport* a){
+        AirportPointer aptr(a);
+        return airports.insert(aptr);
     }
     bool addVoyage(Voyage* v){
-        if(!voyages.empty()) {
-            for (auto it : voyages) {
-                if (it == v) return false;
-            }
-        }
-        voyages.push_back(v);
-        return true;
+        VoyagePointer vptr(v);
+        return voyages.insert(vptr);
     }
-    bool addFlight(const FlightPointer& f);
-    bool addPlane(const PlanePointer& p){
-        return planes.insert(p);
+    bool addFlight(Flight* f);
+    bool addPlane(Plane* p){
+        PlanePointer pptr(p);
+        return planes.insert(pptr);
     }
 };
 
@@ -124,11 +111,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override{
-        std::cout << "we are @ Admin\n"
-                  << "Press enter to continue . . .";
-        char c = getchar();
-    }
+    void mainScreen() const override;
 };
 
 /**
@@ -142,11 +125,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override{
-        std::cout << "we are @ Manager\n"
-                  << "Press enter to continue . . .";
-        char c = getchar();
-    }
+    void mainScreen() const override;
 };
 
 /**
@@ -160,11 +139,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override{
-        std::cout << "we are @ Boarding\n"
-                  << "Press enter to continue . . .";
-        char c = getchar();
-    }
+    void mainScreen() const override;
 };
 
 //Eventually split this into BoardingPassenger and CheckinPassenger
@@ -180,11 +155,7 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
-    void mainScreen() const override{
-        std::cout << "we are @ Service\n"
-                  << "Press enter to continue . . .";
-        char c = getchar();
-    }
+    void mainScreen() const override;
 };
 
 std::ostream& operator<<(ostream& out, const UserPointer& user);

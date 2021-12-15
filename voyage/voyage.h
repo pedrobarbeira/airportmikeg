@@ -38,8 +38,7 @@ public:
 };
 
 class Voyage{
-    //change route for FlightTicket list
-    //update member functions as required
+    std::string voyageId;
     std::vector<Ticket*> tickets;
     std::list<FlightTicket*> route;
 public:
@@ -58,6 +57,9 @@ public:
         return route.front()->getFlight()->getOrigin();};
     TimePlace* getDestination() const{
         return route.back()->getFlight()->getDestination();};
+    std::string getId() const{
+        return voyageId;
+    }
     /**Setters*/
     void setTickets(std::vector<Ticket*> t){
         tickets = t;};
@@ -69,6 +71,19 @@ public:
     bool addConnection(Connection* c); //gotta finish this one
     void printRoute(std::ostream& out) const;
 
+};
+
+class VoyagePointer : public BSTPointer<Voyage>{
+public:
+    explicit VoyagePointer(Voyage* v = nullptr){
+        pointer = v;
+    }
+    bool operator==(const VoyagePointer& rhs) const{
+        return (*pointer).getId() == (*rhs.pointer).getId();
+    }
+    bool operator<(const VoyagePointer& rhs) const{
+        return (*pointer).getId() < (*rhs.pointer).getId();
+    }
 };
 
 

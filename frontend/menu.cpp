@@ -18,21 +18,51 @@ std::ostream& operator<<(ostream& out, const UserPointer& user){
     return out;
 }
 
-bool Data::addFlight(const FlightPointer& f){
+//TODO
+bool Data::addFlight(Flight* f){
+    //Test this bish
     bool flag;
-    AirportPointer addIn = airports.find(AirportPointer((*f).getOrigin()->airport));
-    airports.remove(addIn);
-    AirportPointer addOut = airports.find(AirportPointer((*f).getDestination()->airport));
-    airports.remove(addOut);
-    flag = addIn.addFlight(f.getPointer()) && addOut.addOut(f.getPointer());
-    if(flag){
-        airports.insert(addIn);
-        airports.insert(addOut);
-        flag = flights.insert(f);
+    AirportPointer find = airports.find(AirportPointer((*f).getOrigin()->airport));
+    if(find.getPointer() == nullptr){
+        std::cout << "Error: origin airport not found\n"
+                  << "Press enter to continue . . . ";
+        int c = getchar();
+        return false;
     }
-    return flag;
-}
+    else{
+        AirportPointer& addIn = find;
+        airports.remove(find);
+        flag = addIn.addFlight(f) && airports.insert(addIn);
+    }
+    if(flag) {
+        AirportPointer find = airports.find(AirportPointer((*f).getDestination()->airport));
+        if (find.getPointer() == nullptr) {
+            std::cout << "Error: destination airport not found\n"
+                      << "Press enter to continue . . . ";
+            int c = getchar();
+            return false;
+        }
+        else{
+            AirportPointer& addOut = find;
+            airports.remove(find);
+            flag &= addOut.addFlight(f) && airports.insert(addOut);
+        }
+        if(!flag){
+            std::cout << "Error adding out flight\n"
+                      << "Press enter to continue . . . ";
+            int c = getchar();
+            return false;
+        }
+    }
+    else{
 
+        std::cout << "Error adding in flight\n"
+                  << "Press enter to continue . . . ";
+        int c = getchar();
+        return false;
+    }
+    return true;
+}
 
 void Menu::mainScreen() const{
     std::cout << "blabla\n";
@@ -64,4 +94,28 @@ void JustBuy::mainScreen() const {
     std::cout << origin << " " << oDate << " "
               << destination << " " << dDate << '\n';
     system("pause");
+}
+
+void AdminMenu::mainScreen() const{
+    std::cout << "we are @ Admin\n"
+              << "Press enter to continue . . .";
+    char c = getchar();
+}
+
+void ManagerMenu::mainScreen() const{
+    std::cout << "we are @ Manager\n"
+              << "Press enter to continue . . .";
+    char c = getchar();
+}
+
+void BoardingMenu::mainScreen() const{
+    std::cout << "we are @ Boarding\n"
+              << "Press enter to continue . . .";
+    char c = getchar();
+}
+
+void ServiceMenu::mainScreen() const{
+    std::cout << "we are @ Service\n"
+              << "Press enter to continue . . .";
+    char c = getchar();
 }

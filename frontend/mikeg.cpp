@@ -109,7 +109,7 @@ Menu* MikeG::logIn() {
     std::cout << "Password\n>";
     readInput(pass);
 
-    UserPointer find;
+    UserPointer find; //take this out and make two types of processing
     CompanyPointer searchCompany(new Company(user));
     searchCompany = data->company.find(searchCompany);
     find = searchCompany;
