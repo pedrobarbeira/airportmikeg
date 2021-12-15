@@ -1,5 +1,4 @@
 admin admin A
-client client C
 manager manager M
 boarding boarding B
 service service S

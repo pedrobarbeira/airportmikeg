@@ -83,7 +83,7 @@ class Seat {
     std::string id;
     bool free;
     Class* classe;
-    Luggage* handBag;
+    HandBag* handBag;
     friend class Cabin;
 public:
     /**Constructor*/

@@ -68,6 +68,10 @@ public:
     void mainScreen() const override;
 };
 
+class CheckIn : public ClientMenu{};
+
+class Register : public ClientMenu{};
+
 /**
  * Frontend class that handles Company menus
  */

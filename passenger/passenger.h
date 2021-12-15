@@ -8,7 +8,6 @@ using namespace std;
 
 class Passenger{
     string name;
-    vector<Luggage*> luggage;
 public:
     Passenger(string name, bool checkinpass);
     string getName() const;

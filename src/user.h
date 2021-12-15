@@ -42,6 +42,7 @@ public:
 };
 
 class Company : public User{
+    Airport* airport;
 public:
     explicit Company(std::string u = "", std::string p = "", char t = '\0'){
         username = std::move(u);
