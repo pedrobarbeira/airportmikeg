@@ -46,7 +46,7 @@ void Dev::mainScreen() {
         std::cout << "[Dev]\t\t\t";
         sysTime->print();
         std::cout << "\n    [1] See Logs";
-        if(!flag) std::cout << "\n    [2]New Errors";
+        if(flag) std::cout << "\n    [2]New Errors";
         std::cout << "\n\n    [0] Exit\n"
                   << "\n>";
         std::cin >> c;
