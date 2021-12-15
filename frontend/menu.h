@@ -16,6 +16,7 @@
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
  */
+
 class Menu{
 protected:
     User* user;
@@ -122,7 +123,7 @@ public:
 //Eventually split this into BoardingPassenger and CheckinPassenger
 
 /**
- * Frontend class that handles Service Worker menus
+ * Frontend class that handles ServiceTicket Worker menus
  */
 class ServiceMenu : public CompanyMenu{
 public:
@@ -132,7 +133,9 @@ public:
         sysTime = new Time;
         sysTime->now();
     }
+
     void mainScreen() const override;
+
 };
 
 std::ostream& operator<<(ostream& out, const UserPointer& user);
