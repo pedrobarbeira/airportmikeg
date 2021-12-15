@@ -2,49 +2,10 @@
 #ifndef MAIN_CPP_MENU_H
 #define MAIN_CPP_MENU_H
 
-#include <iostream>
-#include "user.h"
-#include "voyage.h"
-#include "airport.h"
+#include "data.h"
 
 //Think about making the sorter into a class
 
-/**
- * Encapsulation class.
- * Initializes and stores all the system's BST's
- */
-class Data{
-    BST<AirportPointer> airports;
-    BST<VoyagePointer> voyages;
-    BST<PlanePointer> planes;
-    BST<ClientPointer> clients;
-    BST<CompanyPointer> company;
-    friend class MikeG;
-public:
-    Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
-             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)){}
-    //Turn these to return vectors with information
-    BST<AirportPointer> getAirport() const{
-        return airports;};
-    BST<VoyagePointer> getVoyages() const{
-        return voyages;};
-    BST<PlanePointer> getPlanes() const{
-        return planes;};
-    bool addAirport(Airport* a){
-        AirportPointer aptr(a);
-        return airports.insert(aptr);
-    }
-    bool addVoyage(Voyage* v){
-        VoyagePointer vptr(v);
-        return voyages.insert(vptr);
-    }
-    bool addFlight(Flight* f);
-    bool addPlane(Plane* p){
-        PlanePointer pptr(p);
-        return planes.insert(pptr);
-    }
-};
 
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses
@@ -97,7 +58,9 @@ public:
  * Frontend class that handles Company menus
  */
 class CompanyMenu : public Menu{
-
+    //Add an airport
+    //Add service ticket queue
+    //add complete service queue
 };
 
 /**
