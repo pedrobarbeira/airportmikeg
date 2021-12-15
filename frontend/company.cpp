@@ -203,7 +203,7 @@ void createAirport() {
               << "\n    Name - ";
     std::cin >> name;
     Airport airport(id, name, country, city);
-    std::cout << "You want to create and add to active airports "
+    std::cout << "You want to create and add to active airports ";
     // ainda não percebi como chamar e adicionar a BST de airport para initroduzir novo;
 
 }

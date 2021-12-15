@@ -15,7 +15,7 @@
  * Initializes and stores all the system's BST's
  */
 class Data{
-    BST<AirportFlightList> airports;
+    BST<AirportPointer> airports;
     std::vector<Voyage*> voyages;
     BST<FlightPointer> flights;
     BST<PlanePointer> planes;
@@ -24,13 +24,13 @@ class Data{
     BST<CompanyPointer> company;
     friend class MikeG;
 public:
-    Data() : airports(AirportFlightList(nullptr)), flights(FlightPointer(nullptr)),
+    Data() : airports(AirportPointer(nullptr)), flights(FlightPointer(nullptr)),
              planes(PlanePointer(nullptr)), clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)){
         voyages.clear();
         tickets.clear();
     }
     //Add get methods
-    BST<AirportFlightList> getAirport() const{
+    BST<AirportPointer> getAirport() const{
         return airports;};
     std::vector<Voyage*> getVoyages() const{
         return voyages;};
@@ -41,7 +41,22 @@ public:
     std::vector<Ticket*> getTickets() const{
         return tickets;
     }
-    //Add find methods
+    bool addAirport(const AirportPointer& a){
+        return airports.insert(a);
+    }
+    bool addVoyage(Voyage* v){
+        if(!voyages.empty()) {
+            for (auto it : voyages) {
+                if (it == v) return false;
+            }
+        }
+        voyages.push_back(v);
+        return true;
+    }
+    bool addFlight(const FlightPointer& f);
+    bool addPlane(const PlanePointer& p){
+        return planes.insert(p);
+    }
 };
 
 /**

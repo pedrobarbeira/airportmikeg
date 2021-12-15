@@ -140,21 +140,6 @@ bool MikeG::newAccount(){
     return true;
 }
 
-bool MikeG::addFlight(const FlightPointer& f){
-    bool flag;
-    AirportFlightList addIn = data->airports.find(AirportFlightList((*f).getOrigin()->airport));
-    data->airports.remove(addIn);
-    AirportFlightList addOut = data->airports.find(AirportFlightList((*f).getDestination()->airport));
-    data->airports.remove(addOut);
-    flag = addIn.addFlight(f.getPointer()) && addOut.addOut(f.getPointer());
-    if(flag){
-        data->airports.insert(addIn);
-        data->airports.insert(addOut);
-        flag &= data->flights.insert(f);
-    }
-    return flag;
-}
-
 bool MikeG::save() const {
     return true;
 }

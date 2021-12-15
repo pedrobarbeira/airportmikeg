@@ -79,16 +79,14 @@ public:
  * Stores the created Airports and which flights are related to them in
  * order to avoid unnecessary searches.
  */
-class AirportFlightList{
-    Airport* airport;
+class AirportPointer : public BSTPointer<Airport>{
     BST<FlightPointer> inFlights;
     BST<FlightPointer> outFlights;
 public:
-    explicit AirportFlightList(Airport* a = nullptr) :
-            airport(a), inFlights(FlightPointer(nullptr)), outFlights(FlightPointer(nullptr)){};
-    Airport* getAirport() const{
-        return airport;
-    }
+    explicit AirportPointer(Airport* a = nullptr) :
+            inFlights(FlightPointer(nullptr)), outFlights(FlightPointer(nullptr)){
+        pointer = a;
+    };
     bool addFlight(Flight* f);
     std::vector<Flight*> getFlightsTo(Airport* a) const;
     std::vector<Flight*> getFlightsTo(Airport* a, Date* min) const;
@@ -104,8 +102,8 @@ public:
         return outFlights.insert(FlightPointer(f));
     }
     //Add operator overloading to allow diffrent types of searches
-    bool operator<(const AirportFlightList& apf) const{
-        return airport->getidCode() < apf.airport->getidCode();
+    bool operator<(const AirportPointer& apf) const{
+        return pointer->getidCode() < apf.pointer->getidCode();
     }
 };
 

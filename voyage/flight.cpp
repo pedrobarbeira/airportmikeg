@@ -27,15 +27,15 @@ void Flight::print(ostream& out) const{
     std::cout << '\n';
 }
 
-bool AirportFlightList::addFlight(Flight*f){
-    if(f->getDestination()->airport == airport)
+bool AirportPointer::addFlight(Flight*f){
+    if(f->getDestination()->airport == pointer)
         return inFlights.insert(FlightPointer(f));
-    else if(f->getOrigin()->airport == airport)
+    else if(f->getOrigin()->airport == pointer)
         return outFlights.insert(FlightPointer(f));
     else return false;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a) const {
+std::vector<Flight*> AirportPointer::getFlightsTo(Airport* a) const {
     std::vector<Flight*> ret;
     iteratorBST<FlightPointer> it = outFlights.begin();
     while (it != outFlights.end()) {
@@ -46,7 +46,7 @@ std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a) const {
     return ret;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a, Date* min) const {
+std::vector<Flight*> AirportPointer::getFlightsTo(Airport* a, Date* min) const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = outFlights.begin();
     while (it != outFlights.end()) {
@@ -57,7 +57,7 @@ std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a, Date* min) cons
     return ret;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a, Date* min, Date* max) const {
+std::vector<Flight*> AirportPointer::getFlightsTo(Airport* a, Date* min, Date* max) const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = outFlights.begin();
     Time* temp;
@@ -71,7 +71,7 @@ std::vector<Flight*> AirportFlightList::getFlightsTo(Airport* a, Date* min, Date
     return ret;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsFrom() const {
+std::vector<Flight*> AirportPointer::getFlightsFrom() const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = inFlights.begin();
     while (it != inFlights.end()) {
@@ -81,7 +81,7 @@ std::vector<Flight*> AirportFlightList::getFlightsFrom() const {
     return ret;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsFrom(Date* min) const {
+std::vector<Flight*> AirportPointer::getFlightsFrom(Date* min) const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = inFlights.begin();
     while (it != inFlights.end()) {
@@ -92,7 +92,7 @@ std::vector<Flight*> AirportFlightList::getFlightsFrom(Date* min) const {
     return ret;
 }
 
-std::vector<Flight*> AirportFlightList::getFlightsFrom(Date* min, Date* max) const {
+std::vector<Flight*> AirportPointer::getFlightsFrom(Date* min, Date* max) const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = inFlights.begin();
     Time* temp;
@@ -106,7 +106,7 @@ std::vector<Flight*> AirportFlightList::getFlightsFrom(Date* min, Date* max) con
     return ret;
 }
 
-Flight* AirportFlightList::find(std::string id) const{
+Flight* AirportPointer::find(std::string id) const{
     Flight* find;
     find = inFlights.find(FlightPointer(new Flight(id))).getPointer();
     if(find == nullptr)

@@ -18,6 +18,22 @@ std::ostream& operator<<(ostream& out, const UserPointer& user){
     return out;
 }
 
+bool Data::addFlight(const FlightPointer& f){
+    bool flag;
+    AirportPointer addIn = airports.find(AirportPointer((*f).getOrigin()->airport));
+    airports.remove(addIn);
+    AirportPointer addOut = airports.find(AirportPointer((*f).getDestination()->airport));
+    airports.remove(addOut);
+    flag = addIn.addFlight(f.getPointer()) && addOut.addOut(f.getPointer());
+    if(flag){
+        airports.insert(addIn);
+        airports.insert(addOut);
+        flag = flights.insert(f);
+    }
+    return flag;
+}
+
+
 void Menu::mainScreen() const{
     std::cout << "blabla\n";
 }

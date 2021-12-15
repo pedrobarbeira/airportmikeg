@@ -35,22 +35,6 @@ public:
     /**Modifiers*/
     void setSysTime(){
         sysTime->now();};
-    bool addAirport(const AirportFlightList& a){
-        return data->airports.insert(a);
-    }
-    bool addVoyage(Voyage* v){
-        if(!data->voyages.empty()) {
-            for (auto it : data->voyages) {
-                if (it == v) return false;
-            }
-        }
-        data->voyages.push_back(v);
-        return true;
-    }
-    bool addFlight(const FlightPointer& f);
-    bool addPlane(const PlanePointer& p){
-        return data->planes.insert(p);
-    }
     /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {
             for (auto it : data->tickets) {
