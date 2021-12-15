@@ -20,7 +20,6 @@
 
 class Menu{
 protected:
-    User* user;
     Data* data;
     Time* sysTime;
 public:
@@ -48,9 +47,10 @@ public:
  * Frontend class that handles Registered Client menus
  */
 class ClientMenu : public Menu{
-    //This would have a Client* user
+protected:
+    Client* user;
 public:
-    explicit ClientMenu(User* u = nullptr, Data* d = nullptr){
+    explicit ClientMenu(Client* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
         sysTime = new Time;
@@ -81,6 +81,8 @@ class Register : public ClientMenu{};
  * Frontend class that handles Company menus
  */
 class CompanyMenu : public Menu{
+protected:
+    Company* user;
     //Add an airport
     //Add service ticket queue
     //add complete service queue
@@ -91,7 +93,7 @@ class CompanyMenu : public Menu{
  */
 class AdminMenu : public CompanyMenu{
 public:
-    explicit AdminMenu(User* u = nullptr, Data* d = nullptr){
+    explicit AdminMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
         sysTime = new Time;
@@ -105,7 +107,7 @@ public:
  */
 class ManagerMenu : public CompanyMenu{
 public:
-    explicit ManagerMenu(User* u = nullptr, Data* d = nullptr){
+    explicit ManagerMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
         sysTime = new Time;
@@ -119,7 +121,7 @@ public:
  */
 class BoardingMenu : public CompanyMenu{
 public:
-    explicit BoardingMenu(User* u = nullptr, Data* d = nullptr){
+    explicit BoardingMenu(Company* u = nullptr, Data* d = nullptr){
         user = u;
         data = d;
         sysTime = new Time;
@@ -135,7 +137,7 @@ public:
  */
 class ServiceMenu : public CompanyMenu{
 public:
-    explicit ServiceMenu(User* u = nullptr, Data*d = nullptr){
+    explicit ServiceMenu(Company* u = nullptr, Data*d = nullptr){
         user = u;
         data = d;
         sysTime = new Time;
@@ -146,7 +148,6 @@ public:
 
 };
 
-std::ostream& operator<<(ostream& out, const UserPointer& user);
 void readInput(char& in);
 void readInput(std::string& in);
 

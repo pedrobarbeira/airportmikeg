@@ -116,20 +116,7 @@ public:
     }
 };
 
-class UserPointer : public BSTPointer<User>{
-public:
-    explicit UserPointer(User* u = nullptr){
-        pointer = u;
-    }
-    bool operator==(const UserPointer& rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const UserPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
-    }
-};
-
-class ClientPointer : public UserPointer{
+class ClientPointer : public BSTPointer<Client>{
 public:
     explicit ClientPointer(Client* u = nullptr){
         pointer = u;
@@ -142,7 +129,7 @@ public:
     }
 };
 
-class CompanyPointer : public UserPointer{
+class CompanyPointer : public BSTPointer<Company>{
 public:
     explicit CompanyPointer(Company* u = nullptr){
         pointer = u;
