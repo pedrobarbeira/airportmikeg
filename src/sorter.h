@@ -62,26 +62,26 @@ class VoyageSorter{
 
 /**---Airport Sorter---*/
 class AirportSorter{
-    bool flightNumAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool flightNumDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool idAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool idDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool nameAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool nameDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool cityAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool cityDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool countryAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool countryDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool serviceAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool serviceDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool completeAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool completeDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool terminalsAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool terminalsDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool emptyAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool emptyDescending(const AirportSorter& c1, const AirportSorter& c2);
-    bool transportAscending(const AirportSorter& c1, const AirportSorter& c2);
-    bool transportDescending(const AirportSorter& c1, const AirportSorter& c2);
+    static bool flightNumAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool flightNumDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool idAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool idDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool nameAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool nameDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool cityAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool cityDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool countryAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool countryDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool serviceAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool serviceDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool completeAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool completeDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool terminalsAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool terminalsDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool emptyAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool emptyDescending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool transportAscending(const AirportPointer& c1, const AirportPointer& c2);
+    static bool transportDescending(const AirportPointer& c1, const AirportPointer& c2);
 public:
     AirportSorter() = default;
     void operator()(std::vector<AirportPointer>& data, char c, bool as);

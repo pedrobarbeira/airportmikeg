@@ -103,6 +103,9 @@ public:
     vector<Terminal*> getEmptyTerminals() const;
     vector<Terminal*> getTerminals() const;
     vector<ServiceTicket*> getServices();
+    list<ServiceTicket*> getCompleteServices(){
+        return complete;
+    }
     ServiceTicket* nextService();
     void setTransport (TransportPointer transport);
     void delTransport (TransportPointer transport);
