@@ -168,7 +168,7 @@ public:
         cabin->capacity = c;};
     void setClasses(std::vector<Class*> c){
         std::swap(classes, c);};
-    bool bookSeat(std::string code);
+    Seat* bookSeat(std::string code);
     void takeOff(){
         grounded = false;};
     void land(){

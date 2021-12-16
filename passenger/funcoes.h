@@ -4,10 +4,12 @@
 
 #ifndef MIKEGAIRLINES_FUNCOES_H
 #define MIKEGAIRLINES_FUNCOES_H
-#include "ticket.h"
+#include "voyage.h"
 
 
-void buyTicket(vector<Ticket*> &tickets);
+void buyTicket(vector<Ticket*> tickets);
 void listBilhetes(vector<Ticket*> tickets);
+
+void fazerpilha(queue<stack<Luggage*>> bags, vector<Luggage*> passLugg);
 
 #endif //MIKEGAIRLINES_FUNCOES_H

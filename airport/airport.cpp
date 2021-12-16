@@ -5,18 +5,17 @@
 #include <algorithm>
 #include "airport.h"
 
-Transport::Transport() {}
 
-Transport::Transport(char c) {
+///////////////////////////////////// T R A N S P O R T /////////////////////////////
+
+Transport::Transport(string id, char c) {
+    this->id = id;
     type=c;
+    distance=0;
+    this->time = nullptr;
 }
 
-Transport::Transport(char c, uint16_t d) {
-    type=c;
-    distance=d;
-}
-
-string Transport::getTransport() {
+string Transport::getTransport() const{
     string t;
     switch (type) {
         case 'm':
@@ -33,64 +32,33 @@ string Transport::getTransport() {
     return t;
 }
 
-uint16_t const Transport::getDistance (){
-    return distance;
-}
-
-char const Transport::getType(){
-    return type;
-}
-
-void Transport::addTime(Time time){
-    timetable.push_back(time);
-}
-
-void Transport::delTime(Time time) {
-    list<Time>::iterator it = timetable.begin();
-    for (it; it != timetable.end(); it++){
-        if (*it == time) {
-            timetable.erase(it);
-            break;
-        }
+bool Transport::operator<(Transport &t) {
+    if (time == t.time) {
+        if (distance == t.distance) return type < t.type;
+        return distance < t.distance;
     }
+    return time < t.time;
 }
 
-list<Time> Transport::getTimetable () {
-    return timetable;
+bool Transport::operator==(Transport &t){
+    if (time == t.time && distance == t.distance && type == t.type) return true;
+    return false;
 }
 
-bool Transport::operator<(Transport *t) {
-    return type < t->type;
+bool Transport::operator!=(Transport &t){
+    return !((*this)==t);
 }
 
-
-Terminal::Terminal(string i) {
-    idNumber = i;
-    plane = nullptr;
+bool operator<(const TransportPointer& t1, const TransportPointer&t2){
+    return (*t1.getPointer()) < (*t2.getPointer());
 }
 
+////////////////////////////////////// T E R M I N A L //////////////////////////////
 
-Airport::Airport() {
 
-}
-/**
- * main constructor for Airport objects.
- * @param idName forces the id to be a 3 letter word, all caps;
- * @param name
- * @param country
- * @param city
- */
-Airport::Airport(string idName, string name, string country, string city) {
-    if (idName.length() != 3) throw IncorrectLength();
-    else {
-        for (auto &c : idName){
-            c = toupper(c);}
-        this->idName = idName;
-    }
-    this->name = name;
-    this->country = country;
-    this->city = city;
-}
+
+
+/////////////////////////////////////// A I R P O R T ///////////////////////////////
 
 string Airport::getidCode() const{
     return idName;
@@ -128,11 +96,11 @@ ServiceTicket* Airport::nextService() {
     return services.front();
 }
 
-void Airport::setTransport(Transport *transport) {
-    Airport::transport.push_back(transport);
+void Airport::setTransport(TransportPointer transport) {
+    this->transport.insert(transport);
 }
 
-void Airport::delTransport(Transport *transport) {
+void Airport::delTransport(TransportPointer transport) {
     this->transport.remove(transport);
 }
 
@@ -143,75 +111,83 @@ void Airport::addService(ServiceTicket *service) {
  * Method to set a service as complete and remove it from the front of the queue of services.
  * @param date
  */
-void Airport::delService(Date date) {
-    services.front()->getResponsible();
+void Airport::delService(Date *date) {
+    //services.front()->getResponsible();
     services.front()->setComplete(date);
     complete.push_back(services.front());
     services.pop();
 }
 
-list<Transport*> Airport::getTransport() const {
-    return transport;
+vector<Transport*> Airport::getTransport() const {
+    vector<Transport*> temp;
+    BSTItrIn<TransportPointer> itr(transport);
+    while (!itr.isAtEnd()){
+        temp.push_back(itr.retrieve().getPointer());
+        itr.advance();
+    }
+    return temp;
 }
-
-list<Time> Airport::nextTransportBus(Time time) {
-    list<Time> next;
-    list<Time> temp;
-    for (auto it : transport){
-        if (it->getType() == 'b'){
-            temp = it->getTimetable();
-            for (auto itr : temp){
-                if (time.getHour() < itr.getHour()) next.push_back(itr);
-                else if (time.getHour() == itr.getHour() && time.getMinute() < itr.getMinute()) next.push_back(itr);
+/*
+list<Time*> Airport::nextTransportBus(Time *time) const {
+    list<Time*> next;
+    list<Time*> temp;
+    BSTItrIn<TransportPointer> itr(transport);
+    while (!itr.isAtEnd()){
+        if (itr.retrieve().getPointer()->getType() == 'b'){
+            temp.push_back(itr.retrieve().getPointer()->getTime());
+            for (auto it : temp){
+                if (time < it) next.push_back(it);
             }
         }
     }
     return next;
 }
 
-list<Time> Airport::nextTransportMetro(Time time) {
-    list<Time> next;
-    list<Time> temp;
-    for (auto it : transport){
-        if (it->getType() == 'm'){
-            temp = it->getTimetable();
-            for (auto itr : temp){
-                if (time.getHour() < itr.getHour()) next.push_back(itr);
-                else if (time.getHour() == itr.getHour() && time.getMinute() < itr.getMinute()) next.push_back(itr);
+list<Time*> Airport::nextTransportMetro(Time *time) const {
+    list<Time*> next;
+    list<Time*> temp;
+    BSTItrIn<TransportPointer> itr(transport);
+    while (!itr.isAtEnd()){
+        if (itr.retrieve().getPointer()->getType() == 'm'){
+            temp.push_back(itr.retrieve().getPointer()->getTime());
+            for (auto it : temp){
+                if (time < it) next.push_back(it);
             }
         }
     }
     return next;
 }
 
-list<Time> Airport::nextTransportTrain(Time time) {
-    list<Time> next;
-    list<Time> temp;
-    for (auto it : transport){
-        if (it->getType() == 't'){
-            temp = it->getTimetable();
-            for (auto itr : temp){
-                if (time.getHour() < itr.getHour()) next.push_back(itr);
-                else if (time.getHour() == itr.getHour() && time.getMinute() < itr.getMinute()) next.push_back(itr);
+list<Time*> Airport::nextTransportTrain(Time *time) const {
+    list<Time*> next;
+    list<Time*> temp;
+    BSTItrIn<TransportPointer> itr(transport);
+    while (!itr.isAtEnd()){
+        if (itr.retrieve().getPointer()->getType() == 't'){
+            temp.push_back(itr.retrieve().getPointer()->getTime());
+            for (auto it : temp){
+                if (time < it) next.push_back(it);
             }
         }
     }
     return next;
 }
-
+*/
 void Airport::activateTerminal(string i) {
     Terminal *t = new Terminal(i);
     terminals.push_back(t);
 }
 
-void Airport::setTerminal(Plane *plane) {
+void Airport::setTerminal(Plane *plane, string id = "") {
     for (unsigned i{0}; i < terminals.size(); i++){
-        if (terminals[i]->getOccupied() == false) {
-            terminals[i]->setPlane(plane);
-        }
+        if (!terminals[i]->getOccupied() && terminals[i]->id == ""){
+            terminals[i]->setPlane(plane); break;}
+        else if (!terminals[i]->getOccupied() && terminals[i]->id == id) {
+            terminals[i]->setPlane(plane); break;}
+        else cout << "No Terminals available to dock plane with plate " << plane->getPlate() << endl;
     }
 }
-/*
+
 bool Airport::operator < (Airport &a){
 
     if (country == a.country) {
@@ -219,4 +195,6 @@ bool Airport::operator < (Airport &a){
         return city < a.city;
     }
     return country < a.country;
-}*/
+}
+
+

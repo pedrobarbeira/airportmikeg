@@ -12,7 +12,7 @@ class Ticket {
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
-    explicit Ticket(string ticketID="");
+    explicit Ticket(Seat* s= nullptr);
     string getID() const;
     Passenger* getOwner() const;
     Seat* getSeat() const;

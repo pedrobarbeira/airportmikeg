@@ -6,6 +6,7 @@
 
 using namespace std;
 
+//////////////////////////////////// S T A F F /////////////////////////
 
 Staff::Staff(string name) {
     this->name= name;
@@ -32,16 +33,16 @@ unsigned Staff::getId() const {
     return id;
 }
 
-/////////////////
+///////////////////// S E R V I C E T I C K E T /////////////////////////
 
 ServiceTicket::ServiceTicket(Plane *plane, char id){
     responsible = nullptr;
     Time* time = new Time;
     time->now();
-    created = *time;
+    created = time;
 }
 
-ServiceTicket::ServiceTicket(Plane *plane, Date date, char id){
+ServiceTicket::ServiceTicket(Plane *plane, Date *date, char id){
     this->plane = plane;
     created = date;
     responsible = nullptr;
@@ -50,11 +51,11 @@ ServiceTicket::ServiceTicket(Plane *plane, Date date, char id){
 ServiceTicket::ServiceTicket(Plane *plane, Staff *staff, char id) {
     Time* time = new Time;
     time->now();
-    created = *time;
+    created = time;
     responsible = staff;
 }
 
-ServiceTicket::ServiceTicket(Plane *plane, Date date, Staff *staff, char id){
+ServiceTicket::ServiceTicket(Plane *plane, Date *date, Staff *staff, char id){
     this->plane = plane;
     responsible = staff;
     created = date;
@@ -64,11 +65,11 @@ void ServiceTicket::setResponsible(Staff *staff) {
     responsible = staff;
 }
 
-void ServiceTicket::setSchedule(Date date) {
+void ServiceTicket::setSchedule(Date *date) {
     created = date;
 }
 
-void ServiceTicket::setComplete (Date date) {
+void ServiceTicket::setComplete (Date *date) {
     if (responsible == NULL) throw NoResponsible();
     completed = date;
 }
@@ -89,17 +90,14 @@ Staff* ServiceTicket::getResponsible(){
     return responsible;
 }
 
-Date ServiceTicket::getSchedule() {
+Date* ServiceTicket::getSchedule() {
     return created;
 }
 
 bool ServiceTicket::operator<(ServiceTicket &s) {
-    if (completed.getYear()<s.completed.getYear()) return true;
-    else if (completed.getYear()==s.completed.getYear() &&
-            completed.getMonth() < s.completed.getMonth()) return true;
-    else if (completed.getYear()==s.completed.getYear() &&
-            completed.getMonth() == s.completed.getMonth() &&
-            completed.getDay()<s.completed.getDay()) return true;
+    if (completed<s.completed) return true;
+    else if (completed==s.completed && completed < s.completed) return true;
+    else if (completed == s.completed && completed == s.completed && completed < s.completed) return true;
     return false;
 }
 
@@ -109,19 +107,19 @@ bool ServiceTicket::operator<(ServiceTicket &s) {
 
 Cleaning::Cleaning(Plane *plane) : ServiceTicket(plane, 'c') {}
 
-Cleaning::Cleaning(Plane *plane, Date date) : ServiceTicket(plane, date, 'c'){}
+Cleaning::Cleaning(Plane *plane, Date *date) : ServiceTicket(plane, date, 'c'){}
 
-Cleaning::Cleaning(Plane *plane, Date date, Staff *staff) : ServiceTicket(plane, date, staff, 'c') {}
+Cleaning::Cleaning(Plane *plane, Date *date, Staff *staff) : ServiceTicket(plane, date, staff, 'c') {}
 
 void Cleaning::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Cleaning::setSchedule(Date date) {
+void Cleaning::setSchedule(Date *date) {
     ServiceTicket::setSchedule(date);
 }
 
-void Cleaning::setComplete(Date date) {
+void Cleaning::setComplete(Date *date) {
     if (getResponsible() == NULL) throw NoResponsible();
     ServiceTicket::setComplete(date);
 }
@@ -130,13 +128,13 @@ Staff* Cleaning::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Date Cleaning::getSchedule() {
+Date* Cleaning::getSchedule() {
     return ServiceTicket::getSchedule();
 }
 
 vector<string> Cleaning::getTasksLeft() const {
     vector<string> tl;
-    if (wc==false) tl.push_back("Bathroom");
+    if (!wc) tl.push_back("Bathroom");
     if (seats==false) tl.push_back("Passenger seats");
     if (floor==false) tl.push_back("Plane floor");
     if (flightDeck==false) tl.push_back("Fligh Cabin");
@@ -176,19 +174,19 @@ bool Cleaning::verification() const {
 
 Maintenance::Maintenance(Plane *plane) : ServiceTicket(plane, 'm') {}
 
-Maintenance::Maintenance(Plane *plane, Date date): ServiceTicket(plane, date, 'm') {}
+Maintenance::Maintenance(Plane *plane, Date *date): ServiceTicket(plane, date, 'm') {}
 
-Maintenance::Maintenance(Plane *plane, Date date, Staff *staff) : ServiceTicket(plane, date, staff, 'm') {}
+Maintenance::Maintenance(Plane *plane, Date *date, Staff *staff) : ServiceTicket(plane, date, staff, 'm') {}
 
 void Maintenance::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Maintenance::setSchedule(Date date) {
+void Maintenance::setSchedule(Date *date) {
     ServiceTicket::setSchedule(date);
 }
 
-void Maintenance::setComplete(Date date) {
+void Maintenance::setComplete(Date *date) {
     if (getResponsible() == NULL) throw NoResponsible();
     ServiceTicket::setComplete(date);
 }
@@ -209,7 +207,7 @@ Staff* Maintenance::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Date Maintenance::getSchedule() {
+Date* Maintenance::getSchedule() {
     return ServiceTicket::getSchedule();
 }
 
