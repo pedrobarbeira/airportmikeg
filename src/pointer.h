@@ -5,11 +5,28 @@
 #include "ticket.h"
 #include "user.h"
 
+/**
+ * Encapsulation class for pointers to Ticket objects.
+ * Used to store Plane pointers in the Data BSTs
+ */
 class TicketPointer : public BSTPointer<Ticket>{
 public:
+    /**
+     * Constructor of TikcetPointer. Receives a pointer to a Ticket object
+     * and sabes it in the pointer attribute
+     * @param t the Ticket object pointer
+     */
     explicit TicketPointer(Ticket* t){
         pointer = t;
     }
+
+    /**
+     * Allows comparisons between TikcetPointers and strings. This is used
+     * to perform comparisons between TicketPointers and Ticket Id's
+     * @param id the Id to be compared with
+     * @return bool if the Id is the same as of the Ticket object stores,
+     * false otherwise
+     */
     bool operator==(const std::string& id) const{
         return pointer->getID() == id;
     }
@@ -21,6 +38,11 @@ public:
  */
 class PlanePointer : public BSTPointer<Plane>{
 public:
+   /**
+    * Constructor of PlanePointer. Receives a pointer to a Plane object
+    * and sabes it in the pointer attribute
+    * @param t the Plane object pointer
+    */
     explicit PlanePointer(Plane* p = nullptr){
         pointer = p;
     }

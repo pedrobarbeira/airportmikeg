@@ -14,10 +14,13 @@ void Date::print(std::ostream& out) const {
 void Time::print(std::ostream& out) const{        //Read up polymorphism and make this proper
     out << std::setw(2) << std::setfill('0') << hour << ":"
         << std::setw(2) << std::setfill('0') << minute << ":"
-        << std::setw(2) << std::setfill('0') << second << " "
-        << std::setw(2) << std::setfill('0') << day << "/"
-        << std::setw(2) << std::setfill('0') << month << "/"
-        << std::setw(4) << std::setfill('0')  << year;
+        << std::setw(2) << std::setfill('0') << second << " ";
+    if(day != 0 && month != 0) {
+        out << std::setw(2) << std::setfill('0') << day << "/"
+            << std::setw(2) << std::setfill('0') << month << "/";
+        if (year != 0)
+            out << std::setw(4) << std::setfill('0') << year;
+    }
 }
 
 /**
@@ -102,26 +105,34 @@ bool Date::operator<(const Time& rhs) const{
 }
 
 bool Time::operator==(const Time& rhs) const{
-    return this->getDate() == rhs.getDate() && hour == rhs.hour
-            && minute == rhs.minute && second == rhs.second;
+    bool flag = true;
+    if(this->getDate().getDay() != 0 && rhs.getDate().getDay() != 0) {
+        flag &= this->getDate() == rhs.getDate();
+    }
+    flag &= hour == rhs.hour && minute == rhs.minute && second == rhs.second;
+    return flag;
 }
 
 bool Time::operator==(const Date& rhs) const{
     return this->getDate() == rhs;
 }
 
-bool Time::operator<(const Time& rhs) const{
-    if(this->getDate() == rhs.getDate()){
-        if(hour == rhs.hour) {
-            if (minute == rhs.minute) {
-                return second < rhs.second;
-            } else return minute < rhs.minute;
-        } else return hour < rhs.hour;
-    } else return this->getDate() < rhs.getDate();
-}
-
 bool Time::operator<(const Date& rhs) const{
     return this->getDate() < rhs;
+}
+
+bool Time::operator<(const Time& rhs) const{
+    if(this->getDate().getDay() != 0 && rhs.getDate().getDay() != 0){
+        if(this->getDate() != rhs.getDate()){
+            return (*this) < rhs.getDate();
+        }
+    }
+    if(hour == rhs.hour){
+        if(minute == rhs.minute)
+            return second < rhs.second;
+        else return minute < rhs.minute;
+    }
+    else return hour < rhs.hour;
 }
 
 //put all operator definitions here
