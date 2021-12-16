@@ -8,7 +8,7 @@ void Menu::mainScreen() {
 
 void Menu::print(std::vector<AirportPointer> v) const{
     for(int i = 0; i < v.size(); i++){
-        std::cout << '[' << std::setw(2) << std::setfill('-') << i+1 << ']'
+        std::cout << '[' << std::setw(2) << std::setfill(' ') << i+1 << ']'
                   << v[i] << '\n';
     }
 }
@@ -261,7 +261,7 @@ AirportPointer ClientMenu::selectAirport(){
                 std::string in;
                 readInput(in);
                 int i = stoi(in);
-                return airports[i];
+                return airports[i-1];
             }
             case '2': reOrderAirports(airports); break;
             case '0': return AirportPointer(nullptr);

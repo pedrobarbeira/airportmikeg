@@ -30,6 +30,7 @@ public:
     bool operator==(const std::string& id) const{
         return pointer->getID() == id;
     }
+
 };
 
 /**
@@ -65,6 +66,10 @@ public:
         return pointer->flightID == id;
     }
     std::vector<Ticket*> getTickets() const;
+    bool addTicket(Ticket* t){
+        TicketPointer tptr(t);
+        return tickets.insert(tptr);
+    }
 };
 
 /**
@@ -105,6 +110,7 @@ public:
         return (*pointer) == (*rhs.getPointer());
     }
 };
+
 
 class ClientPointer : public BSTPointer<Client>{
 public:
