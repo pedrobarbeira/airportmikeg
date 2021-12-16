@@ -75,9 +75,7 @@ public:
     bool getOccupied() const {
         return plane != nullptr;
     }
-    string getId() const{
-        return id;
-    }
+ 
 };
 
 class Airport{
