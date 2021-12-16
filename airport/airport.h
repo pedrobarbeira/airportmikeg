@@ -14,6 +14,7 @@
 using namespace std;
 
 class Transport{
+    string id;
     char type; // m --> metro; b --> bus; t --> train
     uint16_t distance;
     list<Time> timetable;
@@ -24,6 +25,9 @@ public:
     string getTransport();
     uint16_t const getDistance ();
     char const getType();
+    string getId() const{
+        return id;
+    }
     void addTime(Time time);
     void delTime(Time time);
     list<Time> getTimetable ();
@@ -32,18 +36,21 @@ public:
 
 class Terminal{
     Plane* plane;
-    int idNumber;
+    string idNumber;
 public:
     friend class Airport;
-    Terminal(int i);
+    Terminal(string i);
     void setPlane(Plane *plane){
         this-> plane = plane;
     }
     bool getOccupied() const{
         return plane!= nullptr;
     }
-    int getTerminalNumber() const{
+    string getId() const{
         return idNumber;
+    }
+    int getTerminalNumber() const{
+        return stoi(idNumber.substr(3));
     }
     Plane* getPlane() const{
         return plane;
@@ -77,7 +84,7 @@ public:
     list<Time>nextTransportMetro (Time time);
     list<Time>nextTransportBus (Time time);
     list<Time>nextTransportTrain (Time time);
-    void activateTerminal (int i);
+    void activateTerminal (string i);
     void setTerminal(Plane *plane);
     /**
      * Operator to define by which order the airport objects should be added to the BST

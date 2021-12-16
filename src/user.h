@@ -75,7 +75,9 @@ public:
         return username == rhs.username;
     }
     bool operator<(const Company& rhs) const{
-        return username < rhs.username;
+        if(type == rhs.type)
+            return username < rhs.username;
+        else return type < rhs.type;
     }
 };
 

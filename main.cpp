@@ -145,6 +145,11 @@ void testInterface(){
 }
 
 int main(){
+    Time t(10, 25, 00);
+
+    t.print(std::cout);
+
+
     testInterface();
 
     return 0;

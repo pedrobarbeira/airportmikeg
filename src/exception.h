@@ -14,7 +14,11 @@ class DevLog : public std::exception {
     std::string error;
     Date* date;
 public:
-    explicit DevLog(std::string e, Date* d = nullptr) : error(std::move(e)), date(d) {};
+    explicit DevLog(std::string e) : error(std::move(e)){
+        Time* t;
+        t->now();
+        date = t;
+    };
     void print() const;
     std::string getError() const{
         return error;

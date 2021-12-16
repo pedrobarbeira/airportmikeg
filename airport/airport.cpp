@@ -64,7 +64,7 @@ bool Transport::operator<(Transport *t) {
 }
 
 
-Terminal::Terminal(int i) {
+Terminal::Terminal(string i) {
     idNumber = i;
     plane = nullptr;
 }
@@ -199,7 +199,7 @@ list<Time> Airport::nextTransportTrain(Time time) {
     return next;
 }
 
-void Airport::activateTerminal(int i) {
+void Airport::activateTerminal(string i) {
     Terminal *t = new Terminal(i);
     terminals.push_back(t);
 }

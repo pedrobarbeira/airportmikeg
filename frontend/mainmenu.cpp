@@ -151,7 +151,7 @@ bool checkCredentials(char c, char& type){
     }
     infile.open(fileName);
 
-    if(infile.fail()) throw DevLog("Error opening files in mainmenu.cpp/checkCredentials()", new Time);
+    if(infile.fail()) throw DevLog("Error opening files in mainmenu.cpp/checkCredentials()");
 
     std::string user, pass, check;
     bool found = false;

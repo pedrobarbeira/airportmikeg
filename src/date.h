@@ -30,18 +30,25 @@ public:
     day(d), month(m), year(y){};
     /**Getters*/
     uint16_t getDay() const{
-        return day;};
+        return day;
+    }
     uint16_t getMonth() const{
-        return month;};
+        return month;
+    }
     uint16_t getYear() const{
-        return year;};
+        return year;
+    }
     /**Setters*/
     void setDay(uint16_t d){
-        day = d;};
+        day = d;}
     void setMonth(uint16_t m){
-        month = m;};
+        month = m;}
     void setYear(uint16_t y){
-        year = y;};
+        year = y;}
+    /**
+     * Prints date
+     * @param out the output line
+     */
     virtual void print(std::ostream& out = std::cout) const;
     virtual bool operator==(const Date& rhs) const;
     virtual bool operator==(const Time& rhs) const;
@@ -84,7 +91,17 @@ public:
     Date getDate() const{
         return Date(day,month, year);
     }
+
+    /**
+     * Prints time with date
+     * @param out the output line
+      */
     void print(std::ostream& out = std::cout) const;
+    /**
+     * Prints time without date
+     * @param out the desired output line
+     */
+    void printTime(std::ostream& out = std::cout) const;
     /**Setters*/
     void setHour(uint16_t h){
         hour = h;};
@@ -97,10 +114,10 @@ public:
     bool operator==(const Date& rhs) const override;
     bool operator<(const Time& rhs) const override;
     bool operator<(const Date& rhs) const override;
-    virtual bool operator<=(const Time& rhs) const override{
+    bool operator<=(const Time& rhs) const override{
         return (*this) == rhs || (*this) < rhs;
     }
-    virtual bool operator<=(const Date& rhs) const override{
+    bool operator<=(const Date& rhs) const override{
         return (*this) == rhs || (*this) < rhs;
     }
     bool operator!=(const Time& rhs) const override{

@@ -20,6 +20,16 @@ bool AirportPointer::addFlight(Flight*f){
     else return false;
 }
 
+std::vector<Flight*> AirportPointer::getFlightsTo() const{
+    std::vector<Flight*> ret;
+    iteratorBST<FlightPointer> it = outFlights.begin();
+    while(it != outFlights.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
 std::vector<Flight*> AirportPointer::getFlightsTo(Airport* a) const {
     std::vector<Flight*> ret;
     iteratorBST<FlightPointer> it = outFlights.begin();
