@@ -16,6 +16,13 @@ void Menu::mainScreen() {
     std::cout << "blabla\n";
 }
 
+void Menu::print(std::vector<AirportPointer> v) const{
+    for(int i = 0; i < v.size(); i++){
+        std::cout << '[' << std::setw(2) << std::setfill('-') << i+1 << ']'
+                  << v[i] << '\n';
+    }
+}
+
 Dev::Dev(){
     ifstream infile("./data/devlogs.txt");
     if(!infile.is_open()){
@@ -161,20 +168,6 @@ void ClientMenu::buyTicket(){
     }
 }
 
-std::ostream& operator<<(std::ostream& out, const AirportPointer& aptr){
-    Airport* a = aptr.getPointer();
-    out << a->getidCode() << " " << a->getCountry() << " "
-        << a->getCity() << " " << a->getName();
-    return out;
-}
-
-void ClientMenu::print(std::vector<AirportPointer> v) const{
-    for(int i = 0; i < v.size(); i++){
-        std::cout << '[' << std::setw(2) << std::setfill('-') << i+1 << ']'
-                  << v[i] << '\n';
-    }
-}
-
 void ClientMenu::selectFlight(){
     system(CLEAR);
     char c;
@@ -298,4 +291,11 @@ void ServiceMenu::mainScreen() {
     std::cout << "we are @ Service\n"
               << "Press enter to continue . . .";
     char c = getchar();
+}
+
+std::ostream& operator<<(std::ostream& out, const AirportPointer& aptr){
+    Airport* a = aptr.getPointer();
+    out << a->getidCode() << " " << a->getCountry() << " "
+        << a->getCity() << " " << a->getName();
+    return out;
 }

@@ -27,6 +27,8 @@ public:
         sysTime->now();
     };
     virtual void mainScreen();
+    void print(std::vector<AirportPointer> v) const;
+    void print(std::vector<Flight*> v) const;
 };
 
 class Dev : public Menu{
@@ -59,8 +61,6 @@ public:
     }
     void mainScreen() override;
     void buyTicket();
-    void print(std::vector<AirportPointer> v) const;
-    void print(std::vector<Flight*> v) const;
     void selectFlight();
     void reOrder();
     void originAirport();
@@ -166,5 +166,7 @@ public:
 
 void readInput(char& in);
 void readInput(std::string& in);
+
+std::ostream& operator<<(ostream& out, const AirportPointer& aptr);
 
 #endif //MAIN_CPP_MENU_H
