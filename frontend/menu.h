@@ -170,7 +170,7 @@ public:
      */
     AirportPointer selectAirport();
 
-    
+
     void seeFlights();
 
     void seeVoyages();

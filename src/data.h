@@ -50,27 +50,73 @@ public:
 };
 
 class Load{
+protected:
     Data* data;
+public:
+    explicit Load(Data* d = nullptr) : data(d){}
 };
 
-class LoadAirport : public Load{};
+class LoadAirport : public Load{
+public:
+    explicit LoadAirport(Data*d = nullptr){
+        data = d;
+    }
+};
 
-class LoadVoyage : public Load{};
+class LoadVoyage : public Load{
+public:
+    explicit LoadVoyage(Data* d = nullptr){
+        data = d;
+    }
+};
 
-class LoadPlane : public Load{};
+class LoadPlane : public Load{
+public:
+    explicit LoadPlane(Data* d = nullptr){
+        data = d;
+    }
+};
 
-class LoadUser : public Load{};
+class LoadUser : public Load{
+public:
+    explicit LoadUser(Data* d = nullptr){
+        data = d;
+    }
+};
 
 class Save{
+protected:
     Data* data;
+public:
+    explicit Save(Data* d = nullptr) : data(d){}
 };
 
-class SaveAirport : public Save{};
+class SaveAirport : public Save{
+public:
+    explicit SaveAirport(Data* d = nullptr){
+        data = d;
+    }
+};
 
-class SaveVoyage : public Save{};
+class SaveVoyage : public Save{
+public:
+    explicit SaveVoyage(Data* d = nullptr){
+        data = d;
+    }
+};
 
-class SavePlane : public Save{};
+class SavePlane : public Save{
+public:
+    explicit SavePlane(Data* d = nullptr){
+        data = d;
+    }
+};
 
-class SaveUser : public Save{};
+class SaveUser : public Save{
+public:
+    explicit SaveUser(Data* d = nullptr){
+        data = d;
+    }
+};
 
 #endif //MAIN_CPP_DATA_H
