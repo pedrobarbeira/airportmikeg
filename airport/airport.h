@@ -100,6 +100,7 @@ public:
     string getName () const;
     string getCountry() const;
     string getCity() const;
+    vector<Terminal*> getEmptyTerminals() const;
     vector<Terminal*> getTerminals() const;
     vector<ServiceTicket*> getServices();
     ServiceTicket* nextService();

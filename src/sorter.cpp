@@ -5,6 +5,7 @@
 //TODO
 //handle ties
 
+/**---Plane Sorter---*/
 bool PlaneSorter::plateAscending(const Plane* p1, const Plane* p2){
     return *p1 < *p2;
 }
@@ -83,27 +84,27 @@ bool PlaneSorter::seatDescending(const Plane* p1, const Plane* p2) {
 }
 void PlaneSorter::operator()(std::vector<Plane*>& data, char o = '\0', bool asc = true) {
     switch(o) {
-        case '\0' :
+        case '0' :
             if(asc) sort(data.begin(), data.end(), plateAscending);
             else sort(data.begin(), data.end(), plateDescending);
             break;
-        case 'F' :
+        case '1' :
             if(asc) sort(data.begin(), data.end(), fPriceAscending);
             else sort(data.begin(), data.end(), fPriceDescending);
             break;
-        case 'B' :
+        case '2' :
             if(asc) sort(data.begin(), data.end(), bPriceAscending);
             else sort(data.begin(), data.end(), bPriceDescending);
             break;
-        case 'E' :
+        case '3' :
             if(asc) sort(data.begin(), data.end(), ePriceAscending);
             else sort(data.begin(), data.end(), ePriceDescending);
             break;
-        case 'S':
+        case '4':
             if(asc) sort(data.begin(), data.end(), seatAscending);
             else sort(data.begin(), data.end(), seatDescending);
             break;
-        case 'X' :
+        case '5' :
             if(asc) sort(data.begin(), data.end(), freeAscending);
             else sort(data.begin(), data.end(), freeDescending);
             break;
@@ -116,6 +117,7 @@ void PlaneSorter::operator()(std::vector<Plane*>& data, char o = '\0', bool asc 
     }
 }
 
+/**---Flight Sorter---*/
 bool FlightSorter::idAscending(const Flight *f1, const Flight *f2) {
     return *f1 < *f2;
 }
@@ -194,27 +196,27 @@ bool FlightSorter::planeDescending(const Flight* f1, const Flight* f2){
 }
 void FlightSorter::operator()(std::vector<Flight*>& data, char c, bool asc){
     switch(c){
-        case 'I' :
+        case '9' :
             if(asc) sort(data.begin(), data.end(), idAscending);
             else sort(data.begin(), data.end(), idDescending);
             break;
-        case 'A':
+        case '1':
             if(asc) sort(data.begin(), data.end(), originAirportAscending);
             else sort(data.begin(), data.end(), originAirportDescending);
             break;
-        case 'D':
+        case '2':
             if(asc) sort(data.begin(), data.end(), destinationAirportAscending);
             else sort(data.begin(), data.end(), destinationAirportDescending);
             break;
-        case 'T':
+        case '3':
             if(asc) sort(data.begin(), data.end(), originDateAscending);
             else sort(data.begin(), data.end(), originDateDescending);
             break;
-        case 't':
+        case '4':
             if(asc) sort(data.begin(), data.end(), destinationDateAscending);
             else sort(data.begin(), data.end(), destinationDateDescending);
             break;
-        case 'P':
+        case '5':
             if(asc) sort(data.begin(), data.end(), planeAscending);
             else sort(data.begin(), data.end(), planeDescending);
             break;
@@ -227,6 +229,13 @@ void FlightSorter::operator()(std::vector<Flight*>& data, char c, bool asc){
     }
 }
 
+/**---Voyage Sorter---*/
+
+/**---Airport Sorter---*/
+void AirportSorter::operator()(std::vector<AirportPointer>& data, char c, bool asc){
+
+}
+/**---User Sorter---*/
 bool UserSorter::nameAscending(const User *u1, const User *u2) {
     return *u1 < *u2;
 }
