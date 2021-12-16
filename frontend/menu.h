@@ -34,7 +34,7 @@ public:
     };
 
     /**
-     * Abstract function used to implement hte Main Screen of each subclass
+     * Abstract function used to implement the Main Screen of each subclass
      * of Menu. Used to improve code efficiency in Mike G. Acts as an interface
      * for each menu, allowing to navigate each submenu through method calls
      */
@@ -238,6 +238,21 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+
+    void airportMenu();
+    void createAirport();
+    void deleteAirport();
+    void checkAirport();
+    void listAirport();
+
+    void workers();
+    void addWorker();
+    void delWorker();
+    void checkService();
+
+    void travel();
+
+    void plane();
 };
 
 /**
