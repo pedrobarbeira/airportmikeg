@@ -8,7 +8,6 @@
 #define CLEAR "clear"
 #endif
 
-#include <iostream>
 #include "data.h"
 #include "sorter.h"
 
@@ -48,6 +47,7 @@ public:
 class ClientMenu : public Menu{
 protected:
     Client* user;
+    AirportPointer airport;
     Flight* flight;
 public:
     explicit ClientMenu(Client* u = nullptr, Data* d = nullptr){
@@ -58,6 +58,18 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+    void buyTicket();
+    void print(std::vector<AirportPointer> v) const;
+    void print(std::vector<Flight*> v) const;
+    void selectFlight();
+    void reOrder();
+    void originAirport();
+    void destinationAirport();
+    void seeFlights();
+    void seeVoyages();
+    void changeTicket();
+    void checkIn();
+    void ticketHistory();
 };
 
 /**

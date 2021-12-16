@@ -46,3 +46,13 @@ bool Data::addFlight(Flight* f){
     }
     return true;
 }
+
+std::vector<AirportPointer> Data::getAirports() const{
+    std::vector<AirportPointer> ret;
+    iteratorBST<AirportPointer> it = airports.begin();
+    while(it != airports.end()){
+        ret.push_back(*it);
+        it++;
+    }
+    return ret;
+}

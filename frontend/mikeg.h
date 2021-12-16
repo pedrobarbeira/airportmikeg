@@ -2,8 +2,7 @@
 #ifndef MAIN_CPP_MIKEG_H
 #define MAIN_CPP_MIKEG_H
 
-#include <iostream>
-#include <fstream>
+
 #include "menu.h"
 
 /**

@@ -21,7 +21,7 @@ Dev::Dev(){
     if(!infile.is_open()){
         std::cout << "Developer Logs are corrupted\n"
                   << "Press enter to continue . . . ";
-        int c = getchar();
+        getchar();
     }
     std::string line;
     while(std::getline(infile, line)){
@@ -44,7 +44,7 @@ void Dev::mainScreen() {
         if(flag) std::cout << "\n    [2]New Errors";
         std::cout << "\n\n    [0] Exit\n"
                   << "\n>";
-        std::cin >> c;
+        readInput(c);
         switch(c){
             case '1' : showLogs(flag); break;
             case '0' : save(flag); return;
@@ -55,7 +55,7 @@ void Dev::mainScreen() {
             default:{
                 std::cout << "Invalid option\n\n"
                           << "Press enter to continue . . .";
-                c = getchar();
+                getchar();
             }
         }
     }
@@ -106,9 +106,147 @@ void Dev::save(bool flag){
     outfile.close();
 }
 
+
 void ClientMenu::mainScreen() {
-    std:cout << "Here we are\n";
+    while(true) {
+        system(CLEAR);
+        char c;
+        std::cout << "[" << user->getUser() << "]\t\t\t";
+        sysTime->print();
+        std::cout << "\n\t[1] Buy Ticket"
+                  << "\n\t[2] Change Ticket"
+                  << "\n\t[3] Check In"
+                  << "\n\t[4] Ticket History\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': buyTicket(); break;
+            case '2': changeTicket(); break;
+            case '3': checkIn(); break;
+            case '4': ticketHistory(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
 }
+
+void ClientMenu::buyTicket(){
+    while(true) {
+        system(CLEAR);
+        char c;
+        std::cout << "[" << user->getUser() << "]\t\t\t";
+        sysTime->print();
+        std::cout << "\n\t[1] Search Origin Airport"
+                  << "\n\t[2] Search Destination Airport"
+                  << "\n\t[3] See Flights"
+                  << "\n\t[4] See Voyages\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': buyTicket(); break;
+            case '2': changeTicket(); break;
+            case '3': checkIn(); break;
+            case '4': ticketHistory(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
+}
+
+std::ostream& operator<<(std::ostream& out, const AirportPointer& aptr){
+    Airport* a = aptr.getPointer();
+    out << a->getidCode() << " " << a->getCountry() << " "
+        << a->getCity() << " " << a->getName();
+    return out;
+}
+
+void ClientMenu::print(std::vector<AirportPointer> v) const{
+    for(int i = 0; i < v.size(); i++){
+        std::cout << '[' << std::setw(2) << std::setfill('-') << i+1 << ']'
+                  << v[i] << '\n';
+    }
+}
+
+void ClientMenu::selectFlight(){
+    system(CLEAR);
+    char c;
+    std::cout << "[" << user->getUser() << "]\t\t\t";
+    sysTime->print();
+    std::cout << "\n\t[1] Search Origin Airport"
+              << "\n\t[2] Search Destination Airport"
+              << "\n\t[3] See Flights"
+              << "\n\t[4] See Voyages\n"
+              << "\n\t[0] Exit\n"
+              << "\n>";
+    readInput(c);
+    switch (c) {
+        case '1': buyTicket(); break;
+        case '2': changeTicket(); break;
+        case '3': checkIn(); break;
+        case '4': ticketHistory(); break;
+        case '0': return;
+        default: std::cout << "Invalid Option\n";
+    }
+    std::cin.ignore();
+    std::cout << "Press enter to continue . . .";
+    getchar();
+}
+
+void ClientMenu::reOrder(){}
+
+void ClientMenu::originAirport(){
+    std::vector<AirportPointer> airports = data->getAirports();
+    while(true) {
+        print(airports);
+        system(CLEAR);
+        char c;
+        std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
+        sysTime->print();
+        std::cout << "\n\t[1] Select Airport"
+                  << "\n\t[2] Order By\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': {
+                std::cout << "Enter Airport row: ";
+                std::string in;
+                readInput(in);
+                int i = stoi(in);
+                airport = airports[i];
+                selectFlight();
+                break;
+            }
+            case '2': reOrder(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
+}
+
+void ClientMenu::destinationAirport(){}
+
+void ClientMenu::seeFlights(){}
+
+void ClientMenu::seeVoyages(){}
+
+void ClientMenu::changeTicket(){}
+
+void ClientMenu::checkIn(){}
+
+void ClientMenu::ticketHistory(){}
+
 
 void JustBuy::mainScreen() {
     //Add error check
@@ -134,11 +272,13 @@ void JustBuy::mainScreen() {
     system("pause");
 }
 
+
 void AdminMenu::mainScreen() {
     std::cout << "we are @ Admin\n"
               << "Press enter to continue . . .";
     char c = getchar();
 }
+
 
 void ManagerMenu::mainScreen() {
     std::cout << "we are @ Manager\n"
@@ -146,11 +286,13 @@ void ManagerMenu::mainScreen() {
     char c = getchar();
 }
 
+
 void BoardingMenu::mainScreen(){
     std::cout << "we are @ Boarding\n"
               << "Press enter to continue . . .";
     char c = getchar();
 }
+
 
 void ServiceMenu::mainScreen() {
     std::cout << "we are @ Service\n"

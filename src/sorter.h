@@ -108,7 +108,7 @@ class ServiceSorter : public CompanySorter{
     static bool toDoAscending(const Service* c1, const Service* c2);
     static bool toDoDescending(const Service* c1, const Service* c2);
     static bool completedAscending(const std::list<ServiceTicket*>& c1, const std::list<ServiceTicket*>& c2);
-    static bool completedDescending(const const std::list<ServiceTicket*>& c1, const std::list<ServiceTicket*>& c2);
+    static bool completedDescending(const std::list<ServiceTicket*>& c1, const std::list<ServiceTicket*>& c2);
 };
 
 

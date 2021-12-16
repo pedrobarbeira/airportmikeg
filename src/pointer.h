@@ -2,8 +2,6 @@
 #ifndef MAIN_CPP_POINTER_H
 #define MAIN_CPP_POINTER_H
 
-#include "bst.h"
-#include "flight.h"
 #include "ticket.h"
 #include "user.h"
 
@@ -99,6 +97,5 @@ public:
         return (*pointer).getUser() == u;
     }
 };
-
 
 #endif //MAIN_CPP_POINTER_H

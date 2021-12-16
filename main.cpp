@@ -1,9 +1,6 @@
-#include "mainmenu.h"
+//#include "mainmenu.h"
 #include "mikeg.h"
-#include "menu.h"
-#include "funcoes.h"
-#include "vector"
-#include "iostream"
+//#include "funcoes.h"
 //Use vectors and comparator functions to allow for different searches
 
 
@@ -12,7 +9,7 @@
  * Airport-related testing
  */
 void testAirport(){
-    airport();
+    //airport();
     /*
     Airport porto("oPo", "Sá Carneiro", "Portugal", "Porto" );
     Date date(10,12,2021);
@@ -84,7 +81,7 @@ void testVoyage() {
  * Passenger-related testing
  */
 void testPassenger(){
-    vector<Ticket*> tickets;
+    /*vector<Ticket*> tickets;
    // while() {
         cout << "[1] comprar bilhetes" << endl;
         cout << "[2] lista bilhetes" << endl;
@@ -98,8 +95,8 @@ void testPassenger(){
                 listBilhetes(tickets);
                 break;
         }
-    }
-//}
+    }*/
+}
 
 /**
  * Menu-related testing
@@ -135,7 +132,7 @@ void testInterface(){
         }
         std::cin.ignore();
         std::cout << "Press enter to continue . . .";
-        c = getchar();
+        getchar();
     }
 }
 

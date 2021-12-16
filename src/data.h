@@ -18,13 +18,13 @@ class Data{
     BST<CompanyPointer> company;
     BST<TicketPointer> tickets;
     friend class MikeG;
+    friend class Menu;
 public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
              voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)){}
     //Turn these to return vectors with information
-    BST<AirportPointer> getAirport() const{
-        return airports;};
+    std::vector<AirportPointer> getAirports() const;
     BST<VoyagePointer> getVoyages() const{
         return voyages;};
     BST<PlanePointer> getPlanes() const{
