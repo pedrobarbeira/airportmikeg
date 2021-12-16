@@ -70,8 +70,12 @@ public:
         this-> plane = plane;};
     Plane* getPlane() const{
         return plane;}
-    bool getOccupied() const{
-        return plane!= nullptr;}
+    bool getOccupied() const {
+        return plane != nullptr;
+    }
+    string getId() const{
+        return id;
+    }
 };
 
 class Airport{
