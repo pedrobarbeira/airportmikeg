@@ -1,6 +1,6 @@
 //#include "mainmenu.h"
 #include "mikeg.h"
-//#include "funcoes.h"
+#include "funcoes.h"
 //Use vectors and comparator functions to allow for different searches
 
 
@@ -73,31 +73,39 @@ void testVoyage() {
     pbst.insert(pptr3);
     pbst.insert(pptr1);
 
-    std::cout << "stop\n";
+    arb1->showSeats();
 
 }
 
 /**
  * Passenger-related testing
  */
-void testPassenger(){
-    /*vector<Ticket*> tickets;
-   // while() {
+void testPassenger() {
+   /* vector<Ticket *> tickets;
+    vector<Luggage *> passLugg;
+    queue<stack<Luggage*>> bags;
+    while (true) {
         cout << "[1] comprar bilhetes" << endl;
         cout << "[2] lista bilhetes" << endl;
+        cout << "[3] enviar malas"<< endl;
+        cout << "[4] voltar" << endl;
         int escolha;
         cin >> escolha;
+        if( escolha==4){
+            break;
+        }
         switch (escolha) {
- //           case 1:
-//                buyTicket(tickets);
+            case 1:
+                buyTicket(tickets, passLugg);
                 break;
             case 2:
                 listBilhetes(tickets);
                 break;
+            case 3:
+                fazerpilha(bags,passLugg);
         }
     }*/
 }
-
 /**
  * Menu-related testing
  */

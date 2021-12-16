@@ -43,6 +43,10 @@ public:
         return pointer->flightID == id;
     }
     std::vector<Ticket*> getTickets() const;
+    bool addTicket(Ticket* t){
+        TicketPointer tptr(t);
+        return tickets.insert(tptr);
+    }
 };
 
 /**

@@ -1,8 +1,9 @@
 #include "ticket.h"
 using namespace std;
 
-Ticket::Ticket(string ticketID){
-    this->ticketID=ticketID;
+Ticket::Ticket(Seat* s){
+    this->seat=s;
+    //ticketId pode ser preciso completar
 }
 
 

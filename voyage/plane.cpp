@@ -64,7 +64,7 @@ void Plane::showSeats() const{
     }
 }
 
-bool Plane::bookSeat(std::string code){
+Seat* Plane::bookSeat(std::string code){
     std::string rowCode;
     int row, seat;
     for(int i = 0; i < code.length(); i++){
@@ -77,9 +77,9 @@ bool Plane::bookSeat(std::string code){
     row = getLetterRow(rowCode);
     if(cabin->seats[row][seat]->isFree()){
         cabin->seats[row][seat]->takeSeat();
-        return true;
+        return cabin->seats[row][seat];
     }
-    else return false;
+    else return nullptr;
 }
 
 /**Airbus*/
