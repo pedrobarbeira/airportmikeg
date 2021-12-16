@@ -25,6 +25,7 @@ public:
              voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)){}
     //Turn these to return vectors with information
     std::vector<AirportPointer> getAirports() const;
+    std::vector<FlightPointer> getFlights() const;
     BST<VoyagePointer> getVoyages() const{
         return voyages;};
     BST<PlanePointer> getPlanes() const{

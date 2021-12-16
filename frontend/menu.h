@@ -29,6 +29,7 @@ public:
     virtual void mainScreen();
     void print(std::vector<AirportPointer> v) const;
     void print(std::vector<Flight*> v) const;
+    void showAllFlights() const;
 };
 
 class Dev : public Menu{
@@ -168,5 +169,6 @@ void readInput(char& in);
 void readInput(std::string& in);
 
 std::ostream& operator<<(ostream& out, const AirportPointer& aptr);
+std::ostream& operator<<(ostream& out, const FlightPointer & fptr);
 
 #endif //MAIN_CPP_MENU_H

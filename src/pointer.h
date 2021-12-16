@@ -64,6 +64,7 @@ public:
     std::vector<Flight*> getFlightsFrom() const;
     std::vector<Flight*> getFlightsFrom(Date* min) const;
     std::vector<Flight*> getFlightsFrom(Date* min, Date* max) const;
+    std::vector<FlightPointer>getFlights() const;
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
         FlightPointer fptr(f);

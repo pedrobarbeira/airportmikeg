@@ -56,3 +56,17 @@ std::vector<AirportPointer> Data::getAirports() const{
     }
     return ret;
 }
+
+std::vector<FlightPointer> Data::getFlights() const{
+    std::vector<FlightPointer> ret;
+    AirportPointer airport;
+    iteratorBST<AirportPointer> aptr = airports.begin();
+    iteratorBST<FlightPointer> flight;
+    while(aptr != airports.end()){
+        airport = (*aptr);
+        std::vector<FlightPointer> load = airport.getFlights();
+        ret.insert(ret.end(), load.begin(), load.end());
+        aptr++;
+    }
+    return ret;
+}
