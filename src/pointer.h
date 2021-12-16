@@ -42,6 +42,7 @@ public:
     bool operator==(const std::string& id) const{
         return pointer->flightID == id;
     }
+    std::vector<Ticket*> getTickets() const;
 };
 
 /**
@@ -76,6 +77,9 @@ public:
     }
     bool operator==(const std::string& id) const{
         return (*pointer).getidCode() == id;
+    }
+    bool operator==(const AirportPointer& rhs) const{
+        return (*pointer) == (*rhs.getPointer());
     }
 };
 

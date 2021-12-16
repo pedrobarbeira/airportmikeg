@@ -22,31 +22,33 @@ public:
 
 class Voyage{
     std::string voyageId;
-    std::vector<Ticket*> tickets;
-    std::list<Flight*> route;
+    std::list<FlightPointer> route;
 public:
     /**Constructor*/
     Voyage(Flight* f){
-        //tickets.clear();
-        route.push_back(f);
+        FlightPointer fptr(f);
+        route.push_back(fptr);
     }
     ~Voyage();
     /**Getters*/
-    std::vector<Ticket*> getTickets() const{
-        return tickets;};
-    std::list<Flight*> getRoute(){
+    std::list<std::vector<Ticket*>> getTickets() const{
+        std::list<std::vector<Ticket*>> ret;
+        for(auto flight : route){
+            ret.push_back(flight.getTickets());
+        }
+        return ret;
+    };
+    std::list<FlightPointer> getRoute(){
         return route;};
     TimePlace* getOrigin() const{
-        return route.front()->getOrigin();};
+        return route.front().getPointer()->getOrigin();};
     TimePlace* getDestination() const{
-        return route.back()->getDestination();};
+        return route.back().getPointer()->getDestination();};
     std::string getId() const{
         return voyageId;
     }
     /**Setters*/
-    void setTickets(std::vector<Ticket*> t){
-        tickets = t;};
-    void setRoute(std::list<Flight*> r){
+    void setRoute(std::list<FlightPointer> r){
         route = std::move(r);};
     /**Adders*/
     bool addTicket(Ticket* t);

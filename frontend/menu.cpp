@@ -44,8 +44,8 @@ Dev::Dev(){
 
 void Dev::mainScreen() {
     char c;
-    bool flag = !newLogs.empty();
     while (true) {
+        bool flag = !newLogs.empty();
         system(CLEAR);
         std::cout << "[Dev]\t\t\t";
         sysTime->print();
@@ -123,18 +123,25 @@ void ClientMenu::mainScreen() {
         std::cout << "[" << user->getUser() << "]\t\t\t";
         sysTime->print();
         std::cout << "\n\t[1] Buy Ticket"
-                  << "\n\t[2] Change Ticket"
-                  << "\n\t[3] Check In"
-                  << "\n\t[4] Ticket History\n"
-                  << "\n\t[0] Exit\n"
-                  << "\n>";
+                  << "\n\t[2] Check In";
+        if(user != nullptr)
+            std::cout << "\n\t[3] Change Ticket"
+                      << "\n\t[4] Ticket History\n";
+        else
+            std::cout << "\n"
+                      << "\n\t[0] Exit\n"
+                      << "\n>";
         readInput(c);
         switch (c) {
             case '1': buyTicket(); break;
-            case '2': changeTicket(); break;
-            case '3': checkIn(); break;
-            case '4': ticketHistory(); break;
+            case '2': checkIn(); break;
             case '0': return;
+            case '3': if(user != nullptr) {
+                changeTicket(); break;
+            }
+            case '4': if(user != nullptr){
+                ticketHistory(); break;
+            }
             default: std::cout << "Invalid Option\n";
         }
         std::cin.ignore();
@@ -152,15 +159,17 @@ void ClientMenu::buyTicket(){
         std::cout << "\n\t[1] Search Origin Airport"
                   << "\n\t[2] Search Destination Airport"
                   << "\n\t[3] See Flights"
-                  << "\n\t[4] See Voyages\n"
+                  << "\n\t[4] See Voyages"
+                  << "\n\t[5] Buy Ticket\n"
                   << "\n\t[0] Exit\n"
                   << "\n>";
         readInput(c);
         switch (c) {
-            case '1': originAirport(); break;
-            case '2': destinationAirport(); break;
+            case '1': origin = selectAirport(); break;
+            case '2': destination = selectAirport(); break;
             case '3': showAllFlights(); break;
             case '4': ticketHistory(); break;
+            case '5': purchase(); break;
             case '0': return;
             default: std::cout << "Invalid Option\n";
         }
@@ -170,7 +179,7 @@ void ClientMenu::buyTicket(){
     }
 }
 
-void ClientMenu::selectFlight() {
+void ClientMenu::selectFlight(bool origin) {
     //Will print flights and give user option to select one or reorder
     while (true) {
         system(CLEAR);
@@ -208,10 +217,29 @@ void ClientMenu::selectFlight() {
     }
 }
 
-void ClientMenu::reOrder(){}
+void ClientMenu::reOrderAirports(std::vector<AirportPointer>& v){
+    AirportSorter sort;
 
-void ClientMenu::originAirport(){
+}
+
+AirportPointer ClientMenu::selectAirport(){
     std::vector<AirportPointer> airports = data->getAirports();
+    if(destination.getPointer() != nullptr){
+        for(std::vector<AirportPointer>::iterator it = airports.begin(); it != airports.end(); it++){
+            if((*it) == destination){
+                airports.erase(it);
+                break;
+            }
+        }
+    }
+    else if(origin.getPointer() != nullptr){
+        for(std::vector<AirportPointer>::iterator it = airports.begin(); it != airports.end(); it++){
+            if((*it) == origin){
+                airports.erase(it);
+                break;
+            }
+        }
+    }
     while(true) {
         print(airports);
         system(CLEAR);
@@ -229,12 +257,10 @@ void ClientMenu::originAirport(){
                 std::string in;
                 readInput(in);
                 int i = stoi(in);
-                airport = airports[i];
-                selectFlight();
-                break;
+                return airports[i];
             }
-            case '2': reOrder(); break;
-            case '0': return;
+            case '2': reOrderAirports(airports); break;
+            case '0': return AirportPointer(nullptr);
             default: std::cout << "Invalid Option\n";
         }
         std::cin.ignore();
@@ -243,11 +269,11 @@ void ClientMenu::originAirport(){
     }
 }
 
-void ClientMenu::destinationAirport(){}
-
 void ClientMenu::seeFlights(){}
 
 void ClientMenu::seeVoyages(){}
+
+void ClientMenu::purchase(){}
 
 void ClientMenu::changeTicket(){}
 

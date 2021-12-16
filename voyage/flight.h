@@ -43,6 +43,7 @@ public:
     /**Setters*/
     void setId(std::string id){
         flightID = id;};
+    void defineId();
     void setOrigin(TimePlace* a){
         origin = a;};
     void setDestination(TimePlace* a){

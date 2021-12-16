@@ -15,29 +15,17 @@ Connection::~Connection(){
 }
 
 /**Voyage*/
-Voyage::~Voyage(){
-    for (auto ticket: tickets)
-        delete ticket;
-    for (auto flight : route)
-        delete flight;
-}
-bool Voyage::addTicket(Ticket* t){
-    for(auto it : tickets){
-        if (it == t) return false;
-    }
-    tickets.push_back(t);
-    return true;
-}
 
 bool Voyage::addFlight(Flight* f){
     //add Date check
-    std::list<Flight*>::iterator it = route.begin();
-    if(f->getDestination() == (*it)->getOrigin()) {
-        route.push_front(f);
+    std::list<FlightPointer>::iterator it = route.begin();
+    FlightPointer fptr(f);
+    if(f->getDestination() == (*it).getPointer()->getOrigin()) {
+        route.push_front(fptr);
         return true;
     }
-    else if(f->getOrigin() == (*it)->getDestination()){
-        route.push_back(f);
+    else if(f->getOrigin() == (*it).getPointer()->getDestination()){
+        route.push_back(fptr);
         return true;
     }
     else return false;
@@ -46,28 +34,30 @@ bool Voyage::addFlight(Flight* f){
 bool Voyage::addConnection(Connection* c) {
     //Add Date check
     bool added = false;
-    std::list<Flight*>::iterator it = route.begin();
+    FlightPointer in(c->getIn());
+    FlightPointer out(c->getOut());
+    std::list<FlightPointer>::iterator it = route.begin();
     if (route.size() == 1) {
-        if (c->getOut()->getDestination() == (*it)->getOrigin()) {
-            route.push_front(c->getOut());
-            route.push_front(c->getIn());
+        if (c->getOut()->getDestination() == it->getPointer()->getDestination()) {
+            route.push_front(out);
+            route.push_front(in);
             added = true;
-        } else if (c->getIn()->getOrigin() == (*it)->getDestination()) {
-            route.push_back(c->getIn());
-            route.push_back(c->getOut());
+        } else if (c->getIn()->getOrigin() == it->getPointer()->getDestination()) {
+            route.push_back(in);
+            route.push_back(out);
             added = true;
-        } else if (c->getIn()->getOrigin() == (*it)->getOrigin() &&
-                   c->getOut()->getDestination() == (*it)->getDestination()) {
-            route.insert(it, c->getIn());
-            route.insert(it, c->getOut());
+        } else if (c->getIn()->getOrigin() == it->getPointer()->getDestination() &&
+                   c->getOut()->getDestination() == it->getPointer()->getDestination()) {
+            route.insert(it, in);
+            route.insert(it, out);
             route.erase(it);
             added = true;
         } else added = false;
     } else {
         bool found = false;
         while (it != route.end()) {
-            if ((*it)->getOrigin() == c->getIn()->getOrigin() &&
-                (*it)->getDestination() == c->getOut()->getDestination()) {
+            if (it->getPointer()->getOrigin() == c->getIn()->getOrigin() &&
+                it->getPointer()->getDestination() == c->getOut()->getDestination()) {
                 found = true;
                 break;
             }
@@ -75,8 +65,8 @@ bool Voyage::addConnection(Connection* c) {
         }
         if (!found) return found;
         else {
-            route.insert(it, c->getIn());
-            route.insert(it, c->getOut());
+            route.insert(it, in);
+            route.insert(it, out);
             route.erase(it);
             added = true;
         }
