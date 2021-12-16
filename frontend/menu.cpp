@@ -13,6 +13,13 @@ void Menu::print(std::vector<AirportPointer> v) const{
     }
 }
 
+void Menu::header() {
+    std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
+    system(CLEAR);
+    std::cout << "[" << user->getUser() << "]\t\t\t";
+    sysTime->print();
+}
+
 AirportPointer Menu::selectAirport(){
     std::vector<AirportPointer> airports = data->getAirports();
     while(true) {
@@ -342,16 +349,16 @@ void JustBuy::mainScreen() {
 
 /**---Admin Menu---*/
 void AdminMenu::mainScreen() {
+    header();
     char c;
     //Shows real ADMIN menu after user has proven his identity
     while(true) {
-        system(CLEAR);
         std::cout << "[ADMIN]\n"
-                  << "\n    [1] Airport Management"
-                  << "\n    [2] Worker Management"
-                  << "\n    [3] Travel Management"
-                  << "\n    [4] Plane Management"
-                  << "\n    [0] Log Out\n"
+                  << "\n\t[1] Airport Management"
+                  << "\n\t[2] Worker Management"
+                  << "\n\t[3] Travel Management"
+                  << "\n\t[4] Plane Management"
+                  << "\n\t[0] Log Out\n"
                   << "\n>";
         std::cin >> c;
         switch(c){
@@ -359,15 +366,63 @@ void AdminMenu::mainScreen() {
             case '2': workers(); break;
             case '3': travel(); break;
             case '4': plane(); break;
-            case 'q':
             case '0': throw LogOut();
             default: std::cout << "Invalid Option\n"; system("pause");
         }
     }
 }
 
-void AdminMenu::airportMenu() {}
-void AdminMenu::createAirport(){}
+void AdminMenu::airportMenu() {
+    header();
+    char c;
+    std::cout << "Airport Management Menu\n";
+    while(true) {
+        std::cout << "[AIRPORT]\n"
+                  << "\n\t[1] Add Airport"
+                  << "\n\t[2] Delete Airport"
+                  << "\n\t[3] Check Airport"
+                  << "\n\t[4] List of active Airports"
+                  << "\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+
+        switch(c){
+            case '1': createAirport(); break;
+            case '2': deleteAirport(); break;
+            case '3': checkAirport(); break;
+            case '4': listAirport(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
+}
+
+void AdminMenu::createAirport(){
+    header();
+    char c;
+    Airport *airport = new Airport;
+    string id, name, city, country;
+    char a;
+    std::cout << "\n\tAirport creation menu"
+              << "\n\n\tIntroduce Airport Location:"
+              << "\n\tCountry > "; std::getline(std::cin, country);
+    std::cout << "\n\tCity > "; std::getline(std::cin, city);
+    std::cout << "\n\tName > "; std::getline(std::cin, name);
+    std::cout << "\n\tIdentification code (3 letter word) > "; std::cin >> id;
+    std::cout << "\n\n\tAirport (" << id << ") " << name
+              << "\n\tat " << city << ", " << country
+              << "\n\n\n\tIs this information correct(y/n)?\n\n >"; std::cin >> a;
+    if (tolower(a) == 'y') {
+        airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
+        //data->addAirport(airport);
+    }
+    else {
+        std::cout << "\n\nOperation cancelled, returning to Airport management menu";
+        system("pause");
+    }
+    return;
+}
+
 void AdminMenu::deleteAirport() {}
 void AdminMenu::checkAirport() {}
 void AdminMenu::listAirport(){}

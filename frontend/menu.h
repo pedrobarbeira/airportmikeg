@@ -75,6 +75,8 @@ public:
      * Prints on the screen all the flights that exist in the system
      */
     void showAllFlights() const;
+
+    void header();
 };
 
 /**
