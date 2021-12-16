@@ -196,7 +196,7 @@ bool FlightSorter::planeDescending(const Flight* f1, const Flight* f2){
 }
 void FlightSorter::operator()(std::vector<Flight*>& data, char c, bool asc){
     switch(c){
-        case '9' :
+        case '0' :
             if(asc) sort(data.begin(), data.end(), idAscending);
             else sort(data.begin(), data.end(), idDescending);
             break;
@@ -232,9 +232,189 @@ void FlightSorter::operator()(std::vector<Flight*>& data, char c, bool asc){
 /**---Voyage Sorter---*/
 
 /**---Airport Sorter---*/
-void AirportSorter::operator()(std::vector<AirportPointer>& data, char c, bool asc){
-
+bool AirportSorter::idAscending(const AirportPointer& c1, const AirportPointer& c2){
+    return (*c1.getPointer()) < (*c2.getPointer());
 }
+bool AirportSorter::idDescending(const AirportPointer& c1, const AirportPointer& c2){
+    return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::flightNumAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
+    int comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::flightNumDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
+    int comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::nameAscending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getName();
+    std::string comp2 = c2.getPointer()->getName();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::nameDescending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getName();
+    std::string comp2 = c2.getPointer()->getName();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::cityAscending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getCity();
+    std::string comp2 = c2.getPointer()->getCity();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::cityDescending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getCity();
+    std::string comp2 = c2.getPointer()->getCity();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::countryAscending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getCountry();
+    std::string comp2 = c2.getPointer()->getCountry();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::countryDescending(const AirportPointer& c1, const AirportPointer& c2){
+    std::string comp1 = c1.getPointer()->getCountry();
+    std::string comp2 = c2.getPointer()->getCountry();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::serviceAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getServices().size();
+    int comp2 = c2.getPointer()->getServices().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::serviceDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getServices().size();
+    int comp2 = c2.getPointer()->getServices().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::completeAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getCompleteServices().size();
+    int comp2 = c2.getPointer()->getCompleteServices().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::completeDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getCompleteServices().size();
+    int comp2 = c2.getPointer()->getCompleteServices().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::terminalsAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getTerminals().size();
+    int comp2 = c2.getPointer()->getTerminals().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::terminalsDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getTerminals().size();
+    int comp2 = c2.getPointer()->getTerminals().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::emptyAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getEmptyTerminals().size();
+    int comp2 = c2.getPointer()->getEmptyTerminals().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::emptyDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getEmptyTerminals().size();
+    int comp2 = c2.getPointer()->getEmptyTerminals().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+bool AirportSorter::transportAscending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getTransport().size();
+    int comp2 = c2.getPointer()->getTransport().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return (*c1.getPointer()) < (*c2.getPointer());
+}
+bool AirportSorter::transportDescending(const AirportPointer& c1, const AirportPointer& c2){
+    int comp1 = c1.getPointer()->getTransport().size();
+    int comp2 = c2.getPointer()->getTransport().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return (*c2.getPointer()) < (*c1.getPointer());
+}
+void AirportSorter::operator()(std::vector<AirportPointer>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), idAscending);
+            else sort(data.begin(), data.end(), idDescending);
+            break;
+        case '1':
+            if(asc) sort(data.begin(), data.end(), flightNumAscending);
+            else sort(data.begin(), data.end(), flightNumDescending);
+            break;
+        case '2':
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '3':
+            if(asc) sort(data.begin(), data.end(), cityAscending);
+            else sort(data.begin(), data.end(), cityDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), countryAscending);
+            else sort(data.begin(), data.end(), countryDescending);
+            break;
+        case '5':
+            if(asc) sort(data.begin(), data.end(), serviceAscending);
+            else sort(data.begin(), data.end(), serviceDescending);
+            break;
+        case '6':
+            if(asc) sort(data.begin(), data.end(), completeAscending);
+            else sort(data.begin(), data.end(), completeDescending);
+            break;
+        case '7':
+            if(asc) sort(data.begin(), data.end(), terminalsAscending);
+            else sort(data.begin(), data.end(), terminalsDescending);
+            break;
+        case '8':
+            if(asc) sort(data.begin(), data.end(), emptyAscending);
+            else sort(data.begin(), data.end(), emptyDescending);
+            break;
+        case '9':
+            if(asc) sort(data.begin(), data.end(), transportAscending);
+            else sort(data.begin(), data.end(), transportDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
 /**---User Sorter---*/
 bool UserSorter::nameAscending(const User *u1, const User *u2) {
     return *u1 < *u2;

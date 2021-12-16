@@ -65,7 +65,7 @@ public:
 
     /**
     * Shows user his reordering options and prompts him to choose one. Creates
-    * an AirportSorter and sorts the parameter vector according to user's wishes.
+    * an AirportPointer and sorts the parameter vector according to user's wishes.
     * Prints the reordered vector afterwards.
     * @param v the airport vector to be sorted.
     */
