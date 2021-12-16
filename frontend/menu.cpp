@@ -8,9 +8,44 @@ void Menu::mainScreen() {
 
 void Menu::print(std::vector<AirportPointer> v) const{
     for(int i = 0; i < v.size(); i++){
-        std::cout << '[' << std::setw(2) << std::setfill('-') << i+1 << ']'
+        std::cout << '[' << std::setw(2) << std::setfill(' ') << i+1 << ']'
                   << v[i] << '\n';
     }
+}
+
+AirportPointer Menu::selectAirport(){
+    std::vector<AirportPointer> airports = data->getAirports();
+    while(true) {
+        print(airports);
+        system(CLEAR);
+        char c;
+        std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
+        sysTime->print();
+        std::cout << "\n\t[1] Select Airport"
+                  << "\n\t[2] Order By\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': {
+                std::cout << "Enter Airport row: ";
+                std::string in;
+                readInput(in);
+                int i = stoi(in);
+                return airports[i-1];
+            }
+            case '2': reOrderAirports(airports); break;
+            case '0': return AirportPointer(nullptr);
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
+}
+
+void Menu::reOrderAirports(std::vector<AirportPointer> &v) {
+    return;
 }
 
 void Menu::showAllFlights() const{
@@ -221,11 +256,6 @@ void ClientMenu::selectFlight(bool origin) {
     }
 }
 
-void ClientMenu::reOrderAirports(std::vector<AirportPointer>& v){
-    AirportSorter sort;
-
-}
-
 AirportPointer ClientMenu::selectAirport(){
     std::vector<AirportPointer> airports = data->getAirports();
     if(destination.getPointer() != nullptr){
@@ -261,7 +291,7 @@ AirportPointer ClientMenu::selectAirport(){
                 std::string in;
                 readInput(in);
                 int i = stoi(in);
-                return airports[i];
+                return airports[i-1];
             }
             case '2': reOrderAirports(airports); break;
             case '0': return AirportPointer(nullptr);

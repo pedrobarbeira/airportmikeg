@@ -30,6 +30,7 @@ public:
     bool operator==(const std::string& id) const{
         return pointer->getID() == id;
     }
+
 };
 
 /**
@@ -109,6 +110,7 @@ public:
         return (*pointer) == (*rhs.getPointer());
     }
 };
+
 
 class ClientPointer : public BSTPointer<Client>{
 public:

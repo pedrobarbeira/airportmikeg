@@ -104,6 +104,7 @@ void SaveAirport::saveAirport(AirportPointer aptr) const {
     for (auto flight : saveFlights) {
         outfile << flight->getID() << " ";
     }
+    std::cout << '\n';
     outfile.close();
     try {
         saveTerminal(a);
@@ -118,9 +119,17 @@ void SaveAirport::saveTerminal(Airport* a) const{
     std::ofstream outfile("./data/airports.txt", ios::app);
     if(!outfile.is_open())
         throw DevLog("SaveAirport::saveTerminal() error opening outfile\n");
+    for(auto it : a->getTerminals()){
+        outfile << it->getId() << " ";
+        if(it->getPlane() == nullptr) outfile << "nullptr";
+        else outfile << it->getPlane()->getPlate() << " ";
+    }
+    std::cout << '\n';
 }
 
-void SaveAirport::saveTransport(Airport* a) const{}
+void SaveAirport::saveTransport(Airport* a) const{
+    
+}
 
 void SaveAirport::saveService(Airport* a) const{}
 
