@@ -9,52 +9,69 @@
 #include"service.h"
 #include<list>
 #include<queue>
-#include"../src/date.h"
+#include"date.h"
+#include"bst.h"
 
 using namespace std;
+
 
 class Transport{
     string id;
     char type; // m --> metro; b --> bus; t --> train
     uint16_t distance;
-    list<Time> timetable;
+    Time *time;
+    friend class Airport;
 public:
-    Transport();
-    Transport(char c);
-    Transport(char c, uint16_t d);
-    string getTransport();
-    uint16_t const getDistance ();
-    char const getType();
+    Transport(string id, char c);
+    void setId(string id) {
+        this->id = id;};
     string getId() const{
-        return id;
+        return id;};
+    void setType(char c){
+        type = c;}
+    char getType() const{
+        return type;};
+    string getTransport() const;
+    void setDistance (uint16_t distance){
+        this->distance = distance;}
+    uint16_t getDistance () const{
+        return distance;};
+    void addTime(Time *time) {
+        this->time = time;};
+    Time* getTime () const{
+        return time;};
+    bool operator <(Transport &t);
+    bool operator ==(Transport &t);
+    bool operator !=(Transport &t);
+};
+
+
+class TransportPointer : public BSTPointer<Transport> {
+public:
+    explicit TransportPointer(Transport *t) {
+        pointer = t;
     }
-    void addTime(Time time);
-    void delTime(Time time);
-    list<Time> getTimetable ();
-    bool operator <(Transport* t);
+
 };
 
 class Terminal{
+    string id;
     Plane* plane;
-    string idNumber;
-public:
     friend class Airport;
-    Terminal(string i);
+public:
+    Terminal() {id = ""; plane = nullptr;};
+    Terminal(string i){
+        id = i; plane = nullptr;};
+    void setId (string id){
+        this->id = id;}
+    string getTerminalNumber() const{
+        return id;};
     void setPlane(Plane *plane){
-        this-> plane = plane;
-    }
-    bool getOccupied() const{
-        return plane!= nullptr;
-    }
-    string getId() const{
-        return idNumber;
-    }
-    int getTerminalNumber() const{
-        return stoi(idNumber.substr(3));
-    }
+        this-> plane = plane;};
     Plane* getPlane() const{
-        return plane;
-    }
+        return plane;}
+    bool getOccupied() const{
+        return plane!= nullptr;}
 };
 
 class Airport{
@@ -63,12 +80,18 @@ class Airport{
     string country;
     string city;
     vector<Terminal*> terminals;
-    list<Transport*> transport;
+    BST<TransportPointer> transport;
+    //BST<Transport> transport;
     queue<ServiceTicket*> services;
     list<ServiceTicket*> complete;
+    friend class Terminal;
+    friend class Transport;
 public:
-    Airport();
-    Airport(string idName, string name, string country, string city);
+    Airport() : transport(TransportPointer(nullptr)){};
+    void setName(string name){this->name = name;}
+    void setId(string id){idName = id;}
+    void setCountry(string country){this->country = country;}
+    void setCity(string city){this->city = city;}
     string getidCode() const;
     string getName () const;
     string getCountry() const;
@@ -76,21 +99,18 @@ public:
     vector<Terminal*> getTerminals() const;
     vector<ServiceTicket*> getServices();
     ServiceTicket* nextService();
-    void setTransport (Transport *transport);
-    void delTransport (Transport *transport);
+    void setTransport (TransportPointer transport);
+    void delTransport (TransportPointer transport);
     void addService (ServiceTicket *service);
-    void delService (Date date);
-    list<Transport*> getTransport() const;
-    list<Time>nextTransportMetro (Time time);
-    list<Time>nextTransportBus (Time time);
-    list<Time>nextTransportTrain (Time time);
+    void delService (Date *date);
+    vector<Transport*> getTransport() const;
+    /*list<Time*>nextTransportMetro (Time *time) const;
+    list<Time*>nextTransportBus (Time *time) const;
+    list<Time*>nextTransportTrain (Time *time) const;*/
     void activateTerminal (string i);
-    void setTerminal(Plane *plane);
-    /**
-     * Operator to define by which order the airport objects should be added to the BST
-     * @param s
-     * @return ordering by country > city > idName
-     */
+    void setTerminal(Plane *plane, string id);
+    bool operator < (Airport &s);
+
     bool operator==(const Airport& rhs) const{
         return idName == rhs.idName;
     }
@@ -100,6 +120,7 @@ public:
     bool operator<(const Airport& rhs) const{
         return idName < rhs.idName;
     }
+
 };
 
 

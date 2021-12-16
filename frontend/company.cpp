@@ -62,6 +62,7 @@ void airport(){
 ////////// Airport menu functions
 
 void createAirport() {
+    Airport *airport = new Airport;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     system(CLEAR);
     string id, name, city, country;
@@ -75,7 +76,9 @@ void createAirport() {
     std::cout << "\n\n      Airport (" << id << ") " << name
               << "\n        at " << city << ", " << country
               << "\n    Is this information correct(y/n)?\n\n >"; std::cin >> a;
-    if (tolower(a) == 'y') Airport *airport = new Airport(id, name, country, city);
+    if (tolower(a) == 'y') {
+        airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
+    }
     else {
         std::cout << "\n\nOperation cancelled, returning to Airport management menu";
         system("pause");
@@ -115,7 +118,7 @@ void checkAirport(){
     for (auto it : temp->getServices()){
         std::cout << "\n    Responsible: " << it->getResponsible()
                   << "\n    Operation type: "; if (it->getType() == 'c') std::cout << "Cleaning"; else std::cout << "Maintenance";
-        std::cout << "\n    Schedule: " << it->getSchedule().getYear() << "/" << it->getSchedule().getMonth() << "/" << it->getSchedule().getDay();
+        std::cout << "\n    Schedule: " << it->getSchedule()->getYear() << "/" << it->getSchedule()->getMonth() << "/" << it->getSchedule()->getDay();
         std::cout << "\n    Operations left:"
                   << "\n    / ";
         for (auto inf : it->getTasksLeft()) cout << inf << "/ ";
@@ -447,17 +450,13 @@ void printStaff(Staff *staff){
 }
 
 void printTransport(Airport *airport){
-    list<Transport*> temp = airport->getTransport();
-    temp.sort();
+    vector<Transport*> temp = airport->getTransport();
     char i = 'i';
     for (auto it: temp){
         if (it->getType() != i){
             i = it->getType();
-            std::cout << "\n    " << it->getTransport();
+            std::cout << "\n    " << it->getTransport() << it->getTime()->getHour() << ":" << it->getTime()->getMinute();
         }
         std::cout << "\n        ";
-        for (auto tim : it->getTimetable()){
-            std::cout << "<" << tim.getHour() << ":" << tim.getMinute() << ">";
-        }
     }
 }

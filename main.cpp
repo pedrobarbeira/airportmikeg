@@ -1,6 +1,7 @@
 //#include "mainmenu.h"
 #include "mikeg.h"
 #include "funcoes.h"
+#include "company.h"
 //Use vectors and comparator functions to allow for different searches
 
 
@@ -9,49 +10,40 @@
  * Airport-related testing
  */
 void testAirport(){
-    //airport();
-    /*
-    Airport porto("oPo", "Sá Carneiro", "Portugal", "Porto" );
-    Date date(10,12,2021);
-    Plane *plane = new Plane;
-    Staff *staff1 = new Staff("Manel");
-    Cleaning *cle1 = new Cleaning(plane);
-    Cleaning *cle2 = new Cleaning(plane, date, staff1);
-    Date date1(30, 11, 21);
-    Date date2(1, 12, 21);
-    (*cle1).setResponsible(staff1);
-    porto.addService(cle1);
-    Maintenance mai3(plane, date2, staff1);
-    porto.addService(cle2);
-    porto.delService(date2);
-    Transport *test1 = new Transport('m', 2);
-    Transport *test2 = new Transport('b', 0);
-    Transport *test3 = new Transport('b', 1);
-    Transport *test4 = new Transport('t', 5);
-    Time time1(10, 0, 0);
-    Time time2(11, 30, 0);
-    Time time3(12, 0, 0);
-    Time time4(13, 15, 0);
-    Time time5(15, 0, 0);
-    (*test1).addTime(time1);
-    (*test1).addTime(time2);
-    (*test1).addTime(time4);
-    (*test2).addTime(time1);
-    (*test2).addTime(time2);
-    (*test3).addTime(time2);
-    (*test3).addTime(time3);
-    (*test4).addTime(time1);
-    (*test4).addTime(time5);
-    porto.setTransport(test1);
-    porto.setTransport(test2);
-    porto.setTransport(test3);
-    porto.setTransport(test4);
-    porto.nextTransportMetro(time2);
-    porto.nextTransportBus(time1);
-    porto.nextTransportTrain(time3);
-    Time time6(23, 59, 59);
-    porto.nextTransportTrain(time6);
-     */
+    auto *porto = new Airport;
+    porto->setCity("Porto");
+    porto->setCountry("Portugal");
+    porto->setId("OPO");
+    auto *plane = new Plane;
+    porto->activateTerminal("1");
+    porto->setTerminal(plane, "1");
+    auto *metro = new Transport("12", 'm');
+    auto *bus = new Transport("10", 'b');
+    auto *time1 = new Time(10, 00, 00);
+    auto *time2 = new Time(11, 00, 00);
+    metro->addTime(time1);
+    bus->addTime(time1);
+    bus->addTime(time2);
+    auto *staff1 = new Staff("Manel");
+    auto *cle1 = new Cleaning(plane, time1, staff1);
+    auto *ser1 = new ServiceTicket(plane, 'a');
+    cle1->checkFlightDeck();
+    cle1->checkFloor();
+    cle1->setResponsible(staff1);
+    porto->addService(cle1);
+    TransportPointer b(bus);
+    TransportPointer m(metro);
+    porto->setTransport(b);
+    porto->setTransport(m);
+    cle1->checkWc();
+    auto date2 = new Date(18, 12, 21);
+    cle1->checkSeats();
+    porto->delService(date2);
+    airport();
+
+    //for (auto it : porto->nextTransportBus(time1)){
+    //    std::cout << "\n" << (*it).getHour() << ":" << (*it).getMinute();}
+
 }
 
 /**

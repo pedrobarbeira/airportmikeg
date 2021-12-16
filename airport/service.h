@@ -7,7 +7,8 @@
 
 #include <iostream>
 #include "plane.h"
-#include "../src/date.h"
+#include "date.h"
+
 
 static unsigned staffId = 1;
 using namespace std;
@@ -18,11 +19,11 @@ class Staff{
     unsigned phone;
 public:
     explicit Staff(string name = "");
+    unsigned getId() const;
     void setId();
     void setPhone (unsigned n);
     string getName() const;
     unsigned getPhone() const;
-    unsigned getId() const;
 };
 
 class InvalidNumber : public exception{
@@ -41,45 +42,44 @@ public:
 class ServiceTicket{
     Plane *plane;
     Staff *responsible;
-    Date created;
-    Date completed;
-    string stId;
+    Date *created;
+    Date *completed;
     char id;
 public:
     ServiceTicket(Plane *plane, char id);
-    ServiceTicket(Plane *plane, Date date, char id);
+    ServiceTicket(Plane *plane, Date *date, char id);
     ServiceTicket(Plane *plane, Staff *staff, char id);
-    ServiceTicket(Plane *plane, Date date, Staff *staff, char id);
+    ServiceTicket(Plane *plane, Date *date, Staff *staff, char id);
     virtual char getType() const{return id;};
     virtual void setResponsible (Staff *staff);
-    virtual void setSchedule (Date date);
-    virtual void setComplete (Date date);
+    virtual void setSchedule (Date *date);
+    virtual void setComplete (Date *date);
     virtual vector<string> getTasksLeft () const;
     virtual vector<string> getTasksCompleted() const;
     virtual Staff *getResponsible();
-    virtual Date getSchedule();
+    virtual Date* getSchedule();
     bool operator < (ServiceTicket &s);
 };
 
 
 
-class Cleaning : virtual ServiceTicket{
+class Cleaning : public ServiceTicket{
     bool wc = false;
     bool seats = false;
     bool floor = false;
     bool flightDeck = false;
 public:
     Cleaning(Plane *plane);
-    Cleaning(Plane *plane, Date date);
-    Cleaning(Plane *plane, Date date, Staff *staff);
+    Cleaning(Plane *plane, Date *date);
+    Cleaning(Plane *plane, Date *date, Staff *staff);
     char getType() const override{return ServiceTicket::getType();};
     void setResponsible (Staff *staff) override;
-    void setSchedule (Date date) override;
-    void setComplete (Date date) override;
+    void setSchedule (Date *date) override;
+    void setComplete (Date *date) override;
     vector<string> getTasksLeft () const override;
     vector<string> getTasksCompleted() const override;
     Staff* getResponsible() override;
-    Date getSchedule() override;
+    Date* getSchedule() override;
     void checkWc();
     void checkSeats();
     void checkFloor();
@@ -87,23 +87,23 @@ public:
     bool verification() const;
 };
 
-class Maintenance : virtual ServiceTicket{
+class Maintenance : public ServiceTicket{
     bool engine = false;
     bool landGear = false;
     bool controls = false;
     bool emergency = false;
 public:
     Maintenance(Plane *plane);
-    Maintenance(Plane *plane, Date date);
-    Maintenance (Plane *plane, Date date, Staff *staff);
+    Maintenance(Plane *plane, Date *date);
+    Maintenance (Plane *plane, Date *date, Staff *staff);
     virtual char getType() const override{return ServiceTicket::getType();};
     void setResponsible (Staff *staff) override;
-    void setSchedule (Date date) override;
-    void setComplete (Date date) override;
+    void setSchedule (Date *date) override;
+    void setComplete (Date *date) override;
     vector<string> getTasksLeft () const override;
     vector<string> getTasksCompleted() const override;
     Staff* getResponsible() override;
-    Date getSchedule() override;
+    Date* getSchedule() override;
     void checkEngine();
     void checkLandGear();
     void checkControls();
