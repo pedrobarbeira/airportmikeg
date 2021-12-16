@@ -275,8 +275,8 @@ AirportPointer ClientMenu::selectAirport(){
         }
     }
     while(true) {
-        print(airports);
         system(CLEAR);
+        print(airports);
         char c;
         std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
         sysTime->print();

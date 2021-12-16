@@ -49,9 +49,6 @@ bool Transport::operator!=(Transport &t){
     return !((*this)==t);
 }
 
-bool operator<(const TransportPointer& t1, const TransportPointer&t2){
-    return (*t1.getPointer()) < (*t2.getPointer());
-}
 
 ////////////////////////////////////// T E R M I N A L //////////////////////////////
 
