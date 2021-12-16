@@ -18,6 +18,7 @@
  */
 class Menu{
 protected:
+    User* user;
     Data* data;
     Time* sysTime;
 public:
@@ -29,6 +30,7 @@ public:
     explicit Menu(Data* d = nullptr) : data(d){
         sysTime = new Time;
         sysTime->now();
+        user = nullptr;
     };
 
     /**
@@ -51,6 +53,23 @@ public:
      * @param v the FlightPointer vector to be printed
      */
     void print(std::vector<FlightPointer> v) const;
+
+    /**
+    * Shows airport list and asks user to choose the one he wishes. The user can
+    * change the order to the list according to the provided options if he so
+    * desires. Returns the chosen airport, or a null if the user returns. Removes
+    * from the option list Airports that were already chosen.
+    * @return the chosen airport
+    */
+    AirportPointer selectAirport();
+
+    /**
+    * Shows user his reordering options and prompts him to choose one. Creates
+    * an AirportSorter and sorts the parameter vector according to user's wishes.
+    * Prints the reordered vector afterwards.
+    * @param v the airport vector to be sorted.
+    */
+    void reOrderAirports(std::vector<AirportPointer>& v);
 
     /**
      * Prints on the screen all the flights that exist in the system
@@ -152,14 +171,6 @@ public:
      * flight attribute accordingly.
      */
     void selectFlight(bool);
-
-    /**
-     * Shows user his reordering options and prompts him to choose one. Creates
-     * an AirportSorter and sorts the parameter vector according to user's wishes.
-     * Prints the reordered vector afterwards.
-     * @param v the airport vector to be sorted.
-     */
-    void reOrderAirports(std::vector<AirportPointer>& v);
 
     /**
      * Shows airport list and asks user to choose the one he wishes. The user can
