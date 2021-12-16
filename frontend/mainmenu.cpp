@@ -53,7 +53,8 @@ void company(MikeG* mg){
     }try {
         switch (type) {
             case 'A':
-                admin(mg);
+                //TODO
+                /*admin(mg);*/
                 break;
                 //Insert different cases for different types of workers
             default:

@@ -6,6 +6,7 @@
 /**
  * Admin Menu Interface
  */
+
 void admin(MikeG *mg) {
     char c;
     //Shows real ADMIN menu after user has proven his identity
@@ -78,6 +79,7 @@ void createAirport() {
               << "\n    Is this information correct(y/n)?\n\n >"; std::cin >> a;
     if (tolower(a) == 'y') {
         airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
+        //data->addAirport(airport);
     }
     else {
         std::cout << "\n\nOperation cancelled, returning to Airport management menu";
@@ -371,14 +373,23 @@ void historyService(){
 Airport* selectAirport(){
     Airport *airport = new Airport;
     char a; string city, country, id;
+    std::cin.ignore(INT_FAST32_MAX, '\n');
     std::cout << "Which method do you prefer to find airport?"
               << "\n    [1] 3 letter code"
               << "\n    [2] City"
               << "\n    [3] Country"
               << "\n    [0] Back"; std::cin >> a;
+    std::cin.ignore(INT_FAST32_MAX, '\n');
     switch(a){
-        case '1': cout << "\n\n    Introduce 3 letter code: "; std::cin >> id;
-            //iterate over airport BST to find and erase idName
+        case '1': cout << "\n\n    Introduce 3 letter code: ";
+            std::getline(std::cin, id);
+            /*for (auto it : data->getAirports()){
+                if ((*it).getidCode() == id) {
+                    printAirport(it.getPointer());
+                    airport = it.getPointer();
+                    return airport;
+                }
+            }*/
             break;
         case '2': cout << "\n\n    Introduce city: "; std::cin >> city;
             //iterate over airport BST to find and erase airport.getName() == city; ambiguous

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "mikeg.h"
 
-void admin(MikeG* mg);
+void admin(/*MikeG* mg*/ Data *data);
 
 void airport();
 

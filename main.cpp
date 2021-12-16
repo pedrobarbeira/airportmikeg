@@ -10,6 +10,7 @@
  * Airport-related testing
  */
 void testAirport(){
+    Data *data = new Data;
     auto *porto = new Airport;
     porto->setCity("Porto");
     porto->setCountry("Portugal");
@@ -39,7 +40,9 @@ void testAirport(){
     auto date2 = new Date(18, 12, 21);
     cle1->checkSeats();
     porto->delService(date2);
-    airport();
+    data->addAirport(porto);
+    data->addPlane(plane);
+    //admin(data);
 
     //for (auto it : porto->nextTransportBus(time1)){
     //    std::cout << "\n" << (*it).getHour() << ":" << (*it).getMinute();}

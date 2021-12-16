@@ -64,6 +64,8 @@ public:
         id = i; plane = nullptr;};
     void setId (string id){
         this->id = id;}
+    string getId() const{
+        return id;}
     string getTerminalNumber() const{
         return id;};
     void setPlane(Plane *plane){
