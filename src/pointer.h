@@ -12,14 +12,8 @@ public:
     explicit TicketPointer(Ticket* t){
         pointer = t;
     }
-    bool operator==(const TicketPointer& rhs) const{
-        return pointer->getID() == rhs.pointer->getID();
-    }
     bool operator==(const std::string& id) const{
         return pointer->getID() == id;
-    }
-    bool operator<(const TicketPointer& rhs) const{
-        return pointer->getID() < rhs.pointer->getID();
     }
 };
 
@@ -32,14 +26,8 @@ public:
     explicit PlanePointer(Plane* p = nullptr){
         pointer = p;
     }
-    bool operator==(Plane* p) const{
-        return pointer->plate == p->plate;
-    }
     bool operator==(std::string p) const{
         return pointer->plate == p;
-    }
-    bool operator<(const PlanePointer& rhs) const {
-        return pointer->plate < rhs.pointer->plate;
     }
 };
 
@@ -53,14 +41,8 @@ public:
     explicit FlightPointer(Flight* f = nullptr) : tickets(TicketPointer(nullptr)) {
         pointer = f;
     }
-    bool operator==(const Flight* f) const{
-        return f->flightID == pointer->flightID;
-    }
     bool operator==(const std::string& id) const{
         return pointer->flightID == id;
-    }
-    bool operator<(const FlightPointer& rhs) const{
-        return this->pointer->flightID < (*rhs).flightID;
     }
 };
 
@@ -93,15 +75,8 @@ public:
         FlightPointer fptr;
         return outFlights.insert(fptr);
     }
-    //Add operator overloading to allow diffrent types of searches
-    bool operator==(const AirportPointer& rhs) const{
-        return (*pointer).getidCode() == (*pointer).getidCode();
-    }
     bool operator==(const std::string& id) const{
         return (*pointer).getidCode() == id;
-    }
-    bool operator<(const AirportPointer& apf) const{
-        return pointer->getidCode() < apf.pointer->getidCode();
     }
 };
 
@@ -110,11 +85,8 @@ public:
     explicit ClientPointer(Client* u = nullptr){
         pointer = u;
     }
-    bool operator==(const ClientPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const ClientPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
+    bool operator==(std::string u) const{
+        return (*pointer).getUser() == u;
     }
 };
 
@@ -123,11 +95,8 @@ public:
     explicit CompanyPointer(Company* u = nullptr){
         pointer = u;
     }
-    bool operator==(const CompanyPointer & rhs) const{
-        return pointer->username == rhs.pointer->username;
-    }
-    bool operator<(const CompanyPointer& rhs) const{
-        return pointer->username < rhs.pointer->username;
+    bool operator==(std::string u) const{
+        return (*pointer).getUser() == u;
     }
 };
 

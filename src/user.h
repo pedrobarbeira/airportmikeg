@@ -13,6 +13,7 @@ protected:
     std::string username;
     std::string password;
     char type; //Create
+    Date* registration;
     friend class UserPointer;
     friend class CompanyPointer;
     friend class ClientPointer;
@@ -27,6 +28,15 @@ public:
     }
     char getType() const{
         return type;
+    }
+    Date* getDate() const{
+        return registration;
+    }
+    bool operator==(const User& rhs) const{
+        return username == rhs.username;
+    }
+    bool operator<(const User& rhs) const{
+        return username < rhs.username;
     }
 };
 //Lets keep this on the "maybe pile" for now
@@ -43,6 +53,12 @@ public:
         passenger = psgr;
         type = t;
     }
+    bool operator==(const Client& rhs) const{
+        return username == rhs.username;
+    }
+    bool operator<(const Client& rhs) const{
+        return username < rhs.username;
+    }
 };
 
 class Company : public User{
@@ -54,6 +70,12 @@ public:
         password = std::move(p);
         airport = nullptr;
         type = t;
+    }
+    bool operator==(const Company& rhs) const{
+        return username == rhs.username;
+    }
+    bool operator<(const Company& rhs) const{
+        return username < rhs.username;
     }
 };
 

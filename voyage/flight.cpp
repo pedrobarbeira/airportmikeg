@@ -15,8 +15,10 @@ Flight::~Flight(){
     delete destination;
 }
 
-bool Flight::operator<(const Flight& rhs) const{
-    return flightID < rhs.flightID;
+void Flight::setPrice(uint16_t f, uint16_t b, uint16_t e) {
+    plane->setFClassPrice(f);
+    plane->setBClassPrice(b);
+    plane->setEClassPrice(e);
 }
 
 void Flight::print(ostream& out) const{

@@ -174,6 +174,24 @@ public:
     void land(){
         grounded = true;};
     void showSeats() const;
+    void setFClassPrice(uint16_t p){
+        classes[0]->setPrice(p);
+    }
+    void setBClassPrice(uint16_t p){
+        if(classes[1] != nullptr) classes[1]->setPrice(p);
+    }
+    void setEClassPrice(uint16_t p){
+        classes[2]->setPrice(p);
+    }
+    bool operator<(const Plane& rhs) const{
+        return plate < rhs.plate;
+    }
+    bool operator==(const Plane& rhs) const{
+        return plate == plate;
+    }
+    bool operator!=(const Plane& rhs) const{
+        return !(*this == rhs);
+    }
 };
 
 /**
@@ -182,7 +200,7 @@ public:
 class Airbus : public Plane {
 public:
     /**Constructor*/
-    Airbus(uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> firstClassRows);
+    Airbus(std::queue<std::string> firstClassRows);
 };
 
 /**

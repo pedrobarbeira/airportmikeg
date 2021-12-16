@@ -84,7 +84,15 @@ public:
      * @param s
      * @return ordering by country > city > idName
      */
-    bool operator < (Airport &s);
+    bool operator==(const Airport& rhs) const{
+        return idName == rhs.idName;
+    }
+    bool operator!=(const Airport& rhs) const{
+        return !(*this == rhs);
+    }
+    bool operator<(const Airport& rhs) const{
+        return idName < rhs.idName;
+    }
 };
 
 

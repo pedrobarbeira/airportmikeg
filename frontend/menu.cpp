@@ -29,8 +29,8 @@ Dev::Dev(){
         else logs.push_back(line);
     }
     LogSorter sort;
-    logs = sort(logs);
-    newLogs = sort(newLogs);
+    sort(logs);
+    sort(newLogs);
 }
 
 void Dev::mainScreen() {

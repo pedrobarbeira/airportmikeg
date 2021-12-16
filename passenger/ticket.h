@@ -21,7 +21,12 @@ public:
     void setTID(int ti){ticketID=ti;}
 
     void addluggage(Luggage *l);
-
+    bool operator==(const Ticket& rhs) const{
+        return ticketID == rhs.ticketID;
+    }
+    bool operator<(const Ticket& rhs) const{
+        return ticketID < rhs.ticketID;
+    }
 };
 
 

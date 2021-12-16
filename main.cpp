@@ -61,16 +61,22 @@ void testAirport(){
  * Voyage-related testing
  */
 void testVoyage() {
+    std::queue<std::string> first({"A", "M"});
+    Airbus* arb1=new Airbus(first);
+    Airbus* arb2 = new Airbus(first);
+    Airbus* arb3 = new Airbus(first);
 
-    std::queue<std::string> first;
-    first.push("A");
-    first.push("J");
-    Airbus *a = new Airbus(100, 150, first);
+    BST<PlanePointer> pbst(PlanePointer(nullptr));
 
-    std::cout << a->freeSeatNum() << '\n';
-    if(a->bookSeat("A03")) std::cout << a->freeSeatNum() << '\n';
+    PlanePointer pptr1(arb1);
+    PlanePointer pptr2(arb2);
+    PlanePointer pptr3(arb3);
 
-    a->showSeats();
+    pbst.insert(pptr2);
+    pbst.insert(pptr3);
+    pbst.insert(pptr1);
+
+    std::cout << "stop\n";
 
 }
 

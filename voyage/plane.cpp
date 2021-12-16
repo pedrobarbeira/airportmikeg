@@ -83,17 +83,18 @@ bool Plane::bookSeat(std::string code){
 }
 
 /**Airbus*/
-Airbus::Airbus(uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first) {
+Airbus::Airbus(std::queue<std::string> first) {
     std::stringstream ss;
     airbusCount++;
     ss << "ARB" << std::setw(2) << std::setfill('0') << airbusCount;
     plate = ss.str();
     cabin->seatRows = 26;
     cabin->seatsPerRow = 6;
-    auto *f = new FirstClass(fClassPrice);
-    auto *e = new EconomyClass(eClassPrice);
-    classes.push_back(f);
-    classes.push_back(e);
+    vector<Class*> loadClass(3, nullptr);
+    auto *f = new FirstClass();
+    auto *e = new EconomyClass();
+    loadClass[0] = f;
+    loadClass[2] = e;
     grounded = true;
     for(int i = 0; i < cabin->seatRows; i++){
         std::vector<Seat*> load;

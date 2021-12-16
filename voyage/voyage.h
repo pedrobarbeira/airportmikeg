@@ -53,6 +53,12 @@ public:
     bool addFlight(Flight* f);
     bool addConnection(Connection* c); //gotta finish this one
     void printRoute(std::ostream& out) const;
+    bool operator==(const Voyage& rhs) const{
+        return voyageId == rhs.voyageId;
+    }
+    bool operator<(const Voyage& rhs) const{
+        return voyageId < rhs.voyageId;
+    }
 
 };
 
@@ -61,11 +67,8 @@ public:
     explicit VoyagePointer(Voyage* v = nullptr){
         pointer = v;
     }
-    bool operator==(const VoyagePointer& rhs) const{
-        return (*pointer).getId() == (*rhs.pointer).getId();
-    }
-    bool operator<(const VoyagePointer& rhs) const{
-        return (*pointer).getId() < (*rhs.pointer).getId();
+    bool operator==(std::string id) const{
+        return pointer->getId() == id;
     }
 };
 

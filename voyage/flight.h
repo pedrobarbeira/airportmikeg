@@ -47,11 +47,17 @@ public:
         origin = a;};
     void setDestination(TimePlace* a){
         destination = a;};
+    void setPrice(uint16_t f, uint16_t b, uint16_t e);
     void setPlane(Plane* p){
         plane = p;};
     /**Print*/
     void print(std::ostream& out) const;
-    bool operator<(const Flight& rhs) const;
+    bool operator==(const Flight& rhs){
+        return flightID == rhs.flightID;
+    }
+    bool operator<(const Flight& rhs) const{
+        return flightID < rhs.flightID;
+    }
 };
 
 

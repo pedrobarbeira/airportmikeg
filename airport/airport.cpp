@@ -211,7 +211,7 @@ void Airport::setTerminal(Plane *plane) {
         }
     }
 }
-
+/*
 bool Airport::operator < (Airport &a){
 
     if (country == a.country) {
@@ -219,4 +219,4 @@ bool Airport::operator < (Airport &a){
         return city < a.city;
     }
     return country < a.country;
-}
+}*/
