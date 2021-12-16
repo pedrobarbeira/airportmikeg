@@ -61,7 +61,7 @@ public:
     * from the option list Airports that were already chosen.
     * @return the chosen airport
     */
-    AirportPointer selectAirport();
+    virtual AirportPointer selectAirport();
 
     /**
     * Shows user his reordering options and prompts him to choose one. Creates
