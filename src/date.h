@@ -88,6 +88,7 @@ public:
         return Date(day,month, year);
     }
     void print(std::ostream& out = std::cout) const;
+    void printTime(std::ostream& out = std::cout) const;
     /**Setters*/
     void setHour(uint16_t h){
         hour = h;};
