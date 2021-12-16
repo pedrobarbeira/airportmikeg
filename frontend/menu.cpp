@@ -342,10 +342,44 @@ void JustBuy::mainScreen() {
 
 /**---Admin Menu---*/
 void AdminMenu::mainScreen() {
-    std::cout << "we are @ Admin\n"
-              << "Press enter to continue . . .";
-    char c = getchar();
+    char c;
+    //Shows real ADMIN menu after user has proven his identity
+    while(true) {
+        system(CLEAR);
+        std::cout << "[ADMIN]\n"
+                  << "\n    [1] Airport Management"
+                  << "\n    [2] Worker Management"
+                  << "\n    [3] Travel Management"
+                  << "\n    [4] Plane Management"
+                  << "\n    [0] Log Out\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': airportMenu(); break;
+            case '2': workers(); break;
+            case '3': travel(); break;
+            case '4': plane(); break;
+            case 'q':
+            case '0': throw LogOut();
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
+
+void AdminMenu::airportMenu() {}
+void AdminMenu::createAirport(){}
+void AdminMenu::deleteAirport() {}
+void AdminMenu::checkAirport() {}
+void AdminMenu::listAirport(){}
+
+void AdminMenu::workers() {}
+void AdminMenu::addWorker(){}
+void AdminMenu::delWorker(){}
+void AdminMenu::checkService(){}
+
+void AdminMenu::travel() {}
+
+void AdminMenu::plane() {}
 
 /**---Manager Menu---*/
 void ManagerMenu::mainScreen() {
