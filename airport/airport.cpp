@@ -76,6 +76,14 @@ string Airport::getCity() const {
     return city;
 }
 
+vector<Terminal*> Airport::getEmptyTerminals() const {
+    vector<Terminal*> ret;
+    for (auto terminal : terminals)
+        if(!terminal->getOccupied())
+            ret.push_back(terminal);
+    return ret;
+}
+
 vector<Terminal*> Airport::getTerminals() const {
     return terminals;
 }
