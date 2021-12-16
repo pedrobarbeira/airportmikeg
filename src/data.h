@@ -19,6 +19,9 @@ class Data{
     BST<TicketPointer> tickets;
     friend class MikeG;
     friend class Menu;
+    friend class LoadAirport;
+    friend class LoadUser;
+    friend class SaveUser;
 public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
@@ -26,6 +29,9 @@ public:
     //Turn these to return vectors with information
     std::vector<AirportPointer> getAirports() const;
     std::vector<FlightPointer> getFlights() const;
+    BST<AirportPointer> getAirportBST() const{
+        return airports;
+    }
     BST<VoyagePointer> getVoyages() const{
         return voyages;};
     BST<PlanePointer> getPlanes() const{
@@ -89,13 +95,50 @@ protected:
     Data* data;
 public:
     explicit Save(Data* d = nullptr) : data(d){}
+    void save() const;
 };
 
 class SaveAirport : public Save{
+    /**
+     * Saves all the information of a given Airprort in text files
+     * @param a pointer to the Airport
+     */
+    void saveAirport(AirportPointer a) const;
+
+    /**
+     * Saves all the Terminal-related information of an Airport  in a text file
+     * @param a pointer to the Airport
+     */
+    void saveTerminal(Airport* a) const;
+
+    /**
+     * Saves all the Transport-related information of an Airport  in a text file
+     * @param a pointer to the Airport
+     */
+    void saveTransport(Airport* a) const;
+
+    /**
+     * Saves all the ServiceTicket-related information of an Airport  in a text file
+     * @param a pointer to the Airport
+     */
+    void saveService(Airport* a) const;
+
+    /**
+     * Saves all the Staff-related information of an Airport in a text file
+     * @param a pointer to the Airport
+     */
+    void saveStaff(Airport* a) const;
 public:
+    /**
+     * Constructor for SaveAirport class. Receives a pointer to a data
+     * object and loads it into the data attribute
+     * @param d pointer to a data object
+     */
     explicit SaveAirport(Data* d = nullptr){
         data = d;
     }
+    void save() const;
+
 };
 
 class SaveVoyage : public Save{
@@ -117,6 +160,12 @@ public:
     explicit SaveUser(Data* d = nullptr){
         data = d;
     }
+    void saveClient() const;
+    void saveAdmin() const;
+    void savemanager() const;
+    void saveBoarding() const;
+    void saveService() const;
+    void saveServiceList() const;
 };
 
 #endif //MAIN_CPP_DATA_H

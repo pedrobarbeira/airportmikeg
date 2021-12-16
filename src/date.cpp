@@ -1,20 +1,14 @@
 //Created by Pedro Barbeira
 #include "date.h"
 
-/**
- * Prints date
- * @param out the output line
- */
+
 void Date::print(std::ostream& out) const {
     out << std::setw(2) << std::setfill('0') << day << "/"
         << std::setw(2) << std::setfill('0') << month << "/"
         << std::setw(4) << std::setfill('0') << year;
 }
 
-/**
- * Prints time with date
- * @param out the output line
- */
+
 void Time::print(std::ostream& out) const{        //Read up polymorphism and make this proper
     out << std::setw(2) << std::setfill('0') << hour << ":"
         << std::setw(2) << std::setfill('0') << minute << ":"
@@ -27,10 +21,7 @@ void Time::print(std::ostream& out) const{        //Read up polymorphism and mak
     }
 }
 
-/**
- * Prints time without date
- * @param out the desired output line
- */
+
 void Time::printTime(std::ostream& out) const{
     out << std::setw(2) << std::setfill('0') << hour << ":"
         << std::setw(2) << std::setfill('0') << minute << ":"

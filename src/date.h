@@ -45,6 +45,10 @@ public:
         month = m;}
     void setYear(uint16_t y){
         year = y;}
+    /**
+     * Prints date
+     * @param out the output line
+     */
     virtual void print(std::ostream& out = std::cout) const;
     virtual bool operator==(const Date& rhs) const;
     virtual bool operator==(const Time& rhs) const;
@@ -87,7 +91,16 @@ public:
     Date getDate() const{
         return Date(day,month, year);
     }
+
+    /**
+     * Prints time with date
+     * @param out the output line
+      */
     void print(std::ostream& out = std::cout) const;
+    /**
+     * Prints time without date
+     * @param out the desired output line
+     */
     void printTime(std::ostream& out = std::cout) const;
     /**Setters*/
     void setHour(uint16_t h){

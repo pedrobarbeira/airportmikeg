@@ -61,7 +61,7 @@ void MikeG::start(bool& flag) {
                 case '3':
                     if(!newAccount()) {
                         std::cout << "Could not register account";
-                        throw DevLog("Error adding new account to system database\n", sysTime);
+                        throw DevLog("Error adding new account to system database\n");
                     }
                 case '4': menu = logIn(); break;
                 case '0': return;
@@ -237,7 +237,7 @@ bool MikeG::load(){
         error << e;
         successful = false;
     }
-    if(!successful) throw DevLog(error.str(), sysTime);
+    if(!successful) throw DevLog(error.str());
 }
 
 bool MikeG::checkDev() {

@@ -81,6 +81,7 @@ public:
         pointer = a;
     };
     bool addFlight(Flight* f);
+    std::vector<Flight*> getFlightsTo() const;
     std::vector<Flight*> getFlightsTo(Airport* a) const;
     std::vector<Flight*> getFlightsTo(Airport* a, Date* min) const;
     std::vector<Flight*> getFlightsTo(Airport* a, Date* min, Date* max) const;

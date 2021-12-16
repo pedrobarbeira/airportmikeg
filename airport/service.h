@@ -16,8 +16,6 @@ class Staff{
     unsigned id;
     string name;
     unsigned phone;
-    string login;
-    string pass;
 public:
     explicit Staff(string name = "");
     void setId();
@@ -25,8 +23,6 @@ public:
     string getName() const;
     unsigned getPhone() const;
     unsigned getId() const;
-    void setLogin(string login) {this->login=login;}
-    void setPass(string pass) {this->pass=pass;}
 };
 
 class InvalidNumber : public exception{
@@ -47,6 +43,7 @@ class ServiceTicket{
     Staff *responsible;
     Date created;
     Date completed;
+    string stId;
     char id;
 public:
     ServiceTicket(Plane *plane, char id);
