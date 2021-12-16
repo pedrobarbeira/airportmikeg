@@ -156,12 +156,14 @@ void ClientMenu::buyTicket(){
         char c;
         std::cout << "[" << user->getUser() << "]\t\t\t";
         sysTime->print();
-        std::cout << "\n\t[1] Search Origin Airport"
-                  << "\n\t[2] Search Destination Airport"
+        std::cout << "\n\t[1] Sett Origin Airport"
+                  << "\n\t[2] Set Destination Airport"
                   << "\n\t[3] See Flights"
-                  << "\n\t[4] See Voyages"
-                  << "\n\t[5] Buy Ticket\n"
-                  << "\n\t[0] Exit\n"
+                  << "\n\t[4] See Voyages";
+        if(flight != nullptr || voyage != nullptr)
+            std::cout << "\n\t[5] Buy Ticket\n";
+        else std::cout << '\n';
+        std::cout << "\n\t[0] Exit\n"
                   << "\n>";
         readInput(c);
         switch (c) {
@@ -169,8 +171,10 @@ void ClientMenu::buyTicket(){
             case '2': destination = selectAirport(); break;
             case '3': showAllFlights(); break;
             case '4': ticketHistory(); break;
-            case '5': purchase(); break;
             case '0': return;
+            case '5': if(flight != nullptr || voyage != nullptr){
+                purchase(); break;
+            }
             default: std::cout << "Invalid Option\n";
         }
         std::cin.ignore();
