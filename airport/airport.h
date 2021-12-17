@@ -109,10 +109,11 @@ public:
         return complete;
     }
     ServiceTicket* nextService();
+    vector<Staff*> getStaff() const;
     void setTransport (TransportPointer transport);
     void delTransport (TransportPointer transport);
     void addService (ServiceTicket *service);
-    void delService (Date *date);
+    void delService (Time *date);
     vector<Transport*> getTransport() const;
     /*list<Time*>nextTransportMetro (Time *time) const;
     list<Time*>nextTransportBus (Time *time) const;

@@ -76,6 +76,8 @@ public:
      */
     void showAllFlights() const;
 
+    void logOut() const;
+
     void header();
 };
 

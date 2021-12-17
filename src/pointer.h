@@ -135,8 +135,8 @@ public:
     explicit CompanyPointer(Company* u = nullptr){
         pointer = u;
     }
-    bool operator==(std::string u) const{
-        return (*pointer).getUser() == u;
+    bool operator==(const CompanyPointer& rhs) const{
+        return pointer->getUser() == rhs.pointer->getUser();
     }
 };
 

@@ -191,8 +191,7 @@ public:
      * @param c poitner to the client account that'll be added
      * @return bool upon success. false otherwise
      */
-    bool addClient(Client* c){
-        ClientPointer cptr(c);
+    bool addClient(const ClientPointer& cptr){
         return clients.insert(cptr);
     }
 
@@ -296,7 +295,9 @@ protected:
     Data* data;
 public:
     explicit Save(Data* d = nullptr) : data(d){}
-    void save() const;
+    virtual void save() const{
+        std::cout << "C++ doesn't have interfaces\n";
+    }
 };
 
 class SaveAirport : public Save{
@@ -338,7 +339,7 @@ public:
     explicit SaveAirport(Data* d = nullptr){
         data = d;
     }
-    void save() const;
+    void save() const override;
 
 };
 

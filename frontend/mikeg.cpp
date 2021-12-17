@@ -109,11 +109,10 @@ Menu* MikeG::logIn() {
     searchCompany = data->company.find(searchCompany);
     char c;
     if (searchCompany.getPointer() == nullptr) {
-        ClientPointer searchClient(new Client(user));
-        searchClient = data->clients.find(searchClient);
-        if (searchClient.getPointer() != nullptr) {
+        Client* searchClient = data->findClient(user);
+        if (searchClient != nullptr) {
             if ((*searchClient).getPassword() == pass)
-                return new ClientMenu(searchClient.getPointer(), data);
+                return new ClientMenu(searchClient, data);
         }
     } else {
         if ((*searchCompany).getPassword() == pass) {

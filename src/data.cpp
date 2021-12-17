@@ -219,15 +219,33 @@ void SaveAirport::saveAirport(AirportPointer aptr) const {
     for (auto flight : saveFlights) {
         outfile << flight->getId() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
     saveFlights = aptr.getFlightsTo();
     for (auto flight : saveFlights) {
         outfile << flight->getId() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
     outfile.close();
     try {
         saveTerminal(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveTransport(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveService(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveStaff(a);
     }
     catch(DevLog e){
         e.print();
@@ -244,19 +262,50 @@ void SaveAirport::saveTerminal(Airport* a) const{
         if(it->getPlane() == nullptr) outfile << "nullptr";
         else outfile << it->getPlane()->getPlate() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
+    outfile.close();
 }
 
 void SaveAirport::saveTransport(Airport* a) const{
+    std::ofstream outfile("./data/airports.txt", ios::app);
+    if(!outfile.is_open())
+        throw DevLog("SaveAirport::saveTransport() error opening outfile\n");
+    for(auto it : a->getTransport()){
+        outfile << it->getId() << " " << it->getType() << " "
+                << it->getDistance() << " " << it->getTime() << " ";
+    }
+    outfile << '\n';
+    outfile.close();
 }
 
-void SaveAirport::saveService(Airport* a) const{}
+void SaveAirport::saveService(Airport* a) const{
+    std::ofstream outfile(".data/airports.txt", ios::app);
+    if(!outfile.is_open())
+        throw DevLog("SaveAirport::saveService() error opening outfile\n");
+    for(auto it : a->getServices()){
+        outfile << it->getPlane()->getPlate() << " " << it->getSchedule() << " "
+                << it->getResponsible()->getId() << " " << it->getType();
+    }
+    outfile << '\n';
+    for(auto it : a->getCompleteServices()){
+        outfile << it->getPlane()->getPlate() << " " << it->getSchedule() << " "
+                << it->getCompleted() << " " << it->getResponsible()->getId()
+                << " " << it->getType();
+    }
+    outfile << '\n';
+}
 
 void SaveAirport::saveStaff(Airport* a) const{
     std::ofstream outfile("./data/service.txt");
     if(!outfile.is_open())
         throw DevLog("SaveAirport::saveStaff error opening outfile\n");
-
+    outfile << a->getidCode() << "(\n";
+    for(auto it : a->getStaff()){
+        outfile << it->getId() << " " << it->getName() << " "
+                << it->getPhone() << '\n';
+    }
+    outfile << ")\n";
+    outfile.close();
 }
 
 

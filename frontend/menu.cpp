@@ -69,6 +69,13 @@ void Menu::showAllFlights() const{
     getchar();
 }
 
+void Menu::logOut() const {
+    Save save;
+    save = SaveAirport(data);
+    save.save();
+    //repeat for all other SaveSubclass
+}
+
 
 /**---Dev Menu---*/
 Dev::Dev(){
@@ -173,10 +180,9 @@ void ClientMenu::mainScreen() {
         if(user != nullptr)
             std::cout << "\n\t[3] Change Ticket"
                       << "\n\t[4] Ticket History\n";
-        else
-            std::cout << "\n"
-                      << "\n\t[0] Exit\n"
-                      << "\n>";
+        std::cout << "\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
         readInput(c);
         switch (c) {
             case '1': buyTicket(); break;
@@ -370,7 +376,7 @@ void AdminMenu::mainScreen() {
             case '2': workers(); break;
             case '3': travel(); break;
             case '4': plane(); break;
-            case '0': throw LogOut();
+            case '0': logOut(); throw LogOut();
             default: std::cout << "Invalid Option\n"; system("pause");
         }
     }

@@ -42,7 +42,7 @@ ServiceTicket::ServiceTicket(Plane *plane, char id){
     created = time;
 }
 
-ServiceTicket::ServiceTicket(Plane *plane, Date *date, char id){
+ServiceTicket::ServiceTicket(Plane *plane, Time *date, char id){
     this->plane = plane;
     created = date;
     responsible = nullptr;
@@ -55,7 +55,7 @@ ServiceTicket::ServiceTicket(Plane *plane, Staff *staff, char id) {
     responsible = staff;
 }
 
-ServiceTicket::ServiceTicket(Plane *plane, Date *date, Staff *staff, char id){
+ServiceTicket::ServiceTicket(Plane *plane, Time *date, Staff *staff, char id){
     this->plane = plane;
     responsible = staff;
     created = date;
@@ -65,11 +65,11 @@ void ServiceTicket::setResponsible(Staff *staff) {
     responsible = staff;
 }
 
-void ServiceTicket::setSchedule(Date *date) {
+void ServiceTicket::setSchedule(Time *date) {
     created = date;
 }
 
-void ServiceTicket::setComplete (Date *date) {
+void ServiceTicket::setComplete (Time *date) {
     if (responsible == NULL) throw NoResponsible();
     completed = date;
 }
@@ -90,7 +90,7 @@ Staff* ServiceTicket::getResponsible(){
     return responsible;
 }
 
-Date* ServiceTicket::getSchedule() {
+Time* ServiceTicket::getSchedule() {
     return created;
 }
 
@@ -107,19 +107,19 @@ bool ServiceTicket::operator<(ServiceTicket &s) {
 
 Cleaning::Cleaning(Plane *plane) : ServiceTicket(plane, 'c') {}
 
-Cleaning::Cleaning(Plane *plane, Date *date) : ServiceTicket(plane, date, 'c'){}
+Cleaning::Cleaning(Plane *plane, Time *date) : ServiceTicket(plane, date, 'c'){}
 
-Cleaning::Cleaning(Plane *plane, Date *date, Staff *staff) : ServiceTicket(plane, date, staff, 'c') {}
+Cleaning::Cleaning(Plane *plane, Time *date, Staff *staff) : ServiceTicket(plane, date, staff, 'c') {}
 
 void Cleaning::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Cleaning::setSchedule(Date *date) {
+void Cleaning::setSchedule(Time *date) {
     ServiceTicket::setSchedule(date);
 }
 
-void Cleaning::setComplete(Date *date) {
+void Cleaning::setComplete(Time *date) {
     if (getResponsible() == NULL) throw NoResponsible();
     ServiceTicket::setComplete(date);
 }
@@ -128,7 +128,7 @@ Staff* Cleaning::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Date* Cleaning::getSchedule() {
+Time* Cleaning::getSchedule() {
     return ServiceTicket::getSchedule();
 }
 
@@ -174,19 +174,19 @@ bool Cleaning::verification() const {
 
 Maintenance::Maintenance(Plane *plane) : ServiceTicket(plane, 'm') {}
 
-Maintenance::Maintenance(Plane *plane, Date *date): ServiceTicket(plane, date, 'm') {}
+Maintenance::Maintenance(Plane *plane, Time *date): ServiceTicket(plane, date, 'm') {}
 
-Maintenance::Maintenance(Plane *plane, Date *date, Staff *staff) : ServiceTicket(plane, date, staff, 'm') {}
+Maintenance::Maintenance(Plane *plane, Time *date, Staff *staff) : ServiceTicket(plane, date, staff, 'm') {}
 
 void Maintenance::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Maintenance::setSchedule(Date *date) {
+void Maintenance::setSchedule(Time *date) {
     ServiceTicket::setSchedule(date);
 }
 
-void Maintenance::setComplete(Date *date) {
+void Maintenance::setComplete(Time *date) {
     if (getResponsible() == NULL) throw NoResponsible();
     ServiceTicket::setComplete(date);
 }
@@ -207,7 +207,7 @@ Staff* Maintenance::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Date* Maintenance::getSchedule() {
+Time* Maintenance::getSchedule() {
     return ServiceTicket::getSchedule();
 }
 
