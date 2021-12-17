@@ -148,7 +148,7 @@ public:
         return serviceList;
     }
     std::list<ServiceTicket*> getCompleted() const{
-        return completedServices
+        return completedServices;
     }
 };
 
