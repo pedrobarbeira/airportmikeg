@@ -62,8 +62,8 @@ public:
     explicit FlightPointer(Flight* f = nullptr) : tickets(TicketPointer(nullptr)) {
         pointer = f;
     }
-    bool operator==(const std::string& id) const{
-        return pointer->flightID == id;
+    bool operator==(const FlightPointer& rhs) const{
+        return pointer->getId() == rhs.pointer->getId();
     }
     std::vector<Ticket*> getTickets() const;
     bool addTicket(Ticket* t){
@@ -107,7 +107,7 @@ public:
         return outFlights.insert(fptr);
     }
     bool operator==(const std::string& id) const{
-        return (*pointer).getidCode() == id;
+        return (*pointer) == (*pointer);
     }
     bool operator==(const AirportPointer& rhs) const{
         return (*pointer) == (*rhs.getPointer());

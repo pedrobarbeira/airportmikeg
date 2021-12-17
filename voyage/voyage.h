@@ -29,6 +29,9 @@ public:
         FlightPointer fptr(f);
         route.push_back(fptr);
     }
+    explicit Voyage(std::string id) : voyageId(std::move(id)){
+        route.clear();
+    }
     /**Getters*/
     std::list<std::vector<Ticket*>> getTickets() const{
         std::list<std::vector<Ticket*>> ret;
@@ -68,8 +71,8 @@ public:
     explicit VoyagePointer(Voyage* v = nullptr){
         pointer = v;
     }
-    bool operator==(const std::string& id) const{
-        return pointer->getId() == id;
+    bool operator==(const VoyagePointer& rhs) const{
+        return pointer->getId() == rhs.pointer->getId();
     }
 };
 

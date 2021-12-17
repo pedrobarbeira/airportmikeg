@@ -138,6 +138,60 @@ BST<FlightPointer> Data::getFlightBST() const{
     return ret;
 }
 
+AirportPointer Data::findAirport(const std::string& id) const{
+    Airport* a = new Airport(id);
+    AirportPointer find(a);
+    return airports.find(find);
+}
+
+Voyage* Data::findVoyage(const std::string& id) const{
+    Voyage* v = new Voyage(id);
+    VoyagePointer find(v);
+    find = voyages.find(find);
+    return find.getPointer();
+}
+
+FlightPointer Data::findFlight(const std::string& id) const{
+    FlightPointer ret(nullptr);
+    iteratorBST<AirportPointer> it = airports.begin();
+    while(it != airports.end()){
+        Flight* find = (*it).find(id);
+        if((*it).find(id) != nullptr) {
+            ret = FlightPointer(find);
+            break;
+        }
+        it++;
+    }
+    return ret;
+}
+
+Plane* Data::findPlane(const std::string& id) const{
+    Plane* p = new Plane(id);
+    PlanePointer find(p);
+    find = planes.find(find);
+    return find.getPointer();
+}
+
+Ticket* Data::findTicket(const std::string& id) const{
+    Ticket* t = new Ticket(id);
+    TicketPointer find(t);
+    find = tickets.find(find);
+    return find.getPointer();
+}
+
+Client* Data::findClient(const std::string& id) const{
+    Client* c = new Client(id);
+    ClientPointer find(c);
+    find = clients.find(find);
+    return find.getPointer();
+}
+
+Company* Data::findCompany(const std::string& id) const{
+    Company* c = new Company(id);
+    CompanyPointer find(c);
+    find = company.find(find);
+    return find.getPointer();
+}
 
 /**---SaveAirport---*/
 void SaveAirport::save() const {
@@ -163,12 +217,12 @@ void SaveAirport::saveAirport(AirportPointer aptr) const {
             << a->getName() << " " << a->getCountry() << " " << a->getCity() << "\n";
     std::vector<Flight *> saveFlights = aptr.getFlightsTo();
     for (auto flight : saveFlights) {
-        outfile << flight->getID() << " ";
+        outfile << flight->getId() << " ";
     }
     std::cout << '\n';
     saveFlights = aptr.getFlightsTo();
     for (auto flight : saveFlights) {
-        outfile << flight->getID() << " ";
+        outfile << flight->getId() << " ";
     }
     std::cout << '\n';
     outfile.close();

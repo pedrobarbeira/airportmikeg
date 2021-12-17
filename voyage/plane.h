@@ -144,6 +144,7 @@ public:
         plate(p), grounded(true), classes(v){
         cabin->capacity = c;
     };
+    Plane(std::string id = "") : plate(std::move(id)){}
     ~Plane();
     /**Getters*/
     std::string getPlate() const{

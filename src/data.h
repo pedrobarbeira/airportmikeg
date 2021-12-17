@@ -192,6 +192,55 @@ public:
         CompanyPointer cptr(c);
         return company.insert(cptr);
     }
+
+    /**
+     * Searches for a given Airport in the airports BST
+     * @param id the ID of the Airport to be found
+     * @return the result of the search
+     */
+    AirportPointer findAirport(const std::string& id) const;
+
+    /**
+     * Searches for a given Voyage in the voyages BST
+     * @param id the ID of the Voyage to be found
+     * @return the result of the search
+     */
+    Voyage* findVoyage(const std::string& id) const;
+
+    /**
+     * Searches for a given Flight in the airports BST
+     * @param id the ID of the Flight to be found
+     * @return the result of the search
+     */
+    FlightPointer findFlight(const std::string& id) const;
+
+    /**
+     * Searches for a given Plane in the planes BST
+     * @param id the ID of the Plane to be found
+     * @return the result of the search
+     */
+    Plane* findPlane(const std::string& id) const;
+
+    /**
+     * Searches for a given Ticket in the tickets BST
+     * @param id the ID of the ticket to be found
+     * @return the result of the sarch
+     */
+    Ticket* findTicket(const std::string& id) const;
+
+    /**
+     * Searches for a given client account in the clients BST
+     * @param id the ID of the client account to be found
+     * @return the result of the saerch
+     */
+    Client* findClient(const std::string& id) const;
+
+    /**
+     * Searches for a given company account in the company BST
+     * @param id the ID of the company account to be found
+     * @return the result of the search
+     */
+    Company* findCompany(const std::string& id) const;
 };
 
 class Load{
