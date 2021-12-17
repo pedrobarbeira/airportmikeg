@@ -38,21 +38,23 @@ public:
 
 /**---Flight Sorter---*/
 class FlightSorter{
-    static bool idAscending(const Flight* f1, const Flight* f2);
-    static bool idDescending(const Flight* f1, const Flight* f2);
-    static bool originAirportAscending(const Flight* f1, const Flight* f2);
-    static bool originAirportDescending(const Flight* f1, const Flight* f2);
-    static bool originDateAscending(const Flight* f1, const Flight* f2);
-    static bool originDateDescending(const Flight* f1, const Flight* f2);
-    static bool destinationAirportAscending(const Flight* f1, const Flight* f2);
-    static bool destinationAirportDescending(const Flight* f1, const Flight* f2);
-    static bool destinationDateAscending(const Flight* f1, const Flight* f2);
-    static bool destinationDateDescending(const Flight* f1, const Flight* f2);
-    static bool planeAscending(const Flight* f1, const Flight* f2);
-    static bool planeDescending(const Flight* f1, const Flight* f2);
+    static bool idAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool idDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool originAirportAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool originAirportDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool originDateAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool originDateDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool destinationAirportAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool destinationAirportDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool destinationDateAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool destinationDateDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool planeAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool planeDescending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool ticketAscending(const FlightPointer& f1, const FlightPointer& f2);
+    static bool ticketDescending(const FlightPointer& f1, const FlightPointer& f2);
 public:
     FlightSorter() = default;
-    void operator()(std::vector<Flight*>& data, char o, bool asc);
+    void operator()(std::vector<FlightPointer>& data, char o, bool asc);
 };
 
 /**---Voyage Sorter---*/

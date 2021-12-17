@@ -1,9 +1,5 @@
 //Created by Pedro Barbeira (up201303693)
-
 #include "sorter.h"
-
-//TODO
-//handle ties
 
 /**---Plane Sorter---*/
 bool PlaneSorter::plateAscending(const Plane* p1, const Plane* p2){
@@ -118,83 +114,97 @@ void PlaneSorter::operator()(std::vector<Plane*>& data, char o = '\0', bool asc 
 }
 
 /**---Flight Sorter---*/
-bool FlightSorter::idAscending(const Flight *f1, const Flight *f2) {
+bool FlightSorter::idAscending(const FlightPointer& f1, const FlightPointer& f2) {
     return *f1 < *f2;
 }
-bool FlightSorter::idDescending(const Flight* f1, const Flight* f2){
+bool FlightSorter::idDescending(const FlightPointer& f1, const FlightPointer& f2){
     return *f2 < *f1;
 }
-bool FlightSorter::originAirportAscending(const Flight* f1, const Flight* f2){
-    Airport* comp1 = f1->getOrigin()->airport;
-    Airport* comp2 = f2->getOrigin()->airport;
+bool FlightSorter::originAirportAscending(const FlightPointer& f1, const FlightPointer& f2){
+    Airport* comp1 = f1.getPointer()->getOrigin()->airport;
+    Airport* comp2 = f2.getPointer()->getOrigin()->airport;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
     else return *f1 < *f2;;
 }
-bool FlightSorter::originAirportDescending(const Flight* f1, const Flight* f2){
-    Airport* comp1 = f1->getOrigin()->airport;
-    Airport* comp2 = f2->getOrigin()->airport;
+bool FlightSorter::originAirportDescending(const FlightPointer& f1, const FlightPointer& f2){
+    Airport* comp1 = f1.getPointer()->getOrigin()->airport;
+    Airport* comp2 = f2.getPointer()->getOrigin()->airport;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
     else return *f2 < *f1;;
 }
-bool FlightSorter::originDateAscending(const Flight* f1, const Flight* f2){
-    Date* comp1 = f1->getOrigin()->time;
-    Date* comp2 = f2->getOrigin()->time;
+bool FlightSorter::originDateAscending(const FlightPointer& f1, const FlightPointer& f2){
+    Date* comp1 = f1.getPointer()->getOrigin()->time;
+    Date* comp2 = f2.getPointer()->getOrigin()->time;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
     else return *f1 < *f2;;
 }
-bool FlightSorter::originDateDescending(const Flight* f1, const Flight* f2){
-    Date* comp1 = f1->getOrigin()->time;
-    Date* comp2 = f2->getOrigin()->time;
+bool FlightSorter::originDateDescending(const FlightPointer& f1, const FlightPointer& f2){
+    Date* comp1 = f1.getPointer()->getOrigin()->time;
+    Date* comp2 = f2.getPointer()->getOrigin()->time;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
     else return *f2 < *f1;;
 }
-bool FlightSorter::destinationAirportAscending(const Flight* f1, const Flight* f2){
-    Airport* comp1 = f1->getDestination()->airport;
-    Airport* comp2 = f2->getDestination()->airport;
+bool FlightSorter::destinationAirportAscending(const FlightPointer& f1, const FlightPointer& f2){
+    Airport* comp1 = f1.getPointer()->getDestination()->airport;
+    Airport* comp2 = f2.getPointer()->getDestination()->airport;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
     else return *f1 < *f2;;
 }
-bool FlightSorter::destinationAirportDescending(const Flight* f1, const Flight* f2){
-    Airport* comp1 = f1->getDestination()->airport;
-    Airport* comp2 = f2->getDestination()->airport;
+bool FlightSorter::destinationAirportDescending(const FlightPointer& f1, const FlightPointer& f2){
+    Airport* comp1 = f1.getPointer()->getDestination()->airport;
+    Airport* comp2 = f2.getPointer()->getDestination()->airport;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
     else return *f2 < *f1;;
 }
-bool FlightSorter::destinationDateAscending(const Flight* f1, const Flight* f2){
-    Date* comp1 = f1->getDestination()->time;
-    Date* comp2 = f2->getDestination()->time;
+bool FlightSorter::destinationDateAscending(const FlightPointer& f1, const FlightPointer& f2){
+    Date* comp1 = f1.getPointer()->getDestination()->time;
+    Date* comp2 = f2.getPointer()->getDestination()->time;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
     else return *f1 < *f2;;
 }
-bool FlightSorter::destinationDateDescending(const Flight* f1, const Flight* f2){
-    Date* comp1 = f1->getDestination()->time;
-    Date* comp2 = f2->getDestination()->time;
+bool FlightSorter::destinationDateDescending(const FlightPointer& f1, const FlightPointer& f2){
+    Date* comp1 = f1.getPointer()->getDestination()->time;
+    Date* comp2 = f2.getPointer()->getDestination()->time;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
     else return *f2 < *f1;;
 }
-bool FlightSorter::planeAscending(const Flight* f1, const Flight* f2){
-    Airport* comp1 = f1->getOrigin()->airport;
-    Airport* comp2 = f2->getOrigin()->airport;
+bool FlightSorter::planeAscending(const FlightPointer& f1, const FlightPointer& f2){
+    Plane* comp1 = f1.getPointer()->getPlane();
+    Plane* comp2 = f2.getPointer()->getPlane();
     if(*comp1 != *comp2)
         return *comp1 < *comp1;
-    else return *f1 < *f1;;
+    else return *f1 < *f1;
 }
-bool FlightSorter::planeDescending(const Flight* f1, const Flight* f2){
-    Plane* comp1 = f1->getPlane();
-    Plane* comp2 = f2->getPlane();
+bool FlightSorter::planeDescending(const FlightPointer& f1, const FlightPointer& f2){
+    Plane* comp1 = f1.getPointer()->getPlane();
+    Plane* comp2 = f2.getPointer()->getPlane();
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
     else return *f2 < *f1;;
 }
-void FlightSorter::operator()(std::vector<Flight*>& data, char c, bool asc){
+bool FlightSorter::ticketAscending(const FlightPointer& f1, const FlightPointer& f2){
+    int comp1 = f1.getTickets().size();
+    int comp2 = f2.getTickets().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *f1 < *f2;
+}
+bool FlightSorter::ticketDescending(const FlightPointer& f1, const FlightPointer& f2){
+    int comp1 = f1.getTickets().size();
+    int comp2 = f2.getTickets().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *f2 < *f1;
+}
+void FlightSorter::operator()(std::vector<FlightPointer>& data, char c, bool asc){
     switch(c){
         case '0' :
             if(asc) sort(data.begin(), data.end(), idAscending);
