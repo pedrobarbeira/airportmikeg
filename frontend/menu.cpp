@@ -444,7 +444,20 @@ void AdminMenu::deleteAirport() {
             system("pause");
             return;
         } else
-            test = data->delAirport(airport);
+            std::cout << "\n\t" << "(" << airport->getidCode() << ")" << airport->getName()
+                      << " is going to be deleted.\n\t Confirm deletion?(y/n)\n";
+            std::cin >> a;
+            switch (a) {
+                case 'y':
+                    test = data->delAirport(airport);
+                    break;
+                case 'n':
+                    test = false;
+                    break;
+                default:
+                    std::cout << "Invalid Option\n";
+                    system("pause");
+            }
         if (test) {
             std::cout << "\n\nAirport " << airport->getName() << " successfullly deleted.";
             system("pause");
@@ -456,9 +469,21 @@ void AdminMenu::deleteAirport() {
 }
 void AdminMenu::checkAirport() {
     header();
+    while (true){
+        Airport *airport = selectAirport().getPointer();
+        airport->printAirport();
+        system("pause");
+        return;
+    }
 
 }
-void AdminMenu::listAirport(){}
+void AdminMenu::listAirport(){
+    header();
+    system(CLEAR);
+    std::cout << "\n\n\t Empty menu for now (probably will be deleted";
+    system("pause");
+    return;
+}
 
 void AdminMenu::workers() {}
 void AdminMenu::addWorker(){}

@@ -120,8 +120,10 @@ public:
     list<Time*>nextTransportTrain (Time *time) const;*/
     void activateTerminal (string i);
     void setTerminal(Plane *plane, string id);
-    bool operator < (Airport &s);
+    void printAirport();
+    void printService();
 
+    bool operator < (Airport &s);
     bool operator==(const Airport& rhs) const{
         return idName == rhs.idName;
     }

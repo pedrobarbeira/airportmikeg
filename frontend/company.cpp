@@ -63,42 +63,11 @@ void airport(){
 ////////// Airport menu functions
 
 void createAirport() {
- //   Airport *airport = new Airport;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    system(CLEAR);
-    string id, name, city, country;
-    char a;
-    std::cout << "\n    Airport creation menu"
-              << "\n\n      Introduce Airport Location:"
-              << "\n        Country > "; std::getline(std::cin, country);
-    std::cout << "\n        City > "; std::getline(std::cin, city);
-    std::cout << "\n        Name > "; std::getline(std::cin, name);
-    std::cout << "\n        Identification code (3 letter word) > "; std::cin >> id;
-    std::cout << "\n\n      Airport (" << id << ") " << name
-              << "\n        at " << city << ", " << country
-              << "\n    Is this information correct(y/n)?\n\n >"; std::cin >> a;
-    if (tolower(a) == 'y') {
-//        airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
-        //data->addAirport(airport);
-    }
-    else {
-        std::cout << "\n\nOperation cancelled, returning to Airport management menu";
-        system("pause");
-    }
+
     return;
 }
 
 void deleteAirport(){
-    string id, city, country;
-    char a;
-    Airport *airport = selectAirport();
-    if (airport == nullptr){
-        std::cout << "Canceled deletion operation. Returning to Airport Management menu.\n";
-        system("pause");
-        return;
-    } else
-        std::cout << "Temporary placeholder for working magic";
-    //search airport in BST and remove it;
     return;
 }
 
