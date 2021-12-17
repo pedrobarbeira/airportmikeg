@@ -40,6 +40,10 @@ public:
         AirportPointer aptr(a);
         return airports.insert(aptr);
     }
+    bool delAirport(Airport *a){
+        AirportPointer aptr(a);
+        return airports.remove(aptr);
+    }
     bool addVoyage(Voyage* v){
         VoyagePointer vptr(v);
         return voyages.insert(vptr);
@@ -53,6 +57,7 @@ public:
         TicketPointer tptr(t);
         return tickets.insert(tptr);
     }
+
 };
 
 class Load{

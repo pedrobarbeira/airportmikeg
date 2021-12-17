@@ -2,6 +2,7 @@
 #include "mikeg.h"
 #include "funcoes.h"
 #include "company.h"
+#include "menu.h"
 //Use vectors and comparator functions to allow for different searches
 
 
@@ -32,6 +33,7 @@ void testAirport(){
     cle1->checkFloor();
     cle1->setResponsible(staff1);
     porto->addService(cle1);
+    porto->setName("Francisco Sá Carneiro");
     TransportPointer b(bus);
     TransportPointer m(metro);
     porto->setTransport(b);
@@ -42,6 +44,9 @@ void testAirport(){
     porto->delService(date2);
     data->addAirport(porto);
     data->addPlane(plane);
+    Admin *admin = new Admin("admin", "admin");
+    AdminMenu *adm = new AdminMenu(admin, data);
+    adm->mainScreen();
     //admin(data);
 
     //for (auto it : porto->nextTransportBus(time1)){
@@ -106,7 +111,7 @@ void testPassenger() {
  */
 void testMenu(){
     MikeG main;
-    bool flag = false;
+    bool flag = true;
     main.start(flag);
 }
 
