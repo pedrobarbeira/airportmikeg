@@ -136,11 +136,18 @@ public:
         return airports.insert(aptr);
     }
 
+    bool delAirport(Airport *a){
+        AirportPointer aptr(a);
+        return airports.remove(aptr);
+    }
+
+
     /**
      * Adds a voyage to the voyages BST
      * @param v pointer to the Voyage that'll be added
      * @return bool upon success. false otherwise
      */
+
     bool addVoyage(Voyage* v){
         VoyagePointer vptr(v);
         return voyages.insert(vptr);
@@ -173,6 +180,7 @@ public:
         return tickets.insert(tptr);
     }
 
+
     /**
      * Adds a client account to the clients BST
      * @param c poitner to the client account that'll be added
@@ -192,7 +200,7 @@ public:
         CompanyPointer cptr(c);
         return company.insert(cptr);
     }
-
+    
     /**
      * Searches for a given Airport in the airports BST
      * @param id the ID of the Airport to be found

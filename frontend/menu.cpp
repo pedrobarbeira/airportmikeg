@@ -7,16 +7,18 @@ void Menu::mainScreen() {
 }
 
 void Menu::print(std::vector<AirportPointer> v) const{
+    system(CLEAR);
+    std::cout << "\n\t::::::::::::::::::\n\t:::  AIRPORTS  :::\n\t::::::::::::::::::\n";
     for(int i = 0; i < v.size(); i++){
-        std::cout << '[' << std::setw(2) << std::setfill(' ') << i+1 << ']'
-                  << v[i] << '\n';
+        std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
+                  << v[i].getPointer()->getidCode() << ", " << v[i].getPointer()->getName();
     }
 }
 
 void Menu::header() {
     std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
     system(CLEAR);
-    std::cout << "[" << user->getUser() << "]\t\t\t";
+    //std::cout << "[" << user->getUser() << "]\t\t\t";
     sysTime->print();
 }
 
@@ -26,9 +28,9 @@ AirportPointer Menu::selectAirport(){
         print(airports);
         system(CLEAR);
         char c;
-        std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
-        sysTime->print();
-        std::cout << "\n\t[1] Select Airport"
+        //TODO std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
+        //TODO sysTime->print();
+        std::cout << "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\t[1] Select Airport"
                   << "\n\t[2] Order By\n"
                   << "\n\t[0] Exit\n"
                   << "\n>";
@@ -37,7 +39,9 @@ AirportPointer Menu::selectAirport(){
             case '1': {
                 std::cout << "Enter Airport row: ";
                 std::string in;
-                readInput(in);
+                //readInput(in);
+                std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
+                std::cin >> in;
                 int i = stoi(in);
                 return airports[i-1];
             }
@@ -414,7 +418,7 @@ void AdminMenu::createAirport(){
               << "\n\n\n\tIs this information correct(y/n)?\n\n >"; std::cin >> a;
     if (tolower(a) == 'y') {
         airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
-        //data->addAirport(airport);
+        data->addAirport(airport);
     }
     else {
         std::cout << "\n\nOperation cancelled, returning to Airport management menu";
@@ -423,8 +427,31 @@ void AdminMenu::createAirport(){
     return;
 }
 
-void AdminMenu::deleteAirport() {}
-void AdminMenu::checkAirport() {}
+void AdminMenu::deleteAirport() {
+    header();
+    char a;
+    bool test;
+    while (true){
+        Airport *airport = selectAirport().getPointer();
+        if (airport == nullptr){
+            std::cout << "Canceled deletion operation. Returning to Airport Management menu.\n";
+            system("pause");
+            return;
+        } else
+            test = data->delAirport(airport);
+        if (test) {
+            std::cout << "\n\nAirport " << airport->getName() << " successfullly deleted.";
+            system("pause");
+        }
+        else std::cout << "\n\nDeletion unsuccessfull.";
+        system("pause");
+        return;
+    }
+}
+void AdminMenu::checkAirport() {
+    header();
+
+}
 void AdminMenu::listAirport(){}
 
 void AdminMenu::workers() {}

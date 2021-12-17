@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "bst.h"
+#include "ticket.h"
 
 /**
  * User parent class. Acts as an Interface for it's subclasses.
