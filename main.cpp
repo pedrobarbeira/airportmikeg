@@ -45,8 +45,10 @@ void testAirport(){
     data->addAirport(porto);
     data->addPlane(plane);
     Admin *admin = new Admin("admin", "admin");
+    Client *client = new Client ("client", "client");
     AdminMenu *adm = new AdminMenu(admin, data);
-    adm->mainScreen();
+    //adm->mainScreen();
+
     //admin(data);
 
     //for (auto it : porto->nextTransportBus(time1)){

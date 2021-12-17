@@ -13,7 +13,7 @@ class User{
 protected:
     std::string username;
     std::string password;
-    char type; //Create
+    char type; //Create a - admin; c - client;
     Date* registration;
     friend class UserPointer;
     friend class CompanyPointer;
