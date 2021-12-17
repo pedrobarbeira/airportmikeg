@@ -63,26 +63,28 @@ void buyTicket(VoyagePointer voy) {
     }
 }
 
-void makingstack(queue<stack<Luggage*>> bags, vector<Luggage*> passLugg) {
+/*queue<stack<Luggage*>> makingstack(vector<Luggage*> lugvec) {
 
-    int counter=0;
+    int stackcounter=0;
     stack<Luggage*> stacklug;
-    cout<<passLugg.size()<<endl;
-    for (int i = 0; i < passLugg.size(); i++) {
-        cout<<"colocando"<<endl;
-        stacklug.push(passLugg[i]);
-        cout << " Placing " << passLugg[i] << " in stack" << endl;
-        counter++;
-        if(counter==4){
+
+    for (int i = 0; i < lugvec.size(); i++) {
+
+        stacklug.push(lugvec[i]);
+        cout << " Placing " << lugvec[i] << " in stack" << endl;
+        stackcounter++;
+
+        if(stackcounter==4){
             cout<<"Max Stack"<<endl;
             bags.push(stacklug);
             while(!stacklug.empty()){
                 stacklug.pop();
             }
-            counter=0;
+            stackcounter=0;
         }
     }
     if(stacklug.size() > 0){
         cout << "Carriage has " << bags.size() << " stacks" << endl;
     }
 }
+*/
