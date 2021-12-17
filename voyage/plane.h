@@ -131,10 +131,6 @@ protected:
     friend class PlanePointer;
 public:
     /**Constructors*/
-    Plane(): plate(""), grounded(true){
-        cabin = new Cabin;
-        classes.clear();
-    };
     Plane(std::string p, uint16_t c):
         plate(std::move(p)), grounded(true){
         cabin->capacity = c;
@@ -144,6 +140,7 @@ public:
         plate(p), grounded(true), classes(v){
         cabin->capacity = c;
     };
+    explicit Plane(std::string id = "") : plate(std::move(id)){}
     ~Plane();
     /**Getters*/
     std::string getPlate() const{

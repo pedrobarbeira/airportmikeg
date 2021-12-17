@@ -129,13 +129,18 @@ public:
     /**
      * Adds an airport to the airports BST
      * @param a pointer to Airport that'll be added
-     * @return bool upon success, false otherwise
+     * @return result of the deletion
      */
     bool addAirport(Airport* a){
         AirportPointer aptr(a);
         return airports.insert(aptr);
     }
 
+    /**
+     * Deletes an airport from the airports BST
+     * @param a the airport to be deleted
+     * @return result of the deletion
+     */
     bool delAirport(Airport *a){
         AirportPointer aptr(a);
         return airports.remove(aptr);
@@ -186,8 +191,7 @@ public:
      * @param c poitner to the client account that'll be added
      * @return bool upon success. false otherwise
      */
-    bool addClient(Client* c){
-        ClientPointer cptr(c);
+    bool addClient(const ClientPointer& cptr){
         return clients.insert(cptr);
     }
 
@@ -201,6 +205,54 @@ public:
         return company.insert(cptr);
     }
 
+    /**
+     * Searches for a given Airport in the airports BST
+     * @param id the ID of the Airport to be found
+     * @return the result of the search
+     */
+    AirportPointer findAirport(const std::string& id) const;
+
+    /**
+     * Searches for a given Voyage in the voyages BST
+     * @param id the ID of the Voyage to be found
+     * @return the result of the search
+     */
+    Voyage* findVoyage(const std::string& id) const;
+
+    /**
+     * Searches for a given Flight in the airports BST
+     * @param id the ID of the Flight to be found
+     * @return the result of the search
+     */
+    FlightPointer findFlight(const std::string& id) const;
+
+    /**
+     * Searches for a given Plane in the planes BST
+     * @param id the ID of the Plane to be found
+     * @return the result of the search
+     */
+    Plane* findPlane(const std::string& id) const;
+
+    /**
+     * Searches for a given Ticket in the tickets BST
+     * @param id the ID of the ticket to be found
+     * @return the result of the sarch
+     */
+    Ticket* findTicket(const std::string& id) const;
+
+    /**
+     * Searches for a given client account in the clients BST
+     * @param id the ID of the client account to be found
+     * @return the result of the saerch
+     */
+    Client* findClient(const std::string& id) const;
+
+    /**
+     * Searches for a given company account in the company BST
+     * @param id the ID of the company account to be found
+     * @return the result of the search
+     */
+    Company* findCompany(const std::string& id) const;
 };
 
 class Load{
@@ -243,7 +295,9 @@ protected:
     Data* data;
 public:
     explicit Save(Data* d = nullptr) : data(d){}
-    void save() const;
+    virtual void save() const{
+        std::cout << "C++ doesn't have interfaces\n";
+    }
 };
 
 class SaveAirport : public Save{
@@ -285,7 +339,7 @@ public:
     explicit SaveAirport(Data* d = nullptr){
         data = d;
     }
-    void save() const;
+    void save() const override;
 
 };
 

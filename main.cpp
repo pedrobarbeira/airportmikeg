@@ -39,7 +39,7 @@ void testAirport(){
     porto->setTransport(b);
     porto->setTransport(m);
     cle1->checkWc();
-    auto date2 = new Date(18, 12, 21);
+    auto date2 = new Time(18, 12, 21, 0, 0, 0);
     cle1->checkSeats();
     porto->delService(date2);
     data->addAirport(porto);
@@ -113,7 +113,7 @@ void testPassenger() {
  */
 void testMenu(){
     MikeG main;
-    bool flag = true;
+    bool flag = false;
     main.start(flag);
 }
 

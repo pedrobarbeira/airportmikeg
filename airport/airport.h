@@ -91,7 +91,9 @@ class Airport{
     friend class Terminal;
     friend class Transport;
 public:
-    Airport() : transport(TransportPointer(nullptr)){};
+    explicit Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
+        transport(TransportPointer(nullptr)), idName(std::move(id)),
+        name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){}
     void setName(string name){this->name = name;}
     void setId(string id){idName = id;}
     void setCountry(string country){this->country = country;}
@@ -107,10 +109,11 @@ public:
         return complete;
     }
     ServiceTicket* nextService();
+    vector<Staff*> getStaff() const;
     void setTransport (TransportPointer transport);
     void delTransport (TransportPointer transport);
     void addService (ServiceTicket *service);
-    void delService (Date *date);
+    void delService (Time *date);
     vector<Transport*> getTransport() const;
     /*list<Time*>nextTransportMetro (Time *time) const;
     list<Time*>nextTransportBus (Time *time) const;

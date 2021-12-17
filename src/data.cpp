@@ -138,6 +138,60 @@ BST<FlightPointer> Data::getFlightBST() const{
     return ret;
 }
 
+AirportPointer Data::findAirport(const std::string& id) const{
+    Airport* a = new Airport(id);
+    AirportPointer find(a);
+    return airports.find(find);
+}
+
+Voyage* Data::findVoyage(const std::string& id) const{
+    Voyage* v = new Voyage(id);
+    VoyagePointer find(v);
+    find = voyages.find(find);
+    return find.getPointer();
+}
+
+FlightPointer Data::findFlight(const std::string& id) const{
+    FlightPointer ret(nullptr);
+    iteratorBST<AirportPointer> it = airports.begin();
+    while(it != airports.end()){
+        Flight* find = (*it).find(id);
+        if((*it).find(id) != nullptr) {
+            ret = FlightPointer(find);
+            break;
+        }
+        it++;
+    }
+    return ret;
+}
+
+Plane* Data::findPlane(const std::string& id) const{
+    Plane* p = new Plane(id);
+    PlanePointer find(p);
+    find = planes.find(find);
+    return find.getPointer();
+}
+
+Ticket* Data::findTicket(const std::string& id) const{
+    Ticket* t = new Ticket(id);
+    TicketPointer find(t);
+    find = tickets.find(find);
+    return find.getPointer();
+}
+
+Client* Data::findClient(const std::string& id) const{
+    Client* c = new Client(id);
+    ClientPointer find(c);
+    find = clients.find(find);
+    return find.getPointer();
+}
+
+Company* Data::findCompany(const std::string& id) const{
+    Company* c = new Company(id);
+    CompanyPointer find(c);
+    find = company.find(find);
+    return find.getPointer();
+}
 
 /**---SaveAirport---*/
 void SaveAirport::save() const {
@@ -163,17 +217,35 @@ void SaveAirport::saveAirport(AirportPointer aptr) const {
             << a->getName() << " " << a->getCountry() << " " << a->getCity() << "\n";
     std::vector<Flight *> saveFlights = aptr.getFlightsTo();
     for (auto flight : saveFlights) {
-        outfile << flight->getID() << " ";
+        outfile << flight->getId() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
     saveFlights = aptr.getFlightsTo();
     for (auto flight : saveFlights) {
-        outfile << flight->getID() << " ";
+        outfile << flight->getId() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
     outfile.close();
     try {
         saveTerminal(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveTransport(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveService(a);
+    }
+    catch(DevLog e){
+        e.print();
+    }
+    try {
+        saveStaff(a);
     }
     catch(DevLog e){
         e.print();
@@ -190,19 +262,50 @@ void SaveAirport::saveTerminal(Airport* a) const{
         if(it->getPlane() == nullptr) outfile << "nullptr";
         else outfile << it->getPlane()->getPlate() << " ";
     }
-    std::cout << '\n';
+    outfile << '\n';
+    outfile.close();
 }
 
 void SaveAirport::saveTransport(Airport* a) const{
+    std::ofstream outfile("./data/airports.txt", ios::app);
+    if(!outfile.is_open())
+        throw DevLog("SaveAirport::saveTransport() error opening outfile\n");
+    for(auto it : a->getTransport()){
+        outfile << it->getId() << " " << it->getType() << " "
+                << it->getDistance() << " " << it->getTime() << " ";
+    }
+    outfile << '\n';
+    outfile.close();
 }
 
-void SaveAirport::saveService(Airport* a) const{}
+void SaveAirport::saveService(Airport* a) const{
+    std::ofstream outfile(".data/airports.txt", ios::app);
+    if(!outfile.is_open())
+        throw DevLog("SaveAirport::saveService() error opening outfile\n");
+    for(auto it : a->getServices()){
+        outfile << it->getPlane()->getPlate() << " " << it->getSchedule() << " "
+                << it->getResponsible()->getId() << " " << it->getType();
+    }
+    outfile << '\n';
+    for(auto it : a->getCompleteServices()){
+        outfile << it->getPlane()->getPlate() << " " << it->getSchedule() << " "
+                << it->getCompleted() << " " << it->getResponsible()->getId()
+                << " " << it->getType();
+    }
+    outfile << '\n';
+}
 
 void SaveAirport::saveStaff(Airport* a) const{
     std::ofstream outfile("./data/service.txt");
     if(!outfile.is_open())
         throw DevLog("SaveAirport::saveStaff error opening outfile\n");
-
+    outfile << a->getidCode() << "(\n";
+    for(auto it : a->getStaff()){
+        outfile << it->getId() << " " << it->getName() << " "
+                << it->getPhone() << '\n';
+    }
+    outfile << ")\n";
+    outfile.close();
 }
 
 

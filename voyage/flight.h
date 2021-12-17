@@ -32,7 +32,7 @@ public:
     explicit Flight(TimePlace* o = nullptr, TimePlace* d = nullptr, Plane* p = nullptr);
     ~Flight();
     /**Getters*/
-    std::string getID() const{
+    std::string getId() const{
         return flightID;};
     TimePlace* getOrigin() const{
         return origin;};
@@ -41,8 +41,6 @@ public:
     Plane* getPlane() const{
         return plane;};
     /**Setters*/
-    void setId(std::string id){
-        flightID = id;};
     void defineId();
     void setOrigin(TimePlace* a){
         origin = a;};

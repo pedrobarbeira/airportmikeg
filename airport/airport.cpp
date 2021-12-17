@@ -97,6 +97,39 @@ vector<ServiceTicket*> Airport::getServices() {
     return temp;
 }
 
+vector<Staff*> Airport::getStaff() const {
+    vector<Staff *> ret;
+    queue<ServiceTicket *> s = services;
+    Staff *check;
+    bool found;
+    while (!s.empty()) {
+        check = s.front()->getResponsible();
+        found = false;
+        for (auto it: ret) {
+            if (check == it) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) ret.push_back(check);
+        s.pop();
+    }
+    for (auto it : complete) {
+        while (!s.empty()) {
+            check = s.front()->getResponsible();
+            found = false;
+            for (auto it: ret) {
+                if (check == it) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) ret.push_back(check);
+        }
+        return ret;
+    }
+}
+
 ServiceTicket* Airport::nextService() {
     return services.front();
 }
@@ -116,7 +149,7 @@ void Airport::addService(ServiceTicket *service) {
  * Method to set a service as complete and remove it from the front of the queue of services.
  * @param date
  */
-void Airport::delService(Date *date) {
+void Airport::delService(Time *date) {
     //services.front()->getResponsible();
     services.front()->setComplete(date);
     complete.push_back(services.front());
