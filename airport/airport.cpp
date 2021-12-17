@@ -282,7 +282,7 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tschedulled for "; nextService()->getSchedule()->printDate();
+                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
                     }
                     system("pause");
                     break;
@@ -294,12 +294,15 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tschedulled for "; nextService()->getSchedule()->printDate();
+                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
                     }
                     system("pause");
                     break;
                 }
             }
+            if (nextService()->getResponsible() == nullptr) cout << ".";
+            else cout << " under " << nextService()->getResponsible()->getName() << " (contact "
+                      << nextService()->getResponsible()->getPhone() << ".";
         }
     }
     std::cout <<"\n\n"; system("pause");

@@ -256,6 +256,8 @@ public:
     void workers();
     void addWorker();
     void delWorker();
+    void editWorker();
+    void moveWorker();
     void checkService();
 
     void travel();

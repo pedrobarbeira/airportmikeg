@@ -9,9 +9,13 @@ void Menu::mainScreen() {
 void Menu::print(std::vector<AirportPointer> v) const{
     system(CLEAR);
     std::cout << "\n\t::::::::::::::::::\n\t:::  AIRPORTS  :::\n\t::::::::::::::::::\n";
+    std::cout << "\t   IdCode  Name                                         Staff\n"
+              << "\t   ------  ----------                                 -------";
     for(int i = 0; i < v.size(); i++){
         std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
-                  << v[i].getPointer()->getidCode() << ", " << v[i].getPointer()->getName();
+                  << v[i].getPointer()->getidCode() << ", " << v[i].getPointer()->getName()
+                  << std::setw(52-v[i].getPointer()->getName().size())
+                  << std::setfill(' ') << v[i].getPointer()->getStaff().size();
     }
 }
 
@@ -37,13 +41,14 @@ void Menu::newWorker(Airport *airport){
     Staff *staff = new Staff;
     cout << "\n\tNew worker addition to airport:";
     std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
-    std::cout << "\n\tNew staff:\n\t\tId code >"; std::cin >> id; std::cin.ignore(INT32_MAX, '\n');
-    std::cout << "\n\t\tName >"; std::getline(std::cin, name);
+    std::cout << "\n\tNew staff:\n\t\tName >"; std::getline(std::cin, name);
     std::cout << "\n\t\tPhone >"; std::cin >> phone;
-    std::cout << "\n\n\tAdding (" << id << ") " << name << " with contact - " << phone;
+    std::cout << "\n\n\tAdding " << name << " with contact - " << phone;
     std::cout << "\n\n\tIs this correct?(y/n) >"; std::cin >> a;
     switch (a){
         case 'y': {
+            staff->setName(name); staff->setPhone(phone);
+            std::cout << "\n\tNew staff added with idNumber " << staff->getId() << ".";
             airport->addStaff(staff);
             system("pause");
             break;
@@ -410,7 +415,7 @@ void AdminMenu::mainScreen() {
                   << "\n\t[2] Worker Management"
                   << "\n\t[3] Travel Management"
                   << "\n\t[4] Plane Management"
-                  << "\n\t[0] Log Out\n"
+                  << "\n\n\t[0] Log Out\n"
                   << "\n>";
         std::cin >> c;
         switch(c){
@@ -531,13 +536,58 @@ void AdminMenu::checkAirport() {
         system("pause");
         return;
     }
-
 }
 
 
-void AdminMenu::workers() {}
-void AdminMenu::addWorker(){}
-void AdminMenu::delWorker(){}
+void AdminMenu::workers() {
+    char c;
+    while(true) {
+        system(CLEAR);
+        std::cout << "[WORKER]\n"
+                  << "\n\t[1] Add Worker"
+                  << "\n\t[2] Delete Worker"
+                  << "\n\t[3] Edit Worker"
+                  << "\n\t[4] Move worker"
+                  << "\n\t[5] Check ServiceTicket"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': addWorker(); break;
+            case '2': delWorker(); break;
+            case '3': editWorker(); break;
+            case '4': moveWorker(); break;
+            case '5': checkService(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
+}
+
+void AdminMenu::addWorker(){
+    system(CLEAR);
+    Airport *airport = selectAirport().getPointer();
+    newWorker(airport);
+    system("pause");
+    return;
+}
+void AdminMenu::delWorker(){
+    char a;
+    system(CLEAR);
+    Airport *airport = selectAirport().getPointer();
+    Staff *staff = selectStaff(airport->getStaff());
+    std::cout << "\n\tConfirm deletion of " << staff->getName() << " currently at " << airport->getName()<< "?(y/n)\n";
+    while(true){
+        std::cout << ">"; std::cin >> a;
+        switch (a){
+            case 'y' : airport->delStaff(staff); std::cout << "\n\n\tDeletion complete."; system("pause"); return;
+            case 'n' : std::cout << "\n\n\tElimination of " << staff->getName() << " from " << airport->getName() << "cancelled."; return;
+            default: std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, '\n'); system("pause");
+        }
+    }
+}
+void AdminMenu::editWorker() {}
+void AdminMenu::moveWorker() {}
 void AdminMenu::checkService(){}
 
 void AdminMenu::travel() {}

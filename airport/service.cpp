@@ -15,7 +15,9 @@ void Staff::setId() {
 }
 
 void Staff::setPhone(unsigned phone) {
-    if (phone > 999999999 | phone < 910000000) throw InvalidNumber();
+    if (phone > 999999999 | phone < 910000000) {/*throw InvalidNumber()*/;
+        std::cout << "\t Invalid number";
+    }
     else this->phone = phone;
 }
 

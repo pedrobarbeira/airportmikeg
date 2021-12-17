@@ -22,6 +22,7 @@ public:
         this->name = name; id = staffId++;};
     unsigned getId() const;
     void setId();
+    void setName(string name){this->name = name;}
     void setPhone (unsigned n);
     string getName() const;
     unsigned getPhone() const;
@@ -29,7 +30,7 @@ public:
         return id < rhs.id;
     }
 };
-
+/*
 class InvalidNumber : public exception{
 private:
     string e;
@@ -40,7 +41,7 @@ public:
     string getError() const{
         return e;
     }
-};
+};*/
 
 
 class ServiceTicket{
