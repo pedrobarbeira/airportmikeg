@@ -8,8 +8,6 @@
 
 
 void buyTicket(vector<Ticket*> tickets);
-void listBilhetes(vector<Ticket*> tickets);
-
-void fazerpilha(queue<stack<Luggage*>> bags, vector<Luggage*> passLugg);
+void makingstack(queue<stack<Luggage*>> bags, vector<Luggage*> passLugg);
 
 #endif //MIKEGAIRLINES_FUNCOES_H
