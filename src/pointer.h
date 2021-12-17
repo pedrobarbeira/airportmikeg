@@ -94,6 +94,9 @@ public:
     std::vector<Flight*> getFlightsFrom(Date* min) const;
     std::vector<Flight*> getFlightsFrom(Date* min, Date* max) const;
     std::vector<FlightPointer>getFlights() const;
+    BST<FlightPointer> getFlightBST() const{
+        return inFlights;
+    }
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
         FlightPointer fptr(f);
@@ -111,7 +114,9 @@ public:
     }
 };
 
-
+/**
+ * Encapsulation class for the Client class
+ */
 class ClientPointer : public BSTPointer<Client>{
 public:
     explicit ClientPointer(Client* u = nullptr){
@@ -122,6 +127,9 @@ public:
     }
 };
 
+/**
+ * Encapsulation class for the Company class
+ */
 class CompanyPointer : public BSTPointer<Company>{
 public:
     explicit CompanyPointer(Company* u = nullptr){

@@ -14,9 +14,9 @@ class Data{
     BST<AirportPointer> airports;
     BST<VoyagePointer> voyages;
     BST<PlanePointer> planes;
+    BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
-    BST<TicketPointer> tickets;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -26,16 +26,33 @@ public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
              voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)){}
-    //Turn these to return vectors with information
+
     std::vector<AirportPointer> getAirports() const;
+    std::vector<Voyage*> getVoyages() const;
     std::vector<FlightPointer> getFlights() const;
+    std::vector<Plane*> getPlanes() const;
+    std::vector<Ticket*> getTickets() const;
+    std::vector<Client*> getClients() const;
+    std::vector<Company*> getCompany() const;
+
     BST<AirportPointer> getAirportBST() const{
         return airports;
     }
-    BST<VoyagePointer> getVoyages() const{
+    BST<VoyagePointer> getVoyageBST() const{
         return voyages;};
-    BST<PlanePointer> getPlanes() const{
+    BST<PlanePointer> getPlaneBST() const{
         return planes;};
+    BST<FlightPointer> getFlightBST() const;
+    BST<TicketPointer> getTicketsBST() const{
+        return tickets;
+    }
+    BST<ClientPointer> getClientsBST() const{
+        return clients;
+    }
+    BST<CompanyPointer> getCompanyBST() const{
+        return company;
+    }
+
     bool addAirport(Airport* a){
         AirportPointer aptr(a);
         return airports.insert(aptr);
@@ -52,6 +69,14 @@ public:
     bool addTicket(Ticket* t){
         TicketPointer tptr(t);
         return tickets.insert(tptr);
+    }
+    bool addClient(Client* c){
+        ClientPointer cptr(c);
+        return clients.insert(cptr);
+    }
+    bool addCompany(Company* c){
+        CompanyPointer cptr(c);
+        return company.insert(cptr);
     }
 };
 
