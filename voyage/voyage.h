@@ -25,20 +25,19 @@ class Voyage{
     std::list<FlightPointer> route;
 public:
     /**Constructor*/
-    Voyage(Flight* f){
+    explicit Voyage(Flight* f = nullptr){
         FlightPointer fptr(f);
         route.push_back(fptr);
     }
-    ~Voyage();
     /**Getters*/
     std::list<std::vector<Ticket*>> getTickets() const{
         std::list<std::vector<Ticket*>> ret;
-        for(auto flight : route){
+        for(const auto& flight : route){
             ret.push_back(flight.getTickets());
         }
         return ret;
     };
-    std::list<FlightPointer> getRoute(){
+    std::list<FlightPointer> getRoute() const{
         return route;};
     TimePlace* getOrigin() const{
         return route.front().getPointer()->getOrigin();};
@@ -69,7 +68,7 @@ public:
     explicit VoyagePointer(Voyage* v = nullptr){
         pointer = v;
     }
-    bool operator==(std::string id) const{
+    bool operator==(const std::string& id) const{
         return pointer->getId() == id;
     }
 };

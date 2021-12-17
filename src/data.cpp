@@ -57,6 +57,16 @@ std::vector<AirportPointer> Data::getAirports() const{
     return ret;
 }
 
+std::vector<Voyage*> Data::getVoyages() const{
+    std::vector<Voyage*> ret;
+    iteratorBST<VoyagePointer> it = voyages.begin();
+    while(it != voyages.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
 std::vector<FlightPointer> Data::getFlights() const{
     std::vector<FlightPointer> ret;
     AirportPointer airport;
@@ -67,6 +77,63 @@ std::vector<FlightPointer> Data::getFlights() const{
         std::vector<FlightPointer> load = airport.getFlights();
         ret.insert(ret.end(), load.begin(), load.end());
         aptr++;
+    }
+    return ret;
+}
+
+std::vector<Plane*> Data::getPlanes() const{
+    std::vector<Plane*> ret;
+    iteratorBST<PlanePointer> it = planes.begin();
+    while(it != planes.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
+std::vector<Ticket*> Data::getTickets() const{
+    std::vector<Ticket*> ret;
+    iteratorBST<TicketPointer> it = tickets.begin();
+    while(it != tickets.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
+std::vector<Client*> Data::getClients() const{
+    std::vector<Client*> ret;
+    iteratorBST<ClientPointer> it = clients.begin();
+    while(it != clients.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
+std::vector<Company*> Data::getCompany() const{
+    std::vector<Company*> ret;
+    iteratorBST<CompanyPointer> it = company.begin();
+    while(it != company.end()){
+        ret.push_back((*it).getPointer());
+        it++;
+    }
+    return ret;
+}
+
+BST<FlightPointer> Data::getFlightBST() const{
+    BST<FlightPointer> ret(FlightPointer(nullptr));
+    iteratorBST<AirportPointer> it = airports.begin();
+    AirportPointer airport;
+    while(it != airports.begin()){
+        airport = (*it);
+        BST<FlightPointer> flights = airport.getFlightBST();
+        iteratorBST<FlightPointer> flight = flights.begin();
+        while(flight != flights.end()){
+            ret.insert((*flight));
+            flight++;
+        }
+        it++;
     }
     return ret;
 }
@@ -86,7 +153,6 @@ void SaveAirport::save() const {
         it++;
     }
 }
-
 
 void SaveAirport::saveAirport(AirportPointer aptr) const {
     std::ofstream outfile("./data/airports.txt");
@@ -128,7 +194,6 @@ void SaveAirport::saveTerminal(Airport* a) const{
 }
 
 void SaveAirport::saveTransport(Airport* a) const{
-    
 }
 
 void SaveAirport::saveService(Airport* a) const{}

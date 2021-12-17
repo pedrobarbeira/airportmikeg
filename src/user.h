@@ -54,6 +54,15 @@ public:
         passenger = psgr;
         type = t;
     }
+    uint16_t getMiles() const{
+        return miles;
+    }
+    Passenger* getPassenger() const{
+        return passenger;
+    }
+    vector<Ticket*> getTickets() const{
+        return tickets;
+    }
     bool operator==(const Client& rhs) const{
         return username == rhs.username;
     }
@@ -71,6 +80,9 @@ public:
         password = std::move(p);
         airport = nullptr;
         type = t;
+    }
+    Airport* getAirport() const{
+        return airport;
     }
     bool operator==(const Company& rhs) const{
         return username == rhs.username;
@@ -112,6 +124,9 @@ public:
         plane = pln;
         type = t;
     }
+    Plane* getPlane() const{
+        return plane;
+    }
 };
 
 class Service : public Company{
@@ -126,6 +141,15 @@ public:
         airport = a;
         type = t;
         completedServices.clear();
+    }
+    Staff* getStaff() const{
+        return staff;
+    }
+    std::queue<ServiceTicket*> getService() const{
+        return serviceList;
+    }
+    std::list<ServiceTicket*> getCompleted() const{
+        return completedServices;
     }
 };
 
