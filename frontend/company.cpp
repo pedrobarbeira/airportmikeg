@@ -63,7 +63,7 @@ void airport(){
 ////////// Airport menu functions
 
 void createAirport() {
-    Airport *airport = new Airport;
+ //   Airport *airport = new Airport;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     system(CLEAR);
     string id, name, city, country;
@@ -78,7 +78,7 @@ void createAirport() {
               << "\n        at " << city << ", " << country
               << "\n    Is this information correct(y/n)?\n\n >"; std::cin >> a;
     if (tolower(a) == 'y') {
-        airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
+//        airport->setId(id); airport->setCountry(country); airport->setCity(city); airport->setName(name);
         //data->addAirport(airport);
     }
     else {

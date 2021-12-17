@@ -91,8 +91,7 @@ class Airport{
     friend class Terminal;
     friend class Transport;
 public:
-    Airport() : transport(TransportPointer(nullptr)){};
-    Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
+    explicit Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
         transport(TransportPointer(nullptr)), idName(std::move(id)),
         name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){}
     void setName(string name){this->name = name;}

@@ -13,7 +13,7 @@ class Ticket {
     Passenger* owner;
 public:
     explicit Ticket(Seat* s= nullptr);
-    Ticket(std::string id) : ticketId(std::move(id)){}
+    Ticket(std::string id) : ticketID(std::move(id)){}
     string getID() const;
     Passenger* getOwner() const;
     Seat* getSeat() const;

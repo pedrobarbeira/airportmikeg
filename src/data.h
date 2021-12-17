@@ -129,13 +129,18 @@ public:
     /**
      * Adds an airport to the airports BST
      * @param a pointer to Airport that'll be added
-     * @return bool upon success, false otherwise
+     * @return result of the deletion
      */
     bool addAirport(Airport* a){
         AirportPointer aptr(a);
         return airports.insert(aptr);
     }
 
+    /**
+     * Deletes an airport from the airports BST
+     * @param a the airport to be deleted
+     * @return result of the deletion
+     */
     bool delAirport(Airport *a){
         AirportPointer aptr(a);
         return airports.remove(aptr);
@@ -200,7 +205,7 @@ public:
         CompanyPointer cptr(c);
         return company.insert(cptr);
     }
-    
+
     /**
      * Searches for a given Airport in the airports BST
      * @param id the ID of the Airport to be found
