@@ -24,6 +24,9 @@ public:
     void setPhone (unsigned n);
     string getName() const;
     unsigned getPhone() const;
+    bool operator<(const Staff& rhs) const{
+        return id < rhs.id;
+    }
 };
 
 class InvalidNumber : public exception{

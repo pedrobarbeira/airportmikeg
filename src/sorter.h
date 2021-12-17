@@ -58,6 +58,10 @@ public:
 /**---Voyage Sorter---*/
 class VoyageSorter{
 
+public:
+    VoyageSorter() = default;
+    void operator()(std::vector<Voyage*>& data, char c, bool asc);
+
 };
 
 /**---Airport Sorter---*/
@@ -85,11 +89,11 @@ class AirportSorter{
 public:
     AirportSorter() = default;
     void operator()(std::vector<AirportPointer>& data, char c, bool as);
-
 };
 
 /**---User Sorter---*/
 class UserSorter{
+protected:
     static bool nameAscending(const User* u1, const User* u2);
     static bool nameDescending(const User* u1, const User* u2);
     static bool passAscending(const User* u1, const User* u2);
@@ -105,12 +109,12 @@ public:
 
 /**---Client Sorter---*/
 class ClientSorter : public UserSorter{
-    static bool milesAscending(const Client& c1, const Client& c2);
-    static bool milesDescending(const Client& c1, const Client& c2);
-    static bool passengerAscending(const Client& c1, const Client& c2);
-    static bool passengerDescending(const Client& c1, const Client& c2);
-    static bool ticketAscending(const Client& c1, const Client& c2);
-    static bool ticketDescending(const Client& c1, const Client& c2);
+    static bool milesAscending(const Client* c1, const Client* c2);
+    static bool milesDescending(const Client* c1, const Client* c2);
+    static bool passengerAscending(const Client* c1, const Client* c2);
+    static bool passengerDescending(const Client* c1, const Client* c2);
+    static bool ticketAscending(const Client* c1, const Client* c2);
+    static bool ticketDescending(const Client* c1, const Client* c2);
 public:
     ClientSorter() = default;
     void operator()(std::vector<Client*>& data, char c, bool asc);
@@ -119,28 +123,40 @@ public:
 
 /**---Company Sorter---*/
 class CompanySorter : public UserSorter{
-    static bool airportAscending(const Company& c1, const Company& c2);
-    static bool airportDescending(const Company& c1, const Company& c2);
+protected:
+    static bool airportAscending(const Company* c1, const Company* c2);
+    static bool airportDescending(const Company* c1, const Company* c2);
+public:
+    CompanySorter() = default;
+    void operator()(std::vector<Company*>& data, char c, bool asc);
 };
 
 class ManagerSorter : public CompanySorter{
-
+public:
+    ManagerSorter() = default;
+    void operator()(std::vector<Manager*>& data, char c, bool asc);
 };
 
 /**---Boarding Sorter---*/
 class BoardingSorter : public CompanySorter{
-    static bool planeAscending(const Plane* c1, const Plane* c2);
-    static bool planeDescending(const Plane* c1, const Plane* c2);
+    static bool planeAscending(const Boarding* c1, const Boarding* c2);
+    static bool planeDescending(const Boarding* c1, const Boarding* c2);
+public:
+    BoardingSorter() = default;
+    void operator()(std::vector<Boarding*>& data, char c, bool asc);
 };
 
 /**---Service Sorter---*/
 class ServiceSorter : public CompanySorter{
-    static bool staffAscending(const Staff* c1, const Staff* c2);
-    static bool staffDescending(const Staff* c1, const Staff* c2);
+    static bool staffAscending(const Service* c1, const Service* c2);
+    static bool staffDescending(const Service* c1, const Service* c2);
     static bool toDoAscending(const Service* c1, const Service* c2);
     static bool toDoDescending(const Service* c1, const Service* c2);
-    static bool completedAscending(const std::list<ServiceTicket*>& c1, const std::list<ServiceTicket*>& c2);
-    static bool completedDescending(const std::list<ServiceTicket*>& c1, const std::list<ServiceTicket*>& c2);
+    static bool completedAscending(const Service* c1, const Service* c2);
+    static bool completedDescending(const Service* c1, const Service* c2);
+public:
+    ServiceSorter() = default;
+    void operator()(std::vector<Service*>& data, char c, bool asc);
 };
 
 

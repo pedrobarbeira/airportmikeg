@@ -466,21 +466,309 @@ bool UserSorter::dateDescending(const User *u1, const User *u2) {
 }
 void UserSorter::operator()(std::vector<User*>& data, char c, bool asc) {
     switch(c){
-        case 'A' :
+        case '0' :
             if(asc) sort(data.begin(), data.end(), nameAscending);
             else sort(data.begin(), data.end(), nameDescending);
             break;
-        case 'P' :
+        case '1' :
             if(asc) sort(data.begin(), data.end(), passAscending);
             else sort(data.begin(), data.end(), passDescending);
             break;
-        case 'T' :
+        case '2' :
             if(asc) sort(data.begin(), data.end(), typeAscending);
             else sort(data.begin(), data.end(), typeDescending);
             break;
-        case 'D' :
+        case '3' :
             if(asc) sort(data.begin(), data.end(), dateAscending);
             else sort(data.begin(), data.end(), dateDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
+/**---Client Sorter---*/
+bool ClientSorter::milesAscending(const Client* c1, const Client* c2){
+    int comp1 = c1->getMiles();
+    int comp2 = c2->getMiles();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool ClientSorter::milesDescending(const Client* c1, const Client* c2){
+    int comp1 = c1->getMiles();
+    int comp2 = c2->getMiles();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool ClientSorter::passengerAscending(const Client* c1, const Client* c2){
+    return c1->getPassenger()->getName() < c2->getPassenger()->getName();
+}
+bool ClientSorter::passengerDescending(const Client* c1, const Client* c2){
+    return c2->getPassenger()->getName() < c1->getPassenger()->getName();
+}
+bool ClientSorter::ticketAscending(const Client* c1, const Client* c2){
+    int comp1 = c1->getTickets().size();
+    int comp2 = c2->getTickets().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool ClientSorter::ticketDescending(const Client* c1, const Client* c2){
+    int comp1 = c1->getTickets().size();
+    int comp2 = c2->getTickets().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+void ClientSorter::operator()(std::vector<Client*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '1' :
+            if(asc) sort(data.begin(), data.end(), passAscending);
+            else sort(data.begin(), data.end(), passDescending);
+            break;
+        case '2' :
+            if(asc) sort(data.begin(), data.end(), typeAscending);
+            else sort(data.begin(), data.end(), typeDescending);
+            break;
+        case '3' :
+            if(asc) sort(data.begin(), data.end(), dateAscending);
+            else sort(data.begin(), data.end(), dateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), milesAscending);
+            else sort(data.begin(), data.end(), milesDescending);
+            break;
+        case '5':
+            if(asc) sort(data.begin(), data.end(), passengerAscending);
+            else sort(data.begin(), data.end(), passengerDescending);
+            break;
+        case '6':
+            if(asc) sort(data.begin(), data.end(), ticketAscending);
+            else sort(data.begin(), data.end(), ticketDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
+/**---Company Sorter---*/
+bool CompanySorter::airportAscending(const Company* c1, const Company* c2){
+    Airport* comp1 = c1->getAirport();
+    Airport* comp2 = c2->getAirport();
+    if(comp1 != comp2)
+        return *comp1 < *comp2;
+    else return *c1 < *c2;
+}
+bool CompanySorter::airportDescending(const Company* c1, const Company* c2){
+    Airport* comp1 = c1->getAirport();
+    Airport* comp2 = c2->getAirport();
+    if(comp1 != comp2)
+        return *comp2 < *comp1;
+    else return *c2 < *c1;
+}
+void CompanySorter::operator()(std::vector<Company*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '1' :
+            if(asc) sort(data.begin(), data.end(), passAscending);
+            else sort(data.begin(), data.end(), passDescending);
+            break;
+        case '2' :
+            if(asc) sort(data.begin(), data.end(), typeAscending);
+            else sort(data.begin(), data.end(), typeDescending);
+            break;
+        case '3' :
+            if(asc) sort(data.begin(), data.end(), dateAscending);
+            else sort(data.begin(), data.end(), dateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), airportAscending);
+            else sort(data.begin(), data.end(), airportDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
+/**---Manager Sorter---*/
+void ManagerSorter::operator()(std::vector<Manager*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '1' :
+            if(asc) sort(data.begin(), data.end(), passAscending);
+            else sort(data.begin(), data.end(), passDescending);
+            break;
+        case '2' :
+            if(asc) sort(data.begin(), data.end(), typeAscending);
+            else sort(data.begin(), data.end(), typeDescending);
+            break;
+        case '3' :
+            if(asc) sort(data.begin(), data.end(), dateAscending);
+            else sort(data.begin(), data.end(), dateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), airportAscending);
+            else sort(data.begin(), data.end(), airportDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
+/**---Boarding Sorter---*/
+bool BoardingSorter::planeAscending(const Boarding* c1, const Boarding* c2){
+    Plane* comp1 = c1->getPlane();
+    Plane* comp2 = c2->getPlane();
+    if(comp1 != comp2)
+        return *comp1 < *comp2;
+    else return *c1 < *c2;
+}
+bool BoardingSorter::planeDescending(const Boarding* c1, const Boarding* c2){
+    Plane* comp1 = c1->getPlane();
+    Plane* comp2 = c2->getPlane();
+    if(comp1 != comp2)
+        return *comp2 < *comp1;
+    else return *c2 < *c1;
+}
+void BoardingSorter::operator()(std::vector<Boarding*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '1' :
+            if(asc) sort(data.begin(), data.end(), passAscending);
+            else sort(data.begin(), data.end(), passDescending);
+            break;
+        case '2' :
+            if(asc) sort(data.begin(), data.end(), typeAscending);
+            else sort(data.begin(), data.end(), typeDescending);
+            break;
+        case '3' :
+            if(asc) sort(data.begin(), data.end(), dateAscending);
+            else sort(data.begin(), data.end(), dateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), airportAscending);
+            else sort(data.begin(), data.end(), airportDescending);
+            break;
+        case '5':
+            if(asc) sort(data.begin(), data.end(), planeAscending);
+            else sort(data.begin(), data.end(), planeDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
+
+/**---Service Sorter---*/
+bool ServiceSorter::staffAscending(const Service* c1, const Service* c2){
+    Staff* comp1 = c1->getStaff();
+    Staff* comp2 = c2->getStaff();
+    if(comp1 != comp2)
+        return *comp1 < *comp2;
+    else return *c1 < *c2;
+}
+bool ServiceSorter::staffDescending(const Service* c1, const Service* c2){
+    Staff* comp1 = c1->getStaff();
+    Staff* comp2 = c2->getStaff();
+    if(comp1 != comp2)
+        return *comp2 < *comp1;
+    else return *c2 < *c1;
+}
+bool ServiceSorter::toDoAscending(const Service* c1, const Service* c2){
+    int comp1 = c1->getService().size();
+    int comp2 = c2->getService().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool ServiceSorter::toDoDescending(const Service* c1, const Service* c2){
+    int comp1 = c1->getService().size();
+    int comp2 = c2->getService().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool ServiceSorter::completedAscending(const Service* c1, const Service* c2){
+    int comp1 = c1->getCompleted().size();
+    int comp2 = c2->getCompleted().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool ServiceSorter::completedDescending(const Service* c1, const Service* c2){
+    int comp1 = c1->getCompleted().size();
+    int comp2 = c2->getCompleted().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+void ServiceSorter::operator()(std::vector<Service*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), nameAscending);
+            else sort(data.begin(), data.end(), nameDescending);
+            break;
+        case '1' :
+            if(asc) sort(data.begin(), data.end(), passAscending);
+            else sort(data.begin(), data.end(), passDescending);
+            break;
+        case '2' :
+            if(asc) sort(data.begin(), data.end(), typeAscending);
+            else sort(data.begin(), data.end(), typeDescending);
+            break;
+        case '3' :
+            if(asc) sort(data.begin(), data.end(), dateAscending);
+            else sort(data.begin(), data.end(), dateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), airportAscending);
+            else sort(data.begin(), data.end(), airportDescending);
+            break;
+        case '5':
+            if(asc) sort(data.begin(), data.end(), staffAscending);
+            else sort(data.begin(), data.end(), staffDescending);
+            break;
+        case '8':
+            if(asc) sort(data.begin(), data.end(), toDoAscending);
+            else sort(data.begin(), data.end(), toDoDescending);
+            break;
+        case '7':
+            if(asc) sort(data.begin(), data.end(), completedAscending);
+            else sort(data.begin(), data.end(), completedDescending);
             break;
         default:
             std::cout << "Invalid sorting order\n\n"
