@@ -191,8 +191,9 @@ public:
      * @param c poitner to the client account that'll be added
      * @return bool upon success. false otherwise
      */
-    bool addClient(const ClientPointer& cptr){
-        return clients.insert(cptr);
+    bool addClient(Client* c){
+        ClientPointer cptr(c);
+        clients.insert(cptr);
     }
 
     /**
@@ -284,10 +285,13 @@ public:
 };
 
 class LoadUser : public Load{
+    void loadClient();
+    void loadCompany();
 public:
     explicit LoadUser(Data* d = nullptr){
         data = d;
     }
+    void load();
 };
 
 class Save{
@@ -295,9 +299,7 @@ protected:
     Data* data;
 public:
     explicit Save(Data* d = nullptr) : data(d){}
-    virtual void save() const{
-        std::cout << "C++ doesn't have interfaces\n";
-    }
+    virtual void save() const;
 };
 
 class SaveAirport : public Save{
@@ -305,31 +307,31 @@ class SaveAirport : public Save{
      * Saves all the information of a given Airprort in text files
      * @param a pointer to the Airport
      */
-    void saveAirport(AirportPointer a) const;
+    static void saveAirport(AirportPointer a);
 
     /**
      * Saves all the Terminal-related information of an Airport  in a text file
      * @param a pointer to the Airport
      */
-    void saveTerminal(Airport* a) const;
+    static void saveTerminal(Airport* a);
 
     /**
      * Saves all the Transport-related information of an Airport  in a text file
      * @param a pointer to the Airport
      */
-    void saveTransport(Airport* a) const;
+    static void saveTransport(Airport* a);
 
     /**
      * Saves all the ServiceTicket-related information of an Airport  in a text file
      * @param a pointer to the Airport
      */
-    void saveService(Airport* a) const;
+    static void saveService(Airport* a);
 
     /**
      * Saves all the Staff-related information of an Airport in a text file
      * @param a pointer to the Airport
      */
-    void saveStaff(Airport* a) const;
+    static void saveStaff(Airport* a);
 public:
     /**
      * Constructor for SaveAirport class. Receives a pointer to a data
@@ -358,16 +360,18 @@ public:
 };
 
 class SaveUser : public Save{
+    void saveClient() const;
+    void saveCompany() const;
+    static void saveTickets(Client* c);
+    void saveAdmin() const;
+    void saveBoarding() const;
+    void saveService() const;
 public:
     explicit SaveUser(Data* d = nullptr){
         data = d;
     }
-    void saveClient() const;
-    void saveAdmin() const;
-    void savemanager() const;
-    void saveBoarding() const;
-    void saveService() const;
-    void saveServiceList() const;
+    void save() const override;
+
 };
 
 #endif //MAIN_CPP_DATA_H

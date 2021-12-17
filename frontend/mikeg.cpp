@@ -3,7 +3,7 @@
 #include "iostream"
 #include "mikeg.h"
 
-ostream& operator<<(ostream& out, LoadFail lf){
+ostream& operator<<(ostream& out, Fail lf){
     out << lf.getError();
     return out;
 }
@@ -96,19 +96,17 @@ void MikeG::start(bool& flag) {
  * @return the proper menu if the account data is in the system, nullptr otherwise.
  */
 Menu* MikeG::logIn() {
+    system(CLEAR);
     std::string user, pass;
     std::cin.ignore();
-
-    std::cout << "\n\n\n\n\n"
-              << "Username\n>";
+    std::cout << "Username\n>";
     readInput(user);
     std::cout << "Password\n>";
     readInput(pass);
     bool flag = true;
-    CompanyPointer searchCompany(new Company(user));
-    searchCompany = data->company.find(searchCompany);
+    Company* searchCompany = data->findCompany(user);
     char c;
-    if (searchCompany.getPointer() == nullptr) {
+    if (searchCompany == nullptr) {
         Client* searchClient = data->findClient(user);
         if (searchClient != nullptr) {
             if ((*searchClient).getPassword() == pass)
@@ -118,10 +116,10 @@ Menu* MikeG::logIn() {
         if ((*searchCompany).getPassword() == pass) {
             c = (*searchCompany).getType();
             switch (c) {
-                case 'A' : return new AdminMenu(searchCompany.getPointer(), data);
-                case 'M' : return new ManagerMenu(searchCompany.getPointer(), data);
-                case 'B' : return new BoardingMenu(searchCompany.getPointer(), data);
-                case 'S' : return new ServiceMenu(searchCompany.getPointer(), data);
+                case 'A' : return new AdminMenu(searchCompany, data);
+                case 'M' : return new ManagerMenu(searchCompany, data);
+                case 'B' : return new BoardingMenu(searchCompany, data);
+                case 'S' : return new ServiceMenu(searchCompany, data);
             }
         }
     }
@@ -166,8 +164,7 @@ void MikeG::loadUsers(){
     while(infile >> uName){
         infile >> uPass >> uType;
         Company* c = new Company(uName, uPass, uType);
-        CompanyPointer cptr(c);
-        data->company.insert(cptr);
+        data->addCompany(c);
     }
     infile.close();
 
@@ -191,7 +188,7 @@ bool MikeG::load(){
     try {
         //loadAirport();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e << ", ";
         successful = false;
@@ -199,7 +196,7 @@ bool MikeG::load(){
     try {
         //loadVoyage();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e << ", ";
         successful = false;
@@ -207,7 +204,7 @@ bool MikeG::load(){
     try {
         //loadFlight();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e << ", ";
         successful = false;
@@ -215,7 +212,7 @@ bool MikeG::load(){
     try {
         //loadPlane();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e << ", ";
         successful = false;
@@ -223,7 +220,7 @@ bool MikeG::load(){
     try{
         //loadTicket();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e << ", ";
         successful = false;
@@ -231,7 +228,7 @@ bool MikeG::load(){
     try{
         loadUsers();
     }
-    catch (LoadFail e){
+    catch (Fail e){
         std::cout << e << '\n';
         error << e;
         successful = false;

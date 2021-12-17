@@ -126,7 +126,6 @@ public:
     void save(bool flag);
 };
 
-
 /**
  * Frontend class that handles Registered Client menus
  */

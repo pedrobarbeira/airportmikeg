@@ -43,11 +43,11 @@ public:
 //Lets keep this on the "maybe pile" for now
 class Client : public User{
     uint16_t miles;
-    Passenger* passenger;
-    vector<Ticket*> tickets;
+    std::string passenger;
+    vector<std::string> tickets;
     friend class ClientPointer;
 public:
-    explicit Client(std::string u = "", std::string p = "", char t = '\0', uint16_t m = 0, Passenger* psgr = nullptr) : miles(m){
+    explicit Client(std::string u = "", std::string p = "", char t = '\0', uint16_t m = 0, std::string psgr = "") : miles(m){
         username = std::move(u);
         password = std::move(p);
         tickets.clear();
@@ -57,11 +57,14 @@ public:
     uint16_t getMiles() const{
         return miles;
     }
-    Passenger* getPassenger() const{
+    std::string getPassenger() const{
         return passenger;
     }
-    vector<Ticket*> getTickets() const{
+    vector<std::string> getTickets() const{
         return tickets;
+    }
+    void setTickets(std::vector<std::string> v){
+        tickets = v;
     }
     bool operator==(const Client& rhs) const{
         return username == rhs.username;
@@ -74,6 +77,10 @@ public:
 class Company : public User{
 protected:
     Airport* airport;
+    Plane* plane;
+    Staff* staff;
+    std::queue<ServiceTicket*> serviceList;
+    std::list<ServiceTicket*> completedServices;
 public:
     explicit Company(std::string u = "", std::string p = "", char t = '\0'){
         username = std::move(u);
@@ -84,13 +91,28 @@ public:
     Airport* getAirport() const{
         return airport;
     }
+    Staff* getStaff() const{
+        return staff;
+    }
+    std::queue<ServiceTicket*> getService() const{
+        return serviceList;
+    }
+    std::list<ServiceTicket*> getCompleted() const{
+        return completedServices;
+    }
+    Plane* getPlane() const{
+        return plane;
+    }
     bool operator==(const Company& rhs) const{
         return username == rhs.username;
     }
     bool operator<(const Company& rhs) const{
-        if(type == rhs.type)
-            return username < rhs.username;
-        else return type < rhs.type;
+        if(type != '\0' && rhs.type != '\0'){
+            if(type == rhs.type)
+                return username < rhs.username;
+            else return type < rhs.type;
+        }
+        return username < rhs.username;
     }
 };
 
@@ -115,7 +137,6 @@ public:
 };
 
 class Boarding : public Company{
-    Plane* plane;
 public:
     explicit Boarding(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr){
         username = std::move(u);
@@ -124,15 +145,9 @@ public:
         plane = pln;
         type = t;
     }
-    Plane* getPlane() const{
-        return plane;
-    }
 };
 
 class Service : public Company{
-    Staff* staff;
-    std::queue<ServiceTicket*> serviceList;
-    std::list<ServiceTicket*> completedServices;
 public:
     explicit Service(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
         staff = nullptr;
@@ -142,15 +157,7 @@ public:
         type = t;
         completedServices.clear();
     }
-    Staff* getStaff() const{
-        return staff;
-    }
-    std::queue<ServiceTicket*> getService() const{
-        return serviceList;
-    }
-    std::list<ServiceTicket*> getCompleted() const{
-        return completedServices;
-    }
+
 };
 
 

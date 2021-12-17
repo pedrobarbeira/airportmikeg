@@ -631,10 +631,10 @@ bool ClientSorter::milesDescending(const Client* c1, const Client* c2){
     else return *c2 < *c1;
 }
 bool ClientSorter::passengerAscending(const Client* c1, const Client* c2){
-    return c1->getPassenger()->getName() < c2->getPassenger()->getName();
+    return c1->getPassenger() < c2->getPassenger();
 }
 bool ClientSorter::passengerDescending(const Client* c1, const Client* c2){
-    return c2->getPassenger()->getName() < c1->getPassenger()->getName();
+    return c2->getPassenger() < c1->getPassenger();
 }
 bool ClientSorter::ticketAscending(const Client* c1, const Client* c2){
     int comp1 = c1->getTickets().size();

@@ -31,52 +31,67 @@ public:
 /**
  * Communicate to DevLogs if any problem happens while loading Airline data
  */
-class LoadFail : public std::exception{
+class Fail : public std::exception{
 protected:
     std::string error;
 public:
-    LoadFail(){
+    Fail(){
         error.clear();
     }
     std::string getError() const{
         return error;
     }
 };
-class LoadAirportFail : public LoadFail{
+class LoadAirportFail : public Fail{
 public:
     LoadAirportFail(){
         error = "Failed to load Airports";
     }
 };
-class LoadVoyageFail : public LoadFail{
+class LoadVoyageFail : public Fail{
 public:
     LoadVoyageFail(){
         error = "Failed to load Voyages";
     }
 };
-class LoadFlightFail : public LoadFail{
+class LoadFlightFail : public Fail{
 public:
     LoadFlightFail() {
         error = "Failed to load flights";
     };
 };
-class LoadPlaneFail : public LoadFail{
+class LoadPlaneFail : public Fail{
 public:
     LoadPlaneFail() {
         error = "Failed to load Planes";
     };
 };
-class LoadTicketFail : public LoadFail{
+class LoadTicketFail : public Fail{
 public:
     LoadTicketFail() {
         error = "Failed to load Tickets";
     };
 };
-class LoadUserFail : public LoadFail{
+class LoadUserFail : public Fail{
 public:
     LoadUserFail(){
         error = "Failed to load Users";
     };
+};
+
+
+class SaveAirportFail : public Fail{
+public:
+    SaveAirportFail(std::string id){
+        error = "SaveAirportFail::" + id + " error opening outfile\n";
+    }
+};
+
+class SaveUserFail : public Fail{
+public:
+    SaveUserFail(std::string id){
+        error = "SaveUser::" + id + " error opening outfile\n";
+    }
 };
 
 /**
