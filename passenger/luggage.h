@@ -25,15 +25,50 @@ class Treadmill{
 };
 
 class Carriage{
+    int m, n;
     std::queue<std::stack<Luggage*>> bags;
 public:
     explicit Carriage(int m = 0, int n = 0){
+    }
+    bool loadCarriage(Luggage*){
+        std::queue<std::stack<Luggage*>> load;
+        std::stack<Luggage*> full = bags.front();
+        while(!bags.empty() && full.size() == m){
+                bags.pop();
+                load.push(full);
+                full = bags.front();
+        };
+         //else{ return false}
 
+        // fazer aqui se tiver espaco
+        //load=bags para acabar
+
+        return true;
     }
 };
 
 class LuggageTransport{
     std::queue<Carriage*> carriages;
+public:
+    LuggageTransport(std::queue<Luggage*> bags, int m = 0, int n = 0){
+        std::vector < Carriage * > load;
+        Carriage *c = new Carriage(m, n);
+        load.push_back(c);
+        int i = 0;
+        while (!bags.empty()) {
+            if (load[i]->loadCarriage(bags.front()))
+                bags.pop();
+            else {
+                Carriage *c = new Carriage(2, 3);
+                c->loadCarriage(bags.front());
+                bags.pop();
+                load.push_back(c);
+                i++;
+            }
+        }
+        for(auto it : load)
+            carriages.push(it);
+    }
 };
 
 #endif //MIKEGAIRLINES_LUGGAGE_H
