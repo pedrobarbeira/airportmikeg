@@ -36,38 +36,20 @@ void admin(MikeG *mg) {
  */
 
 void airport(){
-    char c;
-    std::cout << "Airport Management Menu\n";
-    while(true) {
-        system(CLEAR);
-        std::cout << "[AIRPORT]\n"
-                  << "\n    [1] Add Airport"
-                  << "\n    [2] Delete Airport"
-                  << "\n    [3] Check Airport"
-                  << "\n    [4] List of active Airport"
-                  << "\n    [0] Back\n"
-                  << "\n>";
-        std::cin >> c;
-
-        switch(c){
-            case '1': createAirport(); break;
-            case '2': deleteAirport(); break;
-            case '3': checkAirport(); break;
-            case '4': listAirport(); break;
-            case 'q':
-            case '0': return;
-            default: std::cout << "Invalid Option\n"; system("pause");
-        }
-    }
+    std::cout << "Deadend";
+    system("pause");
+    return;
 }
 ////////// Airport menu functions
 
 void createAirport() {
-
+    std::cout << "Deadend";
+    system("pause");
     return;
 }
 
 void deleteAirport(){
+    system("pause");
     return;
 }
 

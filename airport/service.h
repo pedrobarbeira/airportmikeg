@@ -14,11 +14,12 @@ static unsigned staffId = 1;
 using namespace std;
 
 class Staff{
-    unsigned id;
+    unsigned id{};
     string name;
     unsigned phone;
 public:
-    explicit Staff(string name = "");
+    explicit Staff(string name = ""){
+        this->name = name; id = staffId++;};
     unsigned getId() const;
     void setId();
     void setPhone (unsigned n);

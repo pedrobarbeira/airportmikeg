@@ -17,6 +17,7 @@ class Data{
     BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
+    //BST<StaffPointer> staff;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -28,7 +29,8 @@ public:
      */
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)){}
+             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr))/*,
+             staff(StaffPointer(nullptr))*/{}
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects

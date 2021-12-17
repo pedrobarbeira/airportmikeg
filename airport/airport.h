@@ -88,6 +88,7 @@ class Airport{
     //BST<Transport> transport;
     queue<ServiceTicket*> services;
     list<ServiceTicket*> complete;
+    list<Staff*> staff;
     friend class Terminal;
     friend class Transport;
 public:
@@ -114,6 +115,8 @@ public:
     void delTransport (TransportPointer transport);
     void addService (ServiceTicket *service);
     void delService (Time *date);
+    bool addStaff(Staff*);
+    bool delStaff(Staff*);
     vector<Transport*> getTransport() const;
     /*list<Time*>nextTransportMetro (Time *time) const;
     list<Time*>nextTransportBus (Time *time) const;
@@ -122,7 +125,7 @@ public:
     void setTerminal(Plane *plane, string id);
     void printAirport();
     void printService();
-
+    void printStaff();
     bool operator < (Airport &s);
     bool operator==(const Airport& rhs) const{
         return idName == rhs.idName;

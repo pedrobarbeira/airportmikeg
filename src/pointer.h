@@ -134,4 +134,11 @@ public:
     }
 };
 
+/*class StaffPointer : public BSTPointer<Staff>{
+public:
+    explicit StaffPointer(Staff* s = nullptr){
+        pointer = s;
+    }
+};*/
+
 #endif //MAIN_CPP_POINTER_H

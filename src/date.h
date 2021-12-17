@@ -102,6 +102,7 @@ public:
      * @param out the desired output line
      */
     void printTime(std::ostream& out = std::cout) const;
+    void printDate(std::ostream& out = std::cout) const;
     /**Setters*/
     void setHour(uint16_t h){
         hour = h;};

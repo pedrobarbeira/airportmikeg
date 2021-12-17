@@ -79,6 +79,12 @@ public:
     void logOut() const;
 
     void header();
+
+    void newWorker(Airport *airport);
+
+    void print(std::vector<Staff*> v);
+
+    Staff* selectStaff(std::vector<Staff*> v);
 };
 
 /**
@@ -246,7 +252,6 @@ public:
     void createAirport();
     void deleteAirport();
     void checkAirport();
-    void listAirport();
 
     void workers();
     void addWorker();

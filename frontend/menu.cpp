@@ -22,11 +22,53 @@ void Menu::header() {
     sysTime->print();
 }
 
+void Menu::print(std::vector<Staff*> v) {
+    system(CLEAR);
+    for (unsigned i{}; i < v.size(); i++){
+        std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
+                  << v[i]->getId() << ", " << v[i]->getName();
+
+    }
+}
+
+void Menu::newWorker(Airport *airport){
+    string id, name; int phone;
+    char a;
+    Staff *staff = new Staff;
+    cout << "\n\tNew worker addition to airport:";
+    std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
+    std::cout << "\n\tNew staff:\n\t\tId code >"; std::cin >> id; std::cin.ignore(INT32_MAX, '\n');
+    std::cout << "\n\t\tName >"; std::getline(std::cin, name);
+    std::cout << "\n\t\tPhone >"; std::cin >> phone;
+    std::cout << "\n\n\tAdding (" << id << ") " << name << " with contact - " << phone;
+    std::cout << "\n\n\tIs this correct?(y/n) >"; std::cin >> a;
+    switch (a){
+        case 'y': {
+            airport->addStaff(staff);
+            system("pause");
+            break;
+        }
+        case 'n': std::cout << "\n\n\tNew member addition cancelled"; break;
+        default: std::cout << "Invalid Option\n"; system("pause");
+    }
+}
+
+Staff* Menu::selectStaff(std::vector<Staff*> v) {
+    while(true){
+        print(v);
+        string a;
+        std::cout <<"\n........................................................\n\tEnter staff row: ";
+        std::cin >> a;
+        int i = stoi (a);
+        return v[i-1];
+    }
+}
+
 AirportPointer Menu::selectAirport(){
     std::vector<AirportPointer> airports = data->getAirports();
     while(true) {
-        print(airports);
         system(CLEAR);
+        print(airports);
         char c;
         //TODO std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
         //TODO sysTime->print();
@@ -391,8 +433,7 @@ void AdminMenu::airportMenu() {
                   << "\n\t[1] Add Airport"
                   << "\n\t[2] Delete Airport"
                   << "\n\t[3] Check Airport"
-                  << "\n\t[4] List of active Airports"
-                  << "\n\t[0] Back\n"
+                  << "\n\n\t[0] Back\n"
                   << "\n>";
         std::cin >> c;
 
@@ -400,7 +441,6 @@ void AdminMenu::airportMenu() {
             case '1': createAirport(); break;
             case '2': deleteAirport(); break;
             case '3': checkAirport(); break;
-            case '4': listAirport(); break;
             case '0': return;
             default: std::cout << "Invalid Option\n"; system("pause");
         }
@@ -427,7 +467,7 @@ void AdminMenu::createAirport(){
         data->addAirport(airport);
     }
     else {
-        std::cout << "\n\nOperation cancelled, returning to Airport management menu";
+        std::cout << "\n\nOperation canceled, returning to Airport management menu";
         system("pause");
     }
     return;
@@ -469,21 +509,31 @@ void AdminMenu::deleteAirport() {
 }
 void AdminMenu::checkAirport() {
     header();
+    char a;
     while (true){
         Airport *airport = selectAirport().getPointer();
+        cout << "\n\t(" << airport->getidCode() << ") " << airport->getName() << " - " << airport->getCity() << ", " << airport->getCountry();
         airport->printAirport();
+        airport->printService();
+        if (airport->nextService() != NULL && airport->nextService()->getResponsible()==NULL){
+            std::cout << "\n\tNo responsible set. Do you want attribute one?(y/n)"; std::cin >> a;
+            switch (a){
+                case 'y': {
+                    Staff *staff = selectStaff(airport->getStaff());
+                    airport->nextService()->setResponsible(staff);
+                    break;
+                }
+
+                case 'n': break;
+                default: std::cout << "Invalid Option\n"; system("pause");
+            }
+        }
         system("pause");
         return;
     }
 
 }
-void AdminMenu::listAirport(){
-    header();
-    system(CLEAR);
-    std::cout << "\n\n\t Empty menu for now (probably will be deleted";
-    system("pause");
-    return;
-}
+
 
 void AdminMenu::workers() {}
 void AdminMenu::addWorker(){}
