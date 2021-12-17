@@ -125,70 +125,70 @@ bool FlightSorter::originAirportAscending(const FlightPointer& f1, const FlightP
     Airport* comp2 = f2.getPointer()->getOrigin()->airport;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
-    else return *f1 < *f2;;
+    else return *f1 < *f2;
 }
 bool FlightSorter::originAirportDescending(const FlightPointer& f1, const FlightPointer& f2){
     Airport* comp1 = f1.getPointer()->getOrigin()->airport;
     Airport* comp2 = f2.getPointer()->getOrigin()->airport;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
-    else return *f2 < *f1;;
+    else return *f2 < *f1;
 }
 bool FlightSorter::originDateAscending(const FlightPointer& f1, const FlightPointer& f2){
     Date* comp1 = f1.getPointer()->getOrigin()->time;
     Date* comp2 = f2.getPointer()->getOrigin()->time;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
-    else return *f1 < *f2;;
+    else return *f1 < *f2;
 }
 bool FlightSorter::originDateDescending(const FlightPointer& f1, const FlightPointer& f2){
     Date* comp1 = f1.getPointer()->getOrigin()->time;
     Date* comp2 = f2.getPointer()->getOrigin()->time;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
-    else return *f2 < *f1;;
+    else return *f2 < *f1;
 }
 bool FlightSorter::destinationAirportAscending(const FlightPointer& f1, const FlightPointer& f2){
     Airport* comp1 = f1.getPointer()->getDestination()->airport;
     Airport* comp2 = f2.getPointer()->getDestination()->airport;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
-    else return *f1 < *f2;;
+    else return *f1 < *f2;
 }
 bool FlightSorter::destinationAirportDescending(const FlightPointer& f1, const FlightPointer& f2){
     Airport* comp1 = f1.getPointer()->getDestination()->airport;
     Airport* comp2 = f2.getPointer()->getDestination()->airport;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
-    else return *f2 < *f1;;
+    else return *f2 < *f1;
 }
 bool FlightSorter::destinationDateAscending(const FlightPointer& f1, const FlightPointer& f2){
     Date* comp1 = f1.getPointer()->getDestination()->time;
     Date* comp2 = f2.getPointer()->getDestination()->time;
     if(*comp1 != *comp2)
         return *comp1 < *comp2;
-    else return *f1 < *f2;;
+    else return *f1 < *f2;
 }
 bool FlightSorter::destinationDateDescending(const FlightPointer& f1, const FlightPointer& f2){
     Date* comp1 = f1.getPointer()->getDestination()->time;
     Date* comp2 = f2.getPointer()->getDestination()->time;
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
-    else return *f2 < *f1;;
+    else return *f2 < *f1;
 }
 bool FlightSorter::planeAscending(const FlightPointer& f1, const FlightPointer& f2){
     Plane* comp1 = f1.getPointer()->getPlane();
     Plane* comp2 = f2.getPointer()->getPlane();
     if(*comp1 != *comp2)
-        return *comp1 < *comp1;
-    else return *f1 < *f1;
+        return comp1 < comp2;
+    else return *f1 < *f2;
 }
 bool FlightSorter::planeDescending(const FlightPointer& f1, const FlightPointer& f2){
     Plane* comp1 = f1.getPointer()->getPlane();
     Plane* comp2 = f2.getPointer()->getPlane();
     if(*comp1 != *comp2)
         return *comp2 < *comp1;
-    else return *f2 < *f1;;
+    else return *f2 < *f1;
 }
 bool FlightSorter::ticketAscending(const FlightPointer& f1, const FlightPointer& f2){
     int comp1 = f1.getTickets().size();
@@ -230,6 +230,10 @@ void FlightSorter::operator()(std::vector<FlightPointer>& data, char c, bool asc
             if(asc) sort(data.begin(), data.end(), planeAscending);
             else sort(data.begin(), data.end(), planeDescending);
             break;
+        case '6':
+            if(asc) sort(data.begin(), data.end(), ticketAscending);
+            else sort(data.begin(), data.end(), ticketDescending);
+            break;
         default:
             std::cout << "Invalid sorting order\n\n"
                       << "Press enter to continue . . .";
@@ -240,6 +244,116 @@ void FlightSorter::operator()(std::vector<FlightPointer>& data, char c, bool asc
 }
 
 /**---Voyage Sorter---*/
+bool VoyageSorter::idAscending(const Voyage* c1, const Voyage* c2){
+    return *c1 < *c2;
+}
+bool VoyageSorter::idDescending(const Voyage* c1, const Voyage* c2){
+    return *c2 < *c1;
+}
+bool VoyageSorter::routeAscending(const Voyage* c1, const Voyage* c2){
+    int comp1 = c1->getRoute().size();
+    int comp2 = c2->getRoute().size();
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool VoyageSorter::routeDescending(const Voyage* c1, const Voyage* c2){
+    int comp1 = c1->getRoute().size();
+    int comp2 = c2->getRoute().size();
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool VoyageSorter::originAscending(const Voyage* c1, const Voyage* c2){
+    Airport* comp1 = c1->getRoute().front().getPointer()->getOrigin()->airport;
+    Airport* comp2 = c2->getRoute().front().getPointer()->getOrigin()->airport;
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool VoyageSorter::originDescending(const Voyage* c1, const Voyage* c2){
+    Airport* comp1 = c1->getRoute().front().getPointer()->getOrigin()->airport;
+    Airport* comp2 = c2->getRoute().front().getPointer()->getOrigin()->airport;
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool VoyageSorter::originDateAscending(const Voyage* c1, const Voyage* c2){
+    Time* comp1 = c1->getRoute().front().getPointer()->getOrigin()->time;
+    Time* comp2 = c2->getRoute().front().getPointer()->getOrigin()->time;
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool VoyageSorter::originDateDescending(const Voyage* c1, const Voyage* c2){
+    Time* comp1 = c1->getRoute().front().getPointer()->getOrigin()->time;
+    Time* comp2 = c2->getRoute().front().getPointer()->getOrigin()->time;
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool VoyageSorter::destinationAscending(const Voyage* c1, const Voyage* c2){
+    Airport* comp1 = c1->getRoute().front().getPointer()->getDestination()->airport;
+    Airport* comp2 = c2->getRoute().front().getPointer()->getDestination()->airport;
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool VoyageSorter::destinationDescending(const Voyage* c1, const Voyage* c2){
+    Airport* comp1 = c1->getRoute().front().getPointer()->getDestination()->airport;
+    Airport* comp2 = c2->getRoute().front().getPointer()->getDestination()->airport;
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+bool VoyageSorter::destinationDateAscending(const Voyage* c1, const Voyage* c2){
+    Time* comp1 = c1->getRoute().front().getPointer()->getDestination()->time;
+    Time* comp2 = c2->getRoute().front().getPointer()->getDestination()->time;
+    if(comp1 != comp2)
+        return comp1 < comp2;
+    else return *c1 < *c2;
+}
+bool VoyageSorter::destinationDateDescending(const Voyage* c1, const Voyage* c2){
+    Time* comp1 = c1->getRoute().front().getPointer()->getDestination()->time;
+    Time* comp2 = c2->getRoute().front().getPointer()->getDestination()->time;
+    if(comp1 != comp2)
+        return comp2 < comp1;
+    else return *c2 < *c1;
+}
+void VoyageSorter::operator()(std::vector<Voyage*>& data, char c, bool asc){
+    switch(c){
+        case '0' :
+            if(asc) sort(data.begin(), data.end(), idAscending);
+            else sort(data.begin(), data.end(), idDescending);
+            break;
+        case '1':
+            if(asc) sort(data.begin(), data.end(), originAscending);
+            else sort(data.begin(), data.end(), originDescending);
+            break;
+        case '2':
+            if(asc) sort(data.begin(), data.end(), destinationAscending);
+            else sort(data.begin(), data.end(), destinationDescending);
+            break;
+        case '3':
+            if(asc) sort(data.begin(), data.end(), originDateAscending);
+            else sort(data.begin(), data.end(), originDateDescending);
+            break;
+        case '4':
+            if(asc) sort(data.begin(), data.end(), destinationDateAscending);
+            else sort(data.begin(), data.end(), destinationDateDescending);
+            break;
+        case '5':
+            if(asc) sort(data.begin(), data.end(), routeAscending);
+            else sort(data.begin(), data.end(), routeDescending);
+            break;
+        default:
+            std::cout << "Invalid sorting order\n\n"
+                      << "Press enter to continue . . .";
+            cin.ignore();
+            getchar();
+            return;
+    }
+}
 
 /**---Airport Sorter---*/
 bool AirportSorter::idAscending(const AirportPointer& c1, const AirportPointer& c2){
@@ -249,15 +363,15 @@ bool AirportSorter::idDescending(const AirportPointer& c1, const AirportPointer&
     return (*c2.getPointer()) < (*c1.getPointer());
 }
 bool AirportSorter::flightNumAscending(const AirportPointer& c1, const AirportPointer& c2){
-    int comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
-    int comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
+    uint32_t comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
+    uint32_t comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
     if(comp1 != comp2)
         return comp1 < comp2;
     else return (*c1.getPointer()) < (*c2.getPointer());
 }
 bool AirportSorter::flightNumDescending(const AirportPointer& c1, const AirportPointer& c2){
-    int comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
-    int comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
+    uint32_t comp1 = c1.getFlightsFrom().size() + c1.getFlightsTo().size();
+    uint32_t comp2 = c2.getFlightsFrom().size() + c2.getFlightsTo().size();
     if(comp1 != comp2)
         return comp2 < comp1;
     else return (*c2.getPointer()) < (*c1.getPointer());
@@ -471,7 +585,7 @@ bool UserSorter::dateDescending(const User *u1, const User *u2) {
     Date* comp1 = u1->getDate();
     Date* comp2 = u2->getDate();
     if(*comp1 != *comp2)
-        return *comp2 < *comp2;
+        return *comp2 < *comp1;
     else return *u2 < *u1;
 }
 void UserSorter::operator()(std::vector<User*>& data, char c, bool asc) {

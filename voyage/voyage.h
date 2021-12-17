@@ -38,7 +38,7 @@ public:
         }
         return ret;
     };
-    std::list<FlightPointer> getRoute(){
+    std::list<FlightPointer> getRoute() const{
         return route;};
     TimePlace* getOrigin() const{
         return route.front().getPointer()->getOrigin();};
