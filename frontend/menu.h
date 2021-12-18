@@ -89,6 +89,10 @@ public:
     void print(std::vector<ServiceTicket*> s);
 
     Staff* selectStaff(std::vector<Staff*> v);
+
+    void createPlane(Airbus *plane);
+    void createPlane(Other *plane);
+
 };
 
 /**
@@ -267,6 +271,10 @@ public:
     void travel();
 
     void plane();
+    void addPlane();
+    void deletePlane();
+    void checkPlane();
+    void mapPlane();
 };
 
 /**

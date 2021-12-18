@@ -157,6 +157,44 @@ AirportPointer Menu::selectAirport(){
     }
 }
 
+void Menu::createPlane(Airbus *plane) {
+    header();
+    char a;
+    string f;
+    std::queue<std::string> first;
+    std::cout << "\nCreating Airbus";
+    std::cout << "\n\tInput first class rows letter (up until " << (char)(96+26) << ") --> ";
+    std::cin.ignore(INT32_MAX, '\n'); std::getline(std::cin, f);
+    for (auto i : f){
+        if (i < (char)(96+26)) {
+            std::string s; s = toupper(i); first.push(s);
+        }
+    }
+    *plane = Airbus(first);
+    data->addPlane(plane);
+    return;
+}
+
+void Menu::createPlane(Other *plane) {
+    header();
+    uint16_t rows, seatPerRow, fClassPrice, eClassPrice;
+    string f;
+    std::queue<std::string> first;
+    std::cout << "\n\tInput number of rows --> "; std::cin >> rows;
+    std::cout << "\n\tInput seats per row --> "; std::cin >> seatPerRow;
+    std::cout << "\n\tInput first class tickets price --> "; std::cin >> fClassPrice;
+    std::cout << "\n\tInput economic class tickets price --> "; std::cin >> eClassPrice;
+    std::cout << "\n\tInput first class rows letter (up until " << (char)(96+rows) << ") --> ";
+    std::cin.ignore(INT32_MAX, '\n'); std::cin.clear(); std::getline(std::cin, f);
+    for (auto i : f){
+        if (i < (char)(96+rows)) {
+            std::string s; s = toupper(i); first.push(s);
+        }
+    }
+    *plane = Other(rows, seatPerRow, fClassPrice, eClassPrice, first );
+    data->addPlane(plane);
+}
+
 void Menu::reOrderAirports(std::vector<AirportPointer> &v) {
     return;
 }
@@ -705,7 +743,65 @@ void AdminMenu::checkService(){
 
 void AdminMenu::travel() {}
 
-void AdminMenu::plane() {}
+void AdminMenu::plane() {
+    header();
+    char c;
+    std::cout << "Plane Management Menu\n";
+    while(true) {
+        std::cout << "[PLANE]\n"
+                  << "\n\t[1] Add Plane"
+                  << "\n\t[2] Delete Plane"
+                  << "\n\t[3] Check Plane"
+                  << "\n\t[4] Plane Map"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+
+        switch(c){
+            case '1': addPlane(); break;
+            case '2': deletePlane(); break;
+            case '3': checkPlane(); break;
+            case '4': mapPlane(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
+}
+
+void AdminMenu::addPlane(){
+    header();
+    char c;
+    std::cout << "Plane Management Menu\n";
+    while(true) {
+        std::cout << "[ADD PLANE]\n"
+                  << "\n\t[1] Airbus"
+                  << "\n\t[2] Custom"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+
+        switch(c){
+            case '1': Airbus *airbus; createPlane(airbus); break;
+            case '2': Other *aircraft; createPlane(aircraft); break;
+            case '3': checkPlane(); break;
+            case '4': mapPlane(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
+}
+
+void AdminMenu::deletePlane(){
+
+}
+
+void AdminMenu::checkPlane() {
+
+}
+
+void AdminMenu::mapPlane(){
+
+}
 
 /**---Manager Menu---*/
 void ManagerMenu::mainScreen() {

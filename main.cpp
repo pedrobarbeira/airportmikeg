@@ -16,6 +16,7 @@ void testAirport(){
     porto->setCity("Porto");
     porto->setCountry("Portugal");
     porto->setId("OPO");
+    queue<string> first;
     auto *plane = new Plane;
     porto->activateTerminal("1");
     porto->setTerminal(plane, "1");
