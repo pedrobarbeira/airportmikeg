@@ -6,6 +6,7 @@
 #include "voyage.h"
 #include "exception.h"
 
+//Rearrange modules so the company subclass is all treated in one
 /**
  * Encapsulation class.
  * Initializes and stores all the system's BST's
@@ -14,6 +15,7 @@ class Data{
     BST<AirportPointer> airports;
     BST<VoyagePointer> voyages;
     BST<PlanePointer> planes;
+    BST<FlightPointer> flights;
     BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
@@ -30,8 +32,9 @@ public:
      */
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr))/*,
-             staff(StaffPointer(nullptr))*/{}
+             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)),
+             flights(FlightPointer(nullptr)){}
+
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects
@@ -349,15 +352,11 @@ public:
 };
 
 class SaveVoyage : public Save{
+    void saveFlight() const;
+    void saveTicket() const;
+    void savePlane() const;
 public:
     explicit SaveVoyage(Data* d = nullptr){
-        data = d;
-    }
-};
-
-class SavePlane : public Save{
-public:
-    explicit SavePlane(Data* d = nullptr){
         data = d;
     }
 };
@@ -374,7 +373,6 @@ public:
         data = d;
     }
     void save() const override;
-
 };
 
 #endif //MAIN_CPP_DATA_H

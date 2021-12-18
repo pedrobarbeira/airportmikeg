@@ -38,11 +38,12 @@ public:
                 load.push(full);
                 full = bags.front();
         };
-         //else{ return false}
 
-        // fazer aqui se tiver espaco
-        //load=bags para acabar
-
+        for (int i = 0; i < bags.size(); ++i) {
+            load.front()=bags.front();
+            bags.pop();
+            i++;
+        }
         return true;
     }
 };

@@ -11,7 +11,6 @@
 #include "data.h"
 #include "sorter.h"
 
-//Think about making the sorter into a class
 
 /**
  * Frontend class that handles Generic Menus. Acts as an Interface for it's subclasses

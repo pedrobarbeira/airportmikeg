@@ -87,6 +87,13 @@ public:
     }
 };
 
+class SaveVoyageFail: public Fail{
+public:
+    SaveVoyageFail(std::string id){
+        error = "SaveVoyageFail::::" + id + " error opening outfile\n";
+    }
+};
+
 class SaveUserFail : public Fail{
 public:
     SaveUserFail(std::string id){
