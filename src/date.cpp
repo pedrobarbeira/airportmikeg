@@ -28,7 +28,11 @@ void Time::printTime(std::ostream& out) const{
         << std::setw(2) << std::setfill('0') << second << " ";
 }
 
-
+void Time::printDate(std::ostream& out) const {
+    out << std::setw(2) << std::setfill('0') << day << "/"
+        << std::setw(2) << std::setfill('0') << month << "/"
+        << year;
+}
 /**
  * Determines if a year is a leap year
  * @param y the year to be processed

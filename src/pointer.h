@@ -134,4 +134,19 @@ public:
     }
 };
 
+class StaffPointer : public BSTPointer<Staff>{
+    Airport *airport = nullptr;
+public:
+    explicit StaffPointer(Staff* s = nullptr){
+        pointer = s;
+    }
+};
+
+class ServicePointer : public BSTPointer<ServiceTicket>{
+public:
+    explicit ServicePointer(ServiceTicket* s = nullptr){
+        pointer = s;
+    }
+};
+
 #endif //MAIN_CPP_POINTER_H

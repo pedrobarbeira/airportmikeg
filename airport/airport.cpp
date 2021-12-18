@@ -97,7 +97,17 @@ vector<ServiceTicket*> Airport::getServices() {
     return temp;
 }
 
+vector<ServiceTicket*> Airport::getCompleteServices() const {
+    vector<ServiceTicket*> temp;
+    for (auto it: complete) temp.push_back(it);
+    return temp;
+}
+
 vector<Staff*> Airport::getStaff() const {
+    vector<Staff*> temp;
+    for (auto it : staff) temp.push_back(it);
+    return temp;
+    /*
     vector<Staff *> ret;
     queue<ServiceTicket *> s = services;
     Staff *check;
@@ -127,7 +137,7 @@ vector<Staff*> Airport::getStaff() const {
             if (!found) ret.push_back(check);
         }
         return ret;
-    }
+    }*/
 }
 
 ServiceTicket* Airport::nextService() {
@@ -155,6 +165,30 @@ void Airport::delService(Time *date) {
     complete.push_back(services.front());
     services.pop();
 }
+
+bool Airport::addStaff(Staff* staff){
+    for (auto i : this->staff){
+        if (i == staff) {
+            cout << staff->getName() << " with id " << staff->getId() << "already in Airport staff";
+            system("pause");
+            return false;
+        }
+    }
+    this->staff.push_back(staff);
+    return true;
+}
+
+bool Airport::delStaff(Staff *staff) {
+    for (auto i : this->staff) {
+        if (i == staff) this->staff.remove(i);
+        return true;
+    }
+    cout << staff->getName() << " not found in Airport staff";
+    system("pause");
+    return false;
+    }
+
+//vector<Staff*> getStaff() const{}
 
 vector<Transport*> Airport::getTransport() const {
     vector<Transport*> temp;
@@ -227,7 +261,6 @@ void Airport::setTerminal(Plane *plane, string id = "") {
 }
 
 void Airport::printAirport() {
-    cout << "\n\t(" << idName << ") " << name << " - " << city << ", " << country;
     if (!terminals.empty()) {
         cout << "\n\t\t" << "Active Terminals:";
         for (auto it : terminals){
@@ -237,56 +270,48 @@ void Airport::printAirport() {
                 case false:  cout << " - empty\n";
             }
         }
-        cout << "\t\tServices - ";
-        switch (!services.empty()){
-            case true: cout << "has " << services.size() << " scheduled\n\n"; break;
-            case false: cout << "no services scheduled\n\n"; break;
-        }
     }
-    system("pause");
 }
 
 void Airport::printService() {
     char a;
-    cout << "\n\t(" << idName << ") " << name << " - " << city << ", " << country;
     switch (services.empty()){
-        case true: cout << "\tno services scheduled\n"; break;
+        case true: cout << "\tNo services scheduled\n"; break;
         case false: {
-            cout << "\thas " << services.size() << " scheduled\n";
-            cout << "\tnext service is a ";
+            cout << "\tHas " << services.size() << " scheduled service(s)\n";
+            cout << "\tNext service is a ";
             switch (nextService()->getType()){
                 case 'c' : {
-                    cout << "cleaning service with " << nextService()->getTasksLeft().size() << " left (";
-                    for (int i=0; i < nextService()->getTasksLeft().size(); i++) {
+                    cout << "cleaning service with " << nextService()->getTasksLeft().size() << " task(s) left (";
+                    for (int i=0; i < nextService()->getTasksLeft().size(); ) {
                         cout << nextService()->getTasksLeft()[i];
+                        i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
+                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
                     }
+                    system("pause");
+                    break;
                 }
                 case 'm' : {
-                    cout << "maintenance service with " << nextService()->getTasksLeft().size() << " left (";
-                    for (int i=0; i < nextService()->getTasksLeft().size(); i++) {
+                    cout << "maintenance service with " << nextService()->getTasksLeft().size() << " task(s) left (";
+                    for (int i=0; i < nextService()->getTasksLeft().size();) {
                         cout << nextService()->getTasksLeft()[i];
+                        i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
+                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
                     }
+                    system("pause");
+                    break;
                 }
             }
-        }
-    cout << "\n\tschedulled for " << nextService()->getSchedule()->getDay() << "/"
-                                  << nextService()->getSchedule()->getMonth() << "/"
-                                  << nextService()->getSchedule()->getYear() << ",";
-    //TODO
-    if (nextService()->getResponsible() == NULL){
-        cout << "\n\tand has no responsible attributed. Do you want to determine one?(y/n)\n>";
-        cin >> a;
-        switch (a){
-            case 'n' : break;
-            case 'y' :; //TODO criar funçao geral para introdução de staff
+            if (nextService()->getResponsible() == nullptr) cout << ".";
+            else cout << " under " << nextService()->getResponsible()->getName() << " (contact "
+                      << nextService()->getResponsible()->getPhone() << ".";
         }
     }
-    }
-    cout << "\t"    ;
+    std::cout <<"\n\n"; system("pause");
 }
 
 bool Airport::operator < (Airport &a){

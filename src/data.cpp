@@ -350,7 +350,7 @@ void SaveAirport::saveService(Airport* a){
                     << " " << it->getType();
         }
         outfile << '\n';
-        std::list<ServiceTicket*> completed = a->getCompleteServices();
+        std::vector<ServiceTicket*> completed = a->getCompleteServices();
         if(!completed.empty()) {
             for (auto it : completed) {
                 outfile << it->getPlane()->getPlate() << " "

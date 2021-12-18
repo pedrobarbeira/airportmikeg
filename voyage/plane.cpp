@@ -88,6 +88,7 @@ Airbus::Airbus(std::queue<std::string> first) {
     airbusCount++;
     ss << "ARB" << std::setw(2) << std::setfill('0') << airbusCount;
     plate = ss.str();
+    cabin = new Cabin;
     cabin->seatRows = 26;
     cabin->seatsPerRow = 6;
     vector<Class*> loadClass(3, nullptr);
@@ -120,6 +121,7 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t 
     otherCount++;
     ss << "OTR" << std::setw(2) << std::setfill('0') << otherCount;
     plate = ss.str();
+    this->cabin = new Cabin;
     cabin->seatRows = rows;
     cabin->seatsPerRow = seatPerRow;
     auto *f = new FirstClass(fClassPrice);

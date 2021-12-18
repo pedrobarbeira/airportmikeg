@@ -36,66 +36,26 @@ void admin(MikeG *mg) {
  */
 
 void airport(){
-    char c;
-    std::cout << "Airport Management Menu\n";
-    while(true) {
-        system(CLEAR);
-        std::cout << "[AIRPORT]\n"
-                  << "\n    [1] Add Airport"
-                  << "\n    [2] Delete Airport"
-                  << "\n    [3] Check Airport"
-                  << "\n    [4] List of active Airport"
-                  << "\n    [0] Back\n"
-                  << "\n>";
-        std::cin >> c;
-
-        switch(c){
-            case '1': createAirport(); break;
-            case '2': deleteAirport(); break;
-            case '3': checkAirport(); break;
-            case '4': listAirport(); break;
-            case 'q':
-            case '0': return;
-            default: std::cout << "Invalid Option\n"; system("pause");
-        }
-    }
+    std::cout << "Deadend";
+    system("pause");
+    return;
 }
 ////////// Airport menu functions
 
 void createAirport() {
-
+    std::cout << "Deadend";
+    system("pause");
     return;
 }
 
 void deleteAirport(){
+    system("pause");
     return;
 }
 
 
 void checkAirport(){
-    string id;
-    Airport *temp = new Airport;
-    system(CLEAR);
-    std::cout << "Introduce airport code: "; std::cin >> id;
-    // find airport by id
-    std::cout << temp->getName()
-              << "\n" << temp->getidCode() << ", " << temp->getCity() << ", " << temp->getCountry()
-              << "\n    Occupied terminals: ";
-    for (auto it : temp->getTerminals()){
-        cout << it << " ";
-    }
-    cout << ";";
-    std::cout << "\n    Pending services:";
-    for (auto it : temp->getServices()){
-        std::cout << "\n    Responsible: " << it->getResponsible()
-                  << "\n    Operation type: "; if (it->getType() == 'c') std::cout << "Cleaning"; else std::cout << "Maintenance";
-        std::cout << "\n    Schedule: " << it->getSchedule()->getYear() << "/" << it->getSchedule()->getMonth() << "/" << it->getSchedule()->getDay();
-        std::cout << "\n    Operations left:"
-                  << "\n    / ";
-        for (auto inf : it->getTasksLeft()) cout << inf << "/ ";
-        system("pause");
-    }
-    return;
+
 }
 
 void listAirport(){
@@ -108,46 +68,13 @@ void listAirport(){
  * Worker Management Menu
  */
 void worker(){
-    char c;
-    while(true) {
-        system(CLEAR);
-        std::cout << "[WORKER]\n"
-                  << "\n    [1] Add Worker"
-                  << "\n    [2] Delete Worker"
-                  << "\n    [3] Check ServiceTicket"
-                  << "\n    [0] Back\n"
-                  << "\n>";
-        std::cin >> c;
-        switch(c){
-            case '1': addWorker(); break;
-            case '2': delWorker(); break;
-            case '3': checkService(); break;
-            case '0': return;
-            default: std::cout << "Invalid Option\n"; system("pause");
-        }
-    }
+
 }
 
 /////////////////// Worker menu functions
 
-void addWorker(){
-    char c;
-    string name;
-    int phone;
-    system(CLEAR);
-    std::cout << "\n    Please Insert Worker Name: "; std::cin >> name;
-    Staff *person = new Staff(name);
-    std::cout << "\n    Please insert phone: "; std::cin >> phone;
-    try{
-        person->setPhone(phone);
-        throw InvalidNumber();
-    }catch (string n){
-        n = "A valid phone number should have 9 digits starting at (9)********";
-        std::cout << n;
-    }
-    system("pause");
-    return;
-}
+void addWorker(){}
+
 
 void delWorker(){
     std::cout << "Menu option to remove worker form database";

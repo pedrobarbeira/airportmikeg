@@ -14,13 +14,15 @@ static unsigned staffId = 1;
 using namespace std;
 
 class Staff{
-    unsigned id;
+    unsigned id{};
     string name;
     unsigned phone;
 public:
-    explicit Staff(string name = "");
+    explicit Staff(string name = ""){
+        this->name = name; id = staffId++;};
     unsigned getId() const;
     void setId();
+    void setName(string name){this->name = name;}
     void setPhone (unsigned n);
     string getName() const;
     unsigned getPhone() const;
@@ -28,7 +30,7 @@ public:
         return id < rhs.id;
     }
 };
-
+/*
 class InvalidNumber : public exception{
 private:
     string e;
@@ -39,7 +41,7 @@ public:
     string getError() const{
         return e;
     }
-};
+};*/
 
 
 class ServiceTicket{

@@ -206,6 +206,7 @@ public:
  * amazing IT guy, so he can add the class to the system later on
  */
 class Other : public Plane{
+public:
     Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice,
           std::queue<std::string> firstClassRows);
     Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t bClassPrice, uint16_t eClassPrice,

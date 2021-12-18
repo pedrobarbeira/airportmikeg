@@ -16,6 +16,7 @@ void testAirport(){
     porto->setCity("Porto");
     porto->setCountry("Portugal");
     porto->setId("OPO");
+    queue<string> first;
     auto *plane = new Plane;
     porto->activateTerminal("1");
     porto->setTerminal(plane, "1");
@@ -26,12 +27,13 @@ void testAirport(){
     metro->addTime(time1);
     bus->addTime(time1);
     bus->addTime(time2);
+    auto *date1 = new Time(18, 12, 21, 0, 0, 0);
     auto *staff1 = new Staff("Manel");
-    auto *cle1 = new Cleaning(plane, time1, staff1);
+    auto *cle1 = new Cleaning(plane, date1);
     auto *ser1 = new ServiceTicket(plane, 'a');
     cle1->checkFlightDeck();
     cle1->checkFloor();
-    cle1->setResponsible(staff1);
+    //cle1->setResponsible(staff1);
     porto->addService(cle1);
     porto->setName("Francisco Sá Carneiro");
     TransportPointer b(bus);
@@ -40,14 +42,15 @@ void testAirport(){
     porto->setTransport(m);
     cle1->checkWc();
     auto date2 = new Time(18, 12, 21, 0, 0, 0);
-    cle1->checkSeats();
-    porto->delService(date2);
+    //cle1->checkSeats();
+    //porto->delService(date2);
     data->addAirport(porto);
     data->addPlane(plane);
+    porto->addStaff(staff1);
     Admin *admin = new Admin("admin", "admin");
     Client *client = new Client ("client", "client");
     AdminMenu *adm = new AdminMenu(admin, data);
-    //adm->mainScreen();
+    adm->mainScreen();
 
     //admin(data);
 

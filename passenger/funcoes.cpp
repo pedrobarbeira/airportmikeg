@@ -46,56 +46,45 @@ void buyTicket(VoyagePointer voy) {
             Ticket *ticket1 = new Ticket(s);
 
             //bagagem
+            int numbags;
+            vector<Luggage*> lugvec;
+            for (int j = 0; j < numtickets; ++j) {
+                cout<<"How many bags are you taking client seated on  "<< s<<" \n";
+                cin>> numbags;
+                for (int k = 0; k < numbags; ++k) {
+                    Luggage *lug = new Luggage(1, false);
+                    lugvec.push_back(lug);
+
+                }
+            }
 
             flight.addTicket(ticket1);
         }
     }
 }
 
+/*queue<stack<Luggage*>> makingstack(vector<Luggage*> lugvec) {
 
-
-    //if bilhetesdisponiveis>numtickets{
-/*
-        tickets.push_back(ticket1);
-        cout<<"How many bags do you have?"<<endl;
-        cin >> numbags;
-        for (int j = 0; j < numbags; ++j) {
-            Luggage *luggage2=new Luggage(1,false);
-            passLugg.push_back(luggage2);
-        }
-    }
-cout << "passLugg size " << passLugg.size() << endl;
-}
-
-void listBilhetes(vector<Ticket *> tickets) {
-    for (int i = 0; i < tickets.size(); ++i) {
-        cout<<tickets[i]->getID()<<endl;
-
-    }
-}
-
-void fazerpilha(queue<stack<Luggage*>> bags, vector<Luggage*> passLugg) {
-
-    int contador=0;
+    int stackcounter=0;
     stack<Luggage*> stacklug;
-    cout<<passLugg.size()<<endl;
-    for (int i = 0; i < passLugg.size(); i++) {
-        cout<<"colocando"<<endl;
-        stacklug.push(passLugg[i]);
-        cout << " Placing " << passLugg[i] << " in stack" << endl;
-        contador++;
-        if(contador==4){
+
+    for (int i = 0; i < lugvec.size(); i++) {
+
+        stacklug.push(lugvec[i]);
+        cout << " Placing " << lugvec[i] << " in stack" << endl;
+        stackcounter++;
+
+        if(stackcounter==4){
             cout<<"Max Stack"<<endl;
             bags.push(stacklug);
             while(!stacklug.empty()){
                 stacklug.pop();
             }
-            contador=0;
+            stackcounter=0;
         }
     }
     if(stacklug.size() > 0){
         cout << "Carriage has " << bags.size() << " stacks" << endl;
     }
- //   cout << "Carrinho tem " << bags.size() << " stacks" << endl;
 }
 */

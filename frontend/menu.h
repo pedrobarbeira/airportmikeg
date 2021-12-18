@@ -78,6 +78,20 @@ public:
     void logOut() const;
 
     void header();
+
+    void newWorker(Airport *airport);
+
+    void editWorker(Staff *staff);
+
+    void print(std::vector<Staff*> v);
+
+    void print(std::vector<ServiceTicket*> s);
+
+    Staff* selectStaff(std::vector<Staff*> v);
+
+    void createPlane(Airbus *plane);
+    void createPlane(Other *plane);
+
 };
 
 /**
@@ -245,16 +259,21 @@ public:
     void createAirport();
     void deleteAirport();
     void checkAirport();
-    void listAirport();
 
     void workers();
     void addWorker();
     void delWorker();
+    void changeWorker();
+    void moveWorker();
     void checkService();
 
     void travel();
 
     void plane();
+    void addPlane();
+    void deletePlane();
+    void checkPlane();
+    void mapPlane();
 };
 
 /**
