@@ -82,7 +82,11 @@ public:
 
     void newWorker(Airport *airport);
 
+    void editWorker(Staff *staff);
+
     void print(std::vector<Staff*> v);
+
+    void print(std::vector<ServiceTicket*> s);
 
     Staff* selectStaff(std::vector<Staff*> v);
 };
@@ -256,7 +260,7 @@ public:
     void workers();
     void addWorker();
     void delWorker();
-    void editWorker();
+    void changeWorker();
     void moveWorker();
     void checkService();
 

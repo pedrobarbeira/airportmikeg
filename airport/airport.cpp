@@ -97,6 +97,12 @@ vector<ServiceTicket*> Airport::getServices() {
     return temp;
 }
 
+vector<ServiceTicket*> Airport::getCompleteServices() const {
+    vector<ServiceTicket*> temp;
+    for (auto it: complete) temp.push_back(it);
+    return temp;
+}
+
 vector<Staff*> Airport::getStaff() const {
     vector<Staff*> temp;
     for (auto it : staff) temp.push_back(it);

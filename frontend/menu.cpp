@@ -28,10 +28,55 @@ void Menu::header() {
 
 void Menu::print(std::vector<Staff*> v) {
     system(CLEAR);
+    if (v.empty()) {
+        std::cout << "\n\tNo workers assigned to this airport\n";
+        system("pause");
+        return;
+    }
     for (unsigned i{}; i < v.size(); i++){
         std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
                   << v[i]->getId() << ", " << v[i]->getName();
+    }
+}
 
+void Menu::print(std::vector<ServiceTicket*> s){
+    if (s.empty()) {
+        std::cout << "\n\tThere are no services";
+        system("pause");
+        return;
+    }
+    vector<ServiceTicket*> pending, complete;
+    for (auto it : s){
+        if (it->getCompleted() != nullptr) complete.push_back(it);
+        else pending.push_back(it);
+    }
+    if (pending.empty()) std::cout << "\n\tThere are no scheduled services";
+    else{
+        for (auto it : pending){
+            std::cout << "\n\tServices waiting completion:\n";
+            switch (it->getType()){
+                case 'c' : {
+                    std::cout << "\tCleaning pending --> / ";
+                    for (auto i : it->getTasksLeft()) std::cout << i << " / "; break;
+                }
+                case 'm' : {
+                    std::cout << "\tMaintenance pending --> / ";
+                    for (auto i : it->getTasksLeft()) std::cout << i << " / "; break;
+                }
+            }
+        }
+        for (auto it : complete){
+            std::cout << "\n\n\tServices complete:\n";
+            switch (it->getType()){
+                case 'c' : {
+                    std::cout << "\tCleaning, terminated "; it->getCompleted()->printDate();
+                }
+                case 'm' : {
+                    std::cout << "\tMaintenance, terminated "; it->getCompleted()->printDate();
+                }
+            }
+            std::cout << "\n";
+        }
     }
 }
 
@@ -58,14 +103,23 @@ void Menu::newWorker(Airport *airport){
     }
 }
 
+void Menu::editWorker(Staff *staff){
+    char a;
+    std::cout << "\n\n\tCurrent staff attributes:" << "\n\t\tName: " << staff->getName()
+              << "1n\t\tPhone: " << staff->getPhone();
+}
+
 Staff* Menu::selectStaff(std::vector<Staff*> v) {
     while(true){
         print(v);
         string a;
-        std::cout <<"\n........................................................\n\tEnter staff row: ";
-        std::cin >> a;
-        int i = stoi (a);
-        return v[i-1];
+        std::cout <<"\n........................................................\n\tEnter staff row (0 to cancel): ";
+        while (true) {
+            std::cin >> a;
+            if (a == "0") return nullptr;
+            int i = stoi(a);
+            return v[i - 1];
+        }
     }
 }
 
@@ -90,6 +144,7 @@ AirportPointer Menu::selectAirport(){
                 std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
                 std::cin >> in;
                 int i = stoi(in);
+                if (i < 1 | i > airports.size()) break;
                 return airports[i-1];
             }
             case '2': reOrderAirports(airports); break;
@@ -517,6 +572,7 @@ void AdminMenu::checkAirport() {
     char a;
     while (true){
         Airport *airport = selectAirport().getPointer();
+        if (airport == nullptr) return;
         cout << "\n\t(" << airport->getidCode() << ") " << airport->getName() << " - " << airport->getCity() << ", " << airport->getCountry();
         airport->printAirport();
         airport->printService();
@@ -555,7 +611,7 @@ void AdminMenu::workers() {
         switch(c){
             case '1': addWorker(); break;
             case '2': delWorker(); break;
-            case '3': editWorker(); break;
+            case '3': changeWorker(); break;
             case '4': moveWorker(); break;
             case '5': checkService(); break;
             case '0': return;
@@ -567,6 +623,7 @@ void AdminMenu::workers() {
 void AdminMenu::addWorker(){
     system(CLEAR);
     Airport *airport = selectAirport().getPointer();
+    if (airport == nullptr) return;
     newWorker(airport);
     system("pause");
     return;
@@ -576,6 +633,7 @@ void AdminMenu::delWorker(){
     system(CLEAR);
     Airport *airport = selectAirport().getPointer();
     Staff *staff = selectStaff(airport->getStaff());
+    if (staff == nullptr) return;
     std::cout << "\n\tConfirm deletion of " << staff->getName() << " currently at " << airport->getName()<< "?(y/n)\n";
     while(true){
         std::cout << ">"; std::cin >> a;
@@ -586,9 +644,64 @@ void AdminMenu::delWorker(){
         }
     }
 }
-void AdminMenu::editWorker() {}
-void AdminMenu::moveWorker() {}
-void AdminMenu::checkService(){}
+
+void AdminMenu::changeWorker() {
+    system(CLEAR);
+    Airport *airport = selectAirport().getPointer();
+    Staff *staff = selectStaff(airport->getStaff());
+    if (staff == nullptr) return;
+    editWorker(staff);
+    return;
+}
+
+void AdminMenu::moveWorker() {
+    char a;
+    system(CLEAR);
+    std::cout << "\n\tSelect airport from which you want to move worker:";
+    Airport *airportOrigin = selectAirport().getPointer();
+    Staff *staff = selectStaff(airportOrigin->getStaff());
+    Airport *airportDest = selectAirport().getPointer();
+    std::cout << "\n\tConfirm that you want to change " << staff->getName() << " from "
+              << airportOrigin->getName() << " to " << airportDest->getName() << "?(y/n)"
+              << "\n\t\t IMPORTANT: all pending services from " << staff->getName()
+              << " will need a new staff assignement\n\n";
+    while (true) {
+        std::cout << ">";
+        std::cin >> a;
+        switch (a) {
+            case 'n':
+                std::cout << "\t\tWorker migration cancelled\n";
+                system("pause");
+                return;
+            case 'y':
+                airportDest->addStaff(staff);
+                airportOrigin->delStaff(staff);
+                system("pause");
+                return;
+            default:
+                std::cout << "Invalid Option\n";
+                std::cin.ignore(INT32_MAX, '\n');
+                system("pause");
+                break;
+        }
+    }
+}
+
+void AdminMenu::checkService(){
+    system(CLEAR);
+    vector<ServiceTicket*> temp;
+    std::cout << "\n\tSelect Airport to check pending services:";
+    Airport *airport = selectAirport().getPointer();
+    print(airport->getServices());
+    Staff *staff = selectStaff(airport->getStaff());
+    for (auto it : airport->getServices()){
+        if (it->getResponsible()!= nullptr && it->getResponsible()->getId() == staff->getId()) temp.push_back(it);
+    }
+    if (!temp.empty()) print(temp);
+    else std::cout << "\n\tNo services atributted to this worker\n";
+    system("pause");
+    return;
+}
 
 void AdminMenu::travel() {}
 
