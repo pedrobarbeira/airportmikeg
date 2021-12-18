@@ -14,6 +14,7 @@
 
 using namespace std;
 
+static int idTransport;
 
 class Transport{
     string id;
@@ -60,20 +61,24 @@ class Terminal{
     friend class Airport;
 public:
     Terminal() {id = ""; plane = nullptr;};
-    Terminal(string i){
-        id = i; plane = nullptr;};
-    void setId (string id){
-        this->id = id;}
+    Terminal(string i, string airport){
+        id = airport + i;};
+    void setId (string id, string airport){
+        this->id = airport + id;
+    }
     string getId() const{
         return id;}
     string getTerminalNumber() const{
-        return id;};
+        return id.substr(3);};
     void setPlane(Plane *plane){
         this-> plane = plane;};
     Plane* getPlane() const{
         return plane;}
     bool getOccupied() const {
         return plane != nullptr;
+    }
+    bool operator<(Transport &t){
+        return this->getId()<t.getId();
     }
  
 };
@@ -113,6 +118,7 @@ public:
     void delTransport (TransportPointer transport);
     void addService (ServiceTicket *service);
     void delService (Time *date);
+    bool delTerminal(string id);
     bool addStaff(Staff*);
     bool delStaff(Staff*);
     vector<Transport*> getTransport() const;

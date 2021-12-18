@@ -16,6 +16,7 @@ static int count = 0;
 struct TimePlace{
     Airport* airport;
     Time* time;
+    TimePlace(Airport* a, Time *t){airport=a;time=t;};
 };
 
 class Flight{

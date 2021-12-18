@@ -51,6 +51,22 @@ std::vector<FlightPointer> AirportPointer::getFlights() const{
     return ret;
 }
 
+std::vector<FlightPointer> AirportPointer::getFlightPointers() const {
+    std::vector<FlightPointer> allFlights;
+    BSTItrIn<FlightPointer> ot(outFlights);
+    BSTItrIn<FlightPointer> it(inFlights);
+    while (!ot.isAtEnd()) {
+        allFlights.push_back(ot.retrieve());
+        ot.advance();
+    }
+    while (!it.isAtEnd()) {
+        allFlights.push_back(it.retrieve());
+        it.advance();
+    }
+    return allFlights;
+}
+
+
 std::vector<Flight*> AirportPointer::getFlightsTo(Airport* a, Date* min) const {
     std::vector<Flight *> ret;
     iteratorBST<FlightPointer> it = outFlights.begin();

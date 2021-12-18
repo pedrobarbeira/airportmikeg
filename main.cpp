@@ -13,11 +13,22 @@
 void testAirport(){
     Data *data = new Data;
     auto *porto = new Airport;
+    auto *lisboa = new Airport("LIS", "Portela", "Portugal", "Lisbon");
+    auto *timeor = new Time(10, 30, 00);
+    auto *timedes = new Time(11, 00, 00);
+    auto *ori = new TimePlace(porto, timeor);
+    auto *des = new TimePlace(lisboa, timedes);
+    auto *plane = new Plane;
+    plane->setPlate("123");
+    auto *flight = new Flight(ori, des, plane);
+    data->addAirport(porto);
+    data->addAirport(lisboa);
+    data->addPlane(plane);
+    data->addFlight(flight);
     porto->setCity("Porto");
     porto->setCountry("Portugal");
     porto->setId("OPO");
     queue<string> first;
-    auto *plane = new Plane;
     porto->activateTerminal("1");
     porto->setTerminal(plane, "1");
     auto *metro = new Transport("12", 'm');
@@ -44,8 +55,6 @@ void testAirport(){
     auto date2 = new Time(18, 12, 21, 0, 0, 0);
     //cle1->checkSeats();
     //porto->delService(date2);
-    data->addAirport(porto);
-    data->addPlane(plane);
     porto->addStaff(staff1);
     Admin *admin = new Admin("admin", "admin");
     Client *client = new Client ("client", "client");

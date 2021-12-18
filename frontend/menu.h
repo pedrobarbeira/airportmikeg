@@ -92,6 +92,8 @@ public:
 
     void createPlane(Airbus *plane);
     void createPlane(Other *plane);
+    FlightPointer selectFlight();
+    void reOrderFlights(std::vector<FlightPointer>& f);
 
 };
 
@@ -240,6 +242,14 @@ protected:
     //Add an airport
     //Add service ticket queue
     //add complete service queue
+public:
+    void checkTerminal();
+    void addTerminal();
+    void delTerminal();
+    void checkTransport();
+    void addTransport();
+    void delTransport();
+    Terminal* selectTerminal(Airport *airport);
 };
 
 /**
@@ -260,6 +270,7 @@ public:
     void createAirport();
     void deleteAirport();
     void checkAirport();
+    void checkFlights();
 
     void workers();
     void addWorker();

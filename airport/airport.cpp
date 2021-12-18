@@ -246,18 +246,29 @@ list<Time*> Airport::nextTransportTrain(Time *time) const {
 }
 */
 void Airport::activateTerminal(string i) {
-    Terminal *t = new Terminal(i);
+    Terminal *t = new Terminal(i, this->idName);
     terminals.push_back(t);
 }
 
 void Airport::setTerminal(Plane *plane, string id = "") {
     for (unsigned i{0}; i < terminals.size(); i++){
-        if (!terminals[i]->getOccupied() && terminals[i]->id == ""){
+        if (!terminals[i]->getOccupied() && terminals[i]->getId() == ""){
             terminals[i]->setPlane(plane); break;}
-        else if (!terminals[i]->getOccupied() && terminals[i]->id == id) {
+        else if (!terminals[i]->getOccupied() && terminals[i]->getTerminalNumber() == id) {
             terminals[i]->setPlane(plane); break;}
         else cout << "No Terminals available to dock plane with plate " << plane->getPlate() << endl;
     }
+}
+
+bool Airport::delTerminal(string id){
+    for (unsigned it{}; it < terminals.size(); it++){
+        if (terminals[it]->id == id && terminals[it]->getOccupied()) return false;
+        else if (terminals[it]->id == id) {
+            terminals.erase(terminals.begin()+it);
+            return true;
+        }
+    }
+    return false;
 }
 
 void Airport::printAirport() {

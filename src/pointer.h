@@ -97,6 +97,7 @@ public:
     BST<FlightPointer> getFlightBST() const{
         return inFlights;
     }
+    std::vector<FlightPointer> getFlightPointers() const;
     Flight* find(std::string id) const;
     bool addIn(Flight* f){
         FlightPointer fptr(f);
