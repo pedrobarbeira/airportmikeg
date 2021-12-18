@@ -38,6 +38,21 @@ void Menu::print(std::vector<FlightPointer> f) const{
     }
 }
 
+void Menu::print(std::vector<TransportPointer> t)const{
+    system(CLEAR);
+    std::cout << "\n\t::::::::::::::::::\n\t:::  TRANSPORT  :::\n\t::::::::::::::::::\n";
+    std::cout << "\t     Type(distance)    Time\n"
+              << "\t     ---------------   ---------";
+    for(int i = 0; i < t.size(); i++){
+        std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
+                  << t[i].getPointer()->getTransport() << "("
+                  << t[i].getPointer()->getDistance() << "m)"
+                  << " -          "; t[i].getPointer()->getTime()->printTime();
+    }
+    std::cout << "\n\n";
+    system("pause");
+}
+
 void Menu::header() {
     std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
     system(CLEAR);
@@ -247,6 +262,31 @@ Terminal* CompanyMenu::selectTerminal(Airport *airport){
         return nullptr;
     }
     return terminal;
+}
+
+TransportPointer Menu::selectTransportPointer(Airport *airport) {
+    //TODO
+    /*if (this->user->getType() == 'a') */
+    //else airport = this->airport;
+    header();
+    vector<TransportPointer> temp = airport->getTransportPointer();
+    print(temp);
+    std::cout << "\n---------------------------------";
+    int i;
+    std::cout << "\nWhich transport option you want to select?(0 to go back)\n>";
+    std::cin >> i;
+    if (i == 0) {
+        std::cout << "Selection cancelled"; return TransportPointer(nullptr);
+    }
+    else if (i > 0 && i <= temp.size()){
+        system("pause");
+        return temp[i-1];
+    }
+    else {
+        std::cout << "Invalid option. Returning to previous menu.";
+        system("pause");
+        return TransportPointer(nullptr);
+    }
 }
 
 void Menu::createPlane(Airbus *plane) {
@@ -716,6 +756,7 @@ void CompanyMenu::checkTerminal() {
         std::cout << "[AIRPORT]\n"
                   << "\n\t[1] Add Terminal"
                   << "\n\t[2] Delete Terminal"
+                  << "\n\t[3] Edit Terminal"
                   << "\n\n\t[0] Back\n"
                   << "\n>";
         std::cin >> c;
@@ -723,6 +764,7 @@ void CompanyMenu::checkTerminal() {
         switch(c){
             case '1': addTerminal(); break;
             case '2': delTerminal(); break;
+            case '3': editTerminal(); break;
             case '0': return;
             default: std::cout << "Invalid Option\n"; system("pause");
         }
@@ -791,16 +833,169 @@ void CompanyMenu::delTerminal() {
     return;
 }
 
-void CompanyMenu::checkTransport() {
+void CompanyMenu::editTerminal(){
+    Airport *airport = new Airport;
+    //TODO
+    /*if (this->user->getType() == 'a') */airport = selectAirport().getPointer();
+    //else airport = this->airport;
+    Terminal *terminal = new Terminal;
+    std::cout << "\n";
+    terminal = selectTerminal(airport);
+    if (terminal == nullptr) return;
+    char a;
+    std::cout << "\n\tDo you want to change terminal(t) or remove plane(p)?\n>";
+    std::cin >> a;
+    switch (a){
+        case 'p':{
+            terminal->setUnocccupied();
+            break;
+        }
+        case 't':{
+            int id;
+            std::cout << "\n\tInsert new terminal number >"; std::cin >> id;
+            terminal->setId(to_string(id), airport->getidCode());
+        }
+        default: std::cout << "Invalid Option\n"; system("pause");
+    }
+    return;
+}
 
+void CompanyMenu::checkTransport() {
+    header();
+    char c;
+    std::cout << "Airport Transport Management Menu\n";
+    while(true) {
+        std::cout << "[AIRPORT]\n"
+                  << "\n\t[1] Add Transport"
+                  << "\n\t[2] Delete Transport"
+                  << "\n\t[3] Edit Transport"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+
+        switch(c){
+            case '1': addTransport(); break;
+            case '2': delTransport(); break;
+            case '3': editTransport(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
 
 void CompanyMenu::addTransport() {
-
+    Airport *airport = new Airport;
+    //TODO
+    /*if (this->user->getType() == 'a') */airport = selectAirport().getPointer();
+    //else airport = this->airport;
+    header();
+    char a, b;
+    int d, h, m;
+    Transport *transport;
+    Time *time;
+    while (true){
+        std::cout << "\n\tWhich transport you want to add?\n\t\t[m] Metro\n\t\t[b] Bus\n\t\t[t] Train\n>";
+        std::cin >> a;
+        switch (a){
+            case 'm': {
+                std::cout << "\n\tInsert distance (meters)>"; std::cin >> d;
+                std::cout << "\n\tInsert time:\n\thour>"; std::cin >> h;
+                std::cout << "\n\tminute>"; std::cin >> m;
+                time = new Time(h, m, 0);
+                std::cout << "\n\n\tNew Metro(" << d << ") at "; time->printTime(); std::cout << ".\n\tIs this correct?(y/n)\n>";
+                std::cin >> b;
+                switch (b){
+                    case 'y': {
+                        transport = new Transport(a); transport->setDistance(d); transport->addTime(time);
+                        TransportPointer nptr = TransportPointer(transport);
+                        airport->setTransport(nptr);
+                        break;
+                    }
+                    case 'n': std::cout << "\n\tNew transport insertion cancelled"; break;
+                }
+                return;
+            }
+            case 'b': {
+                std::cout << "\n\tInsert distance (meters)>"; std::cin >> d;
+                std::cout << "\n\tInsert time:\n\thour>"; std::cin >> h;
+                std::cout << "\n\tminute>"; std::cin >> m;
+                time = new Time(h, m, 0);
+                std::cout << "\n\n\tNew Bus(" << d << ") at "; time->printTime(); std::cout << ".\n\tIs this correct?(y/n)\n>";
+                std::cin >> b;
+                switch (b){
+                    case 'y': {
+                        transport = new Transport(a);
+                        transport->setDistance(d);
+                        transport->addTime(time);
+                        TransportPointer nptr = TransportPointer(transport);
+                        airport->setTransport(nptr);
+                        break;
+                    }
+                    case 'n': std::cout << "\n\tNew transport insertion cancelled"; break;
+                }
+                return;
+            }
+            case 't': {
+                std::cout << "\n\tInsert distance (meters)>"; std::cin >> d;
+                std::cout << "\n\tInsert time:\n\thour>"; std::cin >> h;
+                std::cout << "\n\tminute>"; std::cin >> m;
+                time = new Time(h, m, 0);
+                std::cout << "\n\n\tNew Train(" << d << ") at "; time->printTime(); std::cout << ".\n\tIs this correct?(y/n)\n>";
+                std::cin >> b;
+                switch (b){
+                    case'y': {
+                        transport = new Transport(a);
+                        transport->setDistance(d);
+                        transport->addTime(time);
+                        TransportPointer nptr = TransportPointer(transport);
+                        airport->setTransport(nptr);
+                        break;
+                    }
+                    case 'n': std::cout << "\n\tNew transport insertion cancelled"; break;
+                    default: std::cout << "Incorrect output"; cin.ignore(INT32_MAX, '\n');
+                }
+                return;
+            }
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
 
 void CompanyMenu::delTransport(){
+    Airport *airport = new Airport;
+    //TODO
+    /*if (this->user->getType() == 'a') */airport = selectAirport().getPointer();
+    //else airport = this->airport;
+    header();
+    TransportPointer nptr = selectTransportPointer(airport);
+    airport->delTransport(nptr);
+    std::cout << "\n\tTransport successfully deleted";
+    return;
+}
 
+void CompanyMenu::editTransport(){
+    Airport *airport = new Airport;
+    //TODO
+    /*if (this->user->getType() == 'a') */airport = selectAirport().getPointer();
+    //else airport = this->airport;
+    char b;
+    int h, m;
+    TransportPointer nptr = selectTransportPointer(airport);
+    if (nptr.getPointer() == nullptr) return;
+    std::cout << "\n\tWhat is the new schedule?\n\tHour>"; std::cin >> h;
+    std::cout << "\n\tMinutes>"; std::cin >> m;
+    std::cout << "\n\n\tIs the time " << h << ":" << m << " correct?(y/n)\n>"; std::cin >> b;
+    switch (b){
+        case 'y':{
+            Time *time = new Time (h, m, 0);
+            nptr.getPointer()->addTime(time);
+            break;
+        }
+        case 'n': std::cout << "\n\tNew transport edition cancelled"; break;
+        default: std::cout << "Incorrect output"; cin.ignore(INT32_MAX, '\n');
+    }
+    return;
 }
 
 void AdminMenu::checkAirport() {

@@ -23,9 +23,7 @@ class Transport{
     Time *time;
     friend class Airport;
 public:
-    Transport(string id, char c);
-    void setId(string id) {
-        this->id = id;};
+    Transport(char c);
     string getId() const{
         return id;};
     void setType(char c){
@@ -74,6 +72,11 @@ public:
         this-> plane = plane;};
     Plane* getPlane() const{
         return plane;}
+    void setOccupied(Plane *plane){this->plane=plane;};
+    void setUnocccupied(){
+        plane->takeOff();
+        this->plane = nullptr;
+    };
     bool getOccupied() const {
         return plane != nullptr;
     }
@@ -122,6 +125,7 @@ public:
     bool addStaff(Staff*);
     bool delStaff(Staff*);
     vector<Transport*> getTransport() const;
+    vector<TransportPointer> getTransportPointer() const;
     /*list<Time*>nextTransportMetro (Time *time) const;
     list<Time*>nextTransportBus (Time *time) const;
     list<Time*>nextTransportTrain (Time *time) const;*/

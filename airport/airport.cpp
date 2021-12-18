@@ -8,8 +8,9 @@ using namespace std;
 
 ///////////////////////////////////// T R A N S P O R T /////////////////////////////
 
-Transport::Transport(string id, char c) {
-    this->id = id;
+Transport::Transport(char c) {
+    this->id = c + to_string(idTransport);
+    idTransport++;
     type=c;
     distance=0;
     this->time = nullptr;
@@ -146,6 +147,16 @@ ServiceTicket* Airport::nextService() {
 
 void Airport::setTransport(TransportPointer transport) {
     this->transport.insert(transport);
+}
+
+vector<TransportPointer> Airport::getTransportPointer() const {
+    vector<TransportPointer> t;
+    BSTItrIn<TransportPointer> it(transport);
+    while(!it.isAtEnd()){
+        t.push_back(it.retrieve());
+        it.advance();
+    }
+    return t;
 }
 
 void Airport::delTransport(TransportPointer transport) {

@@ -31,8 +31,8 @@ void testAirport(){
     queue<string> first;
     porto->activateTerminal("1");
     porto->setTerminal(plane, "1");
-    auto *metro = new Transport("12", 'm');
-    auto *bus = new Transport("10", 'b');
+    auto *metro = new Transport('m');
+    auto *bus = new Transport('b');
     auto *time1 = new Time(10, 00, 00);
     auto *time2 = new Time(11, 00, 00);
     metro->addTime(time1);

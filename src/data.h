@@ -20,7 +20,8 @@ class Data{
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
     //BST<StaffPointer> staff;
-    //BST<ServiceTicketPointer> services:
+    //BST<ServiceTicketPointer> services;
+    //BST<TransportPointer> transport;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;

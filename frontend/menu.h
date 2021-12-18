@@ -75,6 +75,8 @@ public:
      */
     void showAllFlights() const;
 
+    void print(std::vector<TransportPointer> t) const;
+
     void logOut() const;
 
     void header();
@@ -93,6 +95,7 @@ public:
     void createPlane(Other *plane);
     FlightPointer selectFlight();
     void reOrderFlights(std::vector<FlightPointer>& f);
+    TransportPointer selectTransportPointer(Airport *airport);
 
 };
 
@@ -245,9 +248,11 @@ public:
     void checkTerminal();
     void addTerminal();
     void delTerminal();
+    void editTerminal();
     void checkTransport();
     void addTransport();
     void delTransport();
+    void editTransport();
     Terminal* selectTerminal(Airport *airport);
 };
 
