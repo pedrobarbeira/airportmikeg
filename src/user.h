@@ -82,10 +82,11 @@ protected:
     std::queue<ServiceTicket*> serviceList;
     std::list<ServiceTicket*> completedServices;
 public:
-    explicit Company(std::string u = "", std::string p = "", char t = '\0'){
+    explicit Company(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr){
         username = std::move(u);
         password = std::move(p);
-        airport = nullptr;
+        airport = a;
+        plane = pln;
         type = t;
     }
     Airport* getAirport() const{

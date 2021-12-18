@@ -120,7 +120,6 @@ public:
 };
 
 /**---User Sorter---*/
-
 class UserSorter{
 protected:
     static bool nameAscending(const User* u1, const User* u2);
@@ -140,7 +139,6 @@ public:
 };
 
 /**---Client Sorter---*/
-
 class ClientSorter : public UserSorter{
     static bool milesAscending(const Client* c1, const Client* c2);
     static bool milesDescending(const Client* c1, const Client* c2);
@@ -158,7 +156,6 @@ public:
 };
 
 /**---Company Sorter---*/
-
 class CompanySorter : public UserSorter{
 protected:
     static bool airportAscending(const Company* c1, const Company* c2);
@@ -172,7 +169,6 @@ public:
 };
 
 /**---Manager Sorter---*/
-
 class ManagerSorter : public CompanySorter{
 public:
     /**
@@ -183,7 +179,6 @@ public:
 };
 
 /**---Boarding Sorter---*/
-
 class BoardingSorter : public CompanySorter{
     static bool planeAscending(const Boarding* c1, const Boarding* c2);
     static bool planeDescending(const Boarding* c1, const Boarding* c2);
@@ -196,7 +191,6 @@ public:
 };
 
 /**---Service Sorter---*/
-
 class ServiceSorter : public CompanySorter{
     static bool staffAscending(const Service* c1, const Service* c2);
     static bool staffDescending(const Service* c1, const Service* c2);

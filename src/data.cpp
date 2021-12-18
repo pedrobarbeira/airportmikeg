@@ -46,7 +46,6 @@ bool Data::addFlight(Flight* f){
     }
     return true;
 }
-
 std::vector<AirportPointer> Data::getAirports() const{
     std::vector<AirportPointer> ret;
     iteratorBST<AirportPointer> it = airports.begin();
@@ -56,7 +55,6 @@ std::vector<AirportPointer> Data::getAirports() const{
     }
     return ret;
 }
-
 std::vector<Voyage*> Data::getVoyages() const{
     std::vector<Voyage*> ret;
     iteratorBST<VoyagePointer> it = voyages.begin();
@@ -66,21 +64,15 @@ std::vector<Voyage*> Data::getVoyages() const{
     }
     return ret;
 }
-
 std::vector<FlightPointer> Data::getFlights() const{
     std::vector<FlightPointer> ret;
-    AirportPointer airport;
-    iteratorBST<AirportPointer> aptr = airports.begin();
-    iteratorBST<FlightPointer> flight;
-    while(aptr != airports.end()){
-        airport = (*aptr);
-        std::vector<FlightPointer> load = airport.getFlights();
-        ret.insert(ret.end(), load.begin(), load.end());
-        aptr++;
+    iteratorBST<FlightPointer> it = flights.begin();
+    while(it != flights.end()){
+        ret.push_back((*it));
+        it++;
     }
     return ret;
 }
-
 std::vector<Plane*> Data::getPlanes() const{
     std::vector<Plane*> ret;
     iteratorBST<PlanePointer> it = planes.begin();
@@ -90,7 +82,6 @@ std::vector<Plane*> Data::getPlanes() const{
     }
     return ret;
 }
-
 std::vector<Ticket*> Data::getTickets() const{
     std::vector<Ticket*> ret;
     iteratorBST<TicketPointer> it = tickets.begin();
@@ -100,7 +91,6 @@ std::vector<Ticket*> Data::getTickets() const{
     }
     return ret;
 }
-
 std::vector<Client*> Data::getClients() const{
     std::vector<Client*> ret;
     iteratorBST<ClientPointer> it = clients.begin();
@@ -110,7 +100,6 @@ std::vector<Client*> Data::getClients() const{
     }
     return ret;
 }
-
 std::vector<Company*> Data::getCompany() const{
     std::vector<Company*> ret;
     iteratorBST<CompanyPointer> it = company.begin();
@@ -120,7 +109,6 @@ std::vector<Company*> Data::getCompany() const{
     }
     return ret;
 }
-
 BST<FlightPointer> Data::getFlightBST() const{
     BST<FlightPointer> ret(FlightPointer(nullptr));
     iteratorBST<AirportPointer> it = airports.begin();
@@ -137,20 +125,17 @@ BST<FlightPointer> Data::getFlightBST() const{
     }
     return ret;
 }
-
 AirportPointer Data::findAirport(const std::string& id) const{
     Airport* a = new Airport(id);
     AirportPointer find(a);
     return airports.find(find);
 }
-
 Voyage* Data::findVoyage(const std::string& id) const{
     Voyage* v = new Voyage(id);
     VoyagePointer find(v);
     find = voyages.find(find);
     return find.getPointer();
 }
-
 FlightPointer Data::findFlight(const std::string& id) const{
     FlightPointer ret(nullptr);
     iteratorBST<AirportPointer> it = airports.begin();
@@ -164,28 +149,24 @@ FlightPointer Data::findFlight(const std::string& id) const{
     }
     return ret;
 }
-
 Plane* Data::findPlane(const std::string& id) const{
     Plane* p = new Plane(id);
     PlanePointer find(p);
     find = planes.find(find);
     return find.getPointer();
 }
-
 Ticket* Data::findTicket(const std::string& id) const{
     Ticket* t = new Ticket(id);
     TicketPointer find(t);
     find = tickets.find(find);
     return find.getPointer();
 }
-
 Client* Data::findClient(const std::string& id) const{
     Client* c = new Client(id);
     ClientPointer find(c);
     find = clients.find(find);
     return find.getPointer();
 }
-
 Company* Data::findCompany(const std::string& id) const{
     Company* c = new Company(id);
     CompanyPointer find(c);
@@ -280,7 +261,6 @@ void SaveAirport::save() const {
         }
     }
 }
-
 void SaveAirport::saveAirport(AirportPointer aptr) {
     std::ofstream outfile("./data/airports.txt", ios::app);
     if (!outfile.is_open())
@@ -326,7 +306,6 @@ void SaveAirport::saveAirport(AirportPointer aptr) {
         throw DevLog(e.getError());
     }
 }
-
 void SaveAirport::saveTerminal(Airport* a){
     std::vector<Terminal*> terminals = a->getTerminals();
     if(!terminals.empty()) {
@@ -342,7 +321,6 @@ void SaveAirport::saveTerminal(Airport* a){
         outfile.close();
     }
 }
-
 void SaveAirport::saveTransport(Airport* a){
     std::vector<Transport*> transports = a->getTransport();
     if(!transports.empty()) {
@@ -359,7 +337,6 @@ void SaveAirport::saveTransport(Airport* a){
         outfile.close();
     }
 }
-
 void SaveAirport::saveService(Airport* a){
     std::vector<ServiceTicket*> services = a->getServices();
     if(!services.empty()) {
@@ -387,7 +364,6 @@ void SaveAirport::saveService(Airport* a){
         }
     }
 }
-
 void SaveAirport::saveStaff(Airport* a){
     std::vector<Staff*> staff = a->getStaff();
     if(!staff.empty()) {
@@ -405,7 +381,6 @@ void SaveAirport::saveStaff(Airport* a){
     }
 }
 
-
 /**---Save User---*/
 void SaveUser::save() const{
     try{
@@ -421,7 +396,6 @@ void SaveUser::save() const{
         throw DevLog(e.getError());
     }
 }
-
 void SaveUser::saveCompany() const{
     try{
         saveAdmin();
@@ -442,7 +416,6 @@ void SaveUser::saveCompany() const{
         throw DevLog(e.getError());
     }
 }
-
 void SaveUser::saveAdmin() const{
     BST<CompanyPointer> bst = data->getCompanyBST();
     if(!bst.isEmpty()) {
@@ -463,7 +436,6 @@ void SaveUser::saveAdmin() const{
         outfile.close();
     }
 }
-
 void SaveUser::saveBoarding() const {
     BST<CompanyPointer> bst = data->getCompanyBST();
     if(!bst.isEmpty()) {
@@ -487,7 +459,6 @@ void SaveUser::saveBoarding() const {
         outfile.close();
     }
 }
-
 void SaveUser::saveService() const{
     BST<CompanyPointer> bst = data->getCompanyBST();
     if(!bst.isEmpty()) {
@@ -511,7 +482,6 @@ void SaveUser::saveService() const{
         outfile.close();
     }
 }
-
 void SaveUser::saveClient() const {
     BST<ClientPointer> bst = data->getClientsBST();
     if(!bst.isEmpty()) {
@@ -544,7 +514,6 @@ void SaveUser::saveClient() const {
         outfile.close();
     }
 }
-
 void SaveUser::saveTickets(Client* c) {
     std::vector<string> tickets = c->getTickets();
     std::ofstream outfile("./data/clients.txt", ios::app);
