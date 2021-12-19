@@ -91,11 +91,11 @@ Airbus::Airbus(std::queue<std::string> first) {
     cabin = new Cabin;
     cabin->seatRows = 26;
     cabin->seatsPerRow = 6;
-    vector<Class*> loadClass(3, nullptr);
     auto *f = new FirstClass();
     auto *e = new EconomyClass();
-    loadClass[0] = f;
-    loadClass[2] = e;
+    classes.push_back(f);
+    classes.push_back(nullptr);
+    classes.push_back(e);
     grounded = true;
     for(int i = 0; i < cabin->seatRows; i++){
         std::vector<Seat*> load;
@@ -116,7 +116,7 @@ Airbus::Airbus(std::queue<std::string> first) {
 
 }
 
-Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first) {
+Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first) {
     std::stringstream ss;
     otherCount++;
     ss << "OTR" << std::setw(2) << std::setfill('0') << otherCount;
@@ -124,9 +124,10 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t 
     this->cabin = new Cabin;
     cabin->seatRows = rows;
     cabin->seatsPerRow = seatPerRow;
-    auto *f = new FirstClass(fClassPrice);
-    auto *e = new EconomyClass(eClassPrice);
+    auto *f = new FirstClass();
+    auto *e = new EconomyClass();
     classes.push_back(f);
+    classes.push_back(nullptr);
     classes.push_back(e);
     grounded = true;
     for(int i = 0; i < cabin->seatRows; i++){
@@ -147,18 +148,18 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t 
     }
 }
 
-Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t bClassPrice, uint16_t eClassPrice,
-             std::queue<std::string> first, std::queue<std::string> biz) {
+Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first, std::queue<std::string> biz) {
     std::stringstream ss;
     otherCount++;
     ss << "OTR" << std::setw(2) << std::setfill('0') << otherCount;
     plate = ss.str();
     cabin->seatRows = rows;
     cabin->seatsPerRow = seatPerRow;
-    auto *f = new FirstClass(fClassPrice);
-    auto *b = new BusinessClass(bClassPrice);
-    auto *e = new EconomyClass(eClassPrice);
+    auto *f = new FirstClass();
+    auto *b = new BusinessClass();
+    auto *e = new EconomyClass();
     classes.push_back(f);
+    classes.push_back(b);
     classes.push_back(e);
     grounded = true;
     for(int i = 0; i < cabin->seatRows; i++){

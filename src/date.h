@@ -81,6 +81,7 @@ public:
     Date(), hour(h), minute(m), second(s){}
     Time(uint16_t d, uint16_t m, uint16_t y, uint16_t h, uint16_t min, uint16_t s):
     Date(d, m, y), hour(h), minute(min), second(s){};
+    Time(const std::string& s);
     /**Getters*/
     uint16_t getHour() const{
         return hour;};

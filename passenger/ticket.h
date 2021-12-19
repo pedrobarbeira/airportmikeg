@@ -8,13 +8,20 @@ using namespace std;
 
 class Ticket {
     string ticketID;
+    Flight* flight;
     Seat* seat;
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
-    explicit Ticket(Seat* s= nullptr);
+    explicit Ticket(Flight* f = nullptr, Seat* s= nullptr);
     Ticket(std::string id) : ticketID(std::move(id)){}
     string getID() const;
+    std::string getFlightId() const{
+        return flight->getId();
+    }
+    std::vector<Luggage*> getLuggage() const{
+        return luggage;
+    }
     Passenger* getOwner() const;
     Seat* getSeat() const;
 
@@ -29,6 +36,7 @@ public:
         return ticketID < rhs.ticketID;
     }
 };
+
 
 
 #endif //MIKEGAIRLINES_TICKET_H

@@ -165,7 +165,7 @@ public:
      * Sorts vectors of type Company*, allowing different orders of organization
      */
     CompanySorter() = default;
-    void operator()(std::vector<Company*>& data, char c, bool asc);
+    virtual void operator()(std::vector<Company*>& data, char c, bool asc);
 };
 
 /**---Manager Sorter---*/
@@ -175,35 +175,35 @@ public:
      * Sorts vectors of type Manager*, allowing different orders of organization
      */
     ManagerSorter() = default;
-    void operator()(std::vector<Manager*>& data, char c, bool asc);
+    void operator()(std::vector<Company*>& data, char c, bool asc) override;
 };
 
 /**---Boarding Sorter---*/
 class BoardingSorter : public CompanySorter{
-    static bool planeAscending(const Boarding* c1, const Boarding* c2);
-    static bool planeDescending(const Boarding* c1, const Boarding* c2);
+    static bool planeAscending(const Company* c1, const Company* c2);
+    static bool planeDescending(const Company* c1, const Company* c2);
 public:
     /**
      * Sorts vectors of type Boarding*, allowing different orders of organization
      */
     BoardingSorter() = default;
-    void operator()(std::vector<Boarding*>& data, char c, bool asc);
+    void operator()(std::vector<Company*>& data, char c, bool asc) override;
 };
 
 /**---Service Sorter---*/
 class ServiceSorter : public CompanySorter{
-    static bool staffAscending(const Service* c1, const Service* c2);
-    static bool staffDescending(const Service* c1, const Service* c2);
-    static bool toDoAscending(const Service* c1, const Service* c2);
-    static bool toDoDescending(const Service* c1, const Service* c2);
-    static bool completedAscending(const Service* c1, const Service* c2);
-    static bool completedDescending(const Service* c1, const Service* c2);
+    static bool staffAscending(const Company* c1, const Company* c2);
+    static bool staffDescending(const Company* c1, const Company* c2);
+    static bool toDoAscending(const Company* c1, const Company* c2);
+    static bool toDoDescending(const Company* c1, const Company* c2);
+    static bool completedAscending(const Company* c1, const Company* c2);
+    static bool completedDescending(const Company* c1, const Company* c2);
 public:
     /**
      * Sorts vectors of type Service*, allowing different orders of organization
      */
     ServiceSorter() = default;
-    void operator()(std::vector<Service*>& data, char c, bool asc);
+    void operator()(std::vector<Company*>& data, char c, bool asc) override;
 };
 
 

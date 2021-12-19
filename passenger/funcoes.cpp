@@ -43,7 +43,7 @@ void buyTicket(VoyagePointer voy) {
             }while (flag);
 
             Seat* s=p->bookSeat(seatchoice);
-            Ticket *ticket1 = new Ticket(s);
+            Ticket *ticket1 = new Ticket(flight.getPointer(), s);
 
             //bagagem
             int numbags;

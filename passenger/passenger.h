@@ -9,7 +9,7 @@ using namespace std;
 class Passenger{
     string name;
 public:
-    Passenger(string name, bool checkinpass);
+    Passenger(string name);
     string getName() const;
     bool getCheckinpass() const;
     void setName(string name2){name=name2;}

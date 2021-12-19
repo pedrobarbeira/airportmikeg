@@ -7,9 +7,11 @@
 
 /**Exception classes*/
 /**
-     * Stores special system error messages into the DevLogs file, so the company's
-     * amazing and much valued "IT guy" can keep everything running smoothly
-     */
+* Stores special system error messages into the DevLogs file, so the company's
+* amazing and much valued "IT guy" can keep everything running smoothly.
+* Has a tring variable that stores the error and a Date* variable that stores
+* the time of the ocurrence.
+*/
 class DevLog : public std::exception {
     std::string error;
     Date* date;
@@ -29,49 +31,86 @@ public:
 };
 
 /**
- * Communicate to DevLogs if any problem happens while loading Airline data
+ * Interface class for Fail exceptions.
+ * Created and called whenever a backend problem hapens.
+ * Has a string variable that stores the error
  */
 class Fail : public std::exception{
 protected:
+    /**
+     * The error that caused the exception
+     */
     std::string error;
 public:
+    /**
+     * Empty constructor used to initialize subclasses
+     */
     Fail(){
         error.clear();
     }
+    /**
+     * Returns the error stored in the error variable
+     * @return the error stored in the error variable
+     */
     std::string getError() const{
         return error;
     }
 };
+
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading Airport data
+ */
 class LoadAirportFail : public Fail{
 public:
     LoadAirportFail(){
         error = "Failed to load Airports";
     }
 };
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading Voyage data
+ */
 class LoadVoyageFail : public Fail{
 public:
     LoadVoyageFail(){
         error = "Failed to load Voyages";
     }
 };
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading Flight data
+ */
 class LoadFlightFail : public Fail{
 public:
     LoadFlightFail() {
         error = "Failed to load flights";
     };
 };
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading Plane data
+ */
 class LoadPlaneFail : public Fail{
 public:
     LoadPlaneFail() {
         error = "Failed to load Planes";
     };
 };
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading Ticket data
+ */
 class LoadTicketFail : public Fail{
 public:
     LoadTicketFail() {
         error = "Failed to load Tickets";
     };
 };
+/**
+ * Used to ommunicate to DevLogs any problem that may happen while
+ * loading User data
+ */
 class LoadUserFail : public Fail{
 public:
     LoadUserFail(){
@@ -79,23 +118,44 @@ public:
     };
 };
 
-
+/**
+ * Used to communicate with DevLogs any problem that might happen
+ * while saving Airport data
+ */
 class SaveAirportFail : public Fail{
 public:
+    /**
+     * Constructor for the SaveAirportFail expection
+     * @param id the function where the error happened
+     */
     SaveAirportFail(std::string id){
         error = "SaveAirportFail::" + id + " error opening outfile\n";
     }
 };
-
+/**
+ * Used to communicate with DevLogs any problem that might happen
+ * while saving Voyage data
+ */
 class SaveVoyageFail: public Fail{
 public:
+    /**
+     * Constructor for the SaveVoyageFail exception
+     * @param id the functio where the error happened
+     */
     SaveVoyageFail(std::string id){
         error = "SaveVoyageFail::::" + id + " error opening outfile\n";
     }
 };
-
+/**
+ * Used to communicate with DevLogs any problem that might happen
+ * while saving User data
+ */
 class SaveUserFail : public Fail{
 public:
+    /**
+     * Constructor the for SaveUserFail exception
+     * @param id the function where the error happened
+     */
     SaveUserFail(std::string id){
         error = "SaveUser::" + id + " error opening outfile\n";
     }
@@ -107,8 +167,14 @@ public:
 class LogOut : public std::exception{
     std::string message;
 public:
+    /**
+     * Constructor for the LogOut exception class
+     */
     LogOut(): message("Logging Out"){};
 
+    /**
+     * Prints "Logging out"
+     */
     void print() const{
         std::cout << message << '\n';
     }

@@ -30,17 +30,17 @@ class Carriage{
 public:
     explicit Carriage(int m = 0, int n = 0){
     }
-    bool loadCarriage(Luggage*){
-        std::queue<std::stack<Luggage*>> load;
-        std::stack<Luggage*> full = bags.front();
-        while(!bags.empty() && full.size() == m){
-                bags.pop();
-                load.push(full);
-                full = bags.front();
+    bool loadCarriage(Luggage*) {
+        std::queue<std::stack<Luggage *>> load;
+        std::stack<Luggage *> full = bags.front();
+        while (!bags.empty() && full.size() == m) {
+            bags.pop();
+            load.push(full);
+            full = bags.front();
         };
 
         for (int i = 0; i < bags.size(); ++i) {
-            load.front()=bags.front();
+            load.front() = bags.front();
             bags.pop();
             i++;
         }

@@ -1,7 +1,7 @@
 #include "passenger.h"
 using namespace std;
 
-Passenger::Passenger(string nome, bool checkinpass) {
+Passenger::Passenger(string nome) {
     this->name=name;
 }
 

@@ -16,12 +16,8 @@ class Data{
     BST<VoyagePointer> voyages;
     BST<PlanePointer> planes;
     BST<FlightPointer> flights;
-    BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
-    //BST<StaffPointer> staff;
-    //BST<ServiceTicketPointer> services;
-    //BST<TransportPointer> transport;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -33,9 +29,7 @@ public:
      */
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)),
-             flights(FlightPointer(nullptr)){}
-
+             voyages(VoyagePointer(nullptr)), flights(FlightPointer(nullptr)){}
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects
@@ -88,6 +82,7 @@ public:
         return airports;
     }
 
+
     /**
      * Returns the voyages BST
      * @return the voyages BST
@@ -107,15 +102,16 @@ public:
      * adding all FlightPointer objects of the system into the FlightPointer BST
      * @return the created FlightPointer BSt
      */
-    BST<FlightPointer> getFlightBST() const;
+    BST<FlightPointer> getFlightBST() const{
+        return flights;
+    }
 
     /**
-     * Returns the tickets BST
-     * @return the tickets BST
+     * Iterates through the flights BST and creates a TicketPointer BST with
+     * all the tickets stored in the system
+     * @return the BST with all the existing tickets
      */
-    BST<TicketPointer> getTicketsBST() const{
-        return tickets;
-    }
+    BST<TicketPointer> getTicketBST() const;
 
     /**
      * Returns the clients BST
@@ -143,6 +139,10 @@ public:
         return airports.insert(aptr);
     }
 
+    bool addAirport(const AirportPointer& aptr){
+        return airports.insert(aptr);
+    }
+
     /**
      * Deletes an airport from the airports BST
      * @param a the airport to be deleted
@@ -159,7 +159,6 @@ public:
      * @param v pointer to the Voyage that'll be added
      * @return bool upon success. false otherwise
      */
-
     bool addVoyage(Voyage* v){
         VoyagePointer vptr(v);
         return voyages.insert(vptr);
@@ -172,6 +171,9 @@ public:
      */
     bool addFlight(Flight* f);
 
+    bool addFlight(const FlightPointer& f){
+        return flights.insert(f);
+    }
     /**
      * Adds a plane to the planes BST
      * @param p pointer the plane that'll be added
@@ -187,9 +189,8 @@ public:
      * @param t pointer to the ticket that'll be added
      * @return bool upon success. false otherwise
      */
-    bool addTicket(Ticket* t){
-        TicketPointer tptr(t);
-        return tickets.insert(tptr);
+    bool addTicket(FlightPointer& f, Ticket* t){
+        return f.addTicket(t);
     }
 
 
@@ -200,7 +201,7 @@ public:
      */
     bool addClient(Client* c){
         ClientPointer cptr(c);
-        clients.insert(cptr);
+        return clients.insert(cptr);
     }
 
     /**
@@ -219,6 +220,13 @@ public:
      * @return the result of the search
      */
     AirportPointer findAirport(const std::string& id) const;
+
+    /**
+ * Searches for a given Ticket in the tickets BST
+ * @param id the ID of the ticket to be found
+ * @return the result of the sarch
+ */
+    static Staff* findStaff(const Airport* a, const unsigned int& id);
 
     /**
      * Searches for a given Voyage in the voyages BST
@@ -261,6 +269,16 @@ public:
      * @return the result of the search
      */
     Company* findCompany(const std::string& id) const;
+
+    bool removeAirport(std::string id){
+        AirportPointer aptr = findAirport(id);
+        return airports.remove(aptr);
+    }
+
+    bool removeFlight(std::string id){
+        FlightPointer fptr = findFlight(id);
+        return flights.remove(fptr);
+    }
 };
 
 class Load{
@@ -268,9 +286,11 @@ protected:
     Data* data;
 public:
     explicit Load(Data* d = nullptr) : data(d){}
+    virtual void load();
 };
 
 class LoadAirport : public Load{
+    void loadPlane();
 public:
     explicit LoadAirport(Data*d = nullptr){
         data = d;
@@ -278,17 +298,14 @@ public:
 };
 
 class LoadVoyage : public Load{
+    void loadFlight();
+    void loadVoyage();
+    void loadTicket();
 public:
     explicit LoadVoyage(Data* d = nullptr){
         data = d;
     }
-};
-
-class LoadPlane : public Load{
-public:
-    explicit LoadPlane(Data* d = nullptr){
-        data = d;
-    }
+    void load() override;
 };
 
 class LoadUser : public Load{
@@ -298,7 +315,7 @@ public:
     explicit LoadUser(Data* d = nullptr){
         data = d;
     }
-    void load();
+    void load() override;
 };
 
 class Save{
@@ -314,19 +331,19 @@ class SaveAirport : public Save{
      * Saves all the information of a given Airprort in text files
      * @param a pointer to the Airport
      */
-    static void saveAirport(AirportPointer a);
+    static void saveAirport(const AirportPointer& a);
 
     /**
      * Saves all the Terminal-related information of an Airport  in a text file
      * @param a pointer to the Airport
      */
-    static void saveTerminal(Airport* a);
+    static void saveTerminal(const Airport* a);
 
     /**
      * Saves all the Transport-related information of an Airport  in a text file
      * @param a pointer to the Airport
      */
-    static void saveTransport(Airport* a);
+    static void saveTransport(const Airport* a);
 
     /**
      * Saves all the ServiceTicket-related information of an Airport  in a text file
@@ -338,7 +355,7 @@ class SaveAirport : public Save{
      * Saves all the Staff-related information of an Airport in a text file
      * @param a pointer to the Airport
      */
-    static void saveStaff(Airport* a);
+    static void saveStaff(const Airport* a);
 public:
     /**
      * Constructor for SaveAirport class. Receives a pointer to a data
@@ -353,13 +370,30 @@ public:
 };
 
 class SaveVoyage : public Save{
+    /**
+     * Saves the Voyage related information in a text file
+     */
+    void saveVoyage() const;
+
+    /**
+     * Saves the Flight related information in a text file
+     */
     void saveFlight() const;
-    void saveTicket() const;
+
+    /**
+     * Saves the informations of the tickets of a flight in a text file
+     */
+    static void saveTicket(const FlightPointer& fp);
+
+    /**
+     * Thes the information of the planes in a text file
+     */
     void savePlane() const;
 public:
     explicit SaveVoyage(Data* d = nullptr){
         data = d;
     }
+    void save() const override;
 };
 
 class SaveUser : public Save{
