@@ -357,7 +357,9 @@ void Menu::createPlane(Other *plane) {
             std::string s; s = toupper(i); first.push(s);
         }
     }
-    *plane = Other(rows, seatPerRow, fClassPrice, eClassPrice, first );
+    *plane = Other(rows, seatPerRow, first);
+    plane ->setFClassPrice(fClassPrice);
+    plane->setEClassPrice(eClassPrice);
     data->addPlane(plane);
 }
 
