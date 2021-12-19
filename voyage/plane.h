@@ -88,7 +88,7 @@ class Seat {
 public:
     /**Constructor*/
     Seat(std::string row, int column, Class* classe);
-    ~Seat();
+    //~Seat();
     /*Getters*/
     std::string getId() const{
         return id;

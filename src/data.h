@@ -19,9 +19,7 @@ class Data{
     BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
-    //BST<StaffPointer> staff;
     //BST<ServiceTicketPointer> services;
-    //BST<TransportPointer> transport;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -211,6 +209,16 @@ public:
     bool addCompany(Company* c){
         CompanyPointer cptr(c);
         return company.insert(cptr);
+    }
+
+    /**
+     * Removes a company account from the company BST
+     * @param c pointer to the company account that'll be added
+     * @return bool upon success. false otherwise
+     */
+    bool delCompany(Company* c){
+        CompanyPointer cptr(c);
+        return company.remove(cptr);
     }
 
     /**

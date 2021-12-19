@@ -19,12 +19,12 @@ Seat::Seat(std::string row, int column, Class* c){
     classe = c;
     handBag = nullptr;
 }
-
+/*
 Seat::~Seat(){
     delete classe;
     delete handBag;
 }
-
+*/
 /**Plane*/
 Plane::~Plane(){
     for(auto it : classes)
@@ -113,7 +113,6 @@ Airbus::Airbus(std::queue<std::string> first) {
         cabin->seats.push_back(load);
         load.clear();
     }
-
 }
 
 Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first) {

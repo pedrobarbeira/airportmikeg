@@ -154,7 +154,6 @@ public:
      *
      */
     void print(vector<Plane*>);
-
 };
 
 /**
@@ -259,7 +258,6 @@ public:
      * @return the chosen airport
      */
     AirportPointer selectAirport();
-
 
     void seeFlights();
 

@@ -56,14 +56,17 @@ void testAirport(){
     //cle1->checkSeats();
     //porto->delService(date2);
     porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin", 'a');
+    Admin *admin = new Admin("admin", "admin", 'A');
     Client *client = new Client ("client", "client");
-    Manager *manager = new Manager("manager", "manager",'m', porto );
-    AdminMenu *adm = new AdminMenu(admin, data);
+    Manager *manager = new Manager("manager", "manager",'M', porto );
+    Service *service = new Service("service", "service", 'S', porto);
     data->addCompany(manager);
     data->addCompany(admin);
     data->addClient(client);
+    data->addCompany(service);
+    AdminMenu *adm = new AdminMenu(admin, data);
     ManagerMenu *man = new ManagerMenu(manager, data);
+    ServiceMenu *ser = new ServiceMenu(service, data);
     adm->mainScreen();
 
 }

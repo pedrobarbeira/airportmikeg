@@ -92,8 +92,20 @@ public:
     Airport* getAirport() const{
         return airport;
     }
+    void setAirport(Airport* airport){
+        this->airport = airport;
+    }
     Staff* getStaff() const{
         return staff;
+    }
+    void setStaff(Staff* staff){
+        this->staff = staff;
+    }
+    void addNewService(ServiceTicket *service){
+        serviceList.push(service);
+    }
+    void addCompleteService(ServiceTicket *service){
+        completedServices.push_back(service);
     }
     std::queue<ServiceTicket*> getService() const{
         return serviceList;

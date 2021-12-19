@@ -150,6 +150,39 @@ void Menu::newWorker(Airport *airport){
         case 'n': std::cout << "\n\n\tNew member addition cancelled"; break;
         default: std::cout << "Invalid Option\n"; system("pause");
     }
+    char c;
+    std::cout << "\n\tWhich function in the company you to attribute this new worker?"
+              << "\n\t\t[1] Airport Manager"
+              << "\n\t\t[2] Boarding Staff"
+              << "\n\t\t[3] Service Staff"
+              << "\n\n\t\t[0] Cancel\n>";
+    while (true) {
+        std::cin >> c;
+        switch (c) {
+            case '1':{
+                Manager *man = new Manager(staff->getId(), staff->getId(), 'A');
+                man->setStaff(staff);
+                data->addCompany(man);
+                return;}
+            case '2':{
+                Boarding *board = new Boarding(staff->getId(), staff->getId(), 'B', airport);
+                board->setStaff(staff);
+                data->addCompany(board);
+                return;}
+            case '3':{
+                Service *serv = new Service(staff->getId(), staff->getId(), 'S', airport);
+                serv->setStaff(staff);
+                data->addCompany(serv);
+                return;}
+            case '0':
+                std::cout << "\nAddition cancelled";
+                system("pause");
+                return;
+            default:
+                std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, 'n');
+                break;
+        }
+    }
 }
 
 Staff* Menu::selectStaff(std::vector<Staff*> v) {
@@ -328,9 +361,10 @@ void Menu::createPlane(Airbus *plane) {
     char a;
     string f;
     std::queue<std::string> first;
+    std::cin.ignore(INT32_MAX, '\n');
     std::cout << "\nCreating Airbus";
     std::cout << "\n\tInput first class rows letter (up until " << (char)(96+26) << ") --> ";
-    std::cin.ignore(INT32_MAX, '\n'); std::getline(std::cin, f);
+    std::getline(std::cin, f);
     for (auto i : f){
         if (i < (char)(96+26)) {
             std::string s; s = toupper(i); first.push(s);
@@ -808,7 +842,7 @@ void CompanyMenu::checkTerminal() {
 void CompanyMenu::addTerminal() {
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     std::cout << "\n\tCurrent active terminals:";
     if (airport->getTerminals().empty()) {
@@ -849,7 +883,7 @@ void CompanyMenu::addTerminal() {
 void CompanyMenu::delTerminal() {
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     Terminal *terminal = new Terminal;
     std::cout << "\n";
@@ -870,7 +904,7 @@ void CompanyMenu::delTerminal() {
 void CompanyMenu::editTerminal(){
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     Terminal *terminal = new Terminal;
     std::cout << "\n";
@@ -920,7 +954,7 @@ void CompanyMenu::checkTransport() {
 void CompanyMenu::addTransport() {
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     header();
     char a, b;
@@ -999,7 +1033,7 @@ void CompanyMenu::addTransport() {
 void CompanyMenu::delTransport(){
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     header();
     TransportPointer nptr = selectTransportPointer(airport);
@@ -1011,7 +1045,7 @@ void CompanyMenu::delTransport(){
 void CompanyMenu::editTransport(){
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     char b;
     int h, m;
@@ -1035,7 +1069,7 @@ void CompanyMenu::editTransport(){
 void CompanyMenu::checkAirport() {
     Airport *airport = new Airport;
     //TODO
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     header();
     char a;
@@ -1144,6 +1178,8 @@ void CompanyMenu::checkTasks(Airport *airport) {
         if (airport->nextService()->verification()) {
             Time *time;
             time->now();
+            Company *user = data->findCompany(airport->nextService()->getResponsible()->getId());
+            user->addCompleteService(airport->nextService());
             airport->nextService()->setComplete(time);
             return;
         }
@@ -1188,7 +1224,7 @@ void CompanyMenu::workers() {
 }
 
 void CompanyMenu::addWorker(){
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     system(CLEAR);
     if (airport == nullptr) return;
@@ -1197,7 +1233,7 @@ void CompanyMenu::addWorker(){
     return;
 }
 void CompanyMenu::delWorker(){
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     char a;
     system(CLEAR);
@@ -1207,7 +1243,12 @@ void CompanyMenu::delWorker(){
     while(true){
         std::cout << ">"; std::cin >> a;
         switch (a){
-            case 'y' : airport->delStaff(staff); std::cout << "\n\n\tDeletion complete."; system("pause"); return;
+            case 'y' : {
+                data->delCompany(data->findCompany(staff->getId()));
+                airport->delStaff(staff);
+                std::cout << "\n\n\tDeletion complete.";
+                system("pause"); return;
+            }
             case 'n' : std::cout << "\n\n\tElimination of " << staff->getName() << " from " << airport->getName() << "cancelled."; return;
             default: std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, '\n'); system("pause");
         }
@@ -1215,7 +1256,7 @@ void CompanyMenu::delWorker(){
 }
 
 void CompanyMenu::changeWorker() {
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     system(CLEAR);
     Staff *staff = selectStaff(airport->getStaff());
@@ -1246,7 +1287,7 @@ void CompanyMenu::changeWorker() {
 }
 
 void CompanyMenu::moveWorker() {
-    if (this->user->getType() != 'a') {
+    if (this->user->getType() != 'A') {
         airport = this->user->getAirport();
         std::cout << "Permission denied. Use administrator previlege to access this menu";
         system("pause");
@@ -1273,6 +1314,7 @@ void CompanyMenu::moveWorker() {
             case 'y':
                 airportDest->addStaff(staff);
                 airportOrigin->delStaff(staff);
+                data->findCompany(staff->getId())->setAirport(airportDest);
                 system("pause");
                 return;
             default:
@@ -1285,7 +1327,7 @@ void CompanyMenu::moveWorker() {
 }
 
 void CompanyMenu::checkService(){
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
+    if (this->user->getType() == 'A') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     system(CLEAR);
     vector<ServiceTicket*> temp;
@@ -1397,9 +1439,23 @@ void BoardingMenu::mainScreen(){
 
 /**---Service Menu---*/
 void ServiceMenu::mainScreen() {
-    std::cout << "we are @ Service\n"
-              << "Press enter to continue . . .";
-    char c = getchar();
+    header();
+    char c;
+    //Shows real ADMIN menu after user has proven his identity
+    while(true) {
+        std::cout << "[SERVICE AIRPORT]\n"
+                  << "\n\t[1] Create Service"
+                  << "\n\t[2] Check Service"
+                  << "\n\n\t[0] Log Out\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': createService(this->user->getAirport()); break;
+            case '2': checkTasks(this->user->getAirport()); break;
+            case '0': logOut(); throw LogOut();
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
 
 
