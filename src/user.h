@@ -13,7 +13,7 @@ class User{
 protected:
     std::string username;
     std::string password;
-    char type; //Create a - admin; c - client;
+    char type; //Create A - admin; C - client; S - service; B - boarding
     Date* registration;
     friend class UserPointer;
     friend class CompanyPointer;
@@ -115,6 +115,9 @@ public:
     }
     Plane* getPlane() const{
         return plane;
+    }
+    void setType(char t){
+        type = t;
     }
     bool operator==(const Company& rhs) const{
         return username == rhs.username;

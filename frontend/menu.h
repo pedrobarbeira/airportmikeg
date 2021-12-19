@@ -103,7 +103,7 @@ public:
      * to help selection
      * @param v
      */
-    void print(std::vector<Staff*> v);
+    void print(std::vector<StaffPointer> v);
 
     /**
      * funcion to sendo to screen a group of serviceticket
@@ -117,7 +117,7 @@ public:
      * @param v
      * @return
      */
-    Staff* selectStaff(std::vector<Staff*> v);
+    StaffPointer selectStaff(std::vector<StaffPointer> v);
 
     /**
      *
