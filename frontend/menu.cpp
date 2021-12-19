@@ -1149,14 +1149,14 @@ void CompanyMenu::createService(Airport *airport, Plane *plane) {
         if (s == 'c' && a == 'y'){
             Cleaning *cle = new Cleaning(plane, time, staff);
             airport->addService(cle);
-            data->addService(cle);
+            //data->addService(cle);
             std::cout << "\n\tNew ServiceTicket created"; system("pause");
             return;
         }
         else if (s == 'm' && a == 'y'){
             Maintenance *mai = new Maintenance(plane, time, staff);
             airport->addService(mai);
-            data->addService(mai);
+            //data->addService(mai);
             std::cout << "\n\tNew ServiceTicket created"; system("pause");
             return;
         }
@@ -1461,7 +1461,13 @@ void AdminMenu::checkPlane() {
                   << plane.getPointer()->getColumns();
         std::cout << "\n\n\tThis plane has ";
         int count{};
-        vector<ServiceTicket*> temp = data->getServiceTicket();
+        vector<AirportPointer> allair = data->getAirports();
+        vector<ServiceTicket*> temp;
+        for (auto it : allair){
+            for (auto itr : it.getPointer()->getServices()){
+                temp.push_back(itr);
+            }
+        }
         for (auto it : temp){
             if (it->getPlane()->getPlate() == plane.getPointer()->getPlate()) count++;
         }

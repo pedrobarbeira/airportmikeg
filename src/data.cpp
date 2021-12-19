@@ -125,7 +125,8 @@ BST<FlightPointer> Data::getFlightBST() const{
     }
     return ret;
 }
-std::vector<ServiceTicket*> Data::getServiceTicket() const{
+
+/*std::vector<ServiceTicket*> Data::getServiceTicket() const{
     std::vector<ServiceTicket*> ret;
     iteratorBST<ServicePointer> it = services.begin();
     while(it != services.end()){
@@ -133,7 +134,8 @@ std::vector<ServiceTicket*> Data::getServiceTicket() const{
         it++;
     }
     return ret;
-}
+}*/
+
 AirportPointer Data::findAirport(const std::string& id) const{
     Airport* a = new Airport(id);
     AirportPointer find(a);

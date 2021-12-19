@@ -19,7 +19,7 @@ class Data{
     BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
-    BST<ServicePointer> services;
+    //BST<ServicePointer> services;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -32,7 +32,7 @@ public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
              voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)),
-             flights(FlightPointer(nullptr)), services(ServicePointer(nullptr)){}
+             flights(FlightPointer(nullptr))/*, services(ServicePointer(nullptr))*/{}
 
 
     /**
@@ -134,9 +134,9 @@ public:
         return company;
     }
 
-    BST<ServicePointer> getServicesBST() const{
+ /*   BST<ServicePointer> getServicesBST() const{
         return services;
-    }
+    }*/
 
     /**
      * Adds an airport to the airports BST
@@ -233,10 +233,10 @@ public:
         return planes.remove(pptr);
     }
 
-    bool addService(ServiceTicket* s){
+/*    bool addService(ServiceTicket* s){
         ServicePointer sptr(s);
         return services.insert(sptr);
-    }
+    }*/
 
     /**
      * Searches for a given Airport in the airports BST
