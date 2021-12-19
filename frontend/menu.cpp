@@ -177,17 +177,17 @@ void Menu::newWorker(Airport *airport){
         std::cin >> c;
         switch (c) {
             case '1':{
-                Manager *man = new Manager(staff->getId(), staff->getId(), 'A');
+                Company *man = new Company(staff->getId(), staff->getId(), 'M');
                 man->setStaff(staff);
                 data->addCompany(man);
                 return;}
             case '2':{
-                Boarding *board = new Boarding(staff->getId(), staff->getId(), 'B', airport);
+                Company *board = new Company(staff->getId(), staff->getId(), 'B', airport);
                 board->setStaff(staff);
                 data->addCompany(board);
                 return;}
             case '3':{
-                Service *serv = new Service(staff->getId(), staff->getId(), 'S', airport);
+                Company*serv = new Company(staff->getId(), staff->getId(), 'S', airport);
                 serv->setStaff(staff);
                 data->addCompany(serv);
                 return;}
@@ -439,7 +439,9 @@ void Menu::createPlane(Other *plane) {
             std::string s; s = toupper(i); first.push(s);
         }
     }
-    *plane = Other(rows, seatPerRow, fClassPrice, eClassPrice, first );
+    *plane = Other(rows, seatPerRow, first);
+    plane ->setFClassPrice(fClassPrice);
+    plane->setEClassPrice(eClassPrice);
     data->addPlane(plane);
 }
 

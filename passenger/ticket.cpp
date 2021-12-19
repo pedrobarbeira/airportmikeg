@@ -1,9 +1,11 @@
 #include "ticket.h"
 using namespace std;
 
-Ticket::Ticket(Seat* s){
+Ticket::Ticket(Flight* f, Seat* s){
+    int ticketNum = f->getPlane()->getCapacity() - f->getPlane()->freeSeatNum() + 1;
+    ticketID = f->getId() + to_string(ticketNum);
     this->seat=s;
-    //ticketId pode ser preciso completar
+    flight = f;
 }
 
 

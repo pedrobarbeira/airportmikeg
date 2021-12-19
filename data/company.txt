@@ -1,4 +1,2 @@
 admin admin A
 manager manager M
-boarding boarding B
-service service S

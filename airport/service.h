@@ -213,7 +213,9 @@ public:
      * if all the tasks are complete
      * @return
      */
-    virtual bool verification() const{};
+    virtual bool verification() const{
+        return true;
+    };
     /**
      * < overload to organize serviceTickets
      * @param s

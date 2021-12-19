@@ -736,7 +736,7 @@ void CompanySorter::operator()(std::vector<Company*>& data, char c, bool asc){
 }
 
 /**---Manager Sorter---*/
-void ManagerSorter::operator()(std::vector<Manager*>& data, char c, bool asc){
+void ManagerSorter::operator()(std::vector<Company*>& data, char c, bool asc){
     switch(c){
         case '0' :
             if(asc) sort(data.begin(), data.end(), nameAscending);
@@ -768,21 +768,21 @@ void ManagerSorter::operator()(std::vector<Manager*>& data, char c, bool asc){
 }
 
 /**---Boarding Sorter---*/
-bool BoardingSorter::planeAscending(const Boarding* c1, const Boarding* c2){
+bool BoardingSorter::planeAscending(const Company* c1, const Company* c2){
     Plane* comp1 = c1->getPlane();
     Plane* comp2 = c2->getPlane();
     if(comp1 != comp2)
         return *comp1 < *comp2;
     else return *c1 < *c2;
 }
-bool BoardingSorter::planeDescending(const Boarding* c1, const Boarding* c2){
+bool BoardingSorter::planeDescending(const Company* c1, const Company* c2){
     Plane* comp1 = c1->getPlane();
     Plane* comp2 = c2->getPlane();
     if(comp1 != comp2)
         return *comp2 < *comp1;
     else return *c2 < *c1;
 }
-void BoardingSorter::operator()(std::vector<Boarding*>& data, char c, bool asc){
+void BoardingSorter::operator()(std::vector<Company*>& data, char c, bool asc){
     switch(c){
         case '0' :
             if(asc) sort(data.begin(), data.end(), nameAscending);
@@ -818,49 +818,49 @@ void BoardingSorter::operator()(std::vector<Boarding*>& data, char c, bool asc){
 }
 
 /**---Service Sorter---*/
-bool ServiceSorter::staffAscending(const Service* c1, const Service* c2){
+bool ServiceSorter::staffAscending(const Company* c1, const Company* c2){
     Staff* comp1 = c1->getStaff();
     Staff* comp2 = c2->getStaff();
     if(comp1 != comp2)
         return *comp1 < *comp2;
     else return *c1 < *c2;
 }
-bool ServiceSorter::staffDescending(const Service* c1, const Service* c2){
+bool ServiceSorter::staffDescending(const Company* c1, const Company* c2){
     Staff* comp1 = c1->getStaff();
     Staff* comp2 = c2->getStaff();
     if(comp1 != comp2)
         return *comp2 < *comp1;
     else return *c2 < *c1;
 }
-bool ServiceSorter::toDoAscending(const Service* c1, const Service* c2){
+bool ServiceSorter::toDoAscending(const Company* c1, const Company* c2){
     int comp1 = c1->getService().size();
     int comp2 = c2->getService().size();
     if(comp1 != comp2)
         return comp1 < comp2;
     else return *c1 < *c2;
 }
-bool ServiceSorter::toDoDescending(const Service* c1, const Service* c2){
+bool ServiceSorter::toDoDescending(const Company* c1, const Company* c2){
     int comp1 = c1->getService().size();
     int comp2 = c2->getService().size();
     if(comp1 != comp2)
         return comp2 < comp1;
     else return *c2 < *c1;
 }
-bool ServiceSorter::completedAscending(const Service* c1, const Service* c2){
+bool ServiceSorter::completedAscending(const Company* c1, const Company* c2){
     int comp1 = c1->getCompleted().size();
     int comp2 = c2->getCompleted().size();
     if(comp1 != comp2)
         return comp1 < comp2;
     else return *c1 < *c2;
 }
-bool ServiceSorter::completedDescending(const Service* c1, const Service* c2){
+bool ServiceSorter::completedDescending(const Company* c1, const Company* c2){
     int comp1 = c1->getCompleted().size();
     int comp2 = c2->getCompleted().size();
     if(comp1 != comp2)
         return comp2 < comp1;
     else return *c2 < *c1;
 }
-void ServiceSorter::operator()(std::vector<Service*>& data, char c, bool asc){
+void ServiceSorter::operator()(std::vector<Company*>& data, char c, bool asc){
     switch(c){
         case '0' :
             if(asc) sort(data.begin(), data.end(), nameAscending);

@@ -55,23 +55,36 @@ void testAirport(){
     auto date2 = new Time(18, 12, 21, 0, 0, 0);
     //cle1->checkSeats();
     //porto->delService(date2);
+    /*porto->addStaff(staff1);
+    Client *client = new Client ("client", "client");
+    AdminMenu *adm = new AdminMenu(admin, data);
+
     porto->addStaff(staff1);
     Admin *admin = new Admin("admin", "admin", 'A');
     Client *client = new Client ("client", "client");
     Manager *manager = new Manager("manager", "manager",'M', porto );
     Service *service = new Service("service", "service", 'S', porto);
+
+    porto->addStaff(staff1);
+    Admin *admin = new Admin("admin", "admin", 'A');
+    Client *client = new Client ("client", "client");
+    Manager *manager = new Manager("manager", "manager",'M', porto );
+    Service *service = new Service("service", "service", 'S', porto);
+
     Service *service1 = new Service(staff1->getId(), staff1->getId(), 'S');
     service1->setStaff(staff1);
+
     data->addCompany(manager);
     data->addCompany(admin);
     data->addClient(client);
     data->addCompany(service);
     data->addCompany(service1);
     AdminMenu *adm = new AdminMenu(admin, data);
-    ManagerMenu *man = new ManagerMenu(manager, data);
-    ServiceMenu *ser = new ServiceMenu(service, data);
-    adm->mainScreen();
 
+
+
+    ServiceMenu *ser = new ServiceMenu(service, data);
+    adm->mainScreen();*/
 }
 
 /**
@@ -131,7 +144,7 @@ void testPassenger() {
  */
 void testMenu(){
     MikeG main;
-    bool flag = true;
+    bool flag = false;
     main.start(flag);
 }
 
@@ -165,11 +178,7 @@ void testInterface(){
 }
 
 int main(){
-    Time t(10, 25, 00);
 
-    t.print(std::cout);
-
-    testAirport();
     testInterface();
 
     return 0;

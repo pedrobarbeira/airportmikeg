@@ -94,6 +94,15 @@ void Time::now(){
     this->setSecond(s);
 }
 
+Time::Time(const std::string& s){
+    hour = stoi(s.substr(0, 2));
+    minute = stoi(s.substr(3, 2));
+    second = stoi(s.substr(6, 2));
+    day = stoi(s.substr(9, 2));
+    month = stoi(s.substr(12, 2));
+    year = stoi(s.substr(15));
+}
+
 bool Date::operator==(const Date& rhs) const{
     return year == rhs.year && month == rhs.month && day == rhs.day;
 }

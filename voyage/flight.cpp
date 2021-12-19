@@ -3,7 +3,13 @@
 
 /**Flight*/
 Flight::Flight(TimePlace* o, TimePlace* d, Plane* p):
-        origin(o), destination(d), plane(p){}
+        origin(o), destination(d), plane(p){
+    stringstream ss;
+    count++;
+    ss << "MG" << setw(3) << setfill('0') << count;
+    flightID = ss.str();
+    voyageID = "noVoyage";
+}
 
 Flight::~Flight(){
     delete origin;

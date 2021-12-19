@@ -66,6 +66,9 @@ public:
         return pointer->getId() == rhs.pointer->getId();
     }
     std::vector<Ticket*> getTickets() const;
+    BST<TicketPointer> getTicketBST() const{
+        return tickets;
+    }
     bool addTicket(Ticket* t){
         TicketPointer tptr(t);
         return tickets.insert(tptr);

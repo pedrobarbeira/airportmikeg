@@ -21,6 +21,7 @@ struct TimePlace{
 
 class Flight{
     std::string flightID;
+    std::string voyageID;
     TimePlace* origin;
     TimePlace* destination;
     Plane* plane;
@@ -35,6 +36,9 @@ public:
     /**Getters*/
     std::string getId() const{
         return flightID;};
+    std::string getVoyageId(){
+        return voyageID;
+    }
     TimePlace* getOrigin() const{
         return origin;};
     TimePlace* getDestination() const{
@@ -50,6 +54,9 @@ public:
     void setPrice(uint16_t f, uint16_t b, uint16_t e);
     void setPlane(Plane* p){
         plane = p;};
+    void setVoyage(std::string v){
+        voyageID = v;
+    }
     /**Print*/
     void print(std::ostream& out) const;
     bool operator==(const Flight& rhs){

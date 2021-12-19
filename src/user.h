@@ -44,7 +44,7 @@ public:
 class Client : public User{
     uint16_t miles;
     std::string passenger;
-    vector<std::string> tickets;
+    vector<Ticket*> tickets;
     friend class ClientPointer;
 public:
     explicit Client(std::string u = "", std::string p = "", char t = '\0', uint16_t m = 0, std::string psgr = "") : miles(m){
@@ -60,10 +60,10 @@ public:
     std::string getPassenger() const{
         return passenger;
     }
-    vector<std::string> getTickets() const{
+    vector<Ticket*> getTickets() const{
         return tickets;
     }
-    void setTickets(std::vector<std::string> v){
+    void setTickets(std::vector<Ticket*> v){
         tickets = v;
     }
     bool operator==(const Client& rhs) const{
@@ -82,12 +82,13 @@ protected:
     std::queue<ServiceTicket*> serviceList;
     std::list<ServiceTicket*> completedServices;
 public:
-    explicit Company(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr){
+    explicit Company(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr, Staff* s = nullptr){
         username = std::move(u);
         password = std::move(p);
         airport = a;
         plane = pln;
         type = t;
+        staff = s;
     }
     Airport* getAirport() const{
         return airport;
@@ -131,51 +132,5 @@ public:
         return username < rhs.username;
     }
 };
-
-class Admin : public Company{
-public:
-    explicit Admin(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
-        username = std::move(u);
-        password = std::move(p);
-        airport = a;
-        type = t;
-    }
-};
-
-class Manager : public Company{
-public:
-    explicit Manager(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
-        username = std::move(u);
-        password = std::move(p);
-        airport = a;
-        type = t;
-    }
-};
-
-class Boarding : public Company{
-public:
-    explicit Boarding(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr, Plane* pln = nullptr){
-        username = std::move(u);
-        password = std::move(p);
-        airport = a;
-        plane = pln;
-        type = t;
-    }
-};
-
-class Service : public Company{
-public:
-    explicit Service(std::string u = "", std::string p = "", char t = '\0', Airport* a = nullptr){
-        staff = nullptr;
-        username = std::move(u);
-        password = std::move(p);
-        airport = a;
-        type = t;
-        completedServices.clear();
-    }
-
-};
-
-
 
 #endif //MAIN_CPP_USER_H

@@ -209,10 +209,8 @@ public:
  */
 class Other : public Plane{
 public:
-    Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice,
-          std::queue<std::string> firstClassRows);
-    Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t bClassPrice, uint16_t eClassPrice,
-          std::queue<std::string> firstClassRows, std::queue<std::string> bizClassRows);
+    Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> firstClassRows);
+    Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> firstClassRows, std::queue<std::string> bizClassRows);
 };
 
 std::string getRowLetter(int i);

@@ -49,47 +49,30 @@ public:
 
             return true;
         }
-    };
+    }
+};
 
-
-/*        while(!bags.empty() && re.size() == m){
- *              sta = bags.front();
+class LuggageTransport {
+    std::queue<Carriage *> carriages;
+public:
+    LuggageTransport(std::queue<Luggage *> bags, int m = 0, int n = 0) {
+        std::vector<Carriage *> load;
+        Carriage *c = new Carriage(m, n);
+        load.push_back(c);
+        int i = 0;
+        while (!bags.empty()) {
+            if (load[i]->loadCarriage(bags.front()))
                 bags.pop();
-                load.push(re);
-
-
-                if(re.size()==n){
-
-                }
-        };
-*/
-
-
-
-
-
-    class LuggageTransport {
-        std::queue<Carriage *> carriages;
-    public:
-        LuggageTransport(std::queue<Luggage *> bags, int m = 0, int n = 0) {
-            std::vector<Carriage *> load;
-            Carriage *c = new Carriage(m, n);
-            load.push_back(c);
-            int i = 0;
-            while (!bags.empty()) {
-                if (load[i]->loadCarriage(bags.front()))
-                    bags.pop();
-                else {
-                    Carriage *c = new Carriage(2, 3);
-                    c->loadCarriage(bags.front());
-                    bags.pop();
-                    load.push_back(c);
-                    i++;
-                }
+            else {
+                Carriage *c = new Carriage(2, 3);
+                c->loadCarriage(bags.front());
+                bags.pop();
+                load.push_back(c);
+                i++;
             }
-            for (auto it: load)
-                carriages.push(it);
         }
-    };
+        for (auto it: load)
+            carriages.push(it);
+    }
 };
 #endif //MIKEGAIRLINES_LUGGAGE_H

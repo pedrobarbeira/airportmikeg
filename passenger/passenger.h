@@ -9,11 +9,14 @@
 class Passenger{
     std::string name;
 public:
-    Passenger(std::string name, bool checkinpass);
-    std::string getName() const;
-    bool getCheckinpass() const;
-    void setName(std::string name2){name=name2;}
 
+    Passenger(std::string n) : name(std::move(n)){};
+    std::string getName() const{
+        return name;
+    }
+    void setName(std::string n) {
+        name = n;
+    }
 };
 
 
