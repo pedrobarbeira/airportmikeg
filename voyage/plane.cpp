@@ -113,6 +113,7 @@ Airbus::Airbus(std::queue<std::string> first) {
         cabin->seats.push_back(load);
         load.clear();
     }
+
 }
 
 Other::Other(uint16_t rows, uint16_t seatPerRow, uint16_t fClassPrice, uint16_t eClassPrice, std::queue<std::string> first) {

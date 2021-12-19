@@ -19,7 +19,7 @@ class Data{
     BST<TicketPointer> tickets;
     BST<ClientPointer> clients;
     BST<CompanyPointer> company;
-    //BST<ServiceTicketPointer> services;
+    BST<ServicePointer> services;
     friend class MikeG;
     friend class Menu;
     friend class LoadAirport;
@@ -32,7 +32,7 @@ public:
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
              voyages(VoyagePointer(nullptr)), tickets(TicketPointer(nullptr)),
-             flights(FlightPointer(nullptr)){}
+             flights(FlightPointer(nullptr)), services(ServicePointer(nullptr)){}
 
 
     /**
@@ -58,7 +58,7 @@ public:
      * Converts the planes BST into a vector of Plane* objects
      * @return a vector with the data stored in the planes BST
      */
-    std::vector<Plane*> getPlanes() const;
+    std::vector<PlanePointer> getPlanes() const;
 
     /**
      * Converts the tickets BST into a vector of Ticket* objects
@@ -82,6 +82,9 @@ public:
      * Returns the airports BST
      * @return the airports BST
      */
+
+    std::vector<ServiceTicket*> getServiceTicket() const;
+
     BST<AirportPointer> getAirportBST() const{
         return airports;
     }
@@ -129,6 +132,10 @@ public:
      */
     BST<CompanyPointer> getCompanyBST() const{
         return company;
+    }
+
+    BST<ServicePointer> getServicesBST() const{
+        return services;
     }
 
     /**
@@ -219,6 +226,16 @@ public:
     bool delCompany(Company* c){
         CompanyPointer cptr(c);
         return company.remove(cptr);
+    }
+
+    bool delPlane(Plane* p){
+        PlanePointer pptr(p);
+        return planes.remove(pptr);
+    }
+
+    bool addService(ServiceTicket* s){
+        ServicePointer sptr(s);
+        return services.insert(sptr);
     }
 
     /**

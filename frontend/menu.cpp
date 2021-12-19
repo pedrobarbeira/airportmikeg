@@ -53,14 +53,14 @@ void Menu::print(std::vector<TransportPointer> t)const{
     system("pause");
 }
 
-void Menu::print(vector<Plane*> p){
+void Menu::print(std::vector<PlanePointer> p){
     system(CLEAR);
     std::cout << "\n\t::::::::::::::::::\n\t:::    PLANE   :::\n\t::::::::::::::::::\n";
     std::cout << "\t     Plate  (Capacity)\n"
               << "\t     ---------------------";
     for(int i = 0; i < p.size(); i++){
         std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
-                  << p[i]->getPlate();
+                  << p[i].getPointer()->getPlate();
     }
     std::cout << "\n\n";
     system("pause");
@@ -336,7 +336,7 @@ PlanePointer CompanyMenu::selectPlane(Airport *airport){
     for (auto it : airport->getTerminals()){
         if (it->getOccupied()) temp.push_back(it->getPlane());
     }
-    print(temp);
+    print(data->getPlanes());
     std::cout << "\n---------------------------------";
     int i;
     std::cout << "\nWhich transport option you want to select?(0 to go back)\n>";
@@ -347,6 +347,28 @@ PlanePointer CompanyMenu::selectPlane(Airport *airport){
     else if (i > 0 && i <= temp.size()){
         system("pause");
         pptr = PlanePointer(temp[i-1]);
+        return pptr;
+    }
+    else {
+        std::cout << "Invalid option. Returning to previous menu.";
+        system("pause");
+        return pptr;
+    }
+}
+
+PlanePointer CompanyMenu::selectPlane(){
+    PlanePointer pptr = PlanePointer(nullptr);
+    print(data->getPlanes());
+    std::cout << "\n---------------------------------";
+    int i;
+    std::cout << "\nWhich transport option you want to select?(0 to go back)\n>";
+    std::cin >> i;
+    if (i == 0) {
+        std::cout << "Selection cancelled"; return pptr;
+    }
+    else if (i > 0 && i <= data->getPlanes().size()){
+        system("pause");
+        pptr = PlanePointer(data->getPlanes()[i-1]);
         return pptr;
     }
     else {
@@ -371,7 +393,16 @@ void Menu::createPlane(Airbus *plane) {
         }
     }
     *plane = Airbus(first);
-    data->addPlane(plane);
+    Airport *airport = selectAirport().getPointer();
+    for (auto it : airport->getTerminals()){
+        if (!it->getOccupied()) {
+            it->setPlane(plane);
+            data->addPlane(plane);
+            return;
+        }
+    }
+    std::cout << "\n\n\tNew plane addition cancelled"; system("pause"); return;
+
     return;
 }
 
@@ -1084,7 +1115,7 @@ void CompanyMenu::checkAirport() {
         std::cin >> c;
 
         switch(c){
-            case '1': createService(airport); break;
+            case '1': createService(airport, nullptr); break;
             case '2': checkTasks(airport); break;
             case '0': return;
             default: std::cout << "Invalid Option\n"; system("pause");
@@ -1093,11 +1124,12 @@ void CompanyMenu::checkAirport() {
     return;
 }
 
-void CompanyMenu::createService(Airport *airport) {
+void CompanyMenu::createService(Airport *airport, Plane *plane) {
     system(CLEAR);
     char s, t, a;
     int d, m, y;
-    Time *time;
+    Time *time = new Time;
+    time->now();
     while (true){
         std::cout << "\n\tMenu for creating a service in airport"
                   << "\n\n\tType of service: Cleaning(c) or Maintenance(m)?\n>"; std::cin >> s;
@@ -1108,22 +1140,23 @@ void CompanyMenu::createService(Airport *airport) {
         }
         std::cout << "\n\n\tSelect responsible:";
         Staff *staff = selectStaff(airport->getStaff());
-        PlanePointer pptr = selectPlane(airport);
-        time->now();
+        if (plane == nullptr) plane = selectPlane(airport).getPointer();
         std::cout << "\n\n\tCreate ";
         if (s == 'c') std::cout << "cleaning";
         else if (s == 'm') std::cout << "maintenance";
         std::cout << " service scheduled on ";  time->printDate();
-        std::cout << " for plane " << pptr.getPointer()->getPlate() << " by " << staff->getName() << "?(y/n)"; std::cin >> a;
+        std::cout << " for plane " << plane->getPlate() << " by " << staff->getName() << "?(y/n)"; std::cin >> a;
         if (s == 'c' && a == 'y'){
-            Cleaning *cle = new Cleaning(pptr.getPointer(), time, staff);
+            Cleaning *cle = new Cleaning(plane, time, staff);
             airport->addService(cle);
+            data->addService(cle);
             std::cout << "\n\tNew ServiceTicket created"; system("pause");
             return;
         }
         else if (s == 'm' && a == 'y'){
-            Maintenance *mai = new Maintenance(pptr.getPointer(), time, staff);
+            Maintenance *mai = new Maintenance(plane, time, staff);
             airport->addService(mai);
+            data->addService(mai);
             std::cout << "\n\tNew ServiceTicket created"; system("pause");
             return;
         }
@@ -1393,11 +1426,72 @@ void AdminMenu::addPlane(){
 }
 
 void AdminMenu::deletePlane(){
-
+    while (true) {
+        char c;
+        PlanePointer plane = selectPlane();
+        if (plane.getPointer() == nullptr) return;
+        std::cout << "\n\tAre you sure you want to delete this plane?(y/n)\n>";
+        std::cin >> c;
+        switch (c) {
+            case 'y': {
+                data->delPlane(plane.getPointer());
+                std::cout << "\n\tAirplane successfully removed from database";
+                system("pause");
+                return;
+            }
+            case 'n': {
+                std::cout << "\n\tOperation cancelled";
+                system("pause");
+                return;
+            }
+            default: std::cout << "Invalid Option\n"; system("pause");
+            }
+    }
 }
 
 void AdminMenu::checkPlane() {
-
+    while (true) {
+        char c;
+        PlanePointer plane = selectPlane();
+        if (plane.getPointer() == nullptr) return;
+        std::cout << "\n\tInformation regarding plane with plate " << plane.getPointer()->getPlate();
+        std::cout << "\n\tCapacity  Rows   Seats/Row\n\t---------------------------";
+        std::cout << "\n\n\t"<< plane.getPointer()->getCapacity() << "        "
+                  << plane.getPointer()->getRows() << "        "
+                  << plane.getPointer()->getColumns();
+        std::cout << "\n\n\tThis plane has ";
+        int count{};
+        vector<ServiceTicket*> temp = data->getServiceTicket();
+        for (auto it : temp){
+            if (it->getPlane()->getPlate() == plane.getPointer()->getPlate()) count++;
+        }
+        std::cout << count << " service(s) scheduled\n\n\tDo you want to create a new one?(y/n)>";
+        std::cin >> c;
+        switch (c) {
+            case 'y': {
+                Airport *airport;
+                if (plane.getPointer()->isGrounded()){
+                    vector<AirportPointer> air = data->getAirports();
+                    for (auto it : air){
+                        vector<Terminal*> ter = it.getPointer()->getTerminals();
+                        for (auto itter : ter){
+                            if (itter->getPlane()->getPlate()==plane.getPointer()->getPlate()){
+                                airport = it.getPointer();
+                            }
+                        }
+                    }
+                    createService(airport, plane.getPointer());
+                    return;
+                }
+                else std::cout << "\n\n\tReturn plane to the ground first"; system("pause"); return;
+            }
+            case 'n': {
+                system("pause");
+                return;
+            }
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
 
 void AdminMenu::mapPlane(){
@@ -1450,7 +1544,7 @@ void ServiceMenu::mainScreen() {
                   << "\n>";
         std::cin >> c;
         switch(c){
-            case '1': createService(this->user->getAirport()); break;
+            case '1': createService(this->user->getAirport(), nullptr); break;
             case '2': checkTasks(this->user->getAirport()); break;
             case '0': logOut(); throw LogOut();
             default: std::cout << "Invalid Option\n"; system("pause");

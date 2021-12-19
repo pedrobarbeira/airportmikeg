@@ -73,11 +73,11 @@ std::vector<FlightPointer> Data::getFlights() const{
     }
     return ret;
 }
-std::vector<Plane*> Data::getPlanes() const{
-    std::vector<Plane*> ret;
+std::vector<PlanePointer> Data::getPlanes() const{
+    std::vector<PlanePointer> ret;
     iteratorBST<PlanePointer> it = planes.begin();
     while(it != planes.end()){
-        ret.push_back((*it).getPointer());
+        ret.push_back((*it));
         it++;
     }
     return ret;
@@ -121,6 +121,15 @@ BST<FlightPointer> Data::getFlightBST() const{
             ret.insert((*flight));
             flight++;
         }
+        it++;
+    }
+    return ret;
+}
+std::vector<ServiceTicket*> Data::getServiceTicket() const{
+    std::vector<ServiceTicket*> ret;
+    iteratorBST<ServicePointer> it = services.begin();
+    while(it != services.end()){
+        ret.push_back((*it).getPointer());
         it++;
     }
     return ret;

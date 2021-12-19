@@ -116,7 +116,9 @@ class Cabin{
     friend class Airbus;
     friend class Other;
 public:
-    Cabin(){};
+    Cabin(){
+        capacity = seatRows * seatsPerRow;
+    };
 };
 
 /**
