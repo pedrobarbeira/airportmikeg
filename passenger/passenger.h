@@ -9,6 +9,7 @@
 class Passenger{
     std::string name;
 public:
+
     Passenger(std::string n) : name(std::move(n)){};
     std::string getName() const{
         return name;

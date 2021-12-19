@@ -52,7 +52,6 @@ public:
     }
 };
 
-
 class LuggageTransport {
     std::queue<Carriage *> carriages;
 public:

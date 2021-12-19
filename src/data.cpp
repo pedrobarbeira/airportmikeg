@@ -137,7 +137,6 @@ std::vector<Company*> Data::getCompany() const{
     return ret;
 }
 
-
 AirportPointer Data::findAirport(const std::string& id) const{
     auto a = new Airport(id);
     AirportPointer find(a);
