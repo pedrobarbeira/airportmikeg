@@ -310,7 +310,8 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
+                        cout << "\n\tscheduled for ";
+                        nextService()->getCreated()->printDate();
                     }
                     system("pause");
                     break;
@@ -322,7 +323,8 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tscheduled for "; nextService()->getSchedule()->printDate();
+                        cout << "\n\tscheduled for ";
+                        nextService()->getCreated()->printDate();
                     }
                     system("pause");
                     break;

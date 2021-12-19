@@ -75,27 +75,84 @@ public:
      */
     void showAllFlights() const;
 
+    /**
+     * method to show all the transport of an
+     * airport to the screen
+     * @param t
+     */
     void print(std::vector<TransportPointer> t) const;
 
     void logOut() const;
 
+    /**
+     * function to avoid introducing the same information
+     * everytime a menu is written
+     */
     void header();
 
+    /**
+     * new worker menu to create and add a new staff member
+     * to an airport
+     * @param airport
+     */
     void newWorker(Airport *airport);
 
-    void editWorker(Staff *staff);
-
+    /**
+     * function to help print a group of
+     * staff members that work in an airport
+     * to help selection
+     * @param v
+     */
     void print(std::vector<Staff*> v);
 
+    /**
+     * funcion to sendo to screen a group of serviceticket
+     * @param s
+     */
     void print(std::vector<ServiceTicket*> s);
 
+    /**
+     * function to allow selection of a staff member
+     * and retieve to allow edition of the object
+     * @param v
+     * @return
+     */
     Staff* selectStaff(std::vector<Staff*> v);
 
+    /**
+     *
+     * @param plane
+     */
     void createPlane(Airbus *plane);
+
+    /**
+     *
+     * @param plane
+     */
     void createPlane(Other *plane);
+
+    /**
+     *
+     * @return
+     */
     FlightPointer selectFlight();
+
+    /**
+     *
+     * @param f
+     */
     void reOrderFlights(std::vector<FlightPointer>& f);
+
+    /**
+     * function to retrieve a transport object information
+     * @param airport
+     * @return a transport pointer to the transport object
+     */
     TransportPointer selectTransportPointer(Airport *airport);
+
+    /**
+     *
+     */
     void print(vector<Plane*>);
 
 };
@@ -246,26 +303,133 @@ protected:
     //Add service ticket queue
     //add complete service queue
 public:
-    //TODO
+    /**
+     * menu to retrieve informarion of an airport
+     * this can be accessed to all company members
+     */
     void checkAirport();
+
+    /**
+     *
+     */
     void checkFlights();
+
+    /**
+     * menu to customize a terminals of a certain
+     * airport
+     */
     void checkTerminal();
+
+    /**
+     * function to allow input to add a new terminal
+     * to an existing airport
+     */
     void addTerminal();
+
+    /**
+     * function to delete an airport terminal
+     * with the contingency of beeing without
+     * a plane
+     */
     void delTerminal();
+
+    /**
+     * allows the user with previleges to change
+     * information about the terminal, wether change
+     * the number or to remove plane
+     */
     void editTerminal();
+
+    /**
+     * function to access transport edition menu
+     */
     void checkTransport();
+
+    /**
+     * funtion to add a new transport to an
+     * airport allowing through input to create
+     * a new object
+     */
     void addTransport();
+
+    /**
+     * funciton to delete an existing transport
+     * from a list of transport of an airport
+     */
     void delTransport();
+
+    /**
+     * change time of a transport, but
+     * doesn't allow to change type or distance
+     */
     void editTransport();
+
+    /**
+     * creation of a new serviceTicket of an
+     * airport that is previously selected and passed
+     * by pointer
+     * @param airport
+     */
     void createService(Airport *airport);
+
+    /**
+     * function to assess the tasks left in a service
+     * and allows to terminate them. If all tasks are
+     * complete the service is removed form the
+     * queue
+     * @param airport
+     */
     void checkTasks(Airport *airport);
+
+    /**
+     * function to select a terminal wether to
+     * remove it or edit
+     * @param airport
+     * @return
+     */
     Terminal* selectTerminal(Airport *airport);
+
+    /**
+     * funciton to select a plane from an airport
+     * previously selected and passed by pointer
+     * @param airport
+     * @return
+     */
     PlanePointer selectPlane(Airport *airport);
+
+    /**
+     * menu to access workers management
+     */
     void workers();
+
+    /**
+     * funciton to allow a creation and introducion
+     * of a worker int he company and attribute
+     * to an airport
+     */
     void addWorker();
+
+    /**
+     * function to allow after selection the deletion
+     * of an worker, removing him from any
+     * pending serviceTickets
+     */
     void delWorker();
+
+    /**
+     * function to edit information of a staff worker
+     */
     void changeWorker();
+
+    /**
+     * funcion to allow the admin to move a worker
+     */
     void moveWorker();
+
+    /**
+     * function to assess the service in the queue of an
+     * airport
+     */
     void checkService();
 };
 
@@ -283,17 +447,55 @@ public:
     }
     void mainScreen() override;
 
+    /**
+     * function to access airport menu
+     * accessible only by the admin
+     */
     void airportMenu();
+
+    /**
+     * creation and insertion of a new airport
+     * in the data
+     */
     void createAirport();
+
+    /**
+     * allows through input to eliminate
+     * an airport with which the company no long
+     * operates in
+     */
     void deleteAirport();
 
 
     void travel();
 
+    /**
+     * funciton to access plane management menu
+     */
     void plane();
+
+    /**
+     * function that allows to add a new airplane
+     * to the fleet, which con be predetermined or
+     * a custom
+     */
     void addPlane();
+
+    /**
+     * function to remove a certain airplane form
+     * the fleet
+     */
     void deletePlane();
+
+    /**
+     * function to retrieve plane information
+     */
     void checkPlane();
+
+    /**
+     * should allow to map all planes across
+     * the airport and in the sky
+     */
     void mapPlane();
 
 };

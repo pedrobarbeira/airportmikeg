@@ -345,7 +345,7 @@ void SaveAirport::saveService(Airport* a){
             throw SaveAirportFail("saveService");
         for (auto it : services) {
             outfile << it->getPlane()->getPlate() << " "
-                    << it->getSchedule() << " "
+                    << it->getCreated() << " "
                     << it->getResponsible()->getId()
                     << " " << it->getType();
         }
@@ -354,7 +354,7 @@ void SaveAirport::saveService(Airport* a){
         if(!completed.empty()) {
             for (auto it : completed) {
                 outfile << it->getPlane()->getPlate() << " "
-                        << it->getSchedule() << " "
+                        << it->getCreated() << " "
                         << it->getCompleted() << " "
                         << it->getResponsible()->getId() << " "
                         << it->getType();

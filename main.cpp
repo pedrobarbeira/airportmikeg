@@ -64,7 +64,7 @@ void testAirport(){
     data->addCompany(admin);
     data->addClient(client);
     ManagerMenu *man = new ManagerMenu(manager, data);
-    //man->mainScreen();
+    adm->mainScreen();
 
 }
 

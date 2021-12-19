@@ -82,7 +82,7 @@ void Menu::print(std::vector<Staff*> v) {
     }
     for (unsigned i{}; i < v.size(); i++){
         std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
-                  << v[i]->getId() << ", " << v[i]->getName();
+                  << v[i]->getId() << ", " << v[i]->getName() << "(" << v[i]->getPhone() << ")";
     }
 }
 
@@ -150,12 +150,6 @@ void Menu::newWorker(Airport *airport){
         case 'n': std::cout << "\n\n\tNew member addition cancelled"; break;
         default: std::cout << "Invalid Option\n"; system("pause");
     }
-}
-
-void Menu::editWorker(Staff *staff){
-    char a;
-    std::cout << "\n\n\tCurrent staff attributes:" << "\n\t\tName: " << staff->getName()
-              << "1n\t\tPhone: " << staff->getPhone();
 }
 
 Staff* Menu::selectStaff(std::vector<Staff*> v) {
@@ -1197,7 +1191,6 @@ void CompanyMenu::addWorker(){
     if (this->user->getType() == 'a') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     system(CLEAR);
-    Airport *airport = selectAirport().getPointer();
     if (airport == nullptr) return;
     newWorker(airport);
     system("pause");
@@ -1208,7 +1201,6 @@ void CompanyMenu::delWorker(){
     else airport = this->user->getAirport();
     char a;
     system(CLEAR);
-    Airport *airport = selectAirport().getPointer();
     Staff *staff = selectStaff(airport->getStaff());
     if (staff == nullptr) return;
     std::cout << "\n\tConfirm deletion of " << staff->getName() << " currently at " << airport->getName()<< "?(y/n)\n";
@@ -1226,16 +1218,35 @@ void CompanyMenu::changeWorker() {
     if (this->user->getType() == 'a') airport = selectAirport().getPointer();
     else airport = this->user->getAirport();
     system(CLEAR);
-    Airport *airport = selectAirport().getPointer();
     Staff *staff = selectStaff(airport->getStaff());
     if (staff == nullptr) return;
-    editWorker(staff);
+    while (true){
+        char a;
+        string name;
+        int phone;
+        std::cout << "\n\tSet a new name?(y/n)\n>"; std::cin >> a;
+        std::cin.ignore(INT32_MAX, '\n');
+        switch (a){
+            case 'y' : std::cout << "\n\n\tNew name>"; getline(std::cin, name); staff->setName(name); break;
+            case 'n' : system("pause"); break;
+            default: std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, '\n'); system("pause");
+        }
+        std::cout << "\n\tSet a new phone?(y/n)\n>"; std::cin >> a;
+        std::cin.ignore(INT32_MAX, '\n');
+        switch (a){
+            case 'y' : std::cout << "\n\n\tNew phone>"; std::cin >> phone; staff->setPhone(phone); break;
+            case 'n' : system("pause"); break;
+            default: std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, '\n'); system("pause");
+        }
+        std::cout << "\n\n\tStaff member edit complete";
+        system("pause");
+        return;
+    }
     return;
 }
 
 void CompanyMenu::moveWorker() {
-    if (this->user->getType() == 'a') airport = selectAirport().getPointer();
-    else {
+    if (this->user->getType() != 'a') {
         airport = this->user->getAirport();
         std::cout << "Permission denied. Use administrator previlege to access this menu";
         system("pause");

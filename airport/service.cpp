@@ -70,7 +70,7 @@ void ServiceTicket::setResponsible(Staff *staff) {
     responsible = staff;
 }
 
-void ServiceTicket::setSchedule(Time *date) {
+void ServiceTicket::setCreated(Time *date){
     created = date;
 }
 
@@ -95,7 +95,7 @@ Staff* ServiceTicket::getResponsible(){
     return responsible;
 }
 
-Time* ServiceTicket::getSchedule() {
+Time* ServiceTicket::getCreated() {
     return created;
 }
 
@@ -120,8 +120,8 @@ void Cleaning::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Cleaning::setSchedule(Time *date) {
-    ServiceTicket::setSchedule(date);
+void Cleaning::setCreated(Time *date) {
+    ServiceTicket::setCreated(date);
 }
 
 void Cleaning::setComplete(Time *date) {
@@ -133,8 +133,8 @@ Staff* Cleaning::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Time* Cleaning::getSchedule() {
-    return ServiceTicket::getSchedule();
+Time* Cleaning::getCreated() {
+    return ServiceTicket::getCreated();
 }
 
 vector<string> Cleaning::getTasksLeft() const {
@@ -184,8 +184,8 @@ void Maintenance::setResponsible(Staff *staff) {
     ServiceTicket::setResponsible(staff);
 }
 
-void Maintenance::setSchedule(Time *date) {
-    ServiceTicket::setSchedule(date);
+void Maintenance::setCreated(Time *date) {
+    ServiceTicket::setCreated(date);
 }
 
 void Maintenance::setComplete(Time *date) {
@@ -209,8 +209,8 @@ Staff* Maintenance::getResponsible() {
     return ServiceTicket::getResponsible();
 }
 
-Time* Maintenance::getSchedule() {
-    return ServiceTicket::getSchedule();
+Time* Maintenance::getCreated() {
+    return ServiceTicket::getCreated();
 }
 
 vector<string> Maintenance::getTasksLeft() const {
