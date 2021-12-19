@@ -56,15 +56,15 @@ void testAirport(){
     //cle1->checkSeats();
     //porto->delService(date2);
     porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin");
+    Admin *admin = new Admin("admin", "admin", 'a');
     Client *client = new Client ("client", "client");
+    Manager *manager = new Manager("manager", "manager",'m', porto );
     AdminMenu *adm = new AdminMenu(admin, data);
-    adm->mainScreen();
-
-    //admin(data);
-
-    //for (auto it : porto->nextTransportBus(time1)){
-    //    std::cout << "\n" << (*it).getHour() << ":" << (*it).getMinute();}
+    data->addCompany(manager);
+    data->addCompany(admin);
+    data->addClient(client);
+    ManagerMenu *man = new ManagerMenu(manager, data);
+    //man->mainScreen();
 
 }
 
@@ -125,7 +125,7 @@ void testPassenger() {
  */
 void testMenu(){
     MikeG main;
-    bool flag = false;
+    bool flag = true;
     main.start(flag);
 }
 
@@ -163,7 +163,7 @@ int main(){
 
     t.print(std::cout);
 
-
+    testAirport();
     testInterface();
 
     return 0;

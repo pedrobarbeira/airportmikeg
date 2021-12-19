@@ -96,6 +96,7 @@ public:
     FlightPointer selectFlight();
     void reOrderFlights(std::vector<FlightPointer>& f);
     TransportPointer selectTransportPointer(Airport *airport);
+    void print(vector<Plane*>);
 
 };
 
@@ -245,6 +246,9 @@ protected:
     //Add service ticket queue
     //add complete service queue
 public:
+    //TODO
+    void checkAirport();
+    void checkFlights();
     void checkTerminal();
     void addTerminal();
     void delTerminal();
@@ -253,7 +257,16 @@ public:
     void addTransport();
     void delTransport();
     void editTransport();
+    void createService(Airport *airport);
+    void checkTasks(Airport *airport);
     Terminal* selectTerminal(Airport *airport);
+    PlanePointer selectPlane(Airport *airport);
+    void workers();
+    void addWorker();
+    void delWorker();
+    void changeWorker();
+    void moveWorker();
+    void checkService();
 };
 
 /**
@@ -273,15 +286,7 @@ public:
     void airportMenu();
     void createAirport();
     void deleteAirport();
-    void checkAirport();
-    void checkFlights();
 
-    void workers();
-    void addWorker();
-    void delWorker();
-    void changeWorker();
-    void moveWorker();
-    void checkService();
 
     void travel();
 
@@ -290,6 +295,7 @@ public:
     void deletePlane();
     void checkPlane();
     void mapPlane();
+
 };
 
 /**
@@ -305,6 +311,7 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+
 };
 
 /**

@@ -69,7 +69,16 @@ public:
     virtual vector<string> getTasksCompleted() const;
     virtual Staff *getResponsible();
     virtual Time* getSchedule();
+    virtual bool verification() const{};
     bool operator < (ServiceTicket &s);
+    virtual void checkWc(){};
+    virtual void checkSeats(){};
+    virtual void checkFloor(){};
+    virtual void checkFlightDeck(){};
+    virtual void checkEngine(){};
+    virtual void checkLandGear(){};
+    virtual void checkControls(){};
+    virtual void checkEmergency(){};
 };
 
 
@@ -91,11 +100,11 @@ public:
     vector<string> getTasksCompleted() const override;
     Staff* getResponsible() override;
     Time* getSchedule() override;
-    void checkWc();
-    void checkSeats();
-    void checkFloor();
-    void checkFlightDeck();
-    bool verification() const;
+    void checkWc() override;
+    void checkSeats() override;
+    void checkFloor() override;
+    void checkFlightDeck() override;
+    bool verification() const override;
 };
 
 class Maintenance : public ServiceTicket{
@@ -115,11 +124,11 @@ public:
     vector<string> getTasksCompleted() const override;
     Staff* getResponsible() override;
     Time* getSchedule() override;
-    void checkEngine();
-    void checkLandGear();
-    void checkControls();
-    void checkEmergency();
-    bool verification() const;
+    void checkEngine() override;
+    void checkLandGear() override;
+    void checkControls() override;
+    void checkEmergency() override;
+    bool verification() const override;
 };
 
 class NoResponsible{

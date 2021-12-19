@@ -54,10 +54,6 @@ void deleteAirport(){
 }
 
 
-void checkAirport(){
-
-}
-
 void listAirport(){
     system(CLEAR);
     std::cout << "Here is the list of the active airports:";

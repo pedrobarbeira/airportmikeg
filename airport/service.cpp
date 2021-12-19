@@ -217,7 +217,7 @@ vector<string> Maintenance::getTasksLeft() const {
     vector<string> tl;
     if (!engine) tl.push_back("Engine");
     if (!landGear) tl.push_back("Landing Gear");
-    if (!controls) tl.push_back("Plane Console and Controls");
+    if (!controls) tl.push_back("Console and Controls");
     if (!emergency) tl.push_back("Emergency Equipment");
     return tl;
 }
