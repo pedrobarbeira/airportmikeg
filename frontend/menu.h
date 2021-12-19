@@ -153,8 +153,7 @@ public:
     /**
      *
      */
-    void print(vector<Plane*>);
-
+    void print(std::vector<PlanePointer> p);
 };
 
 /**
@@ -259,7 +258,6 @@ public:
      * @return the chosen airport
      */
     AirportPointer selectAirport();
-
 
     void seeFlights();
 
@@ -370,7 +368,7 @@ public:
      * by pointer
      * @param airport
      */
-    void createService(Airport *airport);
+    void createService(Airport *airport, Plane *plane);
 
     /**
      * function to assess the tasks left in a service
@@ -396,6 +394,9 @@ public:
      * @return
      */
     PlanePointer selectPlane(Airport *airport);
+
+    PlanePointer selectPlane();
+
 
     /**
      * menu to access workers management

@@ -24,35 +24,40 @@ class Treadmill{
 
 };
 
-class Carriage{
+class Carriage {
     int m, n;
-    std::queue<std::stack<Luggage*>> bags;
+    std::queue<std::stack<Luggage *>> bags;
 public:
-    explicit Carriage(int m = 0, int n = 0){
+    explicit Carriage(int m = 0, int n = 0) {
     }
-    bool loadCarriage(Luggage*) {
-        std::queue<std::stack<Luggage *>> load;
-        std::stack<Luggage *> full = bags.front();
-        while (!bags.empty() && full.size() == m) {
-            bags.pop();
-            load.push(full);
-            full = bags.front();
-        };
 
-        for (int i = 0; i < bags.size(); ++i) {
-            load.front() = bags.front();
+    bool loadCarriage(Luggage *) {
+        std::queue<std::stack<Luggage *>> load;
+        std::stack<Luggage *> stax = bags.front();
+        int counter;
+        while (!bags.empty()) {
+            stax = bags.front();
             bags.pop();
-            i++;
+            counter++;
+            if (counter == m) {
+                load.push(stax);
+                while (!stax.empty()) {
+                    stax.pop();
+                }
+                counter = 0;
+            }
+
+            return true;
         }
-        return true;
     }
 };
 
-class LuggageTransport{
-    std::queue<Carriage*> carriages;
+
+class LuggageTransport {
+    std::queue<Carriage *> carriages;
 public:
-    LuggageTransport(std::queue<Luggage*> bags, int m = 0, int n = 0){
-        std::vector < Carriage * > load;
+    LuggageTransport(std::queue<Luggage *> bags, int m = 0, int n = 0) {
+        std::vector<Carriage *> load;
         Carriage *c = new Carriage(m, n);
         load.push_back(c);
         int i = 0;
@@ -67,9 +72,8 @@ public:
                 i++;
             }
         }
-        for(auto it : load)
+        for (auto it: load)
             carriages.push(it);
     }
 };
-
 #endif //MIKEGAIRLINES_LUGGAGE_H

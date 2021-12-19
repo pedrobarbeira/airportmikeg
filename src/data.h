@@ -29,7 +29,7 @@ public:
      */
     Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
              clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), flights(FlightPointer(nullptr)){}
+             voyages(VoyagePointer(nullptr)), flights(FlightPointer(nullptr)){};
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects
@@ -54,7 +54,7 @@ public:
      * Converts the planes BST into a vector of Plane* objects
      * @return a vector with the data stored in the planes BST
      */
-    std::vector<Plane*> getPlanes() const;
+    std::vector<PlanePointer> getPlanes() const;
 
     /**
      * Converts the tickets BST into a vector of Ticket* objects
@@ -78,6 +78,9 @@ public:
      * Returns the airports BST
      * @return the airports BST
      */
+
+    std::vector<ServiceTicket*> getServiceTicket() const;
+
     BST<AirportPointer> getAirportBST() const{
         return airports;
     }
@@ -128,6 +131,10 @@ public:
     BST<CompanyPointer> getCompanyBST() const{
         return company;
     }
+
+ /*   BST<ServicePointer> getServicesBST() const{
+        return services;
+    }*/
 
     /**
      * Adds an airport to the airports BST
@@ -215,6 +222,26 @@ public:
     }
 
     /**
+     * Removes a company account from the company BST
+     * @param c pointer to the company account that'll be added
+     * @return bool upon success. false otherwise
+     */
+    bool delCompany(Company* c){
+        CompanyPointer cptr(c);
+        return company.remove(cptr);
+    }
+
+    bool delPlane(Plane* p){
+        PlanePointer pptr(p);
+        return planes.remove(pptr);
+    }
+
+/*    bool addService(ServiceTicket* s){
+        ServicePointer sptr(s);
+        return services.insert(sptr);
+    }*/
+
+    /**
      * Searches for a given Airport in the airports BST
      * @param id the ID of the Airport to be found
      * @return the result of the search
@@ -226,7 +253,7 @@ public:
  * @param id the ID of the ticket to be found
  * @return the result of the sarch
  */
-    static Staff* findStaff(const Airport* a, const unsigned int& id);
+    static Staff* findStaff(const Airport* a, std::string);
 
     /**
      * Searches for a given Voyage in the voyages BST

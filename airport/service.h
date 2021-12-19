@@ -15,9 +15,10 @@ using namespace std;
 
 class Staff{
     /**
-     * id is a static integer (unique)
+     * id is a string defined by a
+     * static integer (unique)
      */
-    unsigned id{};
+    string id{};
     /**
      * name of the worker
      */
@@ -32,12 +33,12 @@ public:
      * @param name
      */
     explicit Staff(string name = ""){
-        this->name = name; id = staffId++;};
+        this->name = name; id = to_string(staffId++) + "staff";};
     /**
      * getter for the unique id
      * @return
      */
-    unsigned getId() const;
+    string getId() const;
     /**
      * setter for the next id available
      */
@@ -212,7 +213,9 @@ public:
      * if all the tasks are complete
      * @return
      */
-    virtual bool verification() const{};
+    virtual bool verification() const{
+        return true;
+    };
     /**
      * < overload to organize serviceTickets
      * @param s

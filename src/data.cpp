@@ -73,11 +73,11 @@ std::vector<FlightPointer> Data::getFlights() const{
     }
     return ret;
 }
-std::vector<Plane*> Data::getPlanes() const{
-    std::vector<Plane*> ret;
+std::vector<PlanePointer> Data::getPlanes() const{
+    std::vector<PlanePointer> ret;
     iteratorBST<PlanePointer> it = planes.begin();
     while(it != planes.end()){
-        ret.push_back((*it).getPointer());
+        ret.push_back((*it));
         it++;
     }
     return ret;
@@ -136,12 +136,14 @@ std::vector<Company*> Data::getCompany() const{
     }
     return ret;
 }
+
+
 AirportPointer Data::findAirport(const std::string& id) const{
     auto a = new Airport(id);
     AirportPointer find(a);
     return airports.find(find);
 }
-Staff* Data::findStaff(const Airport* a, const unsigned int& id){
+Staff* Data::findStaff(const Airport* a, std::string id){
     std::vector<Staff*> s = a->getStaff();
     std::vector<Staff*>::const_iterator it = s.begin();
     while(it != s.end()){
@@ -591,7 +593,7 @@ void LoadUser::loadCompany(){
             data->addCompany(c);
         } else if (type == 'S') {
             string airport;
-            unsigned int id;
+            std::string id;
             for (int i = 0; i < line.length(); i++) {
                 if (i == ' ') {
                     airport = line.substr(0, i);

@@ -19,12 +19,12 @@ Seat::Seat(std::string row, int column, Class* c){
     classe = c;
     handBag = nullptr;
 }
-
+/*
 Seat::~Seat(){
     delete classe;
     delete handBag;
 }
-
+*/
 /**Plane*/
 Plane::~Plane(){
     for(auto it : classes)

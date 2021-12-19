@@ -4,16 +4,18 @@
 #include <vector>
 #include "luggage.h"
 
-using namespace std;
+
 
 class Passenger{
-    string name;
+    std::string name;
 public:
-    Passenger(string name);
-    string getName() const;
-    bool getCheckinpass() const;
-    void setName(string name2){name=name2;}
-
+    Passenger(std::string n) : name(std::move(n)){};
+    std::string getName() const{
+        return name;
+    }
+    void setName(std::string n) {
+        name = n;
+    }
 };
 
 

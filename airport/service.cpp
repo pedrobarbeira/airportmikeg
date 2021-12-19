@@ -11,7 +11,7 @@ using namespace std;
 
 
 void Staff::setId() {
-    this->id = staffId++;
+    this->id = to_string(staffId++) + "staff";
 }
 
 void Staff::setPhone(unsigned phone) {
@@ -29,7 +29,7 @@ unsigned Staff::getPhone() const {
     return phone;
 }
 
-unsigned Staff::getId() const {
+string Staff::getId() const {
     return id;
 }
 
