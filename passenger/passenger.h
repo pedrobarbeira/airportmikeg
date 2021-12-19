@@ -4,15 +4,15 @@
 #include <vector>
 #include "luggage.h"
 
-using namespace std;
+
 
 class Passenger{
-    string name;
+    std::string name;
 public:
-    Passenger(string name, bool checkinpass);
-    string getName() const;
+    Passenger(std::string name, bool checkinpass);
+    std::string getName() const;
     bool getCheckinpass() const;
-    void setName(string name2){name=name2;}
+    void setName(std::string name2){name=name2;}
 
 };
 
