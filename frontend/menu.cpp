@@ -185,8 +185,6 @@ void Menu::print(std::vector<ServiceTicket*> s){
     }
 }
 
-
-
 void Menu::newWorker(Airport *airport){
     string id, name; int phone;
     char a;

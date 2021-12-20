@@ -10,8 +10,8 @@ Connection::Connection(Flight *i, Flight *o) {
 }
 
 Connection::~Connection(){
-    delete in;
-    delete out;
+    in = nullptr;
+    out = nullptr;
 }
 
 /**Voyage*/

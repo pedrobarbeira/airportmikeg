@@ -3,8 +3,8 @@
 
 /**-------Data-------*/
 bool Data::addFlight(Flight* f){
-    //Test this bish
-    bool flag;
+    FlightPointer fptr(f);
+    bool flag = flights.insert(fptr);
     AirportPointer find = airports.find(AirportPointer((*f).getOrigin()->airport));
     if(find.getPointer() == nullptr){
         std::cout << "Error: origin airport not found\n"
@@ -15,7 +15,7 @@ bool Data::addFlight(Flight* f){
     else{
         AirportPointer& addIn = find;
         airports.remove(find);
-        flag = addIn.addFlight(f) && airports.insert(addIn);
+        flag &= addIn.addFlight(f) && airports.insert(addIn);
     }
     if(flag) {
         find = airports.find(AirportPointer((*f).getDestination()->airport));
@@ -38,7 +38,6 @@ bool Data::addFlight(Flight* f){
         }
     }
     else{
-
         std::cout << "Error adding in flight\n"
                   << "Press enter to continue . . . ";
         int c = getchar();
@@ -103,18 +102,20 @@ std::vector<Ticket*> Data::getTickets() const{
 }
 BST<TicketPointer> Data::getTicketBST() const{
     BST<TicketPointer> bst(TicketPointer(nullptr));
-    iteratorBST<FlightPointer> it = flights.begin();
-    BST<TicketPointer> sub(TicketPointer(nullptr));
-    while(it != flights.end()){
-        sub = (*it).getTicketBST();
-        if(!sub.isEmpty()) {
-            iteratorBST<TicketPointer> ticket = sub.begin();
-            while(ticket != sub.end()){
-                bst.insert((*ticket));
-                ticket++;
+    if(!flights.isEmpty()) {
+        iteratorBST<FlightPointer> it = flights.begin();
+        BST<TicketPointer> sub(TicketPointer(nullptr));
+        while (it != flights.end()) {
+            sub = (*it).getTicketBST();
+            if (!sub.isEmpty()) {
+                iteratorBST<TicketPointer> ticket = sub.begin();
+                while (ticket != sub.end()) {
+                    bst.insert((*ticket));
+                    ticket++;
+                }
             }
+            it++;
         }
-        it++;
     }
     return bst;
 }
@@ -140,7 +141,9 @@ std::vector<Company*> Data::getCompany() const{
 AirportPointer Data::findAirport(const std::string& id) const{
     auto a = new Airport(id);
     AirportPointer find(a);
-    return airports.find(find);
+    if(!airports.isEmpty())
+        return airports.find(find);
+    else return AirportPointer(nullptr);
 }
 Staff* Data::findStaff(const Airport* a, std::string id){
     std::vector<Staff*> s = a->getStaff();
@@ -155,69 +158,104 @@ Staff* Data::findStaff(const Airport* a, std::string id){
 Voyage* Data::findVoyage(const std::string& id) const{
     auto v = new Voyage(id);
     VoyagePointer find(v);
-    find = voyages.find(find);
-    return find.getPointer();
+    if(!voyages.isEmpty()) {
+        find = voyages.find(find);
+        return find.getPointer();
+    }
+    else return nullptr;
 }
 FlightPointer Data::findFlight(const std::string& id) const{
     FlightPointer ret(nullptr);
-    iteratorBST<AirportPointer> it = airports.begin();
-    while(it != airports.end()){
-        Flight* find = (*it).find(id);
-        if((*it).find(id) != nullptr) {
-            ret = FlightPointer(find);
-            break;
+    if(!flights.isEmpty()) {
+        iteratorBST<AirportPointer> it = airports.begin();
+        while (it != airports.end()) {
+            FlightPointer find = (*it).find(id);
+            if ((*it).find(id).getPointer() != nullptr) {
+                ret = find;
+                break;
+            }
+            it++;
         }
-        it++;
     }
     return ret;
+}
+FlightPointer Data::findFlight(const Plane* p) const{
+    if(!flights.isEmpty()) {
+        iteratorBST<FlightPointer> it = flights.begin();
+        Flight *f;
+        while (it != flights.end()) {
+            f = (*it).getPointer();
+            if (f->getPlane() == p)
+                return (*it);
+            else it++;
+        }
+    }
+    return FlightPointer(nullptr);
 }
 Plane* Data::findPlane(const std::string& id) const{
     auto* p = new Plane(id);
     PlanePointer find(p);
-    find = planes.find(find);
-    return find.getPointer();
+    if(!planes.isEmpty()) {
+        find = planes.find(find);
+        return find.getPointer();
+    }
+    return nullptr;
 }
 Ticket* Data::findTicket(const std::string& id) const{
     auto t = new Ticket(id);
-    iteratorBST<FlightPointer> it = flights.begin();
-    BST<TicketPointer> bst(TicketPointer(nullptr));
-    while(it != flights.end()){
-        bst = (*it).getTicketBST();
-        TicketPointer find(t);
-        if(!bst.isEmpty())
-            find = bst.find(find);
-        if(find.getPointer() == nullptr)
-            it++;
-        else return find.getPointer();
+    if(!flights.isEmpty()) {
+        iteratorBST<FlightPointer> it = flights.begin();
+        BST<TicketPointer> bst(TicketPointer(nullptr));
+        while (it != flights.end()) {
+            bst = (*it).getTicketBST();
+            TicketPointer find(t);
+            if (!bst.isEmpty())
+                find = bst.find(find);
+            if (find.getPointer() == nullptr)
+                it++;
+            else return find.getPointer();
+        }
     }
     return nullptr;
 }
 Client* Data::findClient(const std::string& id) const{
     auto c = new Client(id);
     ClientPointer find(c);
-    find = clients.find(find);
-    return find.getPointer();
+    if(!clients.isEmpty()) {
+        find = clients.find(find);
+        return find.getPointer();
+    }
 }
 Company* Data::findCompany(const std::string& id) const{
     auto c = new Company(id);
     CompanyPointer find(c);
-    find = company.find(find);
-    return find.getPointer();
-}
-
-FlightPointer Data::findFlight(const Plane* p) const{
-    iteratorBST<FlightPointer> it = flights.begin();
-    Flight* f;
-    while(it != flights.end()){
-        f = (*it).getPointer();
-        if(f->getPlane() == p)
-            return (*it);
-        else it++;
+    if(!company.isEmpty()) {
+        find = company.find(find);
+        return find.getPointer();
     }
-    return FlightPointer(nullptr);
 }
 /**-------LOAD-------*/
 void Load::load(){
+    try{
+        LoadAirport load(data);
+        load.load();
+    }
+    catch(const LoadAirportFail& e){
+        std::cout << "Error loading Airport\n";
+        throw DevLog(e.getError());
+    }
+    catch(const DevLog e){
+        std::cout << "Error loading Airport\n";
+        throw DevLog(e.getError());
+    }
+    try{
+        LoadVoyage load(data);
+        load.load();
+    }
+    catch(const DevLog& e){
+        std::cout << "Error loading Voyages\n";
+        throw DevLog(e.getError());
+    }
     try{
         LoadUser load(data);
         load.load();
@@ -231,7 +269,7 @@ void Load::load(){
 void LoadAirport::loadPlane() {
     ifstream infile("./data/planes.txt");
     if (!infile.is_open())
-        throw LoadVoyageFail();
+        throw LoadAirportFail();
     string line;
     std::getline(infile, line);
     if (line != "PLANE DATA")
@@ -316,6 +354,174 @@ void LoadAirport::loadPlane() {
     infile.close();
 }
 
+void LoadAirport::loadAirport() {
+    ifstream infile("./data/airports.txt");
+    if (!infile.is_open())
+        throw LoadAirportFail();
+    std::string line;
+    std::getline(infile, line);
+    if (line != "AIRPORT DATA")
+        throw LoadAirportFail();
+    std::string id, name, country, city;
+    Airport *a;
+    while (std::getline(infile, line)) {
+        id = line.substr(0, line.length() - 1);
+        std::getline(infile, line);
+        int length, j = line.length();
+        for (int i = line.length(); i >= 0; i--) {
+            if (line[i] == ' ') {
+                if (city.empty()) {
+                    length = j - i;
+                    city = line.substr(i + 1, length);
+                    j = i - 1;
+                } else if (country.empty()) {
+                    length = j - i;
+                    country = line.substr(i + 1, length);
+                    j = i - 1;
+                } else name = line.substr(0, j + 1);
+            }
+            a = new Airport(id, name, country, city);
+            std::getline(infile, line);
+            std::string terminal, plane, transport, service, completed;
+            std::vector<std::string> terminalData;
+            j = 0;
+            for (int i = 0; i <= line.length(); i++) {
+                if (line[i] == ' ') {
+                    if (terminal.empty()) {
+                        length = i - j;
+                        terminalData.push_back(line.substr(j, length));
+                        j = i + 1;
+                    } else if (i == line.length())
+                        terminalData.push_back(line.substr(j));
+                }
+            }
+            try {
+                loadTerminal(a, terminalData);
+            }
+            catch (LoadAirportFail e) {
+                throw DevLog(e.getError());
+            }
+            getline(infile, transport);
+            getline(infile, service);
+            getline(infile, completed);
+            getline(infile, line);
+            if(line[0] != ')')
+                throw LoadAirportFail();
+            infile.close();
+            try{
+                loadStaff(a);
+            }
+            catch (const LoadAirportFail& e) {
+                throw DevLog(e.getError());
+            }
+            /*try{
+                loadService(a, service, completed);
+            }
+            catch(const LoadAirportFail& e){
+                throw DevLog(e.getError());
+            }
+            try{
+                loadTransport(a, transport);
+            }
+            catch(const LoadAirportFail& e){
+                throw DevLog(e.getError());
+            }*/
+        }
+    }
+    infile.close();
+}
+
+void LoadAirport::loadTerminal(Airport* a, const std::vector<std::string>& tData){
+    std::vector<Terminal*> v = a->getTerminals();
+    int i = 0, j = 1;
+    for(auto it : v){
+        if(it->getId() == tData[i]){
+            if(tData[j] != "nullptr"){
+                Plane* p = data->findPlane(tData[j]);
+                it->setPlane(p);
+            }
+            else it->setPlane(nullptr);
+        }
+        i+=2;
+        j+=2;
+        if(j > tData.size() -1)
+            throw LoadAirportFail();
+    }
+}
+void LoadAirport::loadStaff(Airport* a){
+    ifstream infile("./data/service.txt");
+    std::string line;
+    std::getline(infile, line);
+    if(line != "SERVICE DATA")
+        throw LoadAirportFail();
+    do{
+        std::getline(infile, line);
+    }while(line.substr(line.length() - 1) != a->getidCode());
+    std::string id, name, phone;
+    while(line[0] != ')'){
+        std::getline(infile, line);
+        int length, j = 0;
+        for(auto i = 0; i < line.length(); i++) {
+            if (line[i] == ' ') {
+                if (id.empty()) {
+                    id = line.substr(j, i);
+                    line = line.substr(i + 1);
+                    break;
+                }
+            }
+        }
+        for(auto i = line.length(); i >= 0; i--) {
+            if (line[i] == ' ') {
+                phone = line.substr(i + 1);
+                j = i;
+                break;
+            }
+        }
+        name = line.substr(0, j);
+        auto s = new Staff(id);
+        s->setName(name);
+        s->setPhone(stoi(phone));
+        a->addStaff(s);
+        std::getline(infile, line);
+    }
+    infile.close();
+}
+void LoadAirport::loadService(Airport* a, const std::string& l, const std::string& l2){
+
+}
+
+void LoadAirport::loadTransport(Airport* a, std::string& l){
+    Transport* t;
+    while(!l.empty()){
+        uint16_t d = 0;
+        char type;
+        std::string dLoad;
+        Time* date;
+        int length, j = 2;
+        type = l[0];
+        for(int i = 2; i < l.size(); i++){
+            if(l[i] == ' ') {
+                if (d == 0) {
+                    d = stoi(l.substr(j, i));
+                    j = i + 1;
+                }
+                else{
+                    i += 19;
+                    dLoad = l.substr(j, i);
+                    l = l.substr(i + 1);
+                    break;
+                }
+            }
+        }
+        date = new Time(dLoad);
+        t = new Transport(type);
+        t->addTime(date);
+        t->setDistance(d);
+        a->addTransport(t);
+    }
+}
+void LoadAirport::load(){
+}
 /**---Load Voyage---*/
 void LoadVoyage::load(){
     try{
@@ -333,12 +539,12 @@ void LoadVoyage::load(){
     try{
         loadVoyage();
     }
-    catch(const LoadFlightFail& e){
+    catch(const LoadVoyageFail& e){
         throw DevLog(e.getError());
     }
 }
 void LoadVoyage::loadFlight(){
-    ifstream infile("./data/flight.txt");
+    ifstream infile("./data/flights.txt");
     if (!infile.is_open())
         throw LoadVoyageFail();
     string line;
@@ -400,7 +606,7 @@ void LoadVoyage::loadFlight(){
     infile.close();
 }
 void LoadVoyage::loadVoyage(){
-    ifstream infile("./data/voyage.txt");
+    ifstream infile("./data/voyages.txt");
     if (!infile.is_open())
         throw LoadVoyageFail();
     string line;
@@ -487,8 +693,25 @@ void LoadVoyage::loadTicket(){
 }
 
 /**---Load User---*/
+void LoadUser::load(){
+    try{
+        loadClient();
+    }
+    catch(const LoadUserFail& e){
+        throw DevLog(e.getError());
+    }
+    try{
+        loadCompany();
+    }
+    catch(const LoadUserFail& e){
+        throw DevLog(e.getError());
+    }
+    catch(const DevLog& e){
+        throw DevLog(e.getError());
+    }
+}
 void LoadUser::loadClient(){
-    std::ifstream infile("./data/clients.txt");
+    std::ifstream infile("./data/client.txt");
     if(!infile.is_open())
         throw LoadUserFail();
     std::string line;
@@ -521,23 +744,28 @@ void LoadUser::loadClient(){
                     }
                 }
             }
-            if(i == line.length()) psngr = line.substr(j    );
+            if(i == line.length()) psngr = line.substr(j);
         }
         j = 0;
         std::getline(infile, line);
+        Ticket* t = nullptr;
         for(int i = 0; i <= line.length(); i++){
             if(line[i] == ' '){
                 length = i - j;
                 ticket = line.substr(j, i);
                 j = i+1;
-                Ticket* t = data->findTicket(ticket);
-                load.push_back(t);
-                ticket.clear();
+                if(!data->getTicketBST().isEmpty())
+                    t = data->findTicket(ticket);
+                if(t != nullptr) {
+                    load.push_back(t);
+                    ticket.clear();
+                }
             }
             else if (i == line.length()){
                 ticket = line.substr(j);
-                Ticket* t = data->findTicket(ticket);
-                load.push_back(t);
+                if(!data->getTicketBST().isEmpty())
+                    t = data->findTicket(ticket);
+                if(t != nullptr) load.push_back(t);
             }
         }
         auto c = new Client(name, pass, type, stoi(miles), psngr);
@@ -561,9 +789,10 @@ void LoadUser::loadCompany(){
     if(line != "COMPANY DATA")
         throw LoadUserFail();
     std::string name, pass;
+    Company *c;
     char type;
-    int length, j = 0;
     while(std::getline(infile, line)) {
+        int length, j = 0;
         for (int i = 0; i <= line.length(); i++) {
             if (line[i] == ' ') {
                 if (name.empty()) {
@@ -580,15 +809,16 @@ void LoadUser::loadCompany(){
                         break;
                     }
                 }
-            } else if (i == line.length()) type = line[i];
+            } else if (i == line.length() - 1) type = line[i];
         }
         if (type == 'A') {
-            auto *c = new Company(name, pass, type);
-            data->addCompany(c);
+            c = new Company(name, pass, type);
+            CompanyPointer cptr(c);
+            data->company.insert(cptr);
         } else if (type == 'M') {
             Airport *a = data->findAirport(line).getPointer();
-            auto *c = new Company(name, pass, type, a);
-        } else if (type == 'B') {
+            c = new Company(name, pass, type, a);
+        }else if (type == 'B') {
             std::string airport, plane;
             for (int i = 0; i < line.length(); i++) {
                 if (i == ' ') {
@@ -597,9 +827,9 @@ void LoadUser::loadCompany(){
                     break;
                 }
             }
-            Airport *a = data->findAirport(airport).getPointer();
-            Plane *p = data->findPlane(plane);
-            auto *c = new Company(name, pass, type, a, p);
+            Airport* a = data->findAirport(airport).getPointer();
+            Plane* p = data->findPlane(plane);
+            c = new Company(name, pass, type, a, p);
             data->addCompany(c);
         } else if (type == 'S') {
             string airport;
@@ -613,29 +843,18 @@ void LoadUser::loadCompany(){
             }
             Airport *a = data->findAirport(airport).getPointer();
             Staff *s = data->findStaff(a, id);
-            auto c = new Company(name, pass, type, a, nullptr, s);
+            c = new Company(name, pass, type, a, nullptr, s);
             data->addCompany(c);
         } else throw DevLog("Corrupted company.txt data");
         name.clear();
         pass.clear();
         type = '\0';
+        j = 0;
+        length = 0;
     }
     infile.close();
 }
-void LoadUser::load(){
-    try{
-        loadClient();
-    }
-    catch(const LoadUserFail& e){
-        throw DevLog(e.getError());
-    }
-    try{
-        loadCompany();
-    }
-    catch(const LoadUserFail& e){
-        throw DevLog(e.getError());
-    }
-}
+
 
 /**-------SAVE-------*/
 void Save::save() const{
@@ -688,7 +907,7 @@ void SaveAirport::save() const {
                 try {
                     saveAirport((*it));
                 }
-                catch(const SaveVoyageFail& e){
+                catch(const SaveAirportFail& e){
                     throw DevLog(e.getError());
                 }
                 catch (const DevLog& e) {
@@ -753,12 +972,11 @@ void SaveAirport::saveTerminal(const Airport* a){
 void SaveAirport::saveTransport(const Airport* a){
     std::vector<Transport*> transports = a->getTransport();
     if(!transports.empty()) {
-        std::ofstream outfile("./data/airports.txt", ios::app);
+        std::ofstream outfile("./data/transports.txt", ios::app);
         if (!outfile.is_open())
             throw SaveAirportFail("saveTransport()");
         for (auto it : transports) {
-            outfile << it->getId() << " "
-                    << it->getType() << " "
+            outfile << it->getType() << " "
                     << it->getDistance() << " "
                     << it->getTime() << " ";
         }
@@ -863,7 +1081,9 @@ void SaveUser::saveAdmin() const{
                 if (c == 'A' || c == 'M')
                     outfile << (*it).getPointer()->getUser() << " "
                             << (*it).getPointer()->getPassword() << " "
-                            << c << '\n';
+                            << c;
+                if(c == 'M') outfile << " " << (*it).getPointer()->getAirport()->getidCode();
+                outfile << '\n';
                 it++;
             }
         }

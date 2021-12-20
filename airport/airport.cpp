@@ -257,7 +257,7 @@ list<Time*> Airport::nextTransportTrain(Time *time) const {
 }
 */
 void Airport::activateTerminal(string i) {
-    Terminal *t = new Terminal(i, this->idName);
+    Terminal *t = new Terminal(i);
     terminals.push_back(t);
 }
 

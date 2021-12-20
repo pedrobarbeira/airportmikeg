@@ -27,9 +27,22 @@ public:
     /**
      * Constructor for Data class. Initializes each BST
      */
-    Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
-             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), flights(FlightPointer(nullptr)){};
+    Data() : airports(AirportPointer(nullptr)), voyages(VoyagePointer(nullptr)),
+             planes(PlanePointer(nullptr)), flights(FlightPointer(nullptr)),
+             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)) {
+        BST<AirportPointer> a(AirportPointer(nullptr));
+        airports = a;
+        BST<VoyagePointer> v(VoyagePointer(nullptr));
+        voyages = v;
+        BST<FlightPointer> f(FlightPointer(nullptr));
+        flights = f;
+        BST<PlanePointer> p(PlanePointer(nullptr));
+        planes = p;
+        BST<ClientPointer> c(ClientPointer(nullptr));
+        clients = c;
+        BST<CompanyPointer> cp(CompanyPointer(nullptr));
+        company = cp;
+    };
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects
@@ -81,6 +94,10 @@ public:
 
     std::vector<ServiceTicket*> getServiceTicket() const;
 
+    /**
+     * Getter for the airports BSt
+     * @return the airports BST
+     */
     BST<AirportPointer> getAirportBST() const{
         return airports;
     }
@@ -139,13 +156,18 @@ public:
     /**
      * Adds an airport to the airports BST
      * @param a pointer to Airport that'll be added
-     * @return result of the deletion
+     * @return true upon success, false otherwise
      */
     bool addAirport(Airport* a){
         AirportPointer aptr(a);
         return airports.insert(aptr);
     }
 
+    /**
+     * Adds an Airport to the airports BST
+     * @param aptr the Airport that'll be added
+     * @return tue upon success, false otherwise
+     */
     bool addAirport(const AirportPointer& aptr){
         return airports.insert(aptr);
     }
@@ -164,7 +186,7 @@ public:
     /**
      * Adds a voyage to the voyages BST
      * @param v pointer to the Voyage that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool addVoyage(Voyage* v){
         VoyagePointer vptr(v);
@@ -174,17 +196,23 @@ public:
     /**
      * Adds a flight to the voyages BST
      * @param f pointer to the flight that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool addFlight(Flight* f);
 
+    /**
+     * Adds a flight to the flights BST
+     * @param f the Flight to be added
+     * @return true upon success, false otherwise
+     */
     bool addFlight(const FlightPointer& f){
         return flights.insert(f);
     }
+
     /**
      * Adds a plane to the planes BST
      * @param p pointer the plane that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool addPlane(Plane* p){
         PlanePointer pptr(p);
@@ -194,9 +222,9 @@ public:
     /**
      * Adds a ticket to the tickets BST
      * @param t pointer to the ticket that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
-    bool addTicket(FlightPointer& f, Ticket* t){
+    static bool addTicket(FlightPointer& f, Ticket* t){
         return f.addTicket(t);
     }
 
@@ -204,7 +232,7 @@ public:
     /**
      * Adds a client account to the clients BST
      * @param c poitner to the client account that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool addClient(Client* c){
         ClientPointer cptr(c);
@@ -214,7 +242,7 @@ public:
     /**
      * Adds a company account to the company BST
      * @param c pointer to the company account that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool addCompany(Company* c){
         CompanyPointer cptr(c);
@@ -224,13 +252,18 @@ public:
     /**
      * Removes a company account from the company BST
      * @param c pointer to the company account that'll be added
-     * @return bool upon success. false otherwise
+     * @return true upon success. false otherwise
      */
     bool delCompany(Company* c){
         CompanyPointer cptr(c);
         return company.remove(cptr);
     }
 
+    /**
+     * Removes a Plane from the Planes BST
+     * @param p the Plane to be removed
+     * @return true upon success, false otherwise
+     */
     bool delPlane(Plane* p){
         PlanePointer pptr(p);
         return planes.remove(pptr);
@@ -266,6 +299,13 @@ public:
     FlightPointer findFlight(const std::string& id) const;
 
     /**
+     * Finds the Flight which is associated to a given Plane
+     * @param p the Plane
+     * @return the result of the search
+     */
+    FlightPointer findFlight(const Plane* p) const;
+
+    /**
      * Searches for a given Plane in the planes BST
      * @param id the ID of the Plane to be found
      * @return the result of the search
@@ -293,53 +333,165 @@ public:
      */
     Company* findCompany(const std::string& id) const;
 
-    bool removeAirport(std::string id){
+    /**
+     * Removes an Airport from the Airports BST
+     * @param id the Id of the Airport to be removed
+     * @return true upon success, false otherwise
+     */
+    bool removeAirport(const std::string& id){
         AirportPointer aptr = findAirport(id);
         return airports.remove(aptr);
     }
 
-    bool removeFlight(std::string id){
+    /**
+     * Removes a given Flight from the flights BSt
+     * @param id the Id of the Flight to be removed
+     * @return true upon success, false otherwise
+     */
+    bool removeFlight(const std::string& id){
         FlightPointer fptr = findFlight(id);
         return flights.remove(fptr);
     }
-
-    FlightPointer findFlight(const Plane* p) const;
 };
 
 class Load{
 protected:
     Data* data;
 public:
+    /**
+     * Constructor for the Parent Class Load. Receives a Data object, which
+     * will contain the loaded data
+     * @param d pointer to the Data object
+     */
     explicit Load(Data* d = nullptr) : data(d){}
+
+    /**
+     * High level abstraction method. Creates an object of a child class
+     * and calls it's load() method. Ensures the data is loaded in the proper
+     * order, so there are no memory errors during the load process. Allows
+     * programmer to quickly find and modigy any error-prone line in case
+     * any problem occurs. Catches and handles any thrown exceptions
+     */
     virtual void load();
 };
 
 class LoadAirport : public Load{
+    /**
+     * Loads Plane related information
+     */
     void loadPlane();
+
+    /**
+     * Loads Airport related information. Calls methods loadTerminal,
+     * loadStaff, loadService and loadTransport. Catches and handles
+     * any thrown exceptions
+     */
+    void loadAirport();
+
+    /**
+     * Loads the Terminal related information of a given Airport. The
+     * data is sent from loadAirport through a string
+     * @param a pointer to the Airport
+     * @param tData string with Terminal information
+     */
+    void loadTerminal(Airport* a, const std::vector<std::string>& tData);
+
+    /**
+     * Loads the Staff related information of a given Airport
+     * @param a pointer to the Airport
+     */
+    void loadStaff(Airport* a);
+
+    /**
+     * Loads the Service related information of a given Airport. The
+     * data is sent from loadAirport through a string. Loads completed
+     * and non-completed Services
+     * @param a pointer to the Airport
+     * @param l1 the non-completed Service data
+     * @param l2 the completed Service data
+     */
+    void loadService(Airport* a,const std::string& l1, const std::string& l2);
+
+    /**
+     * Loads the Transport related information of a given Airport. The
+     * data is sent from loadAirport through a string
+     * @param a pointer to the Airport
+     * @param l the Transport data
+     */
+    void loadTransport(Airport* a, std::string& l);
 public:
+    /**
+     * Constructor for the LoadAirport class. Receives a Data object
+     * and stores it in the data attribute
+     * @param d pointer to the Data object which will loaded
+     */
     explicit LoadAirport(Data*d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensures the Airport load is done in the proper
+     * sequential order. Catches and handles any thrown exception
+     */
+    void load() override;
 };
 
 class LoadVoyage : public Load{
+    /**
+     * Loads Flight related information into the Data object
+     */
     void loadFlight();
+
+    /**
+     * Loads Voyage related information into the Data object
+     */
     void loadVoyage();
+
+    /**
+     * Loads Ticket related information into the Data object
+     */
     void loadTicket();
 public:
+    /**
+     * Constructor for the LoadVoyage class. Receives a Data object
+     * and stores it in the data attribute
+     * @param d pointer to the Data object which will be loaded
+     */
     explicit LoadVoyage(Data* d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensures the Voyage load is done in the proper
+     * sequenctal order. Catches and handles any thrown exceptions
+     */
     void load() override;
 };
 
 class LoadUser : public Load{
+    /**
+     * Loads Client account related information into the Data object
+     */
     void loadClient();
+
+    /**
+     * Loads Company account related information into the Data object
+     */
     void loadCompany();
 public:
+    /**
+     * Constructor for the LoadUser class. Reiceives a Data object
+     * and stores it in the data attribute
+     * @param d pointer to the Data object which will be loaded
+     */
     explicit LoadUser(Data* d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensured the User load is done in the proper
+     * sequential order. Catches and handles any thrown exceptions
+     */
     void load() override;
 };
 
@@ -347,7 +499,20 @@ class Save{
 protected:
     Data* data;
 public:
+    /**
+     * Constructor for the Parent Class Save. Receives a Data object containing
+     * the data to be saved and stores it in the data attribute
+     * @param d pointer to the Data object
+     */
     explicit Save(Data* d = nullptr) : data(d){}
+
+    /**
+     * High level abstraction method. This method creates an object of a child
+     * class and calls it's save method. Allows programmer to easily figure out
+     * which part of the save process has gone wrong, in case of bugs. Allows
+     * programmer to easily shift how each module is saved in the system.
+     * Catches any exceptions that might be thrown - as do the overloaded versions
+     */
     virtual void save() const;
 };
 
@@ -390,6 +555,11 @@ public:
     explicit SaveAirport(Data* d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensures the Airport save is done in the expected
+     * sequential order.
+     */
     void save() const override;
 
 };
@@ -415,23 +585,73 @@ class SaveVoyage : public Save{
      */
     void savePlane() const;
 public:
+    /**
+     * Constructor for the SaveVoyage class. Saves information of the
+     * Voygae, Flight, Plane and Ticket classes. Receives a Data object
+     * with the information to be saved
+     * @param d pointer to the Data object
+     */
     explicit SaveVoyage(Data* d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensures the information is saved in the proper
+     * sequential order.
+     */
     void save() const override;
 };
 
 class SaveUser : public Save{
+    /**
+     * Saves the Client related information in a text file. Calls saveTickets
+     * with the appropriate Client object
+     */
     void saveClient() const;
-    void saveCompany() const;
+
+    /**
+     * Saves the ticket list of a given Client in a textfile. Uses specific
+     * flags to inform the Loader where the tickets of one given client start
+     * and end
+     * @param c pointer to the Client object
+     */
     static void saveTickets(Client* c);
+
+    /**
+     * Saves the Company related information in a text file. Acts as a higher
+     * level interface for the different types of client account, calling them
+     * in a similar fashion that the save() method calls the private functions
+     */
+    void saveCompany() const;
+
+    /**
+     * Saves the Admin and Manager accounts in a text file
+     */
     void saveAdmin() const;
+
+    /**
+     * Saves the Boarding accounts in a text file
+     */
     void saveBoarding() const;
+
+    /**
+     * Saves the Service arrounds in a text file
+     */
     void saveService() const;
 public:
+    /**
+     * Constructor for the SaveUser class. Saves information of the Account
+     * module. Receives a Data object with the information to be saved
+     * @param d pointer to the Data object
+     */
     explicit SaveUser(Data* d = nullptr){
         data = d;
     }
+
+    /**
+     * Public method which ensures the information is saved in the proper
+     * sequential order
+     */
     void save() const override;
 };
 

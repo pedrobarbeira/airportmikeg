@@ -180,5 +180,24 @@ public:
     }
 };
 
+class InvalidConnection : public std::exception{
+    std::string error;
+public:
+    /**
+     * Constructor for the InvalidConnection exception. Automatically
+     * attributes the error, in order to make it easier for the programmer.
+     * This class is thrown in case a connection isn't valid - i.e the origin
+     * date is larger then the destination date.
+     */
+    InvalidConnection():error("Invalid Connection"){};
+
+    /**
+     * Prints the error to the desired ostream
+     * @param out the desired ostream
+     */
+    void print(std::ostream& out) const{
+        out << error << '\n';};
+};
+
 
 #endif //MAIN_CPP_EXCEPTION_H

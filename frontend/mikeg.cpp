@@ -87,14 +87,6 @@ void MikeG::start(bool& flag) {
     }
 }
 
-/**
- * LogIn function. Reads credentials from input and searches for a corresponding
- * account in the data.clients and data.company bst's. Once it finds a match,
- * compares input password with the password saved in the system data. If the
- * data checks out, returns corresponding Menu. If not, outputs "Invalid credentials"
- * and returns nullptr.
- * @return the proper menu if the account data is in the system, nullptr otherwise.
- */
 Menu* MikeG::logIn() {
     system(CLEAR);
     std::string user, pass;
@@ -134,106 +126,14 @@ bool MikeG::save() const {
     return true;
 }
 
-bool MikeG::loadAirport(){
-    throw LoadAirportFail();
-}
-
-bool MikeG::loadVoyage(){
-    throw LoadVoyageFail();
-}
-
-bool MikeG::loadFlight(){
-    throw LoadFlightFail();
-}
-
-bool MikeG::loadPlane(){
-    throw LoadPlaneFail();
-}
-
-bool MikeG::loadTicket(){
-    throw LoadTicketFail();
-}
-
-void MikeG::loadUsers(){
-    ifstream infile("./data/company.txt");
-    if(!infile.is_open()){
-        throw LoadUserFail();
-    }
-    std::string uName, uPass;
-    char uType;
-    while(infile >> uName){
-        infile >> uPass >> uType;
-        Company* c = new Company(uName, uPass, uType);
-        data->addCompany(c);
-    }
-    infile.close();
-
-    infile.open("./data/client.txt");
-    if(!infile.is_open()){
-        throw LoadUserFail();
-    }
-    while(infile >> uName){
-        infile >> uPass >> uType;
-        Client* c = new Client(uName, uPass, uType);
-        ClientPointer cptr(c);
-        data->clients.insert(cptr);
-    }
-    infile.close();
-
-}
-
 bool MikeG::load(){
-    stringstream error;
-    bool successful = true;
-    try {
-        //loadAirport();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadVoyage();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadFlight();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadPlane();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
+    Load main(data);
     try{
-        //loadTicket();
+        main.load();
     }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
+    catch(DevLog e){
+        e.print();
     }
-    try{
-        loadUsers();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e;
-        successful = false;
-    }
-    if(!successful) throw DevLog(error.str());
 }
 
 bool MikeG::checkDev() {

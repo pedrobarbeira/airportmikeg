@@ -85,7 +85,7 @@ public:
      * @param time
      */
     void addTime(Time *time) {
-        this->time = time;};
+        this->time = time;}
     /**
      * returns the time of the object
      * @return time object
@@ -121,7 +121,6 @@ public:
     explicit TransportPointer(Transport *t) {
         pointer = t;
     }
-
 };
 
 class Terminal{
@@ -148,8 +147,8 @@ public:
      * @param airport airport from which is called to
      *          determine it's idCode
      */
-    Terminal(string i, string airport){
-        id = airport + i;
+    Terminal(string i){
+        id = i;
         plane = nullptr;};
     /**
      * Method to change terminal main definitions
@@ -270,7 +269,14 @@ public:
      */
     explicit Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
         transport(TransportPointer(nullptr)), idName(std::move(id)),
-        name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){}
+        name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){
+        stringstream terminalId;
+        terminalId << idName;
+        for(int i = 0; i < 10; i++) {
+            terminalId << setw(2) << setfill('0') << to_string(i + 1);
+            activateTerminal(terminalId.str());
+        }
+    }
     /**
      * Method to set a name for the airport
      * @param name string
@@ -352,6 +358,11 @@ public:
      * @param transport
      */
     void setTransport (TransportPointer transport);
+
+    void addTransport(Transport* t){
+        TransportPointer tptr(t);
+        transport.insert(tptr);
+    }
     /**
      * Removes a transport object from the BST
      * through the pointer

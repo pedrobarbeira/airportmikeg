@@ -136,10 +136,10 @@ std::vector<Flight*> AirportPointer::getFlightsFrom(Date* min, Date* max) const 
     return ret;
 }
 
-Flight* AirportPointer::find(std::string id) const{
-    Flight* find;
-    find = inFlights.find(FlightPointer(new Flight(id))).getPointer();
-    if(find == nullptr)
-        find = outFlights.find(FlightPointer(new Flight(id))).getPointer();
+FlightPointer AirportPointer::find(std::string id) const{
+    FlightPointer find;
+    find = inFlights.find(FlightPointer(new Flight(id)));
+    if(find.getPointer() == nullptr)
+        find = outFlights.find(FlightPointer(new Flight(id)));
     return find;
 }

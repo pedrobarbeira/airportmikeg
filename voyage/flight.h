@@ -27,7 +27,8 @@ class Flight{
     Plane* plane;
     friend class FlightPointer;
 public:
-    /**Constructor*/
+    /**-----Constructor-----*/
+
     explicit Flight(std::string id = ""){
         flightID = id;
     }
