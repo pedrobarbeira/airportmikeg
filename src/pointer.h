@@ -248,6 +248,11 @@ public:
  */
 class ClientPointer : public BSTPointer<Client>{
 public:
+    /**
+     * Constructor for ClientPointer class. Receives a Client object
+     * and encapsulates it
+     * @param u pointer to the Client object
+     */
     explicit ClientPointer(Client* u = nullptr){
         pointer = u;
     }
@@ -258,6 +263,11 @@ public:
  */
 class CompanyPointer : public BSTPointer<Company>{
 public:
+    /**
+     * Constructor for the CompanyPointer. Receives a Company object
+     * and encapsulates it
+     * @param u pointer to the Company object
+     */
     explicit CompanyPointer(Company* u = nullptr){
         pointer = u;
     }
@@ -266,6 +276,11 @@ public:
 class StaffPointer : public BSTPointer<Staff>{
     Airport *airport = nullptr;
 public:
+    /**
+     * Constructor for the StaffPointer class. Reiceives a Staff object
+     * and encapsulates it
+     * @param s pointer to the Staff object
+     */
     explicit StaffPointer(Staff* s = nullptr){
         pointer = s;
     }
@@ -273,6 +288,11 @@ public:
 
 class ServicePointer : public BSTPointer<ServiceTicket>{
 public:
+    /**
+     * Constructor for the ServicePointer class. Receives a ServiceTicket
+     * object and encapsulates it
+     * @param s pointer to the ServiceTicket object
+     */
     explicit ServicePointer(ServiceTicket* s = nullptr){
         pointer = s;
     }
