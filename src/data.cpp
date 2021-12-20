@@ -205,6 +205,17 @@ Company* Data::findCompany(const std::string& id) const{
     return find.getPointer();
 }
 
+FlightPointer Data::findFlight(const Plane* p) const{
+    iteratorBST<FlightPointer> it = flights.begin();
+    Flight* f;
+    while(it != flights.end()){
+        f = (*it).getPointer();
+        if(f->getPlane() == p)
+            return (*it);
+        else it++;
+    }
+    return FlightPointer(nullptr);
+}
 /**-------LOAD-------*/
 void Load::load(){
     try{

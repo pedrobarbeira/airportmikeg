@@ -12,6 +12,15 @@ std::vector<Ticket*> FlightPointer::getTickets() const{
     return ret;
 }
 
+std::vector<TicketPointer> FlightPointer::getTicketsPointer() const{
+    std::vector<TicketPointer> ret;
+    BSTItrIn<TicketPointer> it(tickets);
+    while (!it.isAtEnd()){
+        ret.push_back(it.retrieve());
+    }
+    return ret;
+}
+
 bool AirportPointer::addFlight(Flight*f){
     if(f->getDestination()->airport == pointer)
         return inFlights.insert(FlightPointer(f));

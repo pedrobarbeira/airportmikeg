@@ -84,6 +84,27 @@ void Menu::print(std::vector<PlanePointer> p){
     system("pause");
 }
 
+void Menu::print (std::vector<TicketPointer> t){
+    system(CLEAR);
+    std::cout << "\n\t::::::::::::::::::\n\t:::  TICKETS  :::\n\t::::::::::::::::::\n";
+    std::cout << "\t   Code    Flight   Owner       Seat     Luggage(hold)         \n"
+              << "\t   ------  -------  --------   -----     -------------";
+    for(int i = 0; i < t.size(); i++){
+        std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
+                  << t[i].getPointer()->getID() << "  "
+                  << t[i].getPointer()->getFlightId() << "  "
+                  << t[i].getPointer()->getOwner()->getName() << "  "
+                  << t[i].getPointer()->getSeat()->getId() << "  "
+                  << "[";
+        if (t[i].getPointer()->getLuggage().empty()) std::cout << " ]";
+        else std::cout << "X]";
+        /*
+        << std::setw(52-t[i].getPointer()->getName().size())
+        << std::setfill(' ') << t[i].getPointer()->getStaff().size();*/
+    }
+}
+
+
 void Menu::header() {
     std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
     system(CLEAR);
@@ -1664,16 +1685,205 @@ void ManagerMenu::mainScreen() {
 
 /**---BoardingMenu---*/
 void BoardingMenu::mainScreen(){
-    std::cout << "we are @ Boarding\n"
-              << "Press enter to continue . . .";
-    char c = getchar();
+    header();
+    char c;
+    //Shows real ADMIN menu after user has proven his identity
+    while(true) {
+        std::cout << "[BOARDING SERVICE]\n"
+                  << "\n\t[1] All Flights"
+                  << "\n\t[2] Out Flights"
+                  << "\n\t[3] In Flights"
+                  << "\n\t[4] Today's Flights"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': allFlight(); break;
+            case '2': outFlight(); break;
+            case '3': inFlight(); break;
+            case '4': todayFlight(); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
 }
+
+void BoardingMenu::allFlight() {
+    header();
+    Time *time = new Time; time->now();
+    vector<FlightPointer> allflight;
+    for (auto i : data->getAirports()){
+        if (i.getPointer() == this->airport){
+            for (auto j : i.getFlightPointers()){
+                if (j.getPointer()->getOrigin()->time >= time) allflight.push_back(j);
+            }
+        }
+    }
+    FlightPointer flight = selectFlight(allflight);
+    if (flight.getPointer() == nullptr) return;
+    checkMenu(flight);
+}
+
+void BoardingMenu::inFlight(){
+    header();
+    Time *time = new Time; time->now();
+    vector<FlightPointer> inflight;
+    for (auto i : data->getAirports()){
+        if (i.getPointer() == this->airport){
+            for (auto j : i.getFlightPointers()){
+                if (j.getPointer()->getDestination()->airport==this->airport && j.getPointer()->getDestination()->time >= time) inflight.push_back(j);
+            }
+        }
+    }
+    FlightPointer flight = selectFlight(inflight);
+    if (flight.getPointer() == nullptr) return;
+    checkMenu(flight);
+}
+
+void BoardingMenu::outFlight(){
+    header();
+    Time *time = new Time; time->now();
+    vector<FlightPointer> outflight;
+    for (auto i : data->getAirports()){
+        if (i.getPointer() == this->airport){
+            for (auto j : i.getFlightPointers()){
+                if (j.getPointer()->getOrigin()->airport==this->airport && j.getPointer()->getOrigin()->time >= time) outflight.push_back(j);
+            }
+        }
+    }
+    FlightPointer flight = selectFlight(outflight);
+    if (flight.getPointer() == nullptr) return;
+    checkMenu(flight);
+}
+
+void BoardingMenu::todayFlight() {
+    header();
+    Time *time = new Time; time->now();
+    vector<FlightPointer> todayflight;
+    for (auto i : data->getAirports()){
+        if (i.getPointer() == this->airport){
+            for (auto j : i.getFlightPointers()){
+                if ((j.getPointer()->getOrigin()->airport==this->airport && j.getPointer()->getOrigin()->time == time)
+                    | (j.getPointer()->getDestination()->airport==this->airport && j.getPointer()->getDestination()->time == time)) {
+                    todayflight.push_back(j);
+                }
+            }
+        }
+    }
+    FlightPointer flight = selectFlight(todayflight);
+    if (flight.getPointer() == nullptr) return;
+    checkMenu(flight);
+}
+
+void BoardingMenu::checkMenu(FlightPointer flight) {
+    char c;
+    while(true) {
+        std::cout << "[" << flight.getPointer()->getId() << "]\n"
+                  << "\n\t[1] Check Ticket"
+                  << "\n\t[2] Check Luggage"
+                  << "\n\n\t[0] Back\n"
+                  << "\n>";
+        std::cin >> c;
+        switch(c){
+            case '1': checkTicket(flight); break;
+            case '2': checkLuggage(flight); break;
+            case '0': return;
+            default: std::cout << "Invalid Option\n"; system("pause");
+        }
+    }
+}
+
+void BoardingMenu::checkTicket(const FlightPointer& flight){
+    header();
+    while (true){
+        TicketPointer ticket = selectTicket(flight.getTicketsPointer());
+    }
+}
+
+void BoardingMenu::checkLuggage(FlightPointer flight) {
+    header();
+    char c;
+    while(true) {
+
+    }
+}
+
+
+FlightPointer BoardingMenu::selectFlight(std::vector<FlightPointer> flights){
+    while(true) {
+        system(CLEAR);
+        if (flights.empty()) {
+            std::cout << "\n\t====== No flights scheduled ======\n\n";
+            system("pause"); system(CLEAR);
+            return FlightPointer(nullptr);
+        }
+        print(flights);
+        char c;
+        //TODO std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
+        //TODO sysTime->print();
+        std::cout << "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\t[1] Select Flight"
+                  << "\n\t[2] Order By\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': {
+                std::cout << "Enter flight row: ";
+                std::string in;
+                readInput(in);
+                int i = stoi(in);
+                if (i < 1 | i > flights.size()) break;
+                return flights[i-1];
+            }
+            case '2': reOrderFlights(flights); break;
+            case '0': return FlightPointer(nullptr);
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
+}
+
+TicketPointer BoardingMenu::selectTicket(std::vector<TicketPointer> t) {
+    while (true) {
+        header();
+        if (t.empty()) {
+            std::cout << "\n\t====== No tickets to check ======\n\n";
+            system("pause");
+            return TicketPointer(nullptr);
+        }
+        print(t);
+        char c;
+        std::cout << "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\t[1] Select Ticket"
+                  << "\n\t[2] Order By\n"
+                  << "\n\t[0] Exit\n"
+                  << "\n>";
+        readInput(c);
+        switch (c) {
+            case '1': {
+                std::cout << "Enter ticket row: ";
+                std::string in;
+                readInput(in);
+                int i = stoi(in);
+                if (i < 1 | i > t.size()) break;
+                return t[i-1];
+            }
+            case '2': /*reOrderTicket(t);*/ break;
+            case '0': return TicketPointer(nullptr);
+            default: std::cout << "Invalid Option\n";
+        }
+        std::cin.ignore();
+        std::cout << "Press enter to continue . . .";
+        getchar();
+    }
+}
+
 
 /**---Service Menu---*/
 void ServiceMenu::mainScreen() {
     header();
     char c;
-    //Shows real ADMIN menu after user has proven his identity
     while(true) {
         std::cout << "[SERVICE AIRPORT]\n"
                   << "\n\t[1] Create Service"
@@ -1689,6 +1899,7 @@ void ServiceMenu::mainScreen() {
         }
     }
 }
+
 
 
 /**---Helper Function---*/

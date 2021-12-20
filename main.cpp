@@ -65,17 +65,18 @@ void testAirport(){
     data->addPlane(plane);
     Company *admin = new Company("admin", "admin", 'A', porto, plane, staff1);
     AdminMenu *adm = new AdminMenu(admin, data);
-
+    Staff *brdStaff = new Staff("Boarding personnel");
+    Company *brd = new Company(brdStaff->getId(), brdStaff->getId(), 'B', porto, plane, brdStaff);
+    data->addCompany(brd);
+    BoardingMenu *board = new BoardingMenu(brd, data);
     porto->addStaff(staff1);
+    porto->addStaff(brdStaff);
     Client *client = new Client ("client", "client", 'C');
-
-    porto->addStaff(staff1);
-
     Company *s2 = new Company(staff1->getId(), staff1->getId(), 'S', porto, plane, staff1);
     data->addCompany(admin);
     data->addClient(client);
     data->addCompany(s2);
-    adm->mainScreen();
+    //board->mainScreen();
 }
 
 /**
@@ -169,7 +170,7 @@ void testInterface(){
 }
 
 int main(){
-    testAirport();
+    //testAirport();
     testInterface();
 
     return 0;

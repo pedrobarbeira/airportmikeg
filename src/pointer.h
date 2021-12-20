@@ -66,6 +66,7 @@ public:
         return pointer->getId() == rhs.pointer->getId();
     }
     std::vector<Ticket*> getTickets() const;
+    std::vector<TicketPointer> getTicketsPointer() const;
     BST<TicketPointer> getTicketBST() const{
         return tickets;
     }

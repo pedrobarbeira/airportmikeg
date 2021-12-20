@@ -154,6 +154,8 @@ public:
      *
      */
     void print(std::vector<PlanePointer> p);
+
+    void print (std::vector<TicketPointer> t);
 };
 
 /**
@@ -534,6 +536,16 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+    void allFlight();
+    void inFlight();
+    void outFlight();
+    void todayFlight();
+    void checkMenu(FlightPointer flight);
+    void checkTicket(const FlightPointer& flight);
+    void checkLuggage(FlightPointer flight);
+
+    FlightPointer selectFlight(std::vector<FlightPointer> allflight);
+    TicketPointer selectTicket(std::vector<TicketPointer> t);
 };
 
 //Eventually split this into BoardingPassenger and CheckinPassenger
@@ -551,6 +563,7 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+
 };
 
 void readInput(char& in);

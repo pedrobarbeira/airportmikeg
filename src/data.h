@@ -236,10 +236,6 @@ public:
         return planes.remove(pptr);
     }
 
-/*    bool addService(ServiceTicket* s){
-        ServicePointer sptr(s);
-        return services.insert(sptr);
-    }*/
 
     /**
      * Searches for a given Airport in the airports BST
@@ -249,10 +245,10 @@ public:
     AirportPointer findAirport(const std::string& id) const;
 
     /**
- * Searches for a given Ticket in the tickets BST
- * @param id the ID of the ticket to be found
- * @return the result of the sarch
- */
+     * Searches for a given Ticket in the tickets BST
+     * @param id the ID of the ticket to be found
+     * @return the result of the sarch
+     */
     static Staff* findStaff(const Airport* a, std::string);
 
     /**
@@ -306,6 +302,8 @@ public:
         FlightPointer fptr = findFlight(id);
         return flights.remove(fptr);
     }
+
+    FlightPointer findFlight(const Plane* p) const;
 };
 
 class Load{

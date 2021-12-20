@@ -76,7 +76,7 @@ public:
 };
 
 /**
- * Creates a seat, which has an ID, can be be free or taken, and has an
+ * Creates a seat, which has an ID, can be free or taken, and has an
  * associated class, which will determine the price.
  */
 class Seat {
