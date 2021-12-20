@@ -235,18 +235,6 @@ Company* Data::findCompany(const std::string& id) const{
         return find.getPointer();
     }
 }
-
-FlightPointer Data::findFlight(const Plane* p) const{
-    iteratorBST<FlightPointer> it = flights.begin();
-    Flight* f;
-    while(it != flights.end()){
-        f = (*it).getPointer();
-        if(f->getPlane() == p)
-            return (*it);
-        else it++;
-    }
-    return FlightPointer(nullptr);
-}
 /**-------LOAD-------*/
 void Load::load(){
     try{
@@ -499,11 +487,11 @@ void LoadAirport::loadStaff(Airport* a){
     }
     infile.close();
 }
-void LoadAirport::loadService(Airport* a, std::string l, std::string l2){
+void LoadAirport::loadService(Airport* a, const std::string& l, const std::string& l2){
 
 }
 
-void LoadAirport::loadTransport(Airport* a, std::string l){
+void LoadAirport::loadTransport(Airport* a, std::string& l){
     Transport* t;
     while(!l.empty()){
         uint16_t d = 0;
@@ -1094,7 +1082,9 @@ void SaveUser::saveAdmin() const{
                 if (c == 'A' || c == 'M')
                     outfile << (*it).getPointer()->getUser() << " "
                             << (*it).getPointer()->getPassword() << " "
-                            << c << '\n';
+                            << c;
+                if(c == 'M') outfile << " " << (*it).getPointer()->getAirport()->getidCode();
+                outfile << '\n';
                 it++;
             }
         }

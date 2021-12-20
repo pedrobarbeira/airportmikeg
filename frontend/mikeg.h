@@ -42,18 +42,20 @@ public:
         data->tickets.push_back(t);
         return true;
     }*/
-    /**Load/Save*/
+    /**-----Load/Save-----*/
     bool save() const;
-    bool loadAirport();
-    bool loadVoyage();
-    bool loadFlight();
-    bool loadPlane();
-    bool loadTicket();
-    void loadUsers();
     bool load();
     bool loadScreen(bool& flag);
     bool checkDev();
 
+    /**
+     * LogIn function. Reads credentials from input and searches for a corresponding
+     * account in the data.clients and data.company bst's. Once it finds a match,
+     * compares input password with the password saved in the system data. If the
+     * data checks out, returns corresponding Menu. If not, outputs "Invalid credentials"
+     * and returns nullptr.
+     * @return the proper menu if the account data is in the system, nullptr otherwise.
+     */
     Menu* logIn();
     bool newAccount();
     void start(bool& flag);
