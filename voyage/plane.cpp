@@ -19,19 +19,60 @@ Seat::Seat(std::string row, int column, Class* c){
     classe = c;
     handBag = nullptr;
 }
-/*
-Seat::~Seat(){
-    delete classe;
-    delete handBag;
+
+/**-----Cabin-----*/
+Cabin::Cabin(uint16_t sRows, uint16_t sPerRow, std::vector<Class*> v, std::queue<std::string> first){
+    seatRows = sRows;
+    seatsPerRow = sPerRow;
+    capacity = seatRows * seatsPerRow;
+    for(int i = 0; i < seatRows; i++){
+        std::vector<Seat*> load;
+        std::string row = getRowLetter(i);
+        Class* c;
+        if(row == first.front()){
+            c = v[0];
+            first.pop();
+        }
+        else c = v[2];
+        for(int j = 0; j < seatsPerRow; j++){
+            Seat* s = new Seat(row, j + 1, c);
+            load.push_back(s);
+        }
+        seats.push_back(load);
+        load.clear();
+    }
 }
-*/
+
+Cabin::Cabin(uint16_t sRows, uint16_t sPerRow, std::vector<Class*> v, std::queue<std::string> &first, std::queue<std::string> &biz) {
+    seatRows = sRows;
+    seatsPerRow = sPerRow;
+    for(int i = 0; i < seatRows; i++){
+        std::vector<Seat*> load;
+        std::string row = getRowLetter(i);
+        Class* c;
+        if(row == first.front()){
+            c = v[0];
+            first.pop();
+        }
+        else if(row == biz.front()){
+            c = v[1];
+            biz.pop();
+        }
+        else c = v[2];
+        for(int j = 0; j < seatsPerRow; j++){
+            Seat* s = new Seat(row, j + 1, c);
+            load.push_back(s);
+        }
+        seats.push_back(load);
+        load.clear();
+    }
+}
+
 /**Plane*/
 Plane::~Plane(){
     for(auto it : classes)
         delete it;
-    for(auto it: cabin->seats)
-        for(auto seat: it)
-            delete seat;
+    delete cabin;
 }
 
 int Plane::freeSeatNum() const{
@@ -83,37 +124,18 @@ Seat* Plane::bookSeat(std::string code){
 }
 
 /**Airbus*/
-Airbus::Airbus(std::queue<std::string> first) {
+Airbus::Airbus(std::queue<std::string>& first) {
     std::stringstream ss;
     airbusCount++;
     ss << "ARB" << std::setw(2) << std::setfill('0') << airbusCount;
     plate = ss.str();
-    cabin = new Cabin;
-    cabin->seatRows = 26;
-    cabin->seatsPerRow = 6;
     auto *f = new FirstClass();
     auto *e = new EconomyClass();
     classes.push_back(f);
     classes.push_back(nullptr);
     classes.push_back(e);
     grounded = true;
-    for(int i = 0; i < cabin->seatRows; i++){
-        std::vector<Seat*> load;
-        std::string row = getRowLetter(i);
-        Class* c = new Class;
-        if(row == first.front()){
-            c = f;
-            first.pop();
-        }
-        else c = e;
-        for(int j = 0; j < cabin->seatsPerRow; j++){
-            Seat* s = new Seat(row, j + 1, c);
-            load.push_back(s);
-        }
-        cabin->seats.push_back(load);
-        load.clear();
-    }
-
+    cabin = new Cabin(26, 6, classes, first);
 }
 
 Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first) {
@@ -121,31 +143,13 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first) 
     otherCount++;
     ss << "OTR" << std::setw(2) << std::setfill('0') << otherCount;
     plate = ss.str();
-    this->cabin = new Cabin;
-    cabin->seatRows = rows;
-    cabin->seatsPerRow = seatPerRow;
     auto *f = new FirstClass();
     auto *e = new EconomyClass();
     classes.push_back(f);
     classes.push_back(nullptr);
     classes.push_back(e);
     grounded = true;
-    for(int i = 0; i < cabin->seatRows; i++){
-        std::vector<Seat*> load;
-        std::string row = getRowLetter(i);
-        Class* c;
-        if(row == first.front()){
-            c = f;
-            first.pop();
-        }
-        else c = e;
-        for(int j = 0; j < cabin->seatsPerRow; j++){
-            Seat* s = new Seat(row, j + 1, c);
-            load.push_back(s);
-        }
-        cabin->seats.push_back(load);
-        load.clear();
-    }
+    cabin = new Cabin(rows, seatPerRow, classes, first);
 }
 
 Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first, std::queue<std::string> biz) {
@@ -153,8 +157,6 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first, 
     otherCount++;
     ss << "OTR" << std::setw(2) << std::setfill('0') << otherCount;
     plate = ss.str();
-    cabin->seatRows = rows;
-    cabin->seatsPerRow = seatPerRow;
     auto *f = new FirstClass();
     auto *b = new BusinessClass();
     auto *e = new EconomyClass();
@@ -162,26 +164,8 @@ Other::Other(uint16_t rows, uint16_t seatPerRow, std::queue<std::string> first, 
     classes.push_back(b);
     classes.push_back(e);
     grounded = true;
-    for(int i = 0; i < cabin->seatRows; i++){
-        std::vector<Seat*> load;
-        std::string row = getRowLetter(i);
-        Class* c;
-        if(row == first.front()){
-            c = f;
-            first.pop();
-        }
-        else if(row == biz.front()){
-            c = b;
-            biz.pop();
-        }
-        else c = e;
-        for(int j = 0; j < cabin->seatsPerRow; j++){
-            Seat* s = new Seat(row, j + 1, c);
-            load.push_back(s);
-        }
-        cabin->seats.push_back(load);
-        load.clear();
-    }
+    cabin = new Cabin(rows, seatPerRow, classes, first, biz);
+
 }
 
 /**Helpers*/

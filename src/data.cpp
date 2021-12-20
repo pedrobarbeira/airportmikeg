@@ -234,6 +234,8 @@ Company* Data::findCompany(const std::string& id) const{
         return find.getPointer();
     }
 }
+
+
 /**-------LOAD-------*/
 void Load::load(){
     try{
@@ -265,6 +267,7 @@ void Load::load(){
         throw DevLog(e.getError());
     }
 }
+
 /**---Load Airport---*/
 void LoadAirport::loadPlane() {
     ifstream infile("./data/planes.txt");
@@ -353,7 +356,6 @@ void LoadAirport::loadPlane() {
     }
     infile.close();
 }
-
 void LoadAirport::loadAirport() {
     ifstream infile("./data/airports.txt");
     if (!infile.is_open())
@@ -430,7 +432,6 @@ void LoadAirport::loadAirport() {
     }
     infile.close();
 }
-
 void LoadAirport::loadTerminal(Airport* a, const std::vector<std::string>& tData){
     std::vector<Terminal*> v = a->getTerminals();
     int i = 0, j = 1;
@@ -489,7 +490,6 @@ void LoadAirport::loadStaff(Airport* a){
 void LoadAirport::loadService(Airport* a, const std::string& l, const std::string& l2){
 
 }
-
 void LoadAirport::loadTransport(Airport* a, std::string& l){
     Transport* t;
     while(!l.empty()){
