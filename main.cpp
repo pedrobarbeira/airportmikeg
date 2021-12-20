@@ -30,7 +30,11 @@ void testAirport(){
     porto->setId("OPO");
     queue<string> first;
     porto->activateTerminal("1");
+    porto->activateTerminal("2");
     porto->setTerminal(plane, "1");
+    queue<string> temp; temp.push("a"); temp.push("b");
+    Airbus *airbus = new Airbus(temp);
+    porto->setTerminal(airbus, "2");
     auto *metro = new Transport('m');
     auto *bus = new Transport('b');
     auto *time1 = new Time(10, 00, 00);
@@ -55,36 +59,23 @@ void testAirport(){
     auto date2 = new Time(18, 12, 21, 0, 0, 0);
     //cle1->checkSeats();
     //porto->delService(date2);
-    /*porto->addStaff(staff1);
-    Client *client = new Client ("client", "client");
+    porto->addStaff(staff1);
+    data->addFlight(flight);
+    data->addPlane(airbus);
+    data->addPlane(plane);
+    Company *admin = new Company("admin", "admin", 'A', porto, plane, staff1);
     AdminMenu *adm = new AdminMenu(admin, data);
 
     porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin", 'A');
-    Client *client = new Client ("client", "client");
-    Manager *manager = new Manager("manager", "manager",'M', porto );
-    Service *service = new Service("service", "service", 'S', porto);
+    Client *client = new Client ("client", "client", 'C');
 
     porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin", 'A');
-    Client *client = new Client ("client", "client");
-    Manager *manager = new Manager("manager", "manager",'M', porto );
-    Service *service = new Service("service", "service", 'S', porto);
 
-    Service *service1 = new Service(staff1->getId(), staff1->getId(), 'S');
-    service1->setStaff(staff1);
-
-    data->addCompany(manager);
+    Company *s2 = new Company(staff1->getId(), staff1->getId(), 'S', porto, plane, staff1);
     data->addCompany(admin);
     data->addClient(client);
-    data->addCompany(service);
-    data->addCompany(service1);
-    AdminMenu *adm = new AdminMenu(admin, data);
-
-
-
-    ServiceMenu *ser = new ServiceMenu(service, data);
-    adm->mainScreen();*/
+    data->addCompany(s2);
+    adm->mainScreen();
 }
 
 /**
@@ -178,7 +169,7 @@ void testInterface(){
 }
 
 int main(){
-
+    testAirport();
     testInterface();
 
     return 0;

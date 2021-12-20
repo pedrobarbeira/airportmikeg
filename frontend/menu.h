@@ -499,6 +499,10 @@ public:
      */
     void mapPlane();
 
+    void newTravel();
+    void deleteTravel();
+    void editTravel();
+
 };
 
 /**
