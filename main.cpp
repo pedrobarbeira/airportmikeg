@@ -30,7 +30,11 @@ void testAirport(){
     porto->setId("OPO");
     queue<string> first;
     porto->activateTerminal("1");
+    porto->activateTerminal("2");
     porto->setTerminal(plane, "1");
+    queue<string> temp; temp.push("a"); temp.push("b");
+    Airbus *airbus = new Airbus(temp);
+    porto->setTerminal(airbus, "2");
     auto *metro = new Transport('m');
     auto *bus = new Transport('b');
     auto *time1 = new Time(10, 00, 00);
@@ -55,38 +59,24 @@ void testAirport(){
     auto date2 = new Time(18, 12, 21, 0, 0, 0);
     //cle1->checkSeats();
     //porto->delService(date2);
-    /*porto->addStaff(staff1);
-    Client *client = new Client ("client", "client");
+    porto->addStaff(staff1);
+    data->addFlight(flight);
+    data->addPlane(airbus);
+    data->addPlane(plane);
+    Company *admin = new Company("admin", "admin", 'A', porto, plane, staff1);
     AdminMenu *adm = new AdminMenu(admin, data);
-
+    Staff *brdStaff = new Staff("Boarding personnel");
+    Company *brd = new Company(brdStaff->getId(), brdStaff->getId(), 'B', porto, plane, brdStaff);
+    data->addCompany(brd);
+    BoardingMenu *board = new BoardingMenu(brd, data);
     porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin", 'A');
-    Client *client = new Client ("client", "client");
-    Manager *manager = new Manager("manager", "manager",'M', porto );
-    Service *service = new Service("service", "service", 'S', porto);
-
-=======
-    porto->addStaff(staff1);
-    Admin *admin = new Admin("admin", "admin", 'A');
-    Client *client = new Client ("client", "client");
-    Manager *manager = new Manager("manager", "manager",'M', porto );
-    Service *service = new Service("service", "service", 'S', porto);
->>>>>>> 60979e63eca481796fff52b9c52ff2cb678eb9e6
-    data->addCompany(manager);
+    porto->addStaff(brdStaff);
+    Client *client = new Client ("client", "client", 'C');
+    Company *s2 = new Company(staff1->getId(), staff1->getId(), 'S', porto, plane, staff1);
     data->addCompany(admin);
     data->addClient(client);
-    data->addCompany(service);
-    AdminMenu *adm = new AdminMenu(admin, data);
-<<<<<<< HEAD
-=======
-    ManagerMenu *man = new ManagerMenu(manager, data);
-    ServiceMenu *ser = new ServiceMenu(service, data);
-    adm->mainScreen();
->>>>>>> 60979e63eca481796fff52b9c52ff2cb678eb9e6
-
-
-    ServiceMenu *ser = new ServiceMenu(service, data);
-    adm->mainScreen();*/
+    data->addCompany(s2);
+    //board->mainScreen();
 }
 
 /**
@@ -180,7 +170,7 @@ void testInterface(){
 }
 
 int main(){
-
+    //testAirport();
     testInterface();
 
     return 0;

@@ -267,7 +267,6 @@ void Airport::setTerminal(Plane *plane, string id = "") {
             terminals[i]->setPlane(plane); break;}
         else if (!terminals[i]->getOccupied() && terminals[i]->getTerminalNumber() == id) {
             terminals[i]->setPlane(plane); break;}
-        else cout << "No Terminals available to dock plane with plate " << plane->getPlate() << endl;
     }
 }
 

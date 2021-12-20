@@ -103,7 +103,7 @@ public:
      * to help selection
      * @param v
      */
-    void print(std::vector<Staff*> v);
+    void print(std::vector<StaffPointer> v);
 
     /**
      * funcion to sendo to screen a group of serviceticket
@@ -117,7 +117,7 @@ public:
      * @param v
      * @return
      */
-    Staff* selectStaff(std::vector<Staff*> v);
+    StaffPointer selectStaff(std::vector<StaffPointer> v);
 
     /**
      *
@@ -154,6 +154,8 @@ public:
      *
      */
     void print(std::vector<PlanePointer> p);
+
+    void print (std::vector<TicketPointer> t);
 };
 
 /**
@@ -499,6 +501,10 @@ public:
      */
     void mapPlane();
 
+    void newTravel();
+    void deleteTravel();
+    void editTravel();
+
 };
 
 /**
@@ -530,6 +536,16 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+    void allFlight();
+    void inFlight();
+    void outFlight();
+    void todayFlight();
+    void checkMenu(FlightPointer flight);
+    void checkTicket(const FlightPointer& flight);
+    void checkLuggage(FlightPointer flight);
+
+    FlightPointer selectFlight(std::vector<FlightPointer> allflight);
+    TicketPointer selectTicket(std::vector<TicketPointer> t);
 };
 
 //Eventually split this into BoardingPassenger and CheckinPassenger
@@ -547,6 +563,7 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+
 };
 
 void readInput(char& in);
