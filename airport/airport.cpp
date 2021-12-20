@@ -287,8 +287,8 @@ void Airport::printAirport() {
         for (auto it : terminals){
             cout << "\n\t\t" << it->getId();
             switch (it->getOccupied()){
-                case true: cout << " - " << it->getPlane()->getPlate() << "\n"; break;
-                case false:  cout << " - empty\n";
+                case true: cout << " - " << it->getPlane()->getPlate(); break;
+                case false:  cout << " - empty";
             }
         }
     }
@@ -297,10 +297,10 @@ void Airport::printAirport() {
 void Airport::printService() {
     char a;
     switch (services.empty()){
-        case true: cout << "\tNo services scheduled\n"; break;
+        case true: cout << "\n\t======  No services scheduled  ======\n"; break;
         case false: {
-            cout << "\tHas " << services.size() << " scheduled service(s)\n";
-            cout << "\tNext service is a ";
+            cout << "\n\t========  Has " << services.size() << " scheduled service(s)  =========\n";
+            cout << "\t\tNext service is a ";
             switch (nextService()->getType()){
                 case 'c' : {
                     cout << "cleaning service with " << nextService()->getTasksLeft().size() << " task(s) left (";
@@ -309,9 +309,9 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tscheduled for ";
-                        nextService()->getCreated()->printDate();
                     }
+                    cout << "\n\tscheduled for ";
+                    nextService()->getCreated()->printDate();
                     system("pause");
                     break;
                 }
@@ -322,16 +322,16 @@ void Airport::printService() {
                         i++;
                         if (i == nextService()->getTasksLeft().size()) cout << ") ";
                         else cout << ", ";
-                        cout << "\n\tscheduled for ";
-                        nextService()->getCreated()->printDate();
                     }
+                    cout << "\n\tscheduled for ";
+                    nextService()->getCreated()->printDate();
                     system("pause");
                     break;
                 }
             }
             if (nextService()->getResponsible() == nullptr) cout << ".";
-            else cout << " under " << nextService()->getResponsible()->getName() << " (contact "
-                      << nextService()->getResponsible()->getPhone() << ".";
+            else cout << " under " << nextService()->getResponsible()->getName() << "'s("
+                      << nextService()->getResponsible()->getPhone() << ") supervision";
         }
     }
     std::cout <<"\n\n"; system("pause");

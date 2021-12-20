@@ -8,75 +8,140 @@
 
 
 /**
+ * General testing
+ */
+void test(){
+    Data *data = new Data;
+    queue<string> temp; temp.push("a"); temp.push("b");
+
+    auto *porto = new Airport("OPO", "Francisco Sa Carneiro", "Portugal", "Porto");
+    porto->activateTerminal("1");
+    porto->activateTerminal("2");
+    auto *lisboa = new Airport("LIS", "Portela", "Portugal", "Lisbon");
+    lisboa->activateTerminal("1");
+    lisboa->activateTerminal("2");
+    auto *madrid = new Airport("MAD", "Barajas", "Spain", "Madrid");
+    madrid->activateTerminal("1");
+    madrid->activateTerminal("2");
+    data->addAirport(lisboa);
+
+    data->addAirport(porto);
+    data->addAirport(madrid);
+
+    auto *time1030 = new Time(20, 12, 2021, 10, 30, 00);
+    auto *time1100 = new Time(20, 12, 2021, 11, 00, 00);
+    auto *time1130 = new Time(20, 12, 2021, 11, 30, 00);
+    auto *time1200 = new Time(20, 12, 2021, 12, 00, 00);
+    auto *time1230 = new Time(20, 12, 2021, 12, 30, 00);
+    auto *time1300 = new Time(20, 12, 2021, 13, 00, 00);
+    auto *time1330 = new Time(20, 12, 2021, 13, 30, 00);
+    auto *time1400 = new Time(20, 12, 2021, 14, 00, 00);
+    auto *timenow = new Time; timenow->now();
+    auto *ori1 = new TimePlace(porto, time1030);
+    auto *des1 = new TimePlace(lisboa, time1100);
+    auto *ori2 = new TimePlace(porto, time1200);
+    auto *des2 = new TimePlace(madrid, time1300);
+    auto *ori3 = new TimePlace(lisboa, time1130);
+    auto *des3 = new TimePlace(madrid, time1230);
+
+    auto *airb1 = new Airbus(temp);
+    porto->setTerminal(airb1, "1");
+    auto *airb2 = new Airbus(temp);
+    porto->setTerminal(airb2, "2");
+    auto *airb3 = new Airbus(temp);
+    auto *plane = new Plane;
+    data->addPlane(airb1);
+    data->addPlane(airb2);
+    data->addPlane(airb3);
+    data->addPlane(plane);
+
+    auto *opolis = new Flight(ori1, des1, airb1);
+    auto *opomad = new Flight(ori2, des2, airb2);
+    auto *lismad = new Flight(ori3, des3, airb1);
+    data->addFlight(opolis);
+    data->addFlight(opomad);
+    data->addFlight(lismad);
+
+    auto *metro = new Transport('m'); metro->addTime(time1300);
+    TransportPointer m(metro);
+    auto *bus1 = new Transport('b'); bus1->addTime(time1100);
+    TransportPointer b1(bus1);
+    auto *bus2 = new Transport('b'); bus2->addTime(time1200);
+    TransportPointer b2(bus2);
+    auto *train = new Transport('t'); train->addTime(time1200);
+    TransportPointer t(train);
+    porto->setTransport(m); porto->setTransport(b1); porto->setTransport(b2); porto->setTransport(t);
+    lisboa->setTransport(m); lisboa->setTransport(b1); lisboa->setTransport(b2); lisboa->setTransport(t);
+    madrid->setTransport(m); madrid->setTransport(b1); madrid->setTransport(b2); madrid->setTransport(t);
+
+    auto *staff1 = new Staff("Conceicao"); staff1->setPhone(923456789);
+    porto->addStaff(staff1);
+    auto *staff2 = new Staff("Jesus"); staff2->setPhone(912345678);
+    lisboa->addStaff(staff2);
+    auto *staff3 = new Staff("Ancelotti"); staff3->setPhone(934567890);
+    madrid->addStaff(staff3);
+
+    auto *cle1 = new Cleaning(airb1, time1030, staff1);
+    porto->addService(cle1);
+    auto *cle2 = new Cleaning(airb1, time1130, staff2);
+    lisboa->addService(cle2);
+    auto *mai = new Maintenance(airb1, time1400, staff3);
+    madrid->addService(mai);
+
+
+    auto *admin = new Company("admin", "admin", 'A', nullptr, nullptr, staff1);
+    data->addCompany(admin);
+    auto *managerP = new Company("manager", "manager", 'M', porto, nullptr, staff1);
+    data->addCompany(managerP);
+    auto *serviceP = new Company("service", "service", 'S', porto, nullptr, staff1);
+    data->addCompany(serviceP);
+    auto *boardingP = new Company("boarding", "boarding", 'B', porto, airb1, staff1);
+    data->addCompany(boardingP);
+    auto *managerL = new Company("manager", "manager", 'M', porto, nullptr, staff2);
+    data->addCompany(managerL);
+    auto *serviceL = new Company("service", "service", 'S', porto, nullptr, staff2);
+    data->addCompany(serviceL);
+    auto *boardingL = new Company("boarding", "boarding", 'B', porto, airb1, staff2);
+    data->addCompany(boardingL);
+    auto *managerM = new Company("manager", "manager", 'M', porto, nullptr, staff3);
+    data->addCompany(managerM);
+    auto *serviceM = new Company("service", "service", 'S', porto, nullptr, staff3);
+    data->addCompany(serviceM);
+    auto *boardingM = new Company("boarding", "boarding", 'B', porto, airb1, staff3);
+    data->addCompany(boardingM);
+    auto *client = new Client ("client", "client", 'C');
+    data->addClient(client);
+
+    auto *adm = new AdminMenu(admin, data);
+    auto *mngP = new ManagerMenu(managerP, data);
+    auto *brdP = new BoardingMenu(boardingP, data);
+    auto *srvP = new ServiceMenu(serviceP, data);
+    auto *mngL = new ManagerMenu(managerL, data);
+    auto *brdL = new BoardingMenu(boardingL, data);
+    auto *srvL = new ServiceMenu(serviceL, data);
+    auto *mngM = new ManagerMenu(managerM, data);
+    auto *brdM = new BoardingMenu(boardingM, data);
+    auto *srvM = new ServiceMenu(serviceM, data);
+    auto *clt = new ClientMenu(client, data);
+
+    //adm->mainScreen(); //TESTING ADMIN MENU
+    //mngP->mainScreen(); //TESTING PORTO MANAGER MENU
+    //mngL->mainScreen(); //TESTING LISBON MANAGER MENU
+    //mngM->mainScreen(); //TESTING MADRID MANAGER MENU
+    //brdP->mainScreen(); //TESTING PORTO BOARDING MENU
+    //brdL->mainScreen(); //TESTING LISBOA BOARDING MENU
+    //brdM->mainScreen(); //TESTING MADRID BOARDING MENU
+    //srvP->mainScreen(); //TESTING PORTO SERVICE MENU
+    //srvL->mainScreen(); //TESTING LISBOA SERVICE MENU
+    //srvM->mainScreen(); //TESTING MADRID SERVICE MENU
+    //clt->mainScreen(); //TESTING CLIENT MENU
+}
+
+/**
  * Airport-related testing
  */
 void testAirport(){
-    Data *data = new Data;
-    auto *porto = new Airport;
-    auto *lisboa = new Airport("LIS", "Portela", "Portugal", "Lisbon");
-    auto *timeor = new Time(10, 30, 00);
-    auto *timedes = new Time(11, 00, 00);
-    auto *ori = new TimePlace(porto, timeor);
-    auto *des = new TimePlace(lisboa, timedes);
-    auto *plane = new Plane;
-    plane->setPlate("123");
-    auto *flight = new Flight(ori, des, plane);
-    data->addAirport(porto);
-    data->addAirport(lisboa);
-    data->addPlane(plane);
-    data->addFlight(flight);
-    porto->setCity("Porto");
-    porto->setCountry("Portugal");
-    porto->setId("OPO");
-    queue<string> first;
-    porto->activateTerminal("1");
-    porto->activateTerminal("2");
-    porto->setTerminal(plane, "1");
-    queue<string> temp; temp.push("a"); temp.push("b");
-    Airbus *airbus = new Airbus(temp);
-    porto->setTerminal(airbus, "2");
-    auto *metro = new Transport('m');
-    auto *bus = new Transport('b');
-    auto *time1 = new Time(10, 00, 00);
-    auto *time2 = new Time(11, 00, 00);
-    metro->addTime(time1);
-    bus->addTime(time1);
-    bus->addTime(time2);
-    auto *date1 = new Time(18, 12, 21, 0, 0, 0);
-    auto *staff1 = new Staff("Manel");
-    auto *cle1 = new Cleaning(plane, date1);
-    auto *ser1 = new ServiceTicket(plane, 'a');
-    cle1->checkFlightDeck();
-    cle1->checkFloor();
-    //cle1->setResponsible(staff1);
-    porto->addService(cle1);
-    porto->setName("Francisco Sá Carneiro");
-    TransportPointer b(bus);
-    TransportPointer m(metro);
-    porto->setTransport(b);
-    porto->setTransport(m);
-    cle1->checkWc();
-    auto date2 = new Time(18, 12, 21, 0, 0, 0);
-    //cle1->checkSeats();
-    //porto->delService(date2);
-    porto->addStaff(staff1);
-    data->addFlight(flight);
-    data->addPlane(airbus);
-    data->addPlane(plane);
-    Company *admin = new Company("admin", "admin", 'A', porto, plane, staff1);
-    AdminMenu *adm = new AdminMenu(admin, data);
-    Staff *brdStaff = new Staff("Boarding personnel");
-    Company *brd = new Company(brdStaff->getId(), brdStaff->getId(), 'B', porto, plane, brdStaff);
-    data->addCompany(brd);
-    BoardingMenu *board = new BoardingMenu(brd, data);
-    porto->addStaff(staff1);
-    porto->addStaff(brdStaff);
-    Client *client = new Client ("client", "client", 'C');
-    Company *s2 = new Company(staff1->getId(), staff1->getId(), 'S', porto, plane, staff1);
-    data->addCompany(admin);
-    data->addClient(client);
-    data->addCompany(s2);
-    //board->mainScreen();
+
 }
 
 /**
@@ -170,7 +235,8 @@ void testInterface(){
 }
 
 int main(){
-    //testAirport();
+    //test();
+
     testInterface();
 
     return 0;
