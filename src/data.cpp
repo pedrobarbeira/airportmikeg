@@ -3,8 +3,8 @@
 
 /**-------Data-------*/
 bool Data::addFlight(Flight* f){
-    //Test this bish
-    bool flag;
+    FlightPointer fptr(f);
+    bool flag = flights.insert(fptr);
     AirportPointer find = airports.find(AirportPointer((*f).getOrigin()->airport));
     if(find.getPointer() == nullptr){
         std::cout << "Error: origin airport not found\n"
@@ -15,7 +15,7 @@ bool Data::addFlight(Flight* f){
     else{
         AirportPointer& addIn = find;
         airports.remove(find);
-        flag = addIn.addFlight(f) && airports.insert(addIn);
+        flag &= addIn.addFlight(f) && airports.insert(addIn);
     }
     if(flag) {
         find = airports.find(AirportPointer((*f).getDestination()->airport));
@@ -38,7 +38,6 @@ bool Data::addFlight(Flight* f){
         }
     }
     else{
-
         std::cout << "Error adding in flight\n"
                   << "Press enter to continue . . . ";
         int c = getchar();
