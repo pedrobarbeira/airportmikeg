@@ -53,6 +53,8 @@ public:
      */
     void print(std::vector<FlightPointer> v) const;
 
+    void print(std::vector<Flight*> t) const;
+
     /**
     * Shows airport list and asks user to choose the one he wishes. The user can
     * change the order to the list according to the provided options if he so
@@ -155,7 +157,8 @@ public:
      */
     void print(std::vector<PlanePointer> p);
 
-    void print (std::vector<TicketPointer> t);
+    void print(std::vector<TicketPointer> t) const;
+
 };
 
 /**
