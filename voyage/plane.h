@@ -75,10 +75,6 @@ public:
     };
 };
 
-/**
- * Creates a seat, which has an ID, can be free or taken, and has an
- * associated class, which will determine the price.
- */
 class Seat {
     std::string id;
     bool free;
@@ -86,22 +82,53 @@ class Seat {
     HandBag* handBag;
     friend class Cabin;
 public:
-    /**Constructor*/
+    /**-----Constructor-----*/
+    /**
+     * Constructor for the Seat class. Receives a row and a columns,
+     * which is it's place in the Cabin seats matrix, and a Class object,
+     * which will determine de price. Automatically generates the SeatId
+     * @param row the row which the seat belongs to
+     * @param column the columns which the seat belongs to
+     * @param classe pointer to the Class object
+     */
     Seat(std::string row, int column, Class* classe);
-    //~Seat();
-    /*Getters*/
+
+    /**-----Getters-----*/
+    /**
+     * Getter for the Seat id
+     * @return the seat Id
+     */
     std::string getId() const{
         return id;
     }
+
+    /**
+     * Checks if seat is taken or free
+     * @return true if free, false otherwise
+     */
     bool isFree() const{
         return free;
     }
+
+    /**
+     * Getter for the classe attribute
+     * @return pointer to the Class object
+     */
     Class* getClass() const{
         return classe;
     }
-    Luggage* getBag() const{
+
+    /**
+     * Returns the HandBag object stored in the handBag attribute
+     * @return the HandBag object
+     */
+    HandBag* getBag() const{
         return handBag;
     }
+
+    /**
+     * Sets the free attribute to false
+     */
     void takeSeat(){
         free = false;
     }
@@ -199,6 +226,11 @@ public:
 class Airbus : public Plane {
 public:
     /**Constructor*/
+    /**
+     * Constructor for the Airbus Class. Creates a 156 seat (26*6) Airbus.
+     * Receives a queue with the letters of the First Class Rows
+     * @param firstClassRows the First Class Rows
+     */
     Airbus(std::queue<std::string> firstClassRows);
 };
 

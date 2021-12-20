@@ -170,9 +170,9 @@ FlightPointer Data::findFlight(const std::string& id) const{
     if(!flights.isEmpty()) {
         iteratorBST<AirportPointer> it = airports.begin();
         while (it != airports.end()) {
-            Flight *find = (*it).find(id);
-            if ((*it).find(id) != nullptr) {
-                ret = FlightPointer(find);
+            FlightPointer find = (*it).find(id);
+            if ((*it).find(id).getPointer() != nullptr) {
+                ret = find;
                 break;
             }
             it++;

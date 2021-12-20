@@ -65,6 +65,8 @@ public:
      * @param f pointer to a Flight object
      */
     explicit FlightPointer(Flight* f = nullptr) : tickets(TicketPointer(nullptr)) {
+        BST<TicketPointer> t(TicketPointer(nullptr));
+        tickets = t;
         pointer = f;
     }
     bool operator==(const FlightPointer& rhs) const{
@@ -118,6 +120,10 @@ public:
      */
     explicit AirportPointer(Airport* a = nullptr) :
             inFlights(FlightPointer(nullptr)), outFlights(FlightPointer(nullptr)){
+        BST<FlightPointer> in(FlightPointer(nullptr));
+        inFlights = in;
+        BST<FlightPointer> out(FlightPointer(nullptr));
+        outFlights = out;
         pointer = a;
     };
     /**
