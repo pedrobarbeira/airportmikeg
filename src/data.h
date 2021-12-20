@@ -27,9 +27,22 @@ public:
     /**
      * Constructor for Data class. Initializes each BST
      */
-    Data() : airports(AirportPointer(nullptr)), planes(PlanePointer(nullptr)),
-             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)),
-             voyages(VoyagePointer(nullptr)), flights(FlightPointer(nullptr)){};
+    Data() : airports(AirportPointer(nullptr)), voyages(VoyagePointer(nullptr)),
+             planes(PlanePointer(nullptr)), flights(FlightPointer(nullptr)),
+             clients(ClientPointer(nullptr)), company(CompanyPointer(nullptr)) {
+        BST<AirportPointer> a(AirportPointer(nullptr));
+        airports = a;
+        BST<VoyagePointer> v(VoyagePointer(nullptr));
+        voyages = v;
+        BST<FlightPointer> f(FlightPointer(nullptr));
+        flights = f;
+        BST<PlanePointer> p(PlanePointer(nullptr));
+        planes = p;
+        BST<ClientPointer> c(ClientPointer(nullptr));
+        clients = c;
+        BST<CompanyPointer> cp(CompanyPointer(nullptr));
+        company = cp;
+    };
 
     /**
      * Converts the airports BST into a vector of AirportPointer objects
@@ -269,6 +282,8 @@ public:
      */
     FlightPointer findFlight(const std::string& id) const;
 
+    FlightPointer findFlight(const Plane* p) const;
+
     /**
      * Searches for a given Plane in the planes BST
      * @param id the ID of the Plane to be found
@@ -318,10 +333,16 @@ public:
 
 class LoadAirport : public Load{
     void loadPlane();
+    void loadAirport();
+    void loadTerminal(Airport* a, const std::vector<std::string>& tData);
+    void loadStaff(Airport* a);
+    void loadService(Airport* a, std::string l1, std::string l2);
+    void loadTransport(Airport* a, std::string l);
 public:
     explicit LoadAirport(Data*d = nullptr){
         data = d;
     }
+    void load() override;
 };
 
 class LoadVoyage : public Load{

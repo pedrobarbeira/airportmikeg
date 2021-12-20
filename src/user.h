@@ -70,7 +70,7 @@ public:
         return username == rhs.username;
     }
     bool operator<(const Client& rhs) const{
-        return username < rhs.username;
+        return this->getUser() < rhs.getUser();
     }
 };
 
@@ -121,12 +121,12 @@ public:
         return username == rhs.username;
     }
     bool operator<(const Company& rhs) const{
-        if(type != '\0' && rhs.type != '\0'){
-            if(type == rhs.type)
-                return username < rhs.username;
+        if(this->getType() != '\0' && rhs.getType() != '\0'){
+            if(this->getType() == rhs.getType())
+                return this->getUser() < rhs.getUser();
             else return type < rhs.type;
         }
-        return username < rhs.username;
+        return this->getUser() < rhs.getUser();
     }
 };
 

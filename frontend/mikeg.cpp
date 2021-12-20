@@ -153,7 +153,7 @@ bool MikeG::loadPlane(){
 bool MikeG::loadTicket(){
     throw LoadTicketFail();
 }
-
+/*
 void MikeG::loadUsers(){
     ifstream infile("./data/company.txt");
     if(!infile.is_open()){
@@ -180,60 +180,16 @@ void MikeG::loadUsers(){
     }
     infile.close();
 
-}
+}*/
 
 bool MikeG::load(){
-    stringstream error;
-    bool successful = true;
-    try {
-        //loadAirport();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadVoyage();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadFlight();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
-    try {
-        //loadPlane();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
-    }
+    Load main(data);
     try{
-        //loadTicket();
+        main.load();
     }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e << ", ";
-        successful = false;
+    catch(DevLog e){
+        e.print();
     }
-    try{
-        loadUsers();
-    }
-    catch (Fail e){
-        std::cout << e << '\n';
-        error << e;
-        successful = false;
-    }
-    if(!successful) throw DevLog(error.str());
 }
 
 bool MikeG::checkDev() {
