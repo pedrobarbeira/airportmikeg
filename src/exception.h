@@ -128,7 +128,7 @@ public:
      * Constructor for the SaveAirportFail expection
      * @param id the function where the error happened
      */
-    SaveAirportFail(std::string id){
+    explicit SaveAirportFail(const std::string& id){
         error = "SaveAirportFail::" + id + " error opening outfile\n";
     }
 };
@@ -142,7 +142,7 @@ public:
      * Constructor for the SaveVoyageFail exception
      * @param id the functio where the error happened
      */
-    SaveVoyageFail(std::string id){
+    explicit SaveVoyageFail(const std::string& id){
         error = "SaveVoyageFail::::" + id + " error opening outfile\n";
     }
 };
@@ -156,7 +156,7 @@ public:
      * Constructor the for SaveUserFail exception
      * @param id the function where the error happened
      */
-    SaveUserFail(std::string id){
+    explicit SaveUserFail(const std::string& id){
         error = "SaveUser::" + id + " error opening outfile\n";
     }
 };

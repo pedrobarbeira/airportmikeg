@@ -47,7 +47,7 @@ public:
     explicit PlanePointer(Plane* p = nullptr){
         pointer = p;
     }
-    bool operator==(std::string p) const{
+    bool operator==(const std::string& p) const{
         return pointer->plate == p;
     }
 };
@@ -237,7 +237,7 @@ public:
      * @return true upon success. false otherwise
      */
     bool addOut(Flight* f){
-        FlightPointer fptr;
+        FlightPointer fptr(f);
         return outFlights.insert(fptr);
     }
 

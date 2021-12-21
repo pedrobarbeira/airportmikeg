@@ -282,7 +282,7 @@ public:
      * @param id the ID of the ticket to be found
      * @return the result of the sarch
      */
-    static Staff* findStaff(const Airport* a, std::string);
+    static Staff* findStaff(const Airport* a, const std::string& id);
 
     /**
      * Searches for a given Voyage in the voyages BST
@@ -400,7 +400,7 @@ class LoadAirport : public Load{
      * Loads the Staff related information of a given Airport
      * @param a pointer to the Airport
      */
-    void loadStaff(Airport* a);
+    static void loadStaff(Airport* a);
 
     /**
      * Loads the Service related information of a given Airport. The
@@ -418,7 +418,7 @@ class LoadAirport : public Load{
      * @param a pointer to the Airport
      * @param l the Transport data
      */
-    void loadTransport(Airport* a, std::string& l);
+    static void loadTransport(Airport* a, std::string& l);
 public:
     /**
      * Constructor for the LoadAirport class. Receives a Data object

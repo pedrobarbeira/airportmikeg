@@ -145,7 +145,7 @@ AirportPointer Data::findAirport(const std::string& id) const{
         return airports.find(find);
     else return AirportPointer(nullptr);
 }
-Staff* Data::findStaff(const Airport* a, std::string id){
+Staff* Data::findStaff(const Airport* a, const std::string& id){
     std::vector<Staff*> s = a->getStaff();
     std::vector<Staff*>::const_iterator it = s.begin();
     while(it != s.end()){
@@ -225,6 +225,7 @@ Client* Data::findClient(const std::string& id) const{
         find = clients.find(find);
         return find.getPointer();
     }
+    else return nullptr;
 }
 Company* Data::findCompany(const std::string& id) const{
     auto c = new Company(id);
@@ -233,6 +234,7 @@ Company* Data::findCompany(const std::string& id) const{
         find = company.find(find);
         return find.getPointer();
     }
+    else return nullptr;
 }
 
 
@@ -246,7 +248,7 @@ void Load::load(){
         std::cout << "Error loading Airport\n";
         throw DevLog(e.getError());
     }
-    catch(const DevLog e){
+    catch(const DevLog& e){
         std::cout << "Error loading Airport\n";
         throw DevLog(e.getError());
     }
@@ -269,6 +271,24 @@ void Load::load(){
 }
 
 /**---Load Airport---*/
+void LoadAirport::load(){
+    try{
+        loadPlane();
+    }
+    catch (LoadAirportFail e){
+        std::cout << "Error loading Planes\n";
+        throw DevLog(e.getError());
+    }
+    try{
+        loadAirport();
+    }catch (LoadAirportFail e){
+        std::cout << "Error loading Airports\n";
+        throw DevLog(e.getError());
+    }
+    catch (DevLog e){
+        throw DevLog(e.getError());
+    }
+}
 void LoadAirport::loadPlane() {
     ifstream infile("./data/planes.txt");
     if (!infile.is_open())
@@ -387,12 +407,12 @@ void LoadAirport::loadAirport() {
             std::string terminal, plane, transport, service, completed;
             std::vector<std::string> terminalData;
             j = 0;
-            for (int i = 0; i <= line.length(); i++) {
-                if (line[i] == ' ') {
+            for (int k = 0; k <= line.length(); k++) {
+                if (line[k] == ' ') {
                     if (terminal.empty()) {
-                        length = i - j;
+                        length = k - j;
                         terminalData.push_back(line.substr(j, length));
-                        j = i + 1;
+                        j = k + 1;
                     } else if (i == line.length())
                         terminalData.push_back(line.substr(j));
                 }
@@ -400,7 +420,8 @@ void LoadAirport::loadAirport() {
             try {
                 loadTerminal(a, terminalData);
             }
-            catch (LoadAirportFail e) {
+            catch (const LoadAirportFail& e) {
+                std::cout << "Error loading Terminals\n";
                 throw DevLog(e.getError());
             }
             getline(infile, transport);
@@ -414,20 +435,23 @@ void LoadAirport::loadAirport() {
                 loadStaff(a);
             }
             catch (const LoadAirportFail& e) {
+                std::cout << "Error loading Staff\n";
                 throw DevLog(e.getError());
             }
-            /*try{
+            try{
                 loadService(a, service, completed);
             }
             catch(const LoadAirportFail& e){
+                std::cout << "Error loading Services\n";
                 throw DevLog(e.getError());
             }
             try{
                 loadTransport(a, transport);
             }
             catch(const LoadAirportFail& e){
+                std::cout << "Error loading Transports\n";
                 throw DevLog(e.getError());
-            }*/
+            }
         }
     }
     infile.close();
@@ -519,8 +543,6 @@ void LoadAirport::loadTransport(Airport* a, std::string& l){
         t->setDistance(d);
         a->addTransport(t);
     }
-}
-void LoadAirport::load(){
 }
 /**---Load Voyage---*/
 void LoadVoyage::load(){
@@ -837,7 +859,7 @@ void LoadUser::loadCompany(){
             for (int i = 0; i < line.length(); i++) {
                 if (i == ' ') {
                     airport = line.substr(0, i);
-                    id = stoi(line.substr(i + 1));
+                    id = line.substr(i + 1);
                     break;
                 }
             }
@@ -1157,7 +1179,7 @@ void SaveUser::saveClient() const {
                         << c->getType() << " "
                         << c->getDate() << " "
                         << c->getMiles() << " ";
-                if(c->getPassenger() != "")
+                if(c->getPassenger().empty())
                     outfile << c->getPassenger();
                 else outfile << "null";
                 outfile << "\n";

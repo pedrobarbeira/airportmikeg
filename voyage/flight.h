@@ -48,8 +48,11 @@ public:
      * are given
      * @param id the Id of the Flight to be found
      */
-    explicit Flight(std::string id = ""){
+    explicit Flight(const std::string& id = ""){
         flightID = id;
+        origin = nullptr;
+        destination = nullptr;
+        plane = nullptr;
     }
 
     /**
@@ -141,7 +144,7 @@ public:
      * Flight belonds to
      * @param v the Voyage id
      */
-    void setVoyage(std::string v){
+    void setVoyage(const std::string& v){
         voyageID = v;
     }
 
