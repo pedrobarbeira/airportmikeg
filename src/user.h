@@ -28,9 +28,9 @@ public:
      */
     explicit User(std::string u = "", std::string p = "", char t = '\0'):
             username(std::move(u)), password(std::move(p)), type(t){
-        Time* reg;
+        Time* reg = new Time;
         reg->now();
-        Date* d;
+        Date* d = new Date;
         *d = reg->getDate();
         registration = d;
     };

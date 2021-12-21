@@ -1640,7 +1640,11 @@ void AdminMenu::newTravel(){
 }
 
 void AdminMenu::deleteTravel(){
-    while (true){}
+    header();
+    while (true){
+        print(data->getFlights());
+
+    }
 
 }
 
