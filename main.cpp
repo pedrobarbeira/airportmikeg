@@ -28,14 +28,14 @@ void test(){
     data->addAirport(porto);
     data->addAirport(madrid);
 
-    auto *time1030 = new Time(20, 12, 2021, 10, 30, 00);
-    auto *time1100 = new Time(20, 12, 2021, 11, 00, 00);
+    auto *time1030 = new Time(21, 12, 2021, 10, 30, 00);
+    auto *time1100 = new Time(21, 12, 2021, 11, 00, 00);
     auto *time1130 = new Time(20, 12, 2021, 11, 30, 00);
-    auto *time1200 = new Time(20, 12, 2021, 12, 00, 00);
+    auto *time1200 = new Time(21, 12, 2021, 12, 00, 00);
     auto *time1230 = new Time(20, 12, 2021, 12, 30, 00);
-    auto *time1300 = new Time(20, 12, 2021, 13, 00, 00);
-    auto *time1330 = new Time(20, 12, 2021, 13, 30, 00);
-    auto *time1400 = new Time(20, 12, 2021, 14, 00, 00);
+    auto *time1300 = new Time(21, 12, 2021, 13, 00, 00);
+    auto *time1330 = new Time(21, 12, 2021, 13, 30, 00);
+    auto *time1400 = new Time(21, 12, 2021, 14, 00, 00);
     auto *timenow = new Time; timenow->now();
     auto *ori1 = new TimePlace(porto, time1030);
     auto *des1 = new TimePlace(lisboa, time1100);
@@ -97,17 +97,17 @@ void test(){
     data->addCompany(serviceP);
     auto *boardingP = new Company("boarding", "boarding", 'B', porto, airb1, staff1);
     data->addCompany(boardingP);
-    auto *managerL = new Company("manager", "manager", 'M', porto, nullptr, staff2);
+    auto *managerL = new Company("manager", "manager", 'M', lisboa, nullptr, staff2);
     data->addCompany(managerL);
-    auto *serviceL = new Company("service", "service", 'S', porto, nullptr, staff2);
+    auto *serviceL = new Company("service", "service", 'S', lisboa, nullptr, staff2);
     data->addCompany(serviceL);
-    auto *boardingL = new Company("boarding", "boarding", 'B', porto, airb1, staff2);
+    auto *boardingL = new Company("boarding", "boarding", 'B', lisboa, airb1, staff2);
     data->addCompany(boardingL);
-    auto *managerM = new Company("manager", "manager", 'M', porto, nullptr, staff3);
+    auto *managerM = new Company("manager", "manager", 'M', madrid, nullptr, staff3);
     data->addCompany(managerM);
-    auto *serviceM = new Company("service", "service", 'S', porto, nullptr, staff3);
+    auto *serviceM = new Company("service", "service", 'S', madrid, nullptr, staff3);
     data->addCompany(serviceM);
-    auto *boardingM = new Company("boarding", "boarding", 'B', porto, airb1, staff3);
+    auto *boardingM = new Company("boarding", "boarding", 'B', madrid, airb1, staff3);
     data->addCompany(boardingM);
     auto *client = new Client ("client", "client", 'C');
     data->addClient(client);
@@ -124,13 +124,13 @@ void test(){
     auto *srvM = new ServiceMenu(serviceM, data);
     auto *clt = new ClientMenu(client, data);
 
-    adm->mainScreen(); //TESTING ADMIN MENU
+    //adm->mainScreen(); //TESTING ADMIN MENU
     //mngP->mainScreen(); //TESTING PORTO MANAGER MENU
     //mngL->mainScreen(); //TESTING LISBON MANAGER MENU
     //mngM->mainScreen(); //TESTING MADRID MANAGER MENU
     //brdP->mainScreen(); //TESTING PORTO BOARDING MENU
     //brdL->mainScreen(); //TESTING LISBOA BOARDING MENU
-    //brdM->mainScreen(); //TESTING MADRID BOARDING MENU
+    brdM->mainScreen(); //TESTING MADRID BOARDING MENU
     //srvP->mainScreen(); //TESTING PORTO SERVICE MENU
     //srvL->mainScreen(); //TESTING LISBOA SERVICE MENU
     //srvM->mainScreen(); //TESTING MADRID SERVICE MENU

@@ -339,7 +339,7 @@ void Airport::printService() {
             }
             if (nextService()->getResponsible() == nullptr) cout << ".";
             else cout << " under " << nextService()->getResponsible()->getName() << "'s("
-                      << nextService()->getResponsible()->getPhone() << ") supervision";
+                      << nextService()->getResponsible()->getPhone() << ") supervision om plane " << nextService()->getPlane();
         }
     }
     std::cout <<"\n\n"; system("pause");

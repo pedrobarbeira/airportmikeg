@@ -1295,8 +1295,10 @@ void CompanyMenu::createService(Airport *airport, Plane *plane) {
     time->now();
     while (true){
         std::cout << "\n\tMenu for creating a service in airport"
-                  << "\n\n\tType of service: Cleaning(c) or Maintenance(m)?\n>"; std::cin >> s;
-        if (s!='c' && s != 'm'){
+                  << "\n\n\tType of service:"
+                  << "\n\t\t[c] Cleaning"
+                  << "\n\t\t[m] Maintenance\n>"; std::cin >> s;
+        if (tolower(s)!='c' && tolower(s) != 'm'){
             std::cout << "Invalid Option. Cancelling creation\n";
             system("pause");
             return;
@@ -1307,8 +1309,10 @@ void CompanyMenu::createService(Airport *airport, Plane *plane) {
             system("pause");
             return;
         }
-        if (plane == nullptr) plane = selectPlane(airport).getPointer();
-        if (plane == nullptr) system("pause"); return;
+        if (plane == nullptr) {
+            plane = selectPlane(airport).getPointer();
+        }
+        //if (plane == nullptr) system("pause"); return;
         std::cout << "\n\n\tCreate ";
         if (s == 'c') std::cout << "cleaning";
         else if (s == 'm') std::cout << "maintenance";
@@ -1394,10 +1398,12 @@ void CompanyMenu::checkTasks(Airport *airport) {
         if (airport->nextService()->verification()) {
             Time *time = new Time; time->now();
             user->addCompleteService(airport->nextService());
-            airport->nextService()->setComplete(time);
+            airport->delService(time);
             return;
         }
         system("pause");
+        getchar();
+        system(CLEAR);
         return;
     }
 }
@@ -1498,8 +1504,8 @@ void CompanyMenu::changeWorker() {
         std::cout << "\n\tSet a new phone?(y/n)\n>"; std::cin >> a;
         std::cin.ignore(INT32_MAX, '\n');
         switch (a){
-            case 'y' : std::cout << "\n\n\tNew phone>"; std::cin >> phone; sptr.getPointer()->setPhone(phone); break;
-            case 'n' : system("pause"); break;
+            case 'y' : std::cout << "\n\n\tNew phone>"; std::cin >> phone; sptr.getPointer()->setPhone(phone); return;
+            case 'n' : system("pause"); return;
             default: std::cout << "Invalid Option\n"; std::cin.ignore(INT32_MAX, '\n'); system("pause");
         }
     }
@@ -1963,13 +1969,11 @@ void BoardingMenu::allFlight() {
     header();
     Time *time = new Time; time->now();
     vector<FlightPointer> allflight;
-    for (auto i : data->getAirports()){
-        if (i.getPointer() == this->airport){
-            for (auto j : i.getFlightPointers()){
-                if (j.getPointer()->getOrigin()->time >= time) allflight.push_back(j);
-            }
+    for (auto i : data->getFlights()){  // COMPARATIVO ENTRE DATAS NÃO ESTA A RESULTAR EM BST
+        if (i.getPointer()->getOrigin()->airport == this->user->getAirport()
+        | i.getPointer()->getDestination()->airport == this->user->getAirport())
+            allflight.push_back(i);
         }
-    }
     FlightPointer flight = selectFlight(allflight);
     if (flight.getPointer() == nullptr) return;
     checkMenu(flight);
@@ -1979,13 +1983,25 @@ void BoardingMenu::inFlight(){
     header();
     Time *time = new Time; time->now();
     vector<FlightPointer> inflight;
-    for (auto i : data->getAirports()){
-        if (i.getPointer() == this->airport){
-            for (auto j : i.getFlightPointers()){
-                if (j.getPointer()->getDestination()->airport==this->airport && j.getPointer()->getDestination()->time >= time) inflight.push_back(j);
+    for (auto i : data->getFlights()){
+        if (i.getPointer()->getDestination()->airport == this->user->getAirport()
+            && ((i.getPointer()->getDestination()->time->getYear() > time->getYear()
+            || (i.getPointer()->getDestination()->time->getYear() == time->getYear())
+            && i.getPointer()->getDestination()->time->getMonth() > time->getMonth())
+            || (i.getPointer()->getDestination()->time->getYear() == time->getYear()
+               && i.getPointer()->getDestination()->time->getMonth() == time->getMonth()
+                  && i.getPointer()->getDestination()->time->getDay() > time->getDay())
+               || (i.getPointer()->getDestination()->time->getYear() == time->getYear()
+                   && i.getPointer()->getDestination()->time->getMonth() == time->getMonth()
+                   && i.getPointer()->getDestination()->time->getDay() == time->getDay()
+                      && i.getPointer()->getDestination()->time->getHour() > time->getHour())
+                      || (i.getPointer()->getDestination()->time->getYear() == time->getYear()
+                                 && i.getPointer()->getDestination()->time->getMonth() == time->getMonth()
+                                 && i.getPointer()->getDestination()->time->getDay() == time->getDay()
+                                 && i.getPointer()->getDestination()->time->getHour() == time->getHour()
+                                 && i.getPointer()->getDestination()->time->getMinute()> time->getMinute())))
+            inflight.push_back(i);
             }
-        }
-    }
     FlightPointer flight = selectFlight(inflight);
     if (flight.getPointer() == nullptr) return;
     checkMenu(flight);
@@ -1995,12 +2011,24 @@ void BoardingMenu::outFlight(){
     header();
     Time *time = new Time; time->now();
     vector<FlightPointer> outflight;
-    for (auto i : data->getAirports()){
-        if (i.getPointer() == this->airport){
-            for (auto j : i.getFlightPointers()){
-                if (j.getPointer()->getOrigin()->airport==this->airport && j.getPointer()->getOrigin()->time >= time) outflight.push_back(j);
-            }
-        }
+    for (auto i : data->getFlights()){
+        if (i.getPointer()->getOrigin()->airport == this->user->getAirport()
+            && ((i.getPointer()->getOrigin()->time->getYear() > time->getYear()
+                 || (i.getPointer()->getOrigin()->time->getYear() == time->getYear())
+                    && i.getPointer()->getOrigin()->time->getMonth() > time->getMonth())
+                || (i.getPointer()->getOrigin()->time->getYear() == time->getYear()
+                    && i.getPointer()->getOrigin()->time->getMonth() == time->getMonth()
+                    && i.getPointer()->getOrigin()->time->getDay() > time->getDay())
+                || (i.getPointer()->getOrigin()->time->getYear() == time->getYear()
+                    && i.getPointer()->getOrigin()->time->getMonth() == time->getMonth()
+                    && i.getPointer()->getOrigin()->time->getDay() == time->getDay()
+                    && i.getPointer()->getOrigin()->time->getHour() > time->getHour())
+                || (i.getPointer()->getOrigin()->time->getYear() == time->getYear()
+                    && i.getPointer()->getOrigin()->time->getMonth() == time->getMonth()
+                    && i.getPointer()->getOrigin()->time->getDay() == time->getDay()
+                    && i.getPointer()->getOrigin()->time->getHour() == time->getHour()
+                    && i.getPointer()->getOrigin()->time->getMinute()> time->getMinute())))
+            outflight.push_back(i);
     }
     FlightPointer flight = selectFlight(outflight);
     if (flight.getPointer() == nullptr) return;
@@ -2011,15 +2039,22 @@ void BoardingMenu::todayFlight() {
     header();
     Time *time = new Time; time->now();
     vector<FlightPointer> todayflight;
-    for (auto i : data->getAirports()){
-        if (i.getPointer() == this->airport){
-            for (auto j : i.getFlightPointers()){
-                if ((j.getPointer()->getOrigin()->airport==this->airport && j.getPointer()->getOrigin()->time == time)
-                    | (j.getPointer()->getDestination()->airport==this->airport && j.getPointer()->getDestination()->time == time)) {
-                    todayflight.push_back(j);
-                }
-            }
-        }
+    for (auto i : data->getFlights()){
+        if ((i.getPointer()->getOrigin()->airport == this->user->getAirport()
+            && i.getPointer()->getOrigin()->time->getYear()== time->getYear()
+            && i.getPointer()->getOrigin()->time->getMonth() == time->getMonth()
+            && i.getPointer()->getOrigin()->time->getDay() == time->getDay()
+            && (i.getPointer()->getOrigin()->time->getHour() > time->getHour()
+            || (i.getPointer()->getOrigin()->time->getHour() == time->getHour()
+            && i.getPointer()->getOrigin()->time->getMinute() > time->getMinute())))
+            || (i.getPointer()->getDestination()->airport == this->user->getAirport()
+                && i.getPointer()->getDestination()->time->getYear()== time->getYear()
+                && i.getPointer()->getDestination()->time->getMonth() == time->getMonth()
+                && i.getPointer()->getDestination()->time->getDay() == time->getDay()
+                && (i.getPointer()->getDestination()->time->getHour() > time->getHour()
+                    || (i.getPointer()->getDestination()->time->getHour() == time->getHour()
+                        && i.getPointer()->getDestination()->time->getMinute() > time->getMinute()))))
+                todayflight.push_back(i);
     }
     FlightPointer flight = selectFlight(todayflight);
     if (flight.getPointer() == nullptr) return;
@@ -2080,9 +2115,8 @@ FlightPointer BoardingMenu::selectFlight(std::vector<FlightPointer> flights){
         switch (c) {
             case '1': {
                 std::cout << "Enter flight row: ";
-                std::string in;
-                readInput(in);
-                int i = stoi(in);
+                int i;
+                std::cin >> i;
                 if (i < 1 | i > flights.size()) break;
                 return flights[i-1];
             }
