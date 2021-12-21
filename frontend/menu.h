@@ -365,7 +365,7 @@ public:
      * change time of a transport, but
      * doesn't allow to change type or distance
      */
-    void editTransport();
+    void viewTransport();
 
     /**
      * creation of a new serviceTicket of an
@@ -437,6 +437,8 @@ public:
      * airport
      */
     void checkService();
+
+    static std::vector<TransportPointer> refineTransport(const BST<TransportPointer>& bst) ;
 };
 
 /**

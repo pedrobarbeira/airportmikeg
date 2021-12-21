@@ -142,7 +142,7 @@ vector<string> Cleaning::getTasksLeft() const {
     if (!wc) tl.push_back("Bathroom");
     if (!seats) tl.push_back("Passenger seats");
     if (!floor) tl.push_back("Plane floor");
-    if (!flightDeck) tl.push_back("Fligh Cabin");
+    if (!flightDeck) tl.push_back("Flight Cabin");
     return tl;
 }
 
@@ -151,7 +151,7 @@ vector<string> Cleaning::getTasksCompleted() const {
     if (wc) tl.push_back("Bathroom");
     if (seats) tl.push_back("Passenger seats");
     if (floor) tl.push_back("Plane floor");
-    if (flightDeck) tl.push_back("Fligh Cabin");
+    if (flightDeck) tl.push_back("Flight Cabin");
     return tl;
 }
 

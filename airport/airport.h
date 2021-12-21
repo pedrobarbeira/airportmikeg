@@ -148,6 +148,7 @@ public:
      *          determine it's idCode
      */
     Terminal(string i){
+        if (i.length()<2) i.insert(0,1,'0');
         id = i;
         plane = nullptr;};
     /**
@@ -170,13 +171,13 @@ public:
          * @return
          */
     string getTerminalNumber() const{
-        return id.substr(3);};
+        return id.substr(3);}
     /**
      * Docks a plane to the terminal occupying it
      * @param plane
      */
     void setPlane(Plane *plane){
-        this-> plane = plane;};
+        this-> plane = plane;}
     /**
      * getPlane method
      * @return plane docked at terminal
@@ -270,12 +271,12 @@ public:
     explicit Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
         transport(TransportPointer(nullptr)), idName(std::move(id)),
         name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){
-        stringstream terminalId;
-        terminalId << idName;
-        for(int i = 0; i < 10; i++) {
-            terminalId << setw(2) << setfill('0') << to_string(i + 1);
-            activateTerminal(terminalId.str());
-        }
+        /*for(int j = 1; j <= 10; j++) {
+            string i = to_string(j);
+            if (j<10) i.insert(0, 1, '0');
+            string terminalId = i;
+            activateTerminal(terminalId);
+        }*/
     }
     /**
      * Method to set a name for the airport
@@ -286,7 +287,8 @@ public:
      * Setter for id
      * @param id 3 letter string
      */
-    void setId(string id){idName = id;}
+    void setId(string id){
+        idName = id;}
     /**
      * set's the country for the airport
      * @param country string
@@ -382,7 +384,7 @@ public:
      */
     void delService (Time *date);
     /**
-     * removes a terminal form operation if
+     * removes a terminal from operation if
      * it is empty
      * @param id
      * @return
@@ -469,6 +471,10 @@ public:
      */
     bool operator<(const Airport& rhs) const{
         return idName < rhs.idName;
+    }
+
+    BST<TransportPointer> getTransportBST() const{
+        return transport;
     }
 
 };

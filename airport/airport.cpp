@@ -190,6 +190,10 @@ bool Airport::addStaff(Staff* staff){
 }
 
 bool Airport::delStaff(Staff *staff) {
+    for (auto i : this->getServices()){
+        if (i->getResponsible()->getId() == staff->getId())
+            i->removeResponsible();
+    }
     for (auto i : this->staff) {
         if (i == staff) this->staff.remove(i);
         return true;
@@ -257,11 +261,15 @@ list<Time*> Airport::nextTransportTrain(Time *time) const {
 }
 */
 void Airport::activateTerminal(string i) {
-    Terminal *t = new Terminal(i);
+    for (auto j : terminals)
+        if (i == j->getTerminalNumber()) return;
+    if (i.length()<2) i.insert(0,1,'0');
+    Terminal *t = new Terminal(this->idName+i);
     terminals.push_back(t);
 }
 
 void Airport::setTerminal(Plane *plane, string id = "") {
+    if (id!="" && id.length()<2) id.insert(0,1,'0');
     for (unsigned i{0}; i < terminals.size(); i++){
         if (!terminals[i]->getOccupied() && terminals[i]->getId() == ""){
             terminals[i]->setPlane(plane); break;}

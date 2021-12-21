@@ -262,6 +262,10 @@ public:
     * task as completed
     */
     virtual void checkEmergency(){};
+
+    void removeResponsible(){
+        responsible = nullptr;
+    }
 };
 
 

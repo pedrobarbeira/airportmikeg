@@ -269,7 +269,6 @@ public:
         return planes.remove(pptr);
     }
 
-
     /**
      * Searches for a given Airport in the airports BST
      * @param id the ID of the Airport to be found
@@ -352,6 +351,7 @@ public:
         FlightPointer fptr = findFlight(id);
         return flights.remove(fptr);
     }
+
 };
 
 class Load{

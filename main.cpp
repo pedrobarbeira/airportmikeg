@@ -124,7 +124,7 @@ void test(){
     auto *srvM = new ServiceMenu(serviceM, data);
     auto *clt = new ClientMenu(client, data);
 
-    //adm->mainScreen(); //TESTING ADMIN MENU
+    adm->mainScreen(); //TESTING ADMIN MENU
     //mngP->mainScreen(); //TESTING PORTO MANAGER MENU
     //mngL->mainScreen(); //TESTING LISBON MANAGER MENU
     //mngM->mainScreen(); //TESTING MADRID MANAGER MENU
@@ -235,7 +235,7 @@ void testInterface(){
 }
 
 int main(){
-    //test();
+    test();
 
     testInterface();
 
