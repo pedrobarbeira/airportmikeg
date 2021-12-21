@@ -129,7 +129,7 @@ void Menu::header() {
     std::cin.clear(); std::cin.ignore(INT32_MAX, '\n');
     system(CLEAR);
     //std::cout << "[" << user->getUser() << "]\t\t\t";
-    sysTime->print();
+    sysTime->print(std::cout);
 }
 
 void Menu::print(std::vector<StaffPointer> v) {
@@ -556,7 +556,7 @@ void Dev::mainScreen() {
         bool flag = !newLogs.empty();
         system(CLEAR);
         std::cout << "[Dev]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n    [1] See Logs";
         if(flag) std::cout << "\n    [2]New Errors";
         std::cout << "\n\n    [0] Exit\n"
@@ -629,7 +629,7 @@ void ClientMenu::mainScreen() {
         system(CLEAR);
         char c;
         std::cout << "[" << user->getUser() << "]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n\t[1] Buy Ticket"
                   << "\n\t[2] Check In";
         if(user != nullptr)
@@ -662,7 +662,7 @@ void ClientMenu::buyTicket(){
         system(CLEAR);
         char c;
         std::cout << "[" << user->getUser() << "]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n\t[1] Sett Origin Airport"
                   << "\n\t[2] Set Destination Airport"
                   << "\n\t[3] See Flights"
@@ -696,7 +696,7 @@ void ClientMenu::selectFlight(bool origin) {
         system(CLEAR);
         char c;
         std::cout << "[" << user->getUser() << "]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n\t[1] Search Origin Airport"
                   << "\n\t[2] Search Destination Airport"
                   << "\n\t[3] See Flights"
@@ -751,7 +751,7 @@ AirportPointer ClientMenu::selectAirport(){
         print(airports);
         char c;
         std::cout << "[" << user->getUser() << " - Airports]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n\t[1] Select Airport"
                   << "\n\t[2] Order By\n"
                   << "\n\t[0] Exit\n"

@@ -46,7 +46,7 @@ void MikeG::start(bool& flag) {
         }
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
-        sysTime->print();
+        sysTime->print(std::cout);
         std::cout << "\n\n    [1] Buy Ticket"
                   << "\n    [2] Check In"
                   << "\n    [3] Register"
