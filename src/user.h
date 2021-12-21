@@ -120,7 +120,22 @@ public:
         tickets.clear();
         passenger = std::move(psgr);
         type = t;
+        Date * d;
+        Time* reg;
+        reg->now();
+        *d = reg->getDate();
+        registration = d;
     }
+
+    explicit Client(std::string u, std::string p, char t, Date* d, uint16_t m , std::string psgr) : miles(m){
+        username = std::move(u);
+        password = std::move(p);
+        tickets.clear();
+        registration = d;
+        passenger = std::move(psgr);
+        type = t;
+    }
+
 
     /**-----Getters-----*/
     /**

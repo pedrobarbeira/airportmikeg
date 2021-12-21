@@ -261,20 +261,14 @@ list<Time*> Airport::nextTransportTrain(Time *time) const {
 }
 */
 void Airport::activateTerminal(string i) {
-    for (auto j : terminals)
-        if (i == j->getTerminalNumber()) return;
-    if (i.length()<2) i.insert(0,1,'0');
-    Terminal *t = new Terminal(this->idName+i);
+    Terminal *t = new Terminal(i);
     terminals.push_back(t);
 }
 
-void Airport::setTerminal(Plane *plane, string id = "") {
-    if (id!="" && id.length()<2) id.insert(0,1,'0');
-    for (unsigned i{0}; i < terminals.size(); i++){
-        if (!terminals[i]->getOccupied() && terminals[i]->getId() == ""){
-            terminals[i]->setPlane(plane); break;}
-        else if (!terminals[i]->getOccupied() && terminals[i]->getTerminalNumber() == id) {
-            terminals[i]->setPlane(plane); break;}
+void Airport::setTerminal(Plane *p, string id = "") {
+    for(auto it: terminals){
+        if(it->id == id)
+            it->setPlane(p);
     }
 }
 
@@ -352,6 +346,19 @@ bool Airport::operator < (Airport &a){
         return city < a.city;
     }
     return country < a.country;
+}
+
+Staff* Airport::findStaff(const std::string& id){
+    std::list<Staff*>::iterator it = staff.begin();
+    Staff* ret = nullptr;
+    while(it != staff.end()){
+        if ((*it)->getId() == id) {
+            ret = (*it);
+            break;
+        }
+        else it++;
+    }
+    return ret;
 }
 
 

@@ -159,7 +159,7 @@ public:
      *
      * @param f
      */
-    void reOrderPlanes(std::vector<PlanePointer> &f);
+    void reOrderPlanes(std::vector<Plane*> &f);
 
     /**
      * function to retrieve a transport object information

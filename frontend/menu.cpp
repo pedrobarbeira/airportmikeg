@@ -509,120 +509,93 @@ void Menu::createPlane(Other *plane) {
 }
 
 void Menu::reOrderAirports(std::vector<AirportPointer> &v) {
+    AirportSorter sort;
     while (true) {
-        int t, i;
+        char c, asc;
         std::cout << "\n\tChoose ordering:"
-                  << "\n\t\t[1] Flight numbers"
-                  << "\n\t\t[2] Flight Id"
-                  << "\n\t\t[3] Name"
-                  << "\n\t\t[4] City"
-                  << "\n\t\t[5] Country"
-                  << "\n\t\t[6] ServiceTickets"
-                  << "\n\t\t[7] Completed Services"
-                  << "\n\t\t[8] Terminals"
-                  << "\n\t\t[9] Empty Terminals"
-                  << "\n\t\t[10] Transport\n>";
-        std::cin >> t;
+                  << "\n\t\t[0] Airport Id"
+                  << "\n\t\t[1] Number of Flights"
+                  << "\n\t\t[2] Name"
+                  << "\n\t\t[3] City"
+                  << "\n\t\t[4] Country"
+                  << "\n\t\t[5] Service Tickets"
+                  << "\n\t\t[6] Completed Services"
+                  << "\n\t\t[7] Terminals"
+                  << "\n\t\t[8] Empty Terminals"
+                  << "\n\t\t[9] Transport\n>";
+        std::cin >> c;
         std::cout << "\n\t\t[1] Ascending"
-                  << "\n\t\t[2] Descending\n>";
-        std::cin >> i;
-        if (i == 1){
-            if (t==1) {}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
-            else if (t==7){}
-            else if (t==8){}
-            else if (t==9){}
-            else if (t==10){}
+                  << "\n\t\t[2] Descending\n>"
+                  << "\n\t\t[Q] Back";
+        std::cin >> asc;
+        if(isdigit(c)) {
+            if (asc == '1') sort(v, c);
+            else if( asc == '2') sort(v, c, false);
         }
-        else if (i==2){
-            if (t==1){}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
-            else if (t==7){}
-            else if (t==8){}
-            else if (t==9){}
-            else if (t==10){}
+        else if (c == 'Q' || c == 'q') return;
+        else{
+            std::cout << "Invalid option\n"
+                      << "\n Press enter to continue";
+            getchar();
         }
-        else return;
         return;
     }
 }
 
 void Menu::reOrderFlights(std::vector<FlightPointer> &f) {
+    FlightSorter sort;
     while (true) {
-        int t, i;
+        char c, asc;
         std::cout << "\n\tChoose ordering:"
-                  << "\n\t\t[1] Flight Id"
-                  << "\n\t\t[2] Origin Airport"
-                  << "\n\t\t[3] Origin Date"
-                  << "\n\t\t[4] Destination Airport"
-                  << "\n\t\t[5] Destination Date"
-                  << "\n\t\t[6] Plane"
-                  << "\n\t\t[7] Tickets\n>";
-        std::cin >> t;
+                  << "\n\t\t[0] Flight Id"
+                  << "\n\t\t[1] Origin Airport"
+                  << "\n\t\t[2] Origin Date"
+                  << "\n\t\t[3] Destination Airport"
+                  << "\n\t\t[4] Destination Date"
+                  << "\n\t\t[5] Plane"
+                  << "\n\t\t[6] Tickets\n>";
+        std::cin >> c;
         std::cout << "\n\t\t[1] Ascending"
-                  << "\n\t\t[2] Descending\n>";
-        std::cin >> i;
-        if (i == 1){
-            if (t==1) {}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
-            else if (t==7){}
+                  << "\n\t\t[2] Descending\n>"
+                  << "\n\t\t[Q] Back";
+        std::cin >> asc;
+        if(isdigit(c)){
+            if(asc == '1') sort(f, c);
+            else if (asc == '2') sort(f, c, false);
         }
-        else if (i==2){
-            if (t==1){}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
-            else if (t==7){}
+        else if (c == 'Q' || c == 'q') return;
+        else {
+            std::cout << "Invalid Option\n"
+                      << "\nPress enter to continue . . .";
+            getchar();
         }
-        else return;
-        return;
     }
 }
 
-void Menu::reOrderPlanes(std::vector<PlanePointer> &f) {
+void Menu::reOrderPlanes(std::vector<Plane*> &f) {
+    PlaneSorter sort;
     while (true) {
-        int t, i;
+        char c, asc;
         std::cout << "\n\tChoose ordering:"
-                  << "\n\t\t[1] Plate"
-                  << "\n\t\t[2] First Class Price"
-                  << "\n\t\t[3] Business Class Price"
-                  << "\n\t\t[4] Economic Class Price"
-                  << "\n\t\t[5] Free"
-                  << "\n\t\t[6] Seat\n>";
-        std::cin >> t;
+                  << "\n\t\t[0] Plate"
+                  << "\n\t\t[1] First Class Price"
+                  << "\n\t\t[2] Business Class Price"
+                  << "\n\t\t[3] Economic Class Price"
+                  << "\n\t\t[4] Seat Number"
+                  << "\n\t\t[5] Free Seats Number\n>"
+                  << "\n\t\t[Q] Back\n";
+        std::cin >> c;
+        if(c == 'q' || c == 'Q') return;
         std::cout << "\n\t\t[1] Ascending"
-                  << "\n\t\t[2] Descending\n>";
-        std::cin >> i;
-        if (i == 1){
-            if (t==1) {}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
+                  << "\n\t\t[2] Descending\n>"
+                  << "\n\t\t[Q] Back\n";
+        std::cin >> asc;
+
+        if(isdigit(c)){
+            if(asc == '1') sort(f, c);
+            else if(asc == '2') sort(f, c, false);
         }
-        else if (i==2){
-            if (t==1){}
-            else if (t==2){}
-            else if (t==3){}
-            else if (t==4){}
-            else if (t==5){}
-            else if (t==6){}
-        }
+
         else return;
         return;
     }
@@ -777,7 +750,7 @@ void ClientMenu::buyTicket(){
         char c;
         std::cout << "[" << user->getUser() << "]\t\t\t";
         sysTime->print(std::cout);
-        std::cout << "\n\t[1] Sett Origin Airport"
+        std::cout << "\n\t[1] Set Origin Airport"
                   << "\n\t[2] Set Destination Airport"
                   << "\n\t[3] See Flights"
                   << "\n\t[4] See Voyages";
@@ -797,44 +770,6 @@ void ClientMenu::buyTicket(){
                 purchase(); break;
             }
             default: std::cout << "Invalid Option\n";
-        }
-        std::cin.ignore();
-        std::cout << "Press enter to continue . . .";
-        getchar();
-    }
-}
-
-void ClientMenu::selectFlight(bool origin) {
-    //Will print flights and give user option to select one or reorder
-    while (true) {
-        system(CLEAR);
-        char c;
-        std::cout << "[" << user->getUser() << "]\t\t\t";
-        sysTime->print(std::cout);
-        std::cout << "\n\t[1] Search Origin Airport"
-                  << "\n\t[2] Search Destination Airport"
-                  << "\n\t[3] See Flights"
-                  << "\n\t[4] See Voyages\n"
-                  << "\n\t[0] Exit\n"
-                  << "\n>";
-        readInput(c);
-        switch (c) {
-            case '1':
-                buyTicket();
-                break;
-            case '2':
-                changeTicket();
-                break;
-            case '3':
-                checkIn();
-                break;
-            case '4':
-                ticketHistory();
-                break;
-            case '0':
-                return;
-            default:
-                std::cout << "Invalid Option\n";
         }
         std::cin.ignore();
         std::cout << "Press enter to continue . . .";

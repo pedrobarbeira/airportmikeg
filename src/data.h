@@ -394,13 +394,13 @@ class LoadAirport : public Load{
      * @param a pointer to the Airport
      * @param tData string with Terminal information
      */
-    void loadTerminal(Airport* a, const std::vector<std::string>& tData);
+    void loadTerminal(Airport* a,std::vector<std::string>& tData);
 
     /**
      * Loads the Staff related information of a given Airport
      * @param a pointer to the Airport
      */
-    static void loadStaff(Airport* a);
+    static void loadStaff(Airport* a, const std::string& sData);
 
     /**
      * Loads the Service related information of a given Airport. The

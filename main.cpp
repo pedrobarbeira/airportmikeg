@@ -7,9 +7,7 @@
 
 
 
-/**
- * General testing
- */
+/*
 void test(){
     Data *data = new Data;
     queue<string> temp; temp.push("a"); temp.push("b");
@@ -137,39 +135,72 @@ void test(){
     //clt->mainScreen(); //TESTING CLIENT MENU
 }
 
-/**
- * Airport-related testing
- */
+
 void testAirport(){
 
-}
+}*/
 
-/**
- * Voyage-related testing
- */
 void testVoyage() {
-    std::queue<std::string> first({"A", "M"});
-    Airbus* arb1=new Airbus(first);
-    Airbus* arb2 = new Airbus(first);
-    Airbus* arb3 = new Airbus(first);
+    Data* d = new Data;
+    Save mainSave(d);
+    Load mainLoad(d);
 
-    BST<PlanePointer> pbst(PlanePointer(nullptr));
+    mainLoad.load();
 
-    PlanePointer pptr1(arb1);
-    PlanePointer pptr2(arb2);
-    PlanePointer pptr3(arb3);
+    Plane* p1 = d->findPlane("ARB01");
+    Plane* p2 = d->findPlane("ARB02");
+    Plane* p3 = d->findPlane("ARB03");
 
-    pbst.insert(pptr2);
-    pbst.insert(pptr3);
-    pbst.insert(pptr1);
+    AirportPointer OPO = d->findAirport("OPO");
+    AirportPointer LIS = d->findAirport("LIS");
+    AirportPointer MAD = d->findAirport("MAD");
 
-    arb1->showSeats();
+    Airport* porto = OPO.getPointer();
+    Airport* lisboa = LIS.getPointer();
+    Airport* madrid = MAD.getPointer();
+
+    std::cout << "Finding staff\n";
+
+    Staff* s1 = porto->findStaff("1staff");
+    Staff* s2 = lisboa->findStaff("2staff");
+    Staff* s3 = madrid->findStaff("3staff");
+
+    std::cout << "Setting time\n";
+
+    Time* t1 = new Time(21,12,2021,18,30, 00);
+    Time* t2 = new Time(21,12,2021,18,00, 00);
+    Time* t3 = new Time(21,12,2021,19,30, 00);
+    Time* t4 = new Time(21,12,2021,19,00, 00);
+    Time* t5 = new Time(21,12,2021,18,30, 00);
+    Time* t6 = new Time(21,12,2021,20,00, 00);
+
+    std::cout << "Creating service tickets\n";
+
+    ServiceTicket* st1 = new Cleaning(p1, t1, t4, s1);
+    ServiceTicket* st2 = new Maintenance(p1, t1, t4, s1);
+    ServiceTicket* st3 = new Cleaning(p2, t2, t5, s2);
+    ServiceTicket* st4 = new Maintenance(p2, t2, t5, s2);
+    ServiceTicket* st5 = new Cleaning(p3, t3, t6, s3);
+    ServiceTicket* st6 = new Maintenance(p3, t3, t6, s3);
+
+    std::cout << "Adding services\n";
+
+    porto->addCompletedService(st1);
+    porto->addCompletedService(st2);
+    lisboa->addCompletedService(st3);
+    lisboa->addCompletedService(st4);
+    madrid->addCompletedService(st5);
+    madrid->addCompletedService(st6);
+
+    std::cout << "We are here 1\n";
+    mainSave.save();
+    std::cout << "We are here 2\n";
+    mainLoad.load();
+    std::cout << "We are here 3\n";
 
 }
 
-/**
- * Passenger-related testing
- */
+/*
 void testPassenger() {
    /* vector<Ticket *> tickets;
     vector<Luggage *> passLugg;
@@ -194,17 +225,16 @@ void testPassenger() {
             case 3:
                 fazerpilha(bags,passLugg);
         }
-    }*/
+    }
 }
-/**
- * Menu-related testing
- */
+
+
 void testMenu(){
     MikeG main;
     bool flag = false;
     main.start(flag);
 }
-
+*/
 /**
  * Interfacing for the test framework
  */
@@ -221,10 +251,10 @@ void testInterface(){
                   << "\n>";
         std::cin >> c;
         switch (c) {
-            case '1': testAirport(); break;
+            case '1': //testAirport(); break;
             case '2': testVoyage(); break;
-            case '3': testPassenger(); break;
-            case '4': testMenu(); break;
+            case '3': //testPassenger(); break;
+            case '4': //testMenu(); break;
             case '0': exit(0);
             default: std::cout << "Invalid Option\n";
         }

@@ -7,7 +7,7 @@
 #include <fstream>
 
 static int MINUTE   =    60;                                  //seconds in a minute
-static int  HOUR    =     60 * MINUTE;                         //seconds in an hour
+static int  HOUR    =     60 * MINUTE;                        //seconds in an hour
 static int DAY      =    24 * HOUR;                           //seconds in a day
 static int FEB      =    28 * DAY;                            //seconds in normal year february
 static int LFEB     =    29 * DAY;                            //seconds in leap year february
@@ -15,6 +15,8 @@ static int SMONTH   =    30 * DAY;                            //seconds in "shor
 static int LMONTH   =    31 * DAY;                            //seconds in "large" month
 static int NORMAL   =    7 * LMONTH + 4 * SMONTH + FEB;       //seconds in a normal year
 static int LEAP     =    7 * LMONTH + 4 * SMONTH + LFEB;      //seconds in a leap year
+static int TIME_STRING_LENGTH = 19;                           //the length of a Time string
+static int DATE_STRING_LENGTH = 10;                           //the length of a Date string
 
 class Time;
 
@@ -34,6 +36,12 @@ public:
      */
     explicit Date(uint16_t d = 0, uint16_t m = 0, uint16_t y = 0):
     day(d), month(m), year(y){};
+
+    Date(const std::string& date){
+        day = stoi(date.substr(0, 2));
+        month = stoi(date.substr(3, 2));
+        year = stoi(date.substr(6));
+    }
     /**-----Getters-----*/
     /**
      * Getter for the day attribute

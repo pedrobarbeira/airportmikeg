@@ -141,8 +141,10 @@ std::vector<Company*> Data::getCompany() const{
 AirportPointer Data::findAirport(const std::string& id) const{
     auto a = new Airport(id);
     AirportPointer find(a);
-    if(!airports.isEmpty())
-        return airports.find(find);
+    if(!airports.isEmpty()) {
+        find = airports.find(find);
+        return find;
+    }
     else return AirportPointer(nullptr);
 }
 Staff* Data::findStaff(const Airport* a, const std::string& id){
@@ -297,11 +299,11 @@ void LoadAirport::loadPlane() {
     std::getline(infile, line);
     if (line != "PLANE DATA")
         throw LoadVoyageFail();
+    Plane* p = new Plane;
+    std::string plate;
+    std::queue<std::string> fClass;
+    std::queue<std::string> bClass;
     while (std::getline(infile, line)) {
-        std::string plate;
-        std::queue<std::string> fClass;
-        std::queue<std::string> bClass;
-        std::vector<bool> seats;
         int rows = 0, columns = 0,
                 fPrice = 0, bPrice = 0, ePrice = 0,
                 length, j = 0;
@@ -339,9 +341,8 @@ void LoadAirport::loadPlane() {
                 fClass.push(line.substr(j, length));
                 j = i + 1;
             }
-            if (i == line.length()) fClass.push(line.substr(j));
         }
-        if (bPrice != 0) {
+        if (bPrice != -1) {
             std::getline(infile, line);
             for (int i = 0; i <= line.length(); i++) {
                 if (line[i] == ' ') {
@@ -352,12 +353,6 @@ void LoadAirport::loadPlane() {
                 if (i == line.length()) bClass.push(line.substr(j));
             }
         }
-        std::getline(infile, line);
-        for (int i = 0; i <= line.length(); i += 2) {
-            seats.push_back(stoi(line.substr(i, 1)));
-        }
-
-        auto p = new Plane;
         if (plate.substr(0, 3) == "ARB") {
             p = new Airbus(fClass);
         } else if (plate.substr(0, 3) == "OTR") {
@@ -373,6 +368,10 @@ void LoadAirport::loadPlane() {
         p->setEClassPrice(ePrice);
         data->addPlane(p);
         plate.clear();
+        for(int i = 0; i < fClass.size(); i++)
+            fClass.pop();
+        for(int i = 0; i < bClass.size(); i++)
+            bClass.pop();
     }
     infile.close();
 }
@@ -384,7 +383,8 @@ void LoadAirport::loadAirport() {
     std::getline(infile, line);
     if (line != "AIRPORT DATA")
         throw LoadAirportFail();
-    std::string id, name, country, city;
+    std::string id, name, country, city, terminal, plane, transport, service, completed, staff;
+    std::vector<std::string> terminalData;
     Airport *a;
     while (std::getline(infile, line)) {
         id = line.substr(0, line.length() - 1);
@@ -402,61 +402,71 @@ void LoadAirport::loadAirport() {
                     j = i - 1;
                 } else name = line.substr(0, j + 1);
             }
-            a = new Airport(id, name, country, city);
-            std::getline(infile, line);
-            std::string terminal, plane, transport, service, completed;
-            std::vector<std::string> terminalData;
-            j = 0;
-            for (int k = 0; k <= line.length(); k++) {
-                if (line[k] == ' ') {
-                    if (terminal.empty()) {
-                        length = k - j;
-                        terminalData.push_back(line.substr(j, length));
-                        j = k + 1;
-                    } else if (i == line.length())
-                        terminalData.push_back(line.substr(j));
+            if(!country.empty()) name = line.substr(0, j+1);
+        }
+        a = new Airport(id, name, country, city);
+        std::getline(infile, line);
+
+        j = 0;
+        for (int k = 0; k <= line.length(); k++) {
+            if (line[k] == ' ') {
+                if (terminal.empty()) {
+                    length = k - j;
+                    terminalData.push_back(line.substr(j, length));
+                    j = k + 1;
                 }
             }
-            try {
-                loadTerminal(a, terminalData);
-            }
-            catch (const LoadAirportFail& e) {
-                std::cout << "Error loading Terminals\n";
-                throw DevLog(e.getError());
-            }
-            getline(infile, transport);
-            getline(infile, service);
-            getline(infile, completed);
-            getline(infile, line);
-            if(line[0] != ')')
-                throw LoadAirportFail();
-            infile.close();
-            try{
-                loadStaff(a);
-            }
-            catch (const LoadAirportFail& e) {
-                std::cout << "Error loading Staff\n";
-                throw DevLog(e.getError());
-            }
-            try{
-                loadService(a, service, completed);
-            }
-            catch(const LoadAirportFail& e){
-                std::cout << "Error loading Services\n";
-                throw DevLog(e.getError());
-            }
-            try{
-                loadTransport(a, transport);
-            }
-            catch(const LoadAirportFail& e){
-                std::cout << "Error loading Transports\n";
-                throw DevLog(e.getError());
-            }
+            else if (k == line.length())
+                terminalData.push_back(line.substr(j));
         }
+        try {
+            loadTerminal(a, terminalData);
+        }
+        catch (const LoadAirportFail &e) {
+            std::cout << "Error loading Terminals\n";
+            throw DevLog(e.getError());
+        }
+        getline(infile, transport);
+        getline(infile, service);
+        getline(infile, completed);
+        getline(infile, staff);
+        getline(infile, line);
+        try {
+            loadService(a, service, completed);
+        }
+        catch (const LoadAirportFail &e) {
+            std::cout << "Error loading Services\n";
+            throw DevLog(e.getError());
+        }
+        try {
+            loadTransport(a, transport);
+        }
+        catch (const LoadAirportFail &e) {
+            std::cout << "Error loading Transports\n";
+            throw DevLog(e.getError());
+        }
+        try{
+            loadStaff(a, staff);
+        }
+        catch(const LoadAirportFail& e){
+            throw DevLog(e.getError());
+        }
+        staff.clear();
+        terminalData.clear();
+        id.clear();
+        name.clear();
+        city.clear();
+        country.clear();
+        terminal.clear();
+        plane.clear();
+        service.clear();
+        transport.clear();
+        completed.clear();
+        data->addAirport(a);
     }
     infile.close();
 }
-void LoadAirport::loadTerminal(Airport* a, const std::vector<std::string>& tData){
+void LoadAirport::loadTerminal(Airport* a, std::vector<std::string>& tData){
     std::vector<Terminal*> v = a->getTerminals();
     int i = 0, j = 1;
     for(auto it : v){
@@ -467,52 +477,168 @@ void LoadAirport::loadTerminal(Airport* a, const std::vector<std::string>& tData
             }
             else it->setPlane(nullptr);
         }
-        i+=2;
-        j+=2;
         if(j > tData.size() -1)
             throw LoadAirportFail();
+        i+=2;
+        j+=2;
     }
+    tData.clear();
 }
-void LoadAirport::loadStaff(Airport* a){
-    ifstream infile("./data/service.txt");
-    std::string line;
-    std::getline(infile, line);
-    if(line != "SERVICE DATA")
-        throw LoadAirportFail();
-    do{
-        std::getline(infile, line);
-    }while(line.substr(line.length() - 1) != a->getidCode());
+void LoadAirport::loadStaff(Airport* a, const std::string& line){
     std::string id, name, phone;
-    while(line[0] != ')'){
-        std::getline(infile, line);
-        int length, j = 0;
-        for(auto i = 0; i < line.length(); i++) {
-            if (line[i] == ' ') {
-                if (id.empty()) {
-                    id = line.substr(j, i);
-                    line = line.substr(i + 1);
-                    break;
+    int length, j = 0;
+    Staff* s;
+    for(int i = 0; i <= line.length(); i++){
+        if(line[i] == ' '){
+            if(id.empty()){
+                id = line.substr(j, i);
+                j = i+1;
+            }
+            else{
+                length = i - j;
+                if(name.empty()){
+                    name = line.substr(j, length);
+                    j = i +1;
+                }
+                else if(phone.empty()){
+                    phone = line.substr(j, length);
+                    j = i + 1;
                 }
             }
         }
-        for(auto i = line.length(); i >= 0; i--) {
-            if (line[i] == ' ') {
-                phone = line.substr(i + 1);
-                j = i;
-                break;
+        else if (i == line.length()){
+            phone = line.substr(j);
+        }
+        if(!id.empty() && ! name.empty() && ! phone.empty()){
+            s = a->findStaff(id);
+            s->setName(name);
+            s->setPhone(stoi(phone));
+            a->addStaff(s);
+            id.clear();
+            name.clear();
+            phone.clear();
+            s = nullptr;
+        }
+    }
+}
+void LoadAirport::loadService(Airport* a, const std::string& l, const std::string& l2) {
+    Plane *p;
+    Time *t1;
+    Staff *s = nullptr;
+    ServiceTicket *load;
+    std::string plate, time, id;
+    char type = '\0';
+    int length;
+    int j = 0;
+    if(!l.empty()) {
+        for (int i = 0; i <= l.length(); i++) {
+            if (l[i] == ' ') {
+                length = i - j;
+                if (plate.empty()) {
+                    plate = l.substr(j, length);
+                    p = data->findPlane(plate);
+                    j = i + 1;
+                } else {
+                    if (time.empty()) {
+                        time = l.substr(j, TIME_STRING_LENGTH + 1);
+                        t1 = new Time(time);
+                        j += TIME_STRING_LENGTH + 1;
+                        i = j - 1;
+                    } else if (id.empty()) {
+                        id = l.substr(j, length);
+                        if (!a->getStaff().empty()) {
+                            s = a->findStaff(id);
+                            if (s == nullptr) {
+                                s = new Staff(id);
+                                s->setId(id);
+                                s->setName("");
+                                a->addStaff(s);
+                            }
+                        } else {
+                            s = new Staff(id);
+                            s->setId(id);
+                            s->setName("");
+                            a->addStaff(s);
+                        }
+                        j = i + 1;
+                    } else if (type == '\0') {
+                        type = l[i - 1];
+                        j = i + 1;
+                    }
+                }
+            }
+            if (type != '\0') {
+                switch (type) {
+                    case 'c' :
+                        load = new Cleaning(p, t1, s);
+                        break;
+                    case 'm' :
+                        load = new Maintenance(p, t1, s);
+                        break;
+                    default :
+                        throw LoadAirportFail();
+                }
+                a->addService(load);
+                plate.clear();
+                time.clear();
+                id.clear();
+                type = '\0';
+                s = nullptr;
             }
         }
-        name = line.substr(0, j);
-        auto s = new Staff(id);
-        s->setName(name);
-        s->setPhone(stoi(phone));
-        a->addStaff(s);
-        std::getline(infile, line);
     }
-    infile.close();
-}
-void LoadAirport::loadService(Airport* a, const std::string& l, const std::string& l2){
-
+    if(!l2.empty()) {
+        Time *t2 = new Time;
+        for (int i = 0; i <= l2.length(); i++) {
+            if (l2[i] == ' ') {
+                if (plate.empty()) {
+                    plate = l2.substr(0, i);
+                    p = data->findPlane(plate);
+                    j = i + 1;
+                } else {
+                    length = i - j;
+                    if (time.empty()) {
+                        time = l2.substr(j, TIME_STRING_LENGTH);
+                        if (t2 == nullptr) {
+                            t2 = new Time(time);
+                        } else {
+                            t1 = new Time(time);
+                            t2 = nullptr;
+                            time.clear();
+                        }
+                        j += TIME_STRING_LENGTH + 1;
+                        i = j - 1;
+                    } else if (id.empty()) {
+                        id = l.substr(j, length);
+                        s = a->findStaff(id);
+                        j = i + 1;
+                    } else if (type == '\0') {
+                        type = l[i - 1];
+                        j = i + 1;
+                    }
+                }
+            } else if (i == l.length())
+                type = l[i];
+            if (type != '\0') {
+                switch (type) {
+                    case 'c' :
+                        load = new Cleaning(p, t1, t2, s);
+                        break;
+                    case 'm' :
+                        load = new Maintenance(p, t1, t2, s);
+                        break;
+                    default :
+                        throw LoadAirportFail();
+                }
+                a->addCompletedService(load);
+                plate.clear();
+                time.clear();
+                id.clear();
+                type = '\0';
+                s = nullptr;
+            }
+        }
+    }
 }
 void LoadAirport::loadTransport(Airport* a, std::string& l){
     Transport* t;
@@ -530,7 +656,7 @@ void LoadAirport::loadTransport(Airport* a, std::string& l){
                     j = i + 1;
                 }
                 else{
-                    i += 19;
+                    i += TIME_STRING_LENGTH;
                     dLoad = l.substr(j, i);
                     l = l.substr(i + 1);
                     break;
@@ -740,8 +866,9 @@ void LoadUser::loadClient(){
     std::getline(infile, line);
     if(line != "CLIENT DATA")
         throw LoadUserFail();
-    std::string name, pass, miles, psngr, ticket;
+    std::string name, pass, date, miles, psngr, ticket;
     std::vector<Ticket*> load;
+    Date* reg;
     char type = '\0';
     while(std::getline(infile, line)){
         int length, j = 0;
@@ -760,6 +887,11 @@ void LoadUser::loadClient(){
                         type = line[i-1];
                         j = i+1;
                     }
+                    else if(date.empty()){
+                        date = line.substr(j, length);
+                        reg = new Date(date);
+                        j = i+1;
+                    }
                     else if (miles.empty()) {
                         miles = line.substr(j, length);
                         j = i + 1;
@@ -771,26 +903,27 @@ void LoadUser::loadClient(){
         j = 0;
         std::getline(infile, line);
         Ticket* t = nullptr;
-        for(int i = 0; i <= line.length(); i++){
-            if(line[i] == ' '){
-                length = i - j;
-                ticket = line.substr(j, i);
-                j = i+1;
-                if(!data->getTicketBST().isEmpty())
-                    t = data->findTicket(ticket);
-                if(t != nullptr) {
-                    load.push_back(t);
-                    ticket.clear();
+        if(line[0] != 0) {
+            for (int i = 0; i <= line.length(); i++) {
+                if (line[i] == ' ') {
+                    length = i - j;
+                    ticket = line.substr(j, i);
+                    j = i + 1;
+                    if (!data->getTicketBST().isEmpty())
+                        t = data->findTicket(ticket);
+                    if (t != nullptr) {
+                        load.push_back(t);
+                        ticket.clear();
+                    }
+                } else if (i == line.length()) {
+                    ticket = line.substr(j);
+                    if (!data->getTicketBST().isEmpty())
+                        t = data->findTicket(ticket);
+                    if (t != nullptr) load.push_back(t);
                 }
             }
-            else if (i == line.length()){
-                ticket = line.substr(j);
-                if(!data->getTicketBST().isEmpty())
-                    t = data->findTicket(ticket);
-                if(t != nullptr) load.push_back(t);
-            }
         }
-        auto c = new Client(name, pass, type, stoi(miles), psngr);
+        auto c = new Client(name, pass, type, reg, stoi(miles), psngr);
         c->setTickets(load);
         load.clear();
         data->addClient(c);
@@ -917,7 +1050,7 @@ void SaveAirport::save() const {
         std::ofstream outfile("./data/airports.txt");
         if (!outfile.is_open())
             throw SaveAirportFail("save()");
-        outfile << "AIRPORT DATA\n";
+        outfile << "AIRPORT DATA";
         outfile.close();
         outfile.open("./data/service.txt");
         if (!outfile.is_open())
@@ -945,11 +1078,10 @@ void SaveAirport::saveAirport(const AirportPointer& aptr) {
     if (!outfile.is_open())
         throw SaveAirportFail("saveAirport()");
     Airport *a = aptr.getPointer();
-    outfile << a->getidCode() << "(\n"
+    outfile << '\n' << a->getidCode() << "(\n"
             << a->getName() << " "
             << a->getCountry() << " "
             << a->getCity() << "\n";
-    outfile << '\n';
     outfile.close();
     try {
         saveTerminal(a);
@@ -984,7 +1116,7 @@ void SaveAirport::saveTerminal(const Airport* a){
             throw SaveAirportFail("saveTerminal()");
         for (auto it : terminals) {
             outfile << it->getId() << " ";
-            if (it->getPlane() == nullptr) outfile << "nullptr";
+            if (it->getPlane() == nullptr) outfile << "nullptr" << " ";
             else outfile << it->getPlane()->getPlate() << " ";
         }
         outfile << '\n';
@@ -993,59 +1125,62 @@ void SaveAirport::saveTerminal(const Airport* a){
 }
 void SaveAirport::saveTransport(const Airport* a){
     std::vector<Transport*> transports = a->getTransport();
+    std::ofstream outfile("./data/airports.txt", ios::app);
+    if (!outfile.is_open())
+        throw SaveAirportFail("saveTransport()");
     if(!transports.empty()) {
-        std::ofstream outfile("./data/transports.txt", ios::app);
-        if (!outfile.is_open())
-            throw SaveAirportFail("saveTransport()");
         for (auto it : transports) {
             outfile << it->getType() << " "
                     << it->getDistance() << " "
                     << it->getTime() << " ";
         }
-        outfile << '\n';
-        outfile.close();
     }
+    outfile << '\n';
+    outfile.close();
 }
 void SaveAirport::saveService(Airport* a){
     std::vector<ServiceTicket*> services = a->getServices();
+    std::ofstream outfile("./data/airports.txt", ios::app);
+    if (!outfile.is_open())
+        throw SaveAirportFail("saveService()");
     if(!services.empty()) {
-        std::ofstream outfile(".data/airports.txt", ios::app);
-        if (!outfile.is_open())
-            throw SaveAirportFail("saveService()");
         for (auto it : services) {
-            outfile << it->getPlane()->getPlate() << " "
-                    << it->getCreated() << " "
-                    << it->getResponsible()->getId()
-                    << " " << it->getType();
+            outfile << it->getPlane()->getPlate() << " ";
+            it->getCreated()->print(outfile);
+            outfile << " "
+                    << it->getResponsible()->getId() << " "
+                    << it->getType() << " ";
         }
-        outfile << '\n';
         std::vector<ServiceTicket*> completed = a->getCompleteServices();
+        outfile << '\n';
         if(!completed.empty()) {
             for (auto it : completed) {
-                outfile << it->getPlane()->getPlate() << " "
-                        << it->getCreated() << " "
-                        << it->getCompleted() << " "
+                outfile << it->getPlane()->getPlate() << " ";
+                it->getCreated()->print(outfile);
+                outfile << " ";
+                it->getCompleted()->print(outfile);
+                outfile << " "
                         << it->getResponsible()->getId() << " "
-                        << it->getType();
+                        << it->getType() << " ";
             }
-            outfile << "\n)\n";
-            outfile.close();
         }
     }
+    else outfile << '\n';
+    outfile << "\n";
+    outfile.close();
 }
 void SaveAirport::saveStaff(const Airport* a){
     std::vector<Staff*> staff = a->getStaff();
     if(!staff.empty()) {
-        std::ofstream outfile("./data/service.txt", ios::app);
+        std::ofstream outfile("./data/airports.txt", ios::app);
         if (!outfile.is_open())
             throw SaveAirportFail("saveStaff()");
-        outfile << a->getidCode() << "(\n";
         for (auto it : staff) {
             outfile << it->getId() << " "
                     << it->getName() << " "
-                    << it->getPhone() << '\n';
+                    << it->getPhone() << ' ';
         }
-        outfile << ")\n";
+        outfile << "\n)";
         outfile.close();
     }
 }
@@ -1169,16 +1304,16 @@ void SaveUser::saveClient() const {
         outfile.close();
         iteratorBST<ClientPointer> it = bst.begin();
         while (it != bst.end()) {
-            outfile.open("./data/client.txt");
+            outfile.open("./data/client.txt", ios::app);
             if (!outfile.is_open())
                 throw SaveUserFail("saveClient()");
             if((*it).getPointer() != nullptr) {
                 Client *c = (*it).getPointer();
                 outfile << c->getUser() << " "
                         << c->getPassword() << " "
-                        << c->getType() << " "
-                        << c->getDate() << " "
-                        << c->getMiles() << " ";
+                        << c->getType() << " ";
+                c->getDate()->print(outfile);
+                outfile << " " << c->getMiles() << " ";
                 if(c->getPassenger().empty())
                     outfile << c->getPassenger();
                 else outfile << "null";
@@ -1191,13 +1326,14 @@ void SaveUser::saveClient() const {
                     throw DevLog(e.getError());
                 }
             }
+            it++;
         }
         outfile.close();
     }
 }
 void SaveUser::saveTickets(Client* c) {
     std::vector<Ticket*> tickets = c->getTickets();
-    std::ofstream outfile("./data/clients.txt", ios::app);
+    std::ofstream outfile("./data/client.txt", ios::app);
     if (!outfile.is_open())
         throw SaveUserFail("saveTickets()");
     if(!tickets.empty()) {
@@ -1259,7 +1395,7 @@ void SaveVoyage::saveVoyage() const {
 }
 void SaveVoyage::saveFlight() const{
     BST<FlightPointer> bst = data->getFlightBST();
-    ofstream outfile("./data/flight.txt");
+    ofstream outfile("./data/flights.txt");
     if(!outfile.is_open())
         throw SaveVoyageFail("saveFlight()");
     outfile << "FLIGHT DATA\n";
@@ -1349,7 +1485,7 @@ void SaveVoyage::savePlane() const{
                 bool flag = false;
                 for(int i = 0; i < rows; i++){
                     if(s[i][0]->getClass()->getType() == 'F') {
-                        outfile << getRowLetter(i);
+                        outfile << getRowLetter(i) << " ";
                     }
                     if(!flag && s[i][0]->getClass()->getType() == 'B') flag = true;
                 }
@@ -1357,7 +1493,7 @@ void SaveVoyage::savePlane() const{
                 if(flag) {
                     for (int i = 0; i < rows; i++) {
                         if (s[i][0]->getClass()->getType() == 'B')
-                             outfile << getRowLetter(i);
+                             outfile << getRowLetter(i) << " ";
                     }
                     std::cout << '\n';
                 }

@@ -271,12 +271,12 @@ public:
     explicit Airport(std::string id = "", std::string n = "", std::string ctry = "", std::string cty = "") :
         transport(TransportPointer(nullptr)), idName(std::move(id)),
         name(std::move(n)), country(std::move(ctry)), city(std::move(cty)){
-        /*for(int j = 1; j <= 10; j++) {
-            string i = to_string(j);
-            if (j<10) i.insert(0, 1, '0');
-            string terminalId = i;
-            activateTerminal(terminalId);
-        }*/
+        terminals.clear();
+        for(int i = 1; i <= 10; i++) {
+            stringstream id;
+            id << idName << setw(2) << setfill('0') << i;
+            activateTerminal(id.str());
+        }
     }
     /**
      * Method to set a name for the airport
@@ -377,6 +377,15 @@ public:
      * @param service
      */
     void addService (ServiceTicket *service);
+
+    /**
+     * Adds a completed service to the completed Service Ticket list. Used
+     * in the Data Load module
+     * @param service
+     */
+    void addCompletedService(ServiceTicket* service){
+        complete.push_back(service);
+    }
     /**
      * method used to set a service as completed
      * at a given date
@@ -429,7 +438,7 @@ public:
      * @param plane to land
      * @param id of the terminal to check availability
      */
-    void setTerminal(Plane *plane, string id);
+    void setTerminal(Plane *p, string id);
     /**
      * method to send the information of
      * the airport to the screen
@@ -454,7 +463,7 @@ public:
      * @return
      */
     bool operator==(const Airport& rhs) const{
-        return idName == rhs.idName;
+        return this->idName == rhs.idName;
     }
     /**
      * != overload
@@ -476,6 +485,15 @@ public:
     BST<TransportPointer> getTransportBST() const{
         return transport;
     }
+
+    /**
+     * Does a Sequential Search in the Staff list in order to find the
+     * target Staff member. Compares only Id's, which are unique
+     * @param id the id of the staff member to be found
+     * @return the result of the search
+     */
+    Staff* findStaff(const std::string& id);
+
 
 };
 

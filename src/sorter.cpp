@@ -78,7 +78,7 @@ bool PlaneSorter::seatDescending(const Plane* p1, const Plane* p2) {
         return comp2 < comp1;
     else return *p2 < *p1;
 }
-void PlaneSorter::operator()(std::vector<Plane*>& data, char o = '\0', bool asc = true) {
+void PlaneSorter::operator()(std::vector<Plane*>& data, char o = '\0', bool asc) {
     switch(o) {
         case '0' :
             if(asc) sort(data.begin(), data.end(), plateAscending);

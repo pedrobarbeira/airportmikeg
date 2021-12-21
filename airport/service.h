@@ -34,6 +34,15 @@ public:
      */
     explicit Staff(string name = ""){
         this->name = name; id = to_string(staffId++) + "staff";};
+
+    /**
+     * Constructor for the staff object. Receives an Id, a Name and a Phone. Used
+     * in the Data Load module
+     * @param i the id
+     * @param n the name
+     * @param p the phone
+     */
+    Staff(std::string i, std::string n, uint16_t p) : id(i), name(n), phone(p){};
     /**
      * getter for the unique id
      * @return
@@ -43,6 +52,14 @@ public:
      * setter for the next id available
      */
     void setId();
+
+    /**
+     * Setter for the Id attribute. Used in load module
+     * @param i the new Id
+     */
+    void setId(const std::string& i){
+        id = i;
+    }
     /**
      * setter for a new name
      * @param name
@@ -88,6 +105,7 @@ public:
 
 
 class ServiceTicket{
+protected:
     /**
      * plane object to which the repair is being made
      */
@@ -114,6 +132,17 @@ class ServiceTicket{
      */
     char id;
 public:
+    /**
+     * Default constructor for ServiceTicket interface. Initializes all
+     * attributes as nullptr
+     */
+    ServiceTicket(){
+        plane = nullptr;
+        responsible = nullptr;
+        created = nullptr;
+        completed = nullptr;
+        id = '\0';
+    }
     /**
      * constructor for a serviceTicket interface
      * for a plane with the date
@@ -325,6 +354,28 @@ public:
      * @param staff
      */
     Cleaning(Plane *plane, Time *date, Staff *staff);
+
+    /**
+     * Constructor for completed cleaning Service Tickets. Receives a second
+     * Time parameter, which is the time of completion. Sets all boolean
+     * attributes of the class to true, since service is completed. Used in
+     * the Data Load module
+     * @param p
+     * @param t1
+     * @param t2
+     * @param s
+     */
+    Cleaning(Plane* p, Time* t1, Time* t2, Staff* s){
+        plane = p;
+        created = t1;
+        completed = t2;
+        responsible = s;
+        id = 'c';
+        wc = true;
+        seats = true;
+        floor = true;
+        flightDeck = true;
+    }
     /**
      * getter override for the type
      * of service
@@ -445,6 +496,28 @@ public:
      * @param plane
      */
     Maintenance (Plane *plane, Time *date, Staff *staff);
+
+    /**
+     * Constructor for completed Maintenance ServiceTickets. Receives a
+     * second Time parameter, which is the time of completion. Sets all
+     * boolean attributes of the class to true, since the service is
+     * completed. Used in the Data Load module.
+     * @param p
+     * @param t1
+     * @param t2
+     * @param s
+     */
+    Maintenance(Plane* p, Time* t1, Time* t2, Staff* s){
+        plane = p;
+        created = t1;
+        completed = t2;
+        responsible = s;
+        id = 'm';
+        engine = true;
+        landGear = true;
+        controls = true;
+        emergency = true;
+    }
     /**
      * getter override to get this service
      * type ('m')

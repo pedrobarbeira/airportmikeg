@@ -99,7 +99,8 @@ Menu* MikeG::logIn() {
     Company* searchCompany = data->findCompany(user);
     char c;
     if (searchCompany == nullptr) {
-        Client* searchClient = data->findClient(user);
+        Client* searchClient;
+        searchClient = data->findClient(user);
         if (searchClient != nullptr) {
             if ((*searchClient).getPassword() == pass)
                 return new ClientMenu(searchClient, data);

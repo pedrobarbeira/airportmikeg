@@ -19,7 +19,9 @@ public:
     explicit DevLog(std::string e) : error(std::move(e)){
         Time* t;
         t->now();
-        date = t;
+        Date* d;
+        *d = t->getDate();
+        date = d;
     };
     void print() const;
     std::string getError() const{

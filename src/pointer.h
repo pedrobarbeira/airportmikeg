@@ -4,6 +4,7 @@
 
 #include "ticket.h"
 #include "user.h"
+#include "bst.h"
 
 /**
  * Encapsulation class for pointers to Ticket objects.
@@ -242,10 +243,13 @@ public:
     }
 
     bool operator==(const std::string& id) const{
-        return (*pointer) == (*pointer);
+        return pointer->getidCode() == id;
     }
     bool operator==(const AirportPointer& rhs) const{
-        return (*pointer) == (*rhs.getPointer());
+        return (*pointer).getidCode() == (*rhs.getPointer()).getidCode();
+    }
+    bool operator<(const AirportPointer& rhs) const{
+        return pointer->getidCode() < rhs.pointer->getidCode();
     }
 };
 

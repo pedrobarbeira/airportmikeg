@@ -1,1 +1,25 @@
 AIRPORT DATA
+LIS(
+Portela Portugal Lisbon
+LIS01 nullptr LIS02 ARB02 LIS03 nullptr LIS04 nullptr LIS05 nullptr LIS06 nullptr LIS07 nullptr LIS08 nullptr LIS09 nullptr LIS10 nullptr 
+
+ARB02 18:00:00 21/12/2021 2staff c 
+
+2staff Pedro 0
+)
+MAD(
+Barajas Spain Madrid
+MAD01 nullptr MAD02 nullptr MAD03 ARB03 MAD04 nullptr MAD05 nullptr MAD06 nullptr MAD07 nullptr MAD08 nullptr MAD09 nullptr MAD10 nullptr
+
+ARB03 19:30:00 21/12/2021 3staff c
+
+3staff Miguel 0
+)
+OPO(
+Francisco Sa Carneiro Portugal Porto
+OPO01 ARB01 OPO02 nullptr OPO03 nullptr OPO04 nullptr OPO05 nullptr OPO06 nullptr OPO07 nullptr OPO08 nullptr OPO09 nullptr OPO10 nullptr
+
+ARB01 18:30:00 21/12/2021 1staff c
+
+1staff Joao 0
+)

@@ -137,7 +137,7 @@ public:
      * @param o the character which determines the sorting parameter
      * @param asc true for ascending, false for descending
      */
-    void operator()(std::vector<Plane*>& data, char o, bool asc);
+    void operator()(std::vector<Plane*>& data, char o, bool asc = true);
 };
 
 /**---Flight Sorter---*/
@@ -267,7 +267,7 @@ public:
      * @param o the char that determines the sorting parameter
      * @param asc determines if sorting is ascending or descending
      */
-    void operator()(std::vector<FlightPointer>& data, char o, bool asc);
+    void operator()(std::vector<FlightPointer>& data, char o, bool asc = true);
 };
 
 /**---Voyage Sorter---*/
@@ -559,7 +559,7 @@ public:
       * @param c the char that'll determines the sorting parameter
       * @param as determines if sorting is ascending or descending
       */
-    void operator()(std::vector<AirportPointer>& data, char c, bool as);
+    void operator()(std::vector<AirportPointer>& data, char c, bool as = true);
 };
 
 /**---User Sorter---*/
