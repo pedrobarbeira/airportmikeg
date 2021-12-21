@@ -509,11 +509,123 @@ void Menu::createPlane(Other *plane) {
 }
 
 void Menu::reOrderAirports(std::vector<AirportPointer> &v) {
-    return;
+    while (true) {
+        int t, i;
+        std::cout << "\n\tChoose ordering:"
+                  << "\n\t\t[1] Flight numbers"
+                  << "\n\t\t[2] Flight Id"
+                  << "\n\t\t[3] Name"
+                  << "\n\t\t[4] City"
+                  << "\n\t\t[5] Country"
+                  << "\n\t\t[6] ServiceTickets"
+                  << "\n\t\t[7] Completed Services"
+                  << "\n\t\t[8] Terminals"
+                  << "\n\t\t[9] Empty Terminals"
+                  << "\n\t\t[10] Transport\n>";
+        std::cin >> t;
+        std::cout << "\n\t\t[1] Ascending"
+                  << "\n\t\t[2] Descending\n>";
+        std::cin >> i;
+        if (i == 1){
+            if (t==1) {}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+            else if (t==7){}
+            else if (t==8){}
+            else if (t==9){}
+            else if (t==10){}
+        }
+        else if (i==2){
+            if (t==1){}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+            else if (t==7){}
+            else if (t==8){}
+            else if (t==9){}
+            else if (t==10){}
+        }
+        else return;
+        return;
+    }
 }
 
 void Menu::reOrderFlights(std::vector<FlightPointer> &f) {
-    return;
+    while (true) {
+        int t, i;
+        std::cout << "\n\tChoose ordering:"
+                  << "\n\t\t[1] Flight Id"
+                  << "\n\t\t[2] Origin Airport"
+                  << "\n\t\t[3] Origin Date"
+                  << "\n\t\t[4] Destination Airport"
+                  << "\n\t\t[5] Destination Date"
+                  << "\n\t\t[6] Plane"
+                  << "\n\t\t[7] Tickets\n>";
+        std::cin >> t;
+        std::cout << "\n\t\t[1] Ascending"
+                  << "\n\t\t[2] Descending\n>";
+        std::cin >> i;
+        if (i == 1){
+            if (t==1) {}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+            else if (t==7){}
+        }
+        else if (i==2){
+            if (t==1){}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+            else if (t==7){}
+        }
+        else return;
+        return;
+    }
+}
+
+void Menu::reOrderPlanes(std::vector<PlanePointer> &f) {
+    while (true) {
+        int t, i;
+        std::cout << "\n\tChoose ordering:"
+                  << "\n\t\t[1] Plate"
+                  << "\n\t\t[2] First Class Price"
+                  << "\n\t\t[3] Business Class Price"
+                  << "\n\t\t[4] Economic Class Price"
+                  << "\n\t\t[5] Free"
+                  << "\n\t\t[6] Seat\n>";
+        std::cin >> t;
+        std::cout << "\n\t\t[1] Ascending"
+                  << "\n\t\t[2] Descending\n>";
+        std::cin >> i;
+        if (i == 1){
+            if (t==1) {}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+        }
+        else if (i==2){
+            if (t==1){}
+            else if (t==2){}
+            else if (t==3){}
+            else if (t==4){}
+            else if (t==5){}
+            else if (t==6){}
+        }
+        else return;
+        return;
+    }
 }
 
 void Menu::showAllFlights() const{

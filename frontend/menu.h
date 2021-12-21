@@ -53,6 +53,11 @@ public:
      */
     void print(std::vector<FlightPointer> v) const;
 
+    /**
+     * Helper funciotn to print the information
+     * of a group of flights
+     * @param t
+     */
     void print(std::vector<Flight*> t) const;
 
     /**
@@ -122,19 +127,23 @@ public:
     StaffPointer selectStaff(std::vector<StaffPointer> v);
 
     /**
-     *
+     *Helper function to create a new airplane
+     * of type Airbus
      * @param plane
      */
     void createPlane(Airbus *plane);
 
     /**
-     *
+     *Helper function to create a plane with
+     * custom features (cabin size, distribution
+     * of calsses)
      * @param plane
      */
     void createPlane(Other *plane);
 
     /**
-     *
+     *Helper function to retrieve a pointer
+     * of a flight
      * @return
      */
     FlightPointer selectFlight();
@@ -146,6 +155,13 @@ public:
     void reOrderFlights(std::vector<FlightPointer>& f);
 
     /**
+     *
+     *
+     * @param f
+     */
+    void reOrderPlanes(std::vector<PlanePointer> &f);
+
+    /**
      * function to retrieve a transport object information
      * @param airport
      * @return a transport pointer to the transport object
@@ -153,10 +169,16 @@ public:
     TransportPointer selectTransportPointer(Airport *airport);
 
     /**
-     *
+     *Helper function to print to screen the information
+     * of a group of planes
      */
     void print(std::vector<PlanePointer> p);
 
+    /**
+     * Helper function to printo to screen the information
+     * of a specific group of tickets
+     * @param t
+     */
     void print(std::vector<TicketPointer> t) const;
 
 };
@@ -264,6 +286,7 @@ public:
      */
     AirportPointer selectAirport();
 
+
     void seeFlights();
 
     void seeVoyages();
@@ -313,7 +336,8 @@ public:
     void checkAirport();
 
     /**
-     *
+     * Function to access the menu of checking
+     * the information of a flight
      */
     void checkFlights();
 
@@ -400,6 +424,11 @@ public:
      */
     PlanePointer selectPlane(Airport *airport);
 
+    /**
+     * Helper function that retrives the pointer of
+     * a specific plane
+     * @return
+     */
     PlanePointer selectPlane();
 
 
@@ -438,6 +467,13 @@ public:
      */
     void checkService();
 
+    /**
+     * Helper function to help refine the search
+     * of transports nearby an airport
+     * by type and schedule
+     * @param bst
+     * @return
+     */
     static std::vector<TransportPointer> refineTransport(const BST<TransportPointer>& bst) ;
 };
 
@@ -506,8 +542,19 @@ public:
      */
     void mapPlane();
 
+    /**
+     * Menu to create a new flight
+     */
     void newTravel();
+
+    /**
+     * Menu to delete a flight
+     */
     void deleteTravel();
+
+    /**
+     * Menu to edit an existing flight
+     */
     void editTravel();
 
 };
@@ -541,15 +588,64 @@ public:
         sysTime->now();
     }
     void mainScreen() override;
+
+    /**
+     * Menu optin to check all flights of the
+     *airport location of the boarding staff
+     */
     void allFlight();
+
+    /**
+     * Menu Option to check all the arriving
+     * flights ahead of the current time and
+     * date
+     */
     void inFlight();
+
+    /**
+     * Menu Option to check all the departing
+     * flights ahead of the current time and
+     * date
+     */
     void outFlight();
+
+    /**
+     * Function tha narrows the visualization of
+     * only the day's flights
+     */
     void todayFlight();
+
+    /**
+     * Menu to check information of a selected flight
+     * @param flight
+     */
     void checkMenu(FlightPointer flight);
+
+    /**
+     *
+     * @param flight
+     */
     void checkTicket(const FlightPointer& flight);
+
+    /**
+     *
+     * @param flight
+     */
     void checkLuggage(FlightPointer flight);
 
+    /**
+     * Helper function to select a flightpointer
+     * froma a group of flights
+     * @param allflight
+     * @return
+     */
     FlightPointer selectFlight(std::vector<FlightPointer> allflight);
+
+    /**
+     * 
+     * @param t
+     * @return
+     */
     TicketPointer selectTicket(std::vector<TicketPointer> t);
 };
 

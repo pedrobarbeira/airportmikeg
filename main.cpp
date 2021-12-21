@@ -130,7 +130,7 @@ void test(){
     //mngM->mainScreen(); //TESTING MADRID MANAGER MENU
     //brdP->mainScreen(); //TESTING PORTO BOARDING MENU
     //brdL->mainScreen(); //TESTING LISBOA BOARDING MENU
-    brdM->mainScreen(); //TESTING MADRID BOARDING MENU
+    //brdM->mainScreen(); //TESTING MADRID BOARDING MENU
     //srvP->mainScreen(); //TESTING PORTO SERVICE MENU
     //srvL->mainScreen(); //TESTING LISBOA SERVICE MENU
     //srvM->mainScreen(); //TESTING MADRID SERVICE MENU
@@ -235,7 +235,7 @@ void testInterface(){
 }
 
 int main(){
-    test();
+    //test();
 
     testInterface();
 
