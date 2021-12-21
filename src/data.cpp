@@ -14,7 +14,7 @@ bool Data::addFlight(Flight* f){
     }
     else{
         AirportPointer& addIn = find;
-        airports.remove(find);
+        airports.remove(find); //nao percebo porque e necessario remover airport da data
         flag &= addIn.addFlight(f) && airports.insert(addIn);
     }
     if(flag) {

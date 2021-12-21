@@ -22,17 +22,19 @@ void Menu::print(std::vector<AirportPointer> v) const{
 void Menu::print(std::vector<FlightPointer> f) const{
     system(CLEAR);
     std::cout << "\n\t::::::::::::::::::\n\t:::  FLIGHTS  :::\n\t::::::::::::::::::\n";
-    std::cout << "\t     IdCode  Origin    Time        Destiny     Time    Plane\n"
-              << "\t     ------- -------   --------    --------    ------   -------";
+    std::cout << "\t     IdCode  Origin    Data - Time        Destiny      Date - Time     Plane\n"
+              << "\t     ------- -------   -------------      --------     ------------    -------";
     for(int i = 0; i < f.size(); i++){
         std::cout << "\n\t[" << std::setw(2) << std::setfill(' ') << i+1 << "] "
                   << f[i].getPointer()->getOrigin()->airport->getidCode() << "-"
                   << f[i].getPointer()->getDestination()->airport->getidCode()
                   << " " << f[i].getPointer()->getOrigin()->airport->getCity()
                   << "    ";
+                 f[i].getPointer()->getOrigin()->time->printDate(); std::cout << "-";
                   f[i].getPointer()->getOrigin()->time->printTime();
         std::cout << "   " << f[i].getPointer()->getDestination()->airport->getCity()
                   << "    ";
+                  f[i].getPointer()->getDestination()->time->printDate(); std::cout << "-";
                   f[i].getPointer()->getDestination()->time->printTime();
         std::cout << "   " << f[i].getPointer()->getPlane()->getPlate();
     }
@@ -314,7 +316,7 @@ AirportPointer Menu::selectAirport(){
 }
 
 FlightPointer Menu::selectFlight(){
-    std::vector<FlightPointer> flights = selectAirport().getFlightPointers();
+    std::vector<FlightPointer> flights = data->getFlights();
     while(true) {
         system(CLEAR);
         if (flights.empty()) {
@@ -327,7 +329,7 @@ FlightPointer Menu::selectFlight(){
         //TODO sysTime->print();
         std::cout << "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\t[1] Select Flight"
                   << "\n\t[2] Order By\n"
-                  << "\n\t[0] Exit\n"
+                  << "\n\t[0] Back\n"
                   << "\n>";
         readInput(c);
         switch (c) {
@@ -1460,6 +1462,7 @@ void CompanyMenu::delWorker(){
         std::cout << ">"; std::cin >> a;
         switch (a){
             case 'y' : {
+                //TODO
                 //data->delCompany(data->findCompany(sptr.getPointer()->getId())); //find function in CompanyBST not working...
                 airport->delStaff(sptr.getPointer());
                 std::cout << "\n\n\tDeletion complete.";
@@ -1629,11 +1632,16 @@ void AdminMenu::newTravel(){
         Time *timeOri = new Time(h, m, 0);
         std::cout << "\n\n\tDetermine flight lenth in minutes:\n>";
         std::cin >> l;
+        int f{}, b{}, e{};
+        std::cout << "\n\tNew First Class price(>=0)>"; std::cin >> f;
+        std::cout << "\n\tNew Business Class price(>=0)>"; std::cin >> b;
+        std::cout << "\n\tNew Economic Class price(>=0)>"; std::cin >> e;
         h = l / 60;m = l & 60;
         Time *timeDest = new Time((timeOri->getHour()+h)%24, (timeOri->getMinute()+m)%60, 0);
         TimePlace *ori = new TimePlace(airportOri, timeOri);
         TimePlace *dest = new TimePlace(airportDest, timeDest);
         Flight *flight = new Flight(ori, dest, plane);
+        flight->setPrice(f, b, e);
         data->addFlight(flight);
         return;
     }
@@ -1641,15 +1649,135 @@ void AdminMenu::newTravel(){
 
 void AdminMenu::deleteTravel(){
     header();
+    FlightPointer fptr;
     while (true){
-        print(data->getFlights());
-
+        fptr = selectFlight();
+        if (fptr.getPointer() == nullptr) return;
+        data->removeFlight(fptr.getPointer()->getId());
+        std::cout << "\n\tPress enter to continue\n";
+        getchar(); std::cin.ignore();
+        return;
     }
-
 }
 
 void AdminMenu::editTravel() {
-    while (true){}
+    header();
+    FlightPointer fptr;
+    FlightPointer original;
+    char a;
+    while (true){
+        fptr = selectFlight();
+        original = fptr;
+        if (fptr.getPointer() == nullptr) return;
+        data->removeFlight(fptr.getPointer()->getId());
+        std::cout << "\n\t\t[1] Change departure"
+                  << "\n\t\t[2] Change arrival"
+                  << "\n\t\t[3] Change plane"
+                  << "\n\t\t[4] Change price"
+                  << "\n\n\t\t[0] Back\n>";
+        std::cin >> a;
+        AirportPointer aptr(nullptr);
+        TimePlace *newTimePlace = new TimePlace(nullptr, nullptr);
+        char b;
+        int d{}, m{}, y{}, h{}, min{};
+        switch (a){
+            case '1':{ // CHANGE ORIGIN
+                std::cout << "\n\tDo you want to:"
+                          << "\n\t\t[y/n] Change Local?"
+                          << "\n\n\t\t[0] Cancel\n>";
+                std::cin >> b;
+                switch(b){
+                    case 'y': {
+                        aptr = selectAirport();
+                        newTimePlace = new TimePlace(aptr.getPointer(), fptr.getPointer()->getOrigin()->time);
+                        fptr.getPointer()->setOrigin(newTimePlace);
+                        break;
+                    }
+                    case 'n': break;
+                    case '0': return;
+                    default: std::cout << "Incorrect input"; std::cin.ignore(INT32_MAX, '\n'); break;
+                }
+                std::cout << "\n\tDo you want to:"
+                          << "\n\t\t[y/n] Change Time?"
+                          << "\n\n\t\t[0] Cancel\n>";
+                std::cin >> b;
+                switch(b){
+                    case 'y': {
+                        std::cout << "\n\tNew day>"; std::cin >> d;
+                        std::cout << "\n\tNew month>"; std::cin >> m;
+                        std::cout << "\n\tNew year>"; std::cin >> y;
+                        std::cout << "\n\tNew hour>"; std::cin >> h;
+                        std::cout << "\n\tMinutes>"; std::cin >> min;
+                        Time *time = new Time(d, m, y, h, min, 00 );
+                        newTimePlace = new TimePlace(fptr.getPointer()->getOrigin()->airport, time);
+                        fptr.getPointer()->setOrigin(newTimePlace);
+                        break;
+                    }
+                    case 'n': break;
+                    case '0': return;
+                    default: std::cout << "Incorrect input"; std::cin.ignore(INT32_MAX, '\n'); break;
+                }
+                break;
+            }
+            case '2':{ // CHANGE DESTINATION
+                std::cout << "\n\tDo you want to:"
+                          << "\n\t\t[y/n] Change Local?"
+                          << "\n\n\t\t[0] Cancel\n>";
+                std::cin >> b;
+                switch(b){
+                    case 'y': {
+                        aptr = selectAirport();
+                        newTimePlace = new TimePlace(aptr.getPointer(), fptr.getPointer()->getDestination()->time);
+                        fptr.getPointer()->setOrigin(newTimePlace);
+                        break;
+                    }
+                    case 'n': break;
+                    case '0': return;
+                    default: std::cout << "Incorrect input"; std::cin.ignore(INT32_MAX, '\n'); break;
+                }
+                std::cout << "\n\tDo you want to:"
+                          << "\n\t\t[y/n] Change Time?"
+                          << "\n\n\t\t[0] Cancel\n>";
+                std::cin >> b;
+                switch(b){
+                    case 'y': {
+                        std::cout << "\n\tNew day>"; std::cin >> d;
+                        std::cout << "\n\tNew month"; std::cin >> m;
+                        std::cout << "\n\tNew year"; std::cin >> y;
+                        std::cout << "\n\tNew hour>"; std::cin >> h;
+                        std::cout << "\n\tMinutes>"; std::cin >> min;
+                        Time *time = new Time(d, m, y, h, min, 00 );
+                        newTimePlace = new TimePlace(fptr.getPointer()->getDestination()->airport, time);
+                        fptr.getPointer()->setDestination(newTimePlace);
+                        data->removeFlight(original.getPointer()->getId());
+                        data->addFlight(fptr);
+                        break;
+                    }
+                    case 'n': break;
+                    case '0': return;
+                    default: std::cout << "Incorrect input"; std::cin.ignore(INT32_MAX, '\n'); break;
+                }
+                break;
+            }
+            case '3':{ //CHANGE PLANE
+                PlanePointer pptr = selectPlane();
+                fptr.getPointer()->setPlane(pptr.getPointer());
+                break;
+            }
+            case '4':{ //CHANGE PRICE
+                std::cout << "\n\tNew First Class price(>=0)>"; std::cin >> d;
+                std::cout << "\n\tNew Business Class price(>=0)>"; std::cin >> m;
+                std::cout << "\n\tNew Economic Class price(>=0)>"; std::cin >> y;
+                fptr.getPointer()->setPrice(d,m,y);
+                break;
+            }
+            case '0': return;
+            default: std::cout << "Incorrect input"; std::cin.ignore(INT32_MAX, '\n'); break;
+        }
+        data->removeFlight(original.getPointer()->getId());
+        data->addFlight(fptr);
+        return;
+    }
 }
 
 void AdminMenu::plane() {

@@ -390,7 +390,7 @@ public:
      * @param airport
      * @return
      */
-    Terminal* selectTerminal(Airport *airport);
+    static Terminal* selectTerminal(Airport *airport);
 
     /**
      * funciton to select a plane from an airport
