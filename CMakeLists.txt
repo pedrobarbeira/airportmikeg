@@ -3,13 +3,13 @@ project(mikegairlines)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories( ./airport ./frontend ./passenger ./voyage ./data ./src ./docs)
+include_directories(./data ./src ./docs)
 
-add_executable(mikegairlines main.cpp src/date.h voyage/voyage.h voyage/plane.h airport/airport.h
-        passenger/passenger.h src/date.cpp airport/service.h airport/service.cpp airport/airport.cpp
-        data/company.txt voyage/voyage.cpp frontend/mikeg.h passenger/luggage.h passenger/luggage.cpp
-        passenger/passenger.h passenger/ticket.h passenger/ticket.cpp frontend/mikeg.cpp
-        voyage/flight.cpp voyage/flight.h voyage/plane.cpp src/bst.h frontend/menu.cpp frontend/menu.h
+add_executable(mikegairlines main.cpp src/date.h src/voyage.h src/plane.h src/airport.h
+        src/passenger.h src/date.cpp src/service.h src/service.cpp src/airport.cpp
+        data/company.txt src/voyage.cpp src/mikeg.h src/luggage.h src/luggage.cpp
+        src/passenger.h src/ticket.h src/ticket.cpp src/mikeg.cpp
+        src/flight.cpp src/flight.h src/plane.cpp src/bst.h src/menu.cpp src/menu.h
         src/user.h src/data.cpp src/data.h src/pointer.h src/pointer.cpp src/sorter.h src/exception.h src/sorter.cpp )
 
 # Doxygen Build

@@ -3,7 +3,7 @@
 #define AIPORTMIKEG_VOYAGE_H
 
 #include "pointer.h"
-#include "../src/date.h"
+#include "date.h"
 #include <vector>
 #include <list>
 #include "exception.h"

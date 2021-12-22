@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "airport.h"
-#include "../src/date.h"
+#include "date.h"
 #include "plane.h"
 
 static int count = 0;

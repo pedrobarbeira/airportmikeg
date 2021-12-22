@@ -14,14 +14,12 @@
 */
 class DevLog : public std::exception {
     std::string error;
-    Date* date;
+    Time* date;
 public:
     explicit DevLog(std::string e) : error(std::move(e)){
         Time* t;
         t->now();
-        Date* d;
-        *d = t->getDate();
-        date = d;
+        date = t;
     };
     void print() const;
     std::string getError() const{
