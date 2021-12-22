@@ -17,23 +17,27 @@ Connection::~Connection(){
 /**Voyage*/
 
 bool Voyage::addFlight(Flight* f){
-    std::list<FlightPointer>::iterator it = route.begin();
     f->setVoyage(voyageId);
     FlightPointer fptr(f);
-    if(f->getDestination()->airport == (*it).getPointer()->getOrigin()->airport &&
-            (*it).getPointer()->getOrigin()->time < f->getDestination()->time){
+    if(!route.empty()) {
+        std::list<FlightPointer>::iterator it = route.begin();
+        if (f->getDestination()->airport == (*it).getPointer()->getOrigin()->airport &&
+            (*it).getPointer()->getOrigin()->time < f->getDestination()->time) {
+            route.push_front(fptr);
+            return true;
+        } else if (f->getOrigin()->airport == (*it).getPointer()->getDestination()->airport &&
+                   (*it).getPointer()->getDestination()->time < f->getOrigin()->time) {
+            f->setVoyage(voyageId);
+            route.push_back(fptr);
+            return true;
+        } else {
+            f->setVoyage("");
+            return false;
+        }
+    }
+    else{
         route.push_front(fptr);
         return true;
-    }
-    else if(f->getOrigin()->airport == (*it).getPointer()->getDestination()->airport &&
-            (*it).getPointer()->getDestination()->time < f->getOrigin()->time){
-        f->setVoyage(voyageId);
-        route.push_back(fptr);
-        return true;
-    }
-    else {
-        f->setVoyage("");
-        return false;
     }
 }
 

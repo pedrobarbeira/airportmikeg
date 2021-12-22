@@ -10,11 +10,12 @@ class Ticket {
     string ticketID;
     Flight* flight;
     Seat* seat;
+    bool checkIn;
     vector<Luggage*> luggage;
     Passenger* owner;
 public:
     explicit Ticket(Flight* f = nullptr, Seat* s= nullptr);
-    Ticket(std::string id) : ticketID(std::move(id)){}
+    Ticket(std::string id) : ticketID(std::move(id)), checkIn(false){}
     string getID() const;
     std::string getFlightId() const{
         return flight->getId();
@@ -24,6 +25,12 @@ public:
     }
     Passenger* getOwner() const;
     Seat* getSeat() const;
+    Flight* getFlight() const{
+        return flight;
+    }
+    void check(){
+        checkIn = true;
+    }
 
     void setOwner(Passenger* voyage3){owner=voyage3;}
     void setTID(int ti){ticketID=ti;}

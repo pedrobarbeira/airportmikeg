@@ -44,6 +44,14 @@ public:
      * @param c character to define type of transport (m->metro;t->train;b->bus)
      */
     explicit Transport(char c);
+
+    Transport(char c, int d, Time* t){
+        this->id = c + to_string(idTransport);
+        idTransport++;
+        type = c;
+        distance = d;
+        time = t;
+    }
     /**
      * getter for the id of the transport id string
      * @return string of the id

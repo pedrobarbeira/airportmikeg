@@ -43,6 +43,12 @@ bool Data::addFlight(Flight* f){
         int c = getchar();
         return false;
     }
+    Voyage* v = findVoyage(f);
+    if(v == nullptr){
+        v = new Voyage(f);
+        f->setVoyage(v->getId());
+        addVoyage(v);
+    }
     return true;
 }
 std::vector<AirportPointer> Data::getAirports() const{
@@ -165,6 +171,18 @@ Voyage* Data::findVoyage(const std::string& id) const{
         return find.getPointer();
     }
     else return nullptr;
+}
+Voyage* Data::findVoyage(const Flight *f) const {
+    iteratorBST<VoyagePointer> it = voyages.begin();
+    Voyage* v;
+    while(it != voyages.end()) {
+        v = (*it).getPointer();
+        if (v->getRoute().size() == 1)
+            if (v->getRoute().front().getPointer() == f)
+                return v;
+        it++;
+    }
+    return nullptr;
 }
 FlightPointer Data::findFlight(const std::string& id) const{
     FlightPointer ret(nullptr);
@@ -513,7 +531,6 @@ void LoadAirport::loadStaff(Airport* a, const std::string& line){
             s = a->findStaff(id);
             s->setName(name);
             s->setPhone(stoi(phone));
-            a->addStaff(s);
             id.clear();
             name.clear();
             phone.clear();
@@ -573,6 +590,7 @@ void LoadAirport::loadService(Airport* a, const std::string& l, const std::strin
                         load = new Cleaning(p, t1, s);
                         break;
                     case 'm' :
+                        std::cout << "Added maintenance on " << a->getidCode() << '\n';
                         load = new Maintenance(p, t1, s);
                         break;
                     default :
@@ -584,19 +602,21 @@ void LoadAirport::loadService(Airport* a, const std::string& l, const std::strin
                 id.clear();
                 type = '\0';
                 s = nullptr;
+                load = nullptr;
             }
         }
     }
     if(!l2.empty()) {
         Time *t2 = new Time;
+        j = 0;
         for (int i = 0; i <= l2.length(); i++) {
             if (l2[i] == ' ') {
+                length = i - j;
                 if (plate.empty()) {
-                    plate = l2.substr(0, i);
+                    plate = l2.substr(j, length);
                     p = data->findPlane(plate);
                     j = i + 1;
                 } else {
-                    length = i - j;
                     if (time.empty()) {
                         time = l2.substr(j, TIME_STRING_LENGTH);
                         if (t2 == nullptr) {
@@ -609,16 +629,15 @@ void LoadAirport::loadService(Airport* a, const std::string& l, const std::strin
                         j += TIME_STRING_LENGTH + 1;
                         i = j - 1;
                     } else if (id.empty()) {
-                        id = l.substr(j, length);
+                        id = l2.substr(j, length);
                         s = a->findStaff(id);
                         j = i + 1;
                     } else if (type == '\0') {
-                        type = l[i - 1];
+                        type = l2[i - 1];
                         j = i + 1;
                     }
                 }
-            } else if (i == l.length())
-                type = l[i];
+            }
             if (type != '\0') {
                 switch (type) {
                     case 'c' :
@@ -636,38 +655,47 @@ void LoadAirport::loadService(Airport* a, const std::string& l, const std::strin
                 id.clear();
                 type = '\0';
                 s = nullptr;
+                load = nullptr;
+                p = nullptr;
             }
         }
     }
 }
 void LoadAirport::loadTransport(Airport* a, std::string& l){
     Transport* t;
-    while(!l.empty()){
-        uint16_t d = 0;
-        char type;
-        std::string dLoad;
-        Time* date;
-        int length, j = 2;
-        type = l[0];
-        for(int i = 2; i < l.size(); i++){
-            if(l[i] == ' ') {
-                if (d == 0) {
-                    d = stoi(l.substr(j, i));
+    if(!l.empty()) {
+        Time* t1 = nullptr;
+        char c = '\0';
+        int d = -1, length, j = 0;
+        std::string time;
+        for (int i = 0; i <= l.length(); i++) {
+            if (l[i] == ' '){
+                length = i - j;
+                if(c == '\0') {
+                    c = l[i - 1];
                     j = i + 1;
                 }
-                else{
-                    i += TIME_STRING_LENGTH;
-                    dLoad = l.substr(j, i);
-                    l = l.substr(i + 1);
-                    break;
+                else if (d == -1){
+                    d = stoi(l.substr(j, length));
+                    j = i+1;
+                }
+                else if (time.empty()){
+                    time = l.substr(j, TIME_STRING_LENGTH);
+                    t1 = new Time(time);
+                    j += TIME_STRING_LENGTH + 1;
+                    i = j-1;
                 }
             }
+            if(c != '\0' && d != -1 && t1 != nullptr){
+                t = new Transport(c, d, t1);
+                a->addTransport(t);
+                c = '\0';
+                d = -1;
+                t1 = nullptr;
+                time.clear();
+                t = nullptr;
+            }
         }
-        date = new Time(dLoad);
-        t = new Transport(type);
-        t->addTime(date);
-        t->setDistance(d);
-        a->addTransport(t);
     }
 }
 /**---Load Voyage---*/
@@ -699,11 +727,11 @@ void LoadVoyage::loadFlight(){
     std::getline(infile, line);
     if (line != "FLIGHT DATA")
         throw LoadVoyageFail();
+    std::string voyage, airport, time,  plane;
+    TimePlace* o = new TimePlace(nullptr, nullptr);
+    TimePlace* d= new TimePlace(nullptr, nullptr);
+    Plane* p= nullptr;;
     while (std::getline(infile, line)) {
-        std::string voyage, airport, time,  plane;
-        TimePlace* o = nullptr;
-        TimePlace* d= nullptr;;
-        Plane* p= nullptr;;
         int length = 0, j = 0;
         for(int i = 0; i <= line.length(); i++){
             if(line[i] == ' '){
@@ -713,26 +741,30 @@ void LoadVoyage::loadFlight(){
                 }
                 else{
                     length = i - j;
-                    if(airport.empty()){
+                    if(o->airport == nullptr){
                         airport = line.substr(j, length);
                         j = i + 1;
-                        o->airport = data->findAirport(airport).getPointer();
+                        AirportPointer find = data->findAirport(airport);
+                        o->airport = find.getPointer();
                         airport.clear();
                     }
-                    else if(time.empty()){
-                        time= line.substr(j, length);
-                        j = i + 1;
+                    else if(o->time == nullptr){
+                        time= line.substr(j, TIME_STRING_LENGTH);
+                        j += TIME_STRING_LENGTH + 1;
+                        i = j - 1;
                         o->time = new Time(time);
                         time.clear();
                     }
-                    else if(airport.empty()){
+                    else if(d->airport == nullptr){
                         airport = line.substr(j, length);
                         j = i + 1;
-                        d->airport = data->findAirport(airport).getPointer();
+                        AirportPointer find = data->findAirport(airport);
+                        d->airport = find.getPointer();
                     }
-                    else if(time.empty()){
-                        time= line.substr(j, length);
-                        j = i + 1;
+                    else if(d->time == nullptr){
+                        time= line.substr(j, TIME_STRING_LENGTH);
+                        j += TIME_STRING_LENGTH + 1;
+                        i = j - 1;
                         d->time = new Time(time);
                     }
                 }
@@ -743,13 +775,15 @@ void LoadVoyage::loadFlight(){
             }
         }
         auto f = new Flight(o, d, p);
-        AirportPointer aptr = data->findAirport(o->airport->getidCode());
-        aptr.addFlight(f);
-        aptr = data->findAirport(d->airport->getidCode());
-        aptr.addFlight(f);
-        data->removeAirport(o->airport->getidCode());
-        data->addAirport(aptr);
+        airport = o->airport->getidCode();
         data->addFlight(f);
+        voyage.clear();
+        airport.clear();
+        time.clear();
+        plane.clear();
+        o = new TimePlace(nullptr, nullptr);
+        d= new TimePlace(nullptr, nullptr);
+        p = nullptr;
     }
     infile.close();
 }
@@ -1131,8 +1165,9 @@ void SaveAirport::saveTransport(const Airport* a){
     if(!transports.empty()) {
         for (auto it : transports) {
             outfile << it->getType() << " "
-                    << it->getDistance() << " "
-                    << it->getTime() << " ";
+                    << it->getDistance() << " ";
+            it->getTime()->print(outfile);
+            outfile << " ";
         }
     }
     outfile << '\n';
@@ -1382,10 +1417,14 @@ void SaveVoyage::saveVoyage() const {
         std::list<FlightPointer> f;
         while(it != bst.end()) {
             v = (*it).getPointer();
+            f = v->getRoute();
             if(v != nullptr) {
                 outfile << v->getId();
-                for (const auto& flight : f)
-                    outfile << " " << flight.getPointer()->getId();
+                Flight* temp;
+                for (const auto& flight : f) {
+                    temp = flight.getPointer();
+                    outfile << " " << temp->getId();
+                }
                 outfile << '\n';
             }
             it++;
@@ -1404,17 +1443,18 @@ void SaveVoyage::saveFlight() const{
     if(!bst.isEmpty()){
         iteratorBST<FlightPointer> it = bst.begin();
         while(it != bst.end()) {
-            outfile.open("./data/flight.txt", ios::app);
+            outfile.open("./data/flights.txt", ios::app);
             if(!outfile.is_open())
                 throw SaveVoyageFail("saveFlight()");
             f = (*it).getPointer();
             if(f != nullptr) {
                 outfile << f->getVoyageId() << " "
-                        << f->getOrigin()->airport->getidCode() << " "
-                        << f->getOrigin()->time << " "
-                        << f->getDestination()->airport->getidCode() << " "
-                        << f->getDestination()->time << " "
-                        << f->getPlane();
+                        << f->getId() << " "
+                        << f->getOrigin()->airport->getidCode() << " ";
+                f->getOrigin()->time->print(outfile);
+                outfile << " "<< f->getDestination()->airport->getidCode() << " ";
+                f->getDestination()->time->print(outfile);
+                outfile << " " << f->getPlane()->getPlate() << '\n';
                 outfile.close();
                 try {
                     saveTicket((*it));

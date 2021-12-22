@@ -113,7 +113,7 @@ class Seat {
     std::string id;
     bool free;
     Class* classe;
-    HandBag* handBag;
+    Luggage* handBag;
     friend class Cabin;
 public:
     /**-----Constructor-----*/
@@ -156,7 +156,7 @@ public:
      * Returns the HandBag object stored in the handBag attribute
      * @return the HandBag object
      */
-    HandBag* getBag() const{
+    Luggage* getBag() const{
         return handBag;
     }
 
@@ -165,6 +165,10 @@ public:
      */
     void takeSeat(){
         free = false;
+    }
+
+    void addHandbag(Luggage* l){
+        handBag = l;
     }
 };
 
@@ -356,6 +360,14 @@ public:
      */
     void setEClassPrice(uint16_t p){
         classes[2]->setPrice(p);
+    }
+
+    void addLuggage(Luggage* l, Seat* s){
+        s->addHandbag(l);
+    }
+
+    void loadPlane(LuggageTransport* l){
+        l->unload();
     }
 
     /**-----Operators-----*/

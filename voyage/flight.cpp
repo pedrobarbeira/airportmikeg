@@ -27,10 +27,11 @@ void Flight::setPrice(uint16_t f, uint16_t b, uint16_t e) {
 
 void Flight::print(ostream& out) const{
     out << setw(10) << left << setfill(' ') << flightID
-        << setw(9) << left << origin->airport->getidCode()
-        << setw(10) << left << destination->airport->getidCode();
-    //finish with airport and plane
-    std::cout << '\n';
+        << setw(9) << left << origin->airport->getidCode();
+    origin->time->print(out);
+    out << setw(10) << left << destination->airport->getidCode();
+    destination->time->print(out);
+    out << setw(6) << left << plane->getPlate() << '\n';
 }
 
 

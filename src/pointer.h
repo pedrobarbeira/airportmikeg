@@ -95,6 +95,34 @@ public:
     }
 
     /**
+     * Finds a ticket in the tickets BST. Returns nullptr if no ticket is found
+     * @param id the id of the ticket
+     * @return the result of the search
+     */
+    Ticket* findTicket(std::string id) {
+        iteratorBST<TicketPointer> it = tickets.begin();
+        while (it != tickets.end()) {
+            if ((*it).getPointer()->getID() == id)
+                return (*it).getPointer();
+            it++;
+        }
+        return nullptr;
+    }
+
+    /**
+     * Removes a ticket from the tickets BST
+     * @param id the ticket to be removed
+     */
+    void removeTicket(std::string id){
+        iteratorBST<TicketPointer> it = tickets.begin();
+        while (it != tickets.end()) {
+            if ((*it).getPointer()->getID() == id)
+                tickets.remove((*it));
+            it++;
+        }
+    }
+
+    /**
      * Encapsulates a given Ticket object and adds it to the tickets BST
      * @param t pointer to the Ticket object
      * @return true upon success, false otherwise

@@ -8,13 +8,13 @@
 /**
  * System Interface
  */
-class MikeG{
-    Time* sysTime;
-    Data* data;
-    Menu* menu;
+class MikeG {
+    Time *sysTime;
+    Data *data;
+    Menu *menu;
 public:
     /**-----Constructor-----*/
-    MikeG(){
+    MikeG() {
         sysTime = new Time;
         data = new Data;
         menu = nullptr;
@@ -23,16 +23,19 @@ public:
     /** Actualizes current system time and returns it
      * @return Time pointer with current system time
      */
-    Time* getTime() const{
+    Time *getTime() const {
         sysTime->now();
-        return sysTime;};
-    Data* getData() const{
+        return sysTime;
+    };
+
+    Data *getData() const {
         return data;
     }
     //need to add remaining classes
     /**Modifiers*/
-    void setSysTime(){
-        sysTime->now();};
+    void setSysTime() {
+        sysTime->now();
+    };
     /*bool addTicket(Ticket* t) {
         if (!data->flights.empty()) {
             for (auto it : data->tickets) {
@@ -44,8 +47,11 @@ public:
     }*/
     /**-----Load/Save-----*/
     bool save() const;
+
     bool load();
-    bool loadScreen(bool& flag);
+
+    bool loadScreen(bool &flag);
+
     bool checkDev();
 
     /**
@@ -56,9 +62,11 @@ public:
      * and returns nullptr.
      * @return the proper menu if the account data is in the system, nullptr otherwise.
      */
-    Menu* logIn();
+    Menu *logIn();
+
     bool newAccount();
-    void start(bool& flag);
+
+    void start(bool &flag);
 };
 
 

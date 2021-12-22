@@ -286,8 +286,13 @@ public:
      */
     AirportPointer selectAirport();
 
-
-    void seeFlights();
+    /**
+     * Shows flight list and asks user to choose the one he wishes. Filters the
+     * flights by origin and destination. If those attributes aren't set, shows
+     * all flights in the system. Returns the chosen flight
+     * @return the chosen flight
+     */
+    Flight* seeFlights();
 
     void seeVoyages();
 
@@ -299,24 +304,6 @@ public:
 
     void purchase();
 };
-
-/**
- * Frontend class that handles Unregistered Client menus
- */
-class JustBuy : public ClientMenu{
-public:
-    explicit JustBuy(Data* d = nullptr){
-        user = nullptr;
-        data = d;
-        sysTime = new Time;
-        sysTime->now();
-    }
-    void mainScreen() override;
-};
-
-class CheckIn : public ClientMenu{};
-
-class Register : public ClientMenu{};
 
 /**
  * Frontend class that handles Company menus

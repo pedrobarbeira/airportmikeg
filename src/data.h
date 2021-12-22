@@ -290,6 +290,8 @@ public:
      */
     Voyage* findVoyage(const std::string& id) const;
 
+    Voyage* findVoyage(const Flight* f) const;
+
     /**
      * Searches for a given Flight in the airports BST
      * @param id the ID of the Flight to be found

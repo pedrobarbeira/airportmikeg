@@ -763,7 +763,7 @@ void ClientMenu::buyTicket(){
         switch (c) {
             case '1': origin = selectAirport(); break;
             case '2': destination = selectAirport(); break;
-            case '3': showAllFlights(); break;
+            case '3': flight = seeFlights(); break;
             case '4': ticketHistory(); break;
             case '0': return;
             case '5': if(flight != nullptr || voyage != nullptr){
@@ -824,42 +824,147 @@ AirportPointer ClientMenu::selectAirport(){
     }
 }
 
-void ClientMenu::seeFlights(){}
+Flight* ClientMenu::seeFlights(){
+    system(CLEAR);
+    std::string in;
+    std::vector<AirportPointer> airports = data->getAirports();
+    std::vector<Flight*> flights;
+    if (origin.getPointer() != nullptr) {
+        if(destination.getPointer() != nullptr){
+            flights = origin.getFlightsTo(destination.getPointer());
+        }
+        else flights = origin.getFlightsTo();
+    }
+    else if (destination.getPointer() != nullptr)
+        flights = destination.getFlightsTo();
+    else{
+        for(auto flight : data->getFlights())
+            flights.push_back(flight.getPointer());
+    }
+    for(int i = 0; i < flights.size(); i++) {
+        std::cout << setw(3) << '[' << left << setfill(' ') << i << "] ";
+        flights[i]->print(std::cout);
+    }
+    std::cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+              << "\nChoose your flight\n>";
+    readInput(in);
+    return flights[stoi(in)];
+}
 
 void ClientMenu::seeVoyages(){}
 
-void ClientMenu::purchase(){}
+void ClientMenu::purchase(){
+    system(CLEAR);
+    voyage = data->findVoyage(flight->getVoyageId());
+    int numtickets;
+    list<FlightPointer> f;
+    for (auto i: voyage->getRoute()) {
+        f.push_back(i);
+    }
+
+    cout << "How many tickets do you want to buy?\n>" << endl;
+    cin >> numtickets;
+
+    for (auto flight: f) {
+
+        Plane *p = flight.getPointer()->getPlane();
+        p->showSeats();
+        string seatchoice;
+
+        for (int i = 0; i < numtickets; ++i) {
+            bool flag;
+            do {
+                cout << "Choose a Seat\n>" << endl;
+                cin >> seatchoice;
+
+                int row, seat;
+                for (int i = 0; i < seatchoice.length(); i++) {
+                    if (isdigit(seatchoice[i])) {
+                        row = getLetterRow(seatchoice.substr(0, i));
+                        seat = std::stoi(seatchoice.substr(i)) - 1;
+                        break;
+                    }
+                }
+                flag=row > p->getRows() || seat > p->getColumns();
+                if(flag){
+                    cout<<"Invalid Seat\n";
+                }
+            }while (flag);
+
+            Seat* s=p->bookSeat(seatchoice);
+            Ticket *ticket1 = new Ticket(flight.getPointer(), s);
+
+            //bagagem
+            int numbags;
+            vector<Luggage*> lugvec;
+            for (int j = 0; j < numtickets; ++j) {
+                cout<<"How many bags are you taking ["<< s <<"]\n>";
+                cin>> numbags;
+                for (int k = 0; k < numbags; ++k) {
+                    Luggage *lug = new Luggage(1, false);
+                    lugvec.push_back(lug);
+                }
+            }
+            flight.addTicket(ticket1);
+        }
+    }
+}
 
 void ClientMenu::changeTicket(){}
 
-void ClientMenu::checkIn(){}
+void ClientMenu::checkIn(){
+    system(CLEAR);
+    std::string ticketId;
+    std::cout << "Enter ticket Id\n>";
+    std::cin >> ticketId;
+    Ticket* t = data->findTicket(ticketId);
+    if(t != nullptr){
+        char c;
+        bool flag;
+        do{
+            std::cout << "Cellar luggage?[y/n]\n>";
+            readInput(c);
+            flag = c == 'n' || c == 'N' || c == 'y' || c == 'Y';
+            if(!flag)
+                std::cout << "Invalid input\n";
+        }while(!flag);
+        if(c == 'y' || c == 'Y'){
+            std::cout << "Cellar bags must be checked in at the airport\n"
+                      << "Press enter to continue . . .\n";
+            getchar();
+            return;
+        }
+        else{
+            Seat* s = t->getSeat();
+            std::cout << "Your seat: " << s->getId() << '\n';
+            std::cout << "From: " << t->getFlight()->getOrigin()->airport->getidCode() << " ";
+            t->getFlight()->getOrigin()->time->print(std::cout);
+            std::cout << "\nTo: " << t->getFlight()->getDestination()->airport->getidCode() << " ";
+            t->getFlight()->getDestination()->time->print(std::cout);
+            std::cout << "\nPlane: " << t->getFlight()->getPlane()->getPlate() << '\n'
+                      << "\nIs this data right? [y/n]\n>";
+            do{
+                std::cout << "Cellar luggage?[y/n]\n>";
+                readInput(c);
+                flag = c == 'n' || c == 'N' || c == 'y' || c == 'Y';
+                if(!flag)
+                    std::cout << "Invalid input\n";
+            }while(!flag);
+            if(c == 'n' || c == 'N'){
+                std::cout << "There was an error processing your ticket\n"
+                          << "Please contact airline management\n"
+                          << "Press enter to continue . . .\n";
+                getchar();
+            }
+            else {
+                t->getFlight()->getPlane()->addLuggage(t->getLuggage()[0], s);
+                t->check();
+            }
+        }
+    }
+}
 
 void ClientMenu::ticketHistory(){}
-
-/**---JustBuy Menu---*/
-void JustBuy::mainScreen() {
-    //Add error check
-    system(CLEAR);
-    std::cout << "[Buy Ticket]\t\t\t";
-    std::string origin, destination, oDate, dDate;
-    //Get Origin
-    std::cout << "\nFrom:\n>";
-    std::cin >> origin;
-    std::cin.ignore();
-    std::cout << "\nDate [DD/MM]:\n>";
-    if(getchar() == '\n') oDate = "";
-    else std::cin >> oDate;
-    //Get Destination
-    std::cout << "\nTo:\n>";
-    std::cin >> destination;
-    std::cin.ignore();
-    std::cout << "\nDate:\n>";
-    if(getchar() == '\n') dDate = "";
-    else std::cin >> dDate;
-    std::cout << origin << " " << oDate << " "
-              << destination << " " << dDate << '\n';
-    system("pause");
-}
 
 /**---Admin Menu---*/
 void AdminMenu::mainScreen() {
@@ -2135,10 +2240,29 @@ void BoardingMenu::checkTicket(const FlightPointer& flight){
 
 void BoardingMenu::checkLuggage(FlightPointer flight) {
     header();
-    char c;
-    while(true) {
-
+    string id;
+    std::queue<Luggage*> treadmill;
+    BST<TicketPointer> bst = flight.getTicketBST();
+    while(!bst.isEmpty()) {
+        std::cout << "Enter ticket Id\n>";
+        readInput(id);
+        Ticket *t = flight.findTicket(id);
+        if (t == nullptr) {
+            std::cout << "This ticket isn't valid for this flight\n"
+                      << "Press enter to continue . . .";
+            getchar();
+        } else {
+            for (auto it : t->getLuggage())
+                treadmill.push(it);
+            t->check();
+            TicketPointer tptr(t);
+            bst.remove(tptr);
+            std::cout << "Check in successful\n"
+                      << "Press enter to continue . . .";
+            getchar();
+        }
     }
+    flight.getPointer()->getPlane()->loadPlane(new LuggageTransport(treadmill, 3, 4));
 }
 
 

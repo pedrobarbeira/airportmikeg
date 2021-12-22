@@ -47,23 +47,17 @@ void MikeG::start(bool& flag) {
         system(CLEAR);
         std::cout << "[MikeG Airlines]\t\t\t";
         sysTime->print(std::cout);
-        std::cout << "\n\n    [1] Buy Ticket"
-                  << "\n    [2] Check In"
-                  << "\n    [3] Register"
-                  << "\n    [4] Log In\n"
+        std::cout << "\n\n    [1] Ticket Area"
+                  << "\n    [2] Register"
+                  << "\n    [3] Log In\n"
                   << "\n    [0] Exit\n"
                   << "\n>";
         readInput(c);
         try {
             switch (c) {
-                case '1' : menu = new JustBuy(data); break;
-                case '2' : std::cout << "Register\n"; break;
-                case '3':
-                    if(!newAccount()) {
-                        std::cout << "Could not register account";
-                        throw DevLog("Error adding new account to system database\n");
-                    }
-                case '4': menu = logIn(); break;
+                case '1' : menu = new ClientMenu(nullptr); break;
+                case '2': newAccount();
+                case '3': menu = logIn(); break;
                 case '0': return;
                 case '-':
                     if (checkDev()) {
@@ -120,7 +114,39 @@ Menu* MikeG::logIn() {
 }
 
 bool MikeG::newAccount(){
-    return true;
+    {
+        bool flag;
+        system(CLEAR);
+        std::string user, pass, check;
+        std::cout << "Username: ";
+        readInput(user);
+        std::cout << "Password: ";
+        readInput(pass);
+        std::cout << "Retype password: ";
+        readInput(check);
+        flag = pass == check;
+        if (!flag) {
+            std::cout << "Passwords don't match. Try again\n"
+                      << "Press enter to continue . . .";
+            getchar();
+            return false;
+        } else {
+            Client *c = data->findClient(user);
+            if (c == nullptr) {
+                c = new Client(user, pass, 'c', 0, "");
+                data->addClient(c);
+                std::cout << "Account successfully created\n"
+                          << "Press enter to continue . . .";
+                getchar();
+                return true;
+            } else {
+                std::cout << "Account already exists\n"
+                          << "Press enter to continue . . .";
+                getchar();
+                return false;
+            }
+        }
+    }
 }
 
 bool MikeG::save() const {

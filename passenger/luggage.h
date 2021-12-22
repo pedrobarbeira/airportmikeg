@@ -50,6 +50,13 @@ public:
             return true;
         }
     }
+
+    void unload(){
+        while(!bags.empty()){
+            while(!bags.front().empty())
+                bags.pop();
+        }
+    }
 };
 
 class LuggageTransport {
@@ -73,6 +80,12 @@ public:
         }
         for (auto it: load)
             carriages.push(it);
+    }
+    void unload(){
+        while(!carriages.empty()){
+            carriages.front()->unload();
+            carriages.pop();
+        }
     }
 };
 #endif //MIKEGAIRLINES_LUGGAGE_H
